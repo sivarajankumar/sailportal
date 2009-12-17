@@ -115,10 +115,11 @@
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.name}</div>
-				    	<c:forEach var="sharedowner" items="${run.sharedowners}">
-				    	    <c:if test="${sharedowner == user}"><spring:message code="teacher.run.myprojectruns.6"/></c:if>
-				    	</c:forEach>
-				        
+				    	
+					    	<c:forEach var="sharedowner" items="${run.sharedowners}">
+					    	    <c:if test="${sharedowner == user}"><div id="sharedTeacherMsg1"><spring:message code="teacher.run.myprojectruns.6"/>&nbsp[Username]</div></c:if>
+					    	</c:forEach>
+				     
 						<table id="runTitleTable">
 				      			<tr>
 									<th>Access Code:</th>
@@ -164,7 +165,7 @@
 				        </table>
 				        
 						<ul id="actionList2" >
-					    	<li class="addremoveLink"><a style="color:#cccccc;" href="#">Add/Remove Periods</a></li>
+					    	<li class="addremoveLink"><a style="text-decoration:line-through;" href="#">Add/Remove Periods</a></li>
 						</ul>
 
 				     </td> 

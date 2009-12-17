@@ -54,14 +54,20 @@
 }
 
 #studentRegForm .periodLink { 
-	color:blue;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #000;
+	background:blue;
+	color:#FFF;
 	font-size:75%;
-	padding:2px;
+	padding:1px 5px;
 	text-decoration:none;
 	}
 
 #studentRegForm .periodLink:hover { 
 	background-color:#FFFF00;
+	color:#333;
 	}
 	
 #teacherRegForm {

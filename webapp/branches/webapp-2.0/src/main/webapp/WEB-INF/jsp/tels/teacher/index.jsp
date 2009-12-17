@@ -516,53 +516,56 @@ window.onload=resizeCaller
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-
-
-
-
-
 <table id="teacherHomeTable1">
 		<tr>
 				<td id="welcomePanel">
 				<div class="panelStyleWelcome">
 
-				<div id="headerTeacherHome">Welcome</div>
-
-				<table id="teacherWelcomeBoxTable1" cellpadding="3" cellspacing="0">
-						<tr class="tableRowBorder">
-								<td class="tableColor"><spring:message code="teacher.index.3" /></td>
-								<c:set var="current_date" value="<%= new java.util.Date() %>" />
-								<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
-								<td class="tableColor"><spring:message code="teacher.index.4" /></td>
-								<td><c:choose>
-										<c:when test="${user.userDetails.lastLoginTime == null}">
-												<spring:message code="teacher.index.5" />
-										</c:when>
-										<c:otherwise>
-												<fmt:formatDate value="${user.userDetails.lastLoginTime}" type="both" dateStyle="short" timeStyle="short" />
-										</c:otherwise>
-								</c:choose></td>
-						</tr>
-				</table>
+				<div id="headerTeacherHome">Messages</div>
 
 				<table id="teacherWelcomeBoxTable2" cellpadding="3" cellspacing="0">
-						<tr>
-								<td class="tableColor"><spring:message code="teacher.index.6" /></td>
-								<td></td>
-						</tr>
-						<tr>
+					<tr>
 								<td>
 								<ul class="announcementsList">
 										<li><b> <c:choose>
-												<c:when test="${(current_date.hours>=3) && (current_date.hours<12)}">
-														<spring:message code="teacher.index.7" />
+												<c:when test="${(current_date.hours>=4) && (current_date.hours<5)}">
+														<spring:message code="teacher.index.7A" />
 												</c:when>
-												<c:when test="${(current_date.hours>=12) && (current_date.hours<18)}">
-														<spring:message code="teacher.index.8" />
+												<c:when test="${(current_date.hours>=5) && (current_date.hours<6)}">
+														<spring:message code="teacher.index.7C" />
+												</c:when>
+												<c:when test="${(current_date.hours>=6) && (current_date.hours<7)}">
+														<spring:message code="teacher.index.7D" />
+												</c:when>	
+												<c:when test="${(current_date.hours>=7) && (current_date.hours<9)}">
+														<spring:message code="teacher.index.7B" />
+												</c:when>
+												<c:when test="${(current_date.hours>=9) && (current_date.hours<10)}">
+														<spring:message code="teacher.index.7E" />
+												</c:when>
+												<c:when test="${(current_date.hours>=10) && (current_date.hours<11)}">
+														<spring:message code="teacher.index.7F" />
+												</c:when>
+												<c:when test="${(current_date.hours>=11) && (current_date.hours<12)}">
+														<spring:message code="teacher.index.7G" />
+												</c:when>
+												<c:when test="${(current_date.hours>=12) && (current_date.hours<15)}">
+														<spring:message code="teacher.index.8A" />
+												</c:when>
+												<c:when test="${(current_date.hours>=15) && (current_date.hours<18)}">
+														<spring:message code="teacher.index.8B" />
+												</c:when>
+												<c:when test="${(current_date.hours>=18) && (current_date.hours<22)}">
+														<spring:message code="teacher.index.8C" />
+												</c:when>
+												<c:when test="${(current_date.hours>=22) && (current_date.hours<23)}">
+														<spring:message code="teacher.index.9A" />
+												</c:when>
+												<c:when test="${(current_date.hours>=23) && (current_date.hours<24)}">
+														<spring:message code="teacher.index.9B" />
 												</c:when>
 												<c:otherwise>
-														<spring:message code="teacher.index.9" />
+														<spring:message code="teacher.index.9C" />
 												</c:otherwise>
 										</c:choose> </b></li>
 
@@ -589,23 +592,28 @@ window.onload=resizeCaller
 
 				<div class="panelStyleAbout">
 
-				<div id="headerTeacherHome"><spring:message code="teacher.index.13" /></div>
+				<div id="headerTeacherHome">Status</div>
 
-				<table id="dashboardSections" cellspacing="0" cellpadding="0">
+				<table id="teacherWelcomeBoxTable1" cellpadding="3" cellspacing="0">
 						<tr>
-								<td><a href="../teacher/index.html" class="tooltip">Home
-										<span>Your current location. Includes announcements, links to online community/collaboration tools, and a full listing of your project runs.</span></a></td>
-								<td><a href="../teacher/projects/index.html" class="tooltip">Projects
-										<span>Search the WISE project library, set up project runs for your classroom, and work on custom-authored & shared projects.</span></a></td>
-								<td><a href="../teacher/grading/overview.html" class="tooltip">Grading
-										<span>View and grade student work using an assortment of time-saving tools.</span></a></td>
-								<td><a href="../teacher/management/overview.html" class="tooltip">Management
-										<span>Manage your students, shared projects, account settings, and more.</span></a></td>
-								<td><a href="../teacher/help/overview.html" class="tooltip">Help
-										<span>Review guidelines and a searchable help-index for tips on running WISE 4.0 smoothly in your classroom.</span></a></td>
-
+						<th><spring:message code="teacher.index.4" /></th>
+								<td><c:choose>
+										<c:when test="${user.userDetails.lastLoginTime == null}">
+												<spring:message code="teacher.index.5" />
+										</c:when>
+										<c:otherwise>
+												<fmt:formatDate value="${user.userDetails.lastLoginTime}" type="both" dateStyle="short" timeStyle="short" />
+										</c:otherwise>
+								</c:choose></td>
 						</tr>
+						<tr class="tableRowBorder">
+								<th><spring:message code="teacher.index.3" /></th>
+								<c:set var="current_date" value="<%= new java.util.Date() %>" />
+								<td><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></td>
+						</tr>
+						
 				</table>
+
 				</div>
 
 				<div class="panelStyleCommunity">

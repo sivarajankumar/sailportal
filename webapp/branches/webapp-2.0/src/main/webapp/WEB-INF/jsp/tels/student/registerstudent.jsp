@@ -210,10 +210,10 @@ document.getElementById('firstname').focus();
 <dt><label for="runCode_part1" id="runCode_part1_label">Access Code:</label></dt>
 	  <dd><form:input path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="10"/>
        	  <form:errors path="runCode_part1" />
-          <span class="hint">Ask your teacher for the access code.<span class="hint-pointer"></span></span></dd>
+          <span class="hint">Get this code from your teacher and enter it.  Then click the <i>Show Class Periods</i> button and select your class period.<span class="hint-pointer"></span></span></dd>
 
 		<dt><label for="runCode_part1" id="runCode_part1_label"></label></dt>
-	  <dd ><a href="#" onclick="findPeriods();" class="periodLink">click here to see class periods (after entering access code)</a></dd>
+	  <dd ><a href="#" onclick="findPeriods();" class="periodLink">Show Class Periods</a></dd>
 
 
       <dt><label for="runCode_part2" id="runCode_part2_label">Class Period:</label></dt>
