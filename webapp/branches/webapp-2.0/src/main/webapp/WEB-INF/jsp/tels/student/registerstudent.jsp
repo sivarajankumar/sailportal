@@ -54,7 +54,7 @@ function findPeriods() {
 		  	if (responseText == "not found" || responseText.length < 2) {
 		  		alert("The Access Code is invalid. Please talk with your teacher");
 		  	} else {
-  				periodSelect.innerHTML += "<option value=''>Select your class period...</option>";
+  				periodSelect.innerHTML += "<option value='none'>Select your class period...</option>";
 			  	
 			  	var periodsArr = responseText.split(",");
 		  		for (var i=0; i < periodsArr.length; i++) {
@@ -64,6 +64,7 @@ function findPeriods() {
 			  		}
 		  		}
 		  		periodSelect.disabled = false;
+		  		document.getElementById("createAccountLink").onclick = createAccount;
 		  	}
 		  },
 		  failure: function(o) {
@@ -74,14 +75,22 @@ function findPeriods() {
 	var runcode = document.getElementById("runCode_part1").value;
 	if (runcode != null && runcode != "") {
 		var transaction = YAHOO.util.Connect.asyncRequest('GET', "/webapp/runinfo.html?runcode=" + runcode, callback, null); 
+	} else {
+		alert("Please enter an access code. Get this from your teacher.");
 	}
 }
 
 function createAccount() {
 	var runcode = document.getElementById("runCode_part1").value;
 	var period = document.getElementById("runCode_part2").value;
-
-	if (runcode != null && period != null && period != "") {
+	if (runcode == null || runcode == "") {
+		alert('Please enter project code');		
+			var periodSelect = document.getElementById("runCode_part2");
+			periodSelect.innerHTML = "";
+	  		periodSelect.disabled = true;
+	} else if ((period != null && period == "none") || period == null || period == "") {
+		alert('Please choose a period');
+	} else if (runcode != null && period != null && period != "none") {
 		var projectCode = document.getElementById("projectCode");
 		projectCode.value = runcode + "-" + period;
 		document.getElementById("studentRegForm").submit();		
@@ -226,11 +235,17 @@ document.getElementById('firstname').focus();
                
 	 </dl>
       
+      
+      <!--  
  	  <div id="regButtons">
  	    <input type="image" id="save" onclick="createAccount()" src="../themes/tels/default/images/CreateAccount.png" 
     onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')" 
     onmouseout="swapImage('save','../themes/tels/default/images/CreateAccount.png')"
     />
+    -->
+    
+    <a id="createAccountLink" onclick="createAccount()">Create Account</a>
+    
     <a href="../index.html"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
     onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')" 
     onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"

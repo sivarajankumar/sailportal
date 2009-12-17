@@ -50,7 +50,7 @@ function findPeriods() {
 		  	if (responseText == "not found" || responseText.length < 2) {
 		  		alert("The Access Code is invalid. Please ask your teacher for help.");
 		  	} else {
-  				periodSelect.innerHTML += "<option value=''>Select a Period...</option>";
+  				periodSelect.innerHTML += "<option value='none'>Select a Period...</option>";
 			  	
 			  	var periodsArr = responseText.split(",");
 		  		for (var i=0; i < periodsArr.length; i++) {
@@ -77,7 +77,9 @@ function save() {
 	var runcode = document.getElementById("runCode_part1").value;
 	var period = document.getElementById("runCode_part2").value;
 
-	if (runcode != null && period != null && period != "") {
+	if (period != null && period == "none") {
+		alert('Please select a period.');
+	} else if (runcode != null && period != null && period != "none") {
 		var projectCode = document.getElementById("projectcode");
 		projectCode.value = runcode + "-" + period;
 		document.getElementById("addproject").submit();		
@@ -123,10 +125,12 @@ function setup() {
       
       <form:hidden path="projectcode" id="projectcode"/>
      
+      <a onclick="save()">Add Project</a>
+     <!--  
    	 <input id="addProjectButton" onclick="save()" type="image" src="../<spring:theme code="student_add_this_project" />" 
     	onmouseover="swapImage('addProjectButton','../<spring:theme code="student_add_this_project_roll" />');" 
     	onmouseout="swapImage('addProjectButton','../<spring:theme code="student_add_this_project"/>');" />
-   
+   -->
    </div>
 </form:form>
 
