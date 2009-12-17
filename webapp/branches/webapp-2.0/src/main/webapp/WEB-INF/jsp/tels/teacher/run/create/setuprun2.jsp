@@ -65,7 +65,7 @@
 	<tr id="setupProjectTableR1">
 		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.17"/></td>
 		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.18"/></td>
-		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.19"/></td>
+		<td style="border:1px solid #333333;">Run ID</td>
 		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.20"/></td>
 		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.21"/></td>
 	</tr>
@@ -80,7 +80,7 @@
 		 <!-- END CHECKBOXES -->
     <!--end of SetUpRunBox -->
 	     </td>
-		        <td style="border:1px solid #333333;"><strong>${run.sdsOffering.name}</strong></td>
+		        <td style="border:1px solid #333333;"><strong>${run.project.name}</strong></td>
 		        <td style="border:1px solid #333333;">${run.id}</td>
 		        <td style="border:1px solid #333333;">${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
 		        <td style="border:1px solid #333333;">${run.endtime}</td>

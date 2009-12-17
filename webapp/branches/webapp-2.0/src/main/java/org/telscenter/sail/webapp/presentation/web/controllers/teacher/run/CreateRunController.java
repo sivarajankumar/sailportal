@@ -41,9 +41,12 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -93,6 +96,8 @@ public class CreateRunController extends AbstractWizardFormController {
 	private WISEWorkgroupService workgroupService = null;
 	
 	private ModuleService moduleService = null;
+
+	private UserService userService;
 
 	private ProjectService projectService = null;
 	
@@ -176,19 +181,35 @@ public class CreateRunController extends AbstractWizardFormController {
 	    			errors.rejectValue("periodNames", "setuprun.error.selectperiods", "You must select one or more periods or manually" +
 	    				" create your period names.");
 	    		} else {
-	    			String[] parsed = StringUtils.split(runParameters.getManuallyEnteredPeriods(), ",");
-	    			Set<String> parsedAndTrimmed = new TreeSet<String>();
-	    			for(String current : parsed){
-	    				String trimmed = StringUtils.trim(current);
-	    				if(trimmed == "" || StringUtils.contains(trimmed, " ") || !StringUtils.isAlphanumeric(trimmed)){
-	    					errors.rejectValue("periodNames", "setuprun.error.whitespaceornonalphanumeric", "Manually entered" +
-	    							" periods cannot contain whitespace or non-alphanumeric characters.");
-	    				} else {
-	    					parsedAndTrimmed.add(trimmed);
+	    			// check if manually entered periods is an empty string or just "," If yes, throw error
+	    			if (runParameters.getManuallyEnteredPeriods() == null || 
+	    					StringUtils.trim(runParameters.getManuallyEnteredPeriods()).length() == 0 ||
+	    					StringUtils.trim(runParameters.getManuallyEnteredPeriods()).equals(",")) {
+		    			errors.rejectValue("periodNames", "setuprun.error.selectperiods", "You must select one or more periods or manually" +
+	    				" create your period names.");
+	    			} else {
+	    				String[] parsed = StringUtils.split(runParameters.getManuallyEnteredPeriods(), ",");
+	    				if (parsed.length == 0) {
+    						errors.rejectValue("periodNames", "setuprun.error.whitespaceornonalphanumeric", "Manually entered" +
+    						" periods cannot contain whitespace or non-alphanumeric characters.");
+    						break;
 	    				}
+	    				Set<String> parsedAndTrimmed = new TreeSet<String>();
+	    				for(String current : parsed){
+	    					String trimmed = StringUtils.trim(current);
+	    					if(trimmed.length() == 0 || StringUtils.contains(trimmed, " ") 
+	    							|| !StringUtils.isAlphanumeric(trimmed)
+	    							|| trimmed.equals(",")){
+	    						errors.rejectValue("periodNames", "setuprun.error.whitespaceornonalphanumeric", "Manually entered" +
+	    						" periods cannot contain whitespace or non-alphanumeric characters.");
+	    						break;
+	    					} else {
+	    						parsedAndTrimmed.add(trimmed);
+	    					}
+	    				}
+	    				runParameters.setPeriodNames(parsedAndTrimmed);
+	    				runParameters.setManuallyEnteredPeriods("");
 	    			}
-	    			runParameters.setPeriodNames(parsedAndTrimmed);
-	    			runParameters.setManuallyEnteredPeriods("");
 	    		} 
 	    	} else if (runParameters.getManuallyEnteredPeriods() != "") {
     			errors.rejectValue("periodNames", "setuprun.error.notsupported", "Selecting both periods AND" +
@@ -221,6 +242,9 @@ public class CreateRunController extends AbstractWizardFormController {
 		Module module = null;
 		Project project = null;
 		Map<String, Object> model = new HashMap<String, Object>();
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
 		switch(page) {
 		case 0:
 			try {
@@ -232,8 +256,7 @@ public class CreateRunController extends AbstractWizardFormController {
 			model.put("project", project);
 
 			// add the current user as an owner of the run
-			User user = (User) request.getSession().getAttribute(
-					User.CURRENT_USER_SESSION_KEY);
+			
 			Set<User> owners = new HashSet<User>();
 			owners.add(user);
 			runParameters.setOwners(owners);
@@ -243,8 +266,6 @@ public class CreateRunController extends AbstractWizardFormController {
 		case 1:
 			// for page 2 of the wizard, display existing runs for this user
 			List<Run> allRuns = runService.getRunList();
-			user = (User) request.getSession().getAttribute(
-					User.CURRENT_USER_SESSION_KEY);
 			
 			// this is a temporary solution to filtering out runs that the logged-in user owns.
 			// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
@@ -358,9 +379,9 @@ public class CreateRunController extends AbstractWizardFormController {
 		SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMMM d, yyyy");
 		
 		//tries to retrieve the user from the session
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
-
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
 
 		TeacherUserDetails teacherUserDetails = 
 			(TeacherUserDetails) user.getUserDetails();
@@ -435,6 +456,13 @@ public class CreateRunController extends AbstractWizardFormController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**

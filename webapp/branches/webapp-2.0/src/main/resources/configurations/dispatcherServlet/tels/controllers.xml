@@ -359,6 +359,7 @@
 	<bean id="createRunController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.CreateRunController">
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
 		<property name="moduleService" ref="curnitService" />
         <property name="projectService" ref="projectService" />       
         <property name="workgroupService" ref="wiseWorkgroupService" />
