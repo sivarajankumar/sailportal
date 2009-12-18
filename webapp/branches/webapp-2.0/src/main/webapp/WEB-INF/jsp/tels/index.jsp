@@ -80,14 +80,14 @@ width: 100%;
 
 <body>
 
-<div id="centeredDiv"> 
+<div id="centeredDiv" class="homePageMask"> 
 
 <%@ include file="headermain.jsp"%>
 
 <table id="tableTop" cellpadding="0" cellspacing="0">
 		<tr>
 				<td>
-				<div id="boxTableWelcome" class="panelColor">
+				<div id="boxTableWelcome" class="panelColor1">
 				<div id="header">Welcome to WISE</div>
 
 				<div id="parastyleTable">
@@ -108,9 +108,10 @@ width: 100%;
 
 				<div id="welcomeBullet1" style="">
 				<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
-				<p>The Web-based Inquiry Science Environment fosters effective inquiry learning using richly interactive, research-supported technology. 
-Students observe, analyze, and reflect as they explore WISE projects. Teachers facilitate and offer formative and evaluative student assessment using a suite of online tools.</p><br/>
-				<p>This site hosts the latest and most powerful version of WISE (v4.0).  Classic WISE (v2.0) can be accessed at <a href="http:\\wise2.berkeley.edu> target='_blank">wise2.berkeley.edu</a>.</p>
+				<p>The Web-based Inquiry Science Environment is a research-based digital learning platform that fosters exploration and science inquiry.  
+					Students observe, analyze, experiment, and reflect as they navigate WISE projects. 
+					Teachers guide and evaluate the process using a suite of classroom-based and online tools.</p><br/>
+				<p>This site hosts the latest and most powerful version of WISE (v4.0).  Classic WISE can be accessed at <a href='http://wise.berkeley.edu' target='_blank'>http://wise.berkeley.edu</a>.</p>
 				</div>
 
 				<div id="welcomeBullet2" style="display: none;">
@@ -182,7 +183,7 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 				<!--    Separator Column-->
 
 				<td id="boxTableSignInHome">
-				<div id="boxTableSignInSub1" class="panelColor"><!--  SignIn Sub Box 1-->
+				<div id="boxTableSignInSub1" class="panelColor2"><!--  SignIn Sub Box 1-->
 				<div id="header"><spring:message code="signinheader" /></div>
 
 				<form id="home" method="post" action="j_acegi_security_check">
@@ -213,7 +214,7 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 				</ul>
 				</div>
 
-				<div id="boxTableSignInSub2" class="panelColor"><!--  Researcher/Developer Sub Box 2-->
+				<div id="boxTableSignInSub2" class="panelColor3"><!--  Researcher/Developer Sub Box 2-->
 				<div id="header"><spring:message code="researchdevelop1" /></div>
 				<div id="researcherText">
 				<p><spring:message code="researchdevelop2" />
@@ -229,7 +230,7 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 <table id="tableBottom" cellpadding="0" cellspacing="0">
 		<tr>
 				<td id="boxWiseInAction"> 
-				<div class="panelColor">
+				<div class="panelColor1">
 				<div id="header"><spring:message code="home.wiseinactionlabel" /></div>
 
 				<div class="alignCenter"><img id="rotator" src="./themes/tels/default/images/wiseInAction/AirBag.jpg" height="228" /></div>
@@ -258,7 +259,7 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 				<!--    Separator Column-->
 
 				<td id="boxTestimonials" >
-				<div class="panelColor">
+				<div class="panelColor1">
 
 				<div id="header"><spring:message code="home.testimonialslabel" /></div>
 
@@ -285,7 +286,7 @@ Students observe, analyze, and reflect as they explore WISE projects. Teachers f
 				<td class="width15"></td>
 
 				<td >
-				<div id="boxLatestNews"  class="panelColor">
+				<div id="boxLatestNews"  class="panelColor1">
 				<div id="header"><spring:message code="home.latestnewslabel" /></div>
 				<div id="newsContent" class="dataBoxStyle">
 				<div id="newsContentHeader">${newsItem.title}</div>

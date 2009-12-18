@@ -21,6 +21,8 @@
 
 <div id="bannerArea2">
 
+	<div id="betaTag"><img src="../themes/tels/default/images/WISE-Logo-betatag.png" alt="Beta graphic" border="0" /></div>
+
     <div id="wiseLogo"><a href="../index.html" 
     	onmouseout="MM_swapImgRestore()" 
     	onmouseover="MM_swapImage('WISE Medium Logo','','../themes/tels/default/images/WISE-Logo-Medium-Roll-1.png',1)">

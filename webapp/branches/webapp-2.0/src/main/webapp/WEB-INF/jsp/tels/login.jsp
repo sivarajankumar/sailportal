@@ -58,7 +58,7 @@
 </c:if>
 </div>
 
- <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor">
+ <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor2">
                     			<div id="header"><spring:message code="login.failed10"/></div>
 								<form id="home" method="post" action="j_acegi_security_check">
                                 <dl id="signinDefinList">
@@ -75,11 +75,10 @@
                                     <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
                                 </dl>
                                                        
-                                <div class="alignRight">
-                                			<input type="image" id="signInButton" img src="./themes/tels/default/images/Sign-In-No-Trans.png" width="100" height="27" alt="Sign In Button"
-                                            onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/Sign-In-Roll-No-Trans.png',1)"
-                                            onmouseout="MM_swapImgRestore()"
-                                            onclick="Effect.toggle('waiting', 'appear')" /></div>
+                                <div class="alignRight"><input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png"
+						width="100" height="27" alt="Sign In Button"
+						onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/SignInRoll.png',1)"
+						onmouseout="MM_swapImgRestore()" onclick="Effect.toggle('waiting', 'appear')" /></div>
                                 </form>
                                 
                                 <ul id="signInLinkPosition">

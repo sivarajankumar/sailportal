@@ -19,19 +19,41 @@
 /* CSS FOR THE MAIN HOME PAGE*/	
 
 /* TAGS FOR THE TABLE LAYOUT METHOD   */	
-			
-.panelColor {
-	background-image:url(../images/GradientHomeBox2.png);
-	background-position:left bottom;
+		
+.panelColor1 {
+	/* background-image:url(../images/GradientHomeBox2.png);  */  
+	background-image:url(../images/teacher/Gradient-Gray-to-White-350px.png);
+	background-position: top;
 	background-repeat:repeat-x;
-	border: 1px solid #999999;   
-	border-right: 1px solid #666; 
-	border-bottom: 1px solid #666;  
+	background-color:#CCC;
+	border: 1px solid #666;   
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 	 		}
 
+.panelColor2 {
+	background-image:url(../images/teacher/Gradient-Gray-to-White-200px.png);
+	background-position: top;
+	background-repeat:repeat-x;
+	background-color:#CCC;
+	border: 1px solid #666;   
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	 		}
+	 		
+.panelColor3 {
+	background-image:url(../images/teacher/Gradient-Gray-to-White-120px.png);
+	background-position: top;
+	background-repeat:repeat-x;
+	background-color:#CCC;
+	border: 1px solid #666;   
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	 		}
+	 		
 .panelColorNifty {
 	background-color:#0033FF;
 	color:#000;
@@ -56,39 +78,24 @@
 
 #tableBottom td {vertical-align:top;	}
 
-#header {
-	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
-	text-align:left;
-	margin: 10px 0 8px 12px;
-	font-weight:bold;
-	font-size: 1.25em;
-	line-height: normal;
-	color:#003366; 
-	color:#19253D;
-		}
-		
-/* #header {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	text-align:left;
-	margin: 0px 0px 12px 0px;
-	padding: 2px 12px;
-	font-size: 1em;
-	font-weight:bold;
-	background-image:url(../images/teacher/teacherSubHeader.png);
+#header {	
 	-moz-border-radius-topleft:4px;
 	-moz-border-radius-topright:4px;
-	-webkit-border-radius-topleft:4px;
-	-webkit-border-radius-topright:4px;
-	border-radius-topleft:4px;
-	border-radius-topright:4px;
-	border-bottom:1px solid #999;
-}  */
-	
+	background-image:url(../images/teacher/teacherSubHeader.png); 
+	border-bottom:1px solid #666;
+	font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
+	font-size:1em;
+	font-weight:bold;
+	margin:0 0 12px;
+	padding:2px 10px;
+	text-align:left;
+	}
+
 #boxTableWelcome {
 	width: 634px;
 	margin:0px;
 	padding:0;
-	min-height:304px;
+	min-height:300px;
 	}
 
 #parastyleTable {
@@ -138,6 +145,11 @@
 	padding:4px 3px 3px 5px; 
 	}
 
+#welcomeBullet1 a {
+	color:blue;
+	border: 1px solid transparent;
+		}
+		
 #welcomeBullet1 a:hover {
 	text-decoration:none;
 	background-color:#ffff33;
@@ -292,13 +304,12 @@
 	
 #boxTableSignInSub2 {
 	margin-top:10px;
-	height:110px; 
+	min-height:112px; 
 		}
 	
 #researcherText {
 	padding:0 8px 0 0;
-	margin: 0 5px 5px 18px;
-	color:#000066;
+	color:#000066; 
 	Font-size:.95em;   
 }
 
@@ -314,7 +325,8 @@
 
 #researcherText p {
 	line-height:1.4em;
-}
+	margin: 14px 5px 5px 18px;
+	}
 	
 #boxWiseInAction{
 	width:314px;
@@ -343,7 +355,7 @@
 #boxLatestNews {
 	width:307px;
 	vertical-align: text-top;
-	min-height:309px;
+	min-height:304px;
 }
 
 #testimonialsNavTable {
