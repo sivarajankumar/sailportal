@@ -117,7 +117,12 @@
 				    	<div id="runTitle">${run.name}</div>
 				    	
 					    	<c:forEach var="sharedowner" items="${run.sharedowners}">
-					    	    <c:if test="${sharedowner == user}"><div id="sharedTeacherMsg1"><spring:message code="teacher.run.myprojectruns.6"/>&nbsp[Username]</div></c:if>
+					    	    <c:if test="${sharedowner == user}">
+					    	    	<div id="sharedTeacherMsg1"><spring:message code="teacher.run.myprojectruns.6"/>
+					    	    	<c:forEach var="owner" items="${run.owners}">
+					    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
+					    	    	</c:forEach>
+					    	    	</div></c:if>
 					    	</c:forEach>
 				     
 						<table id="runTitleTable">
