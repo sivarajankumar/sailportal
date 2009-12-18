@@ -618,13 +618,10 @@ window.onload=resizeCaller
 
 				<div class="panelStyleCommunity">
 				<div id="headerTeacherHome">Community Tools</div>
-				<div id="communityTagline">Collaborating with others?</div>
 				<ul>
 						<li>Launch your <a href="#" class="lineThrough">Community Overview</a></li>
 						<li>Quicklink to <a href="#" class="lineThrough">MySharedProjects Forum</a></li>
-						<li>Quicklink to <a href="#" class="lineThrough">ProjectsSharedWithMe Forum</a></li>
 						<li>Quicklink to <a href="#" class="lineThrough">Mentor Forum</a></li>
-						<li>Quicklink to <a href="#" class="lineThrough">Professional Development Group</a></li>
 				</ul>
 				</div>
 
