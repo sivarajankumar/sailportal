@@ -262,4 +262,12 @@ public interface RunService extends OfferingService {
      * @return <code>Integer</code>
      */
     public Integer getProjectUsage(Long id);
+    
+    /**
+     * 
+     * @param run
+     * @param nodeId
+     * @param maxScoreValue
+     */
+    public void setExtras(Run run, String extras) throws Exception;
 }

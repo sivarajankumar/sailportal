@@ -466,4 +466,10 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			return runList.size();
 		}
 	}
+	
+	@Transactional()
+	public void setExtras(Run run, String extras) throws Exception {
+		run.setExtras(extras);
+		this.runDao.save(run);
+	}
 }

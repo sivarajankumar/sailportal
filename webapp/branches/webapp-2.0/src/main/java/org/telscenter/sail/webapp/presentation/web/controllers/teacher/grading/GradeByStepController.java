@@ -38,6 +38,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.grading.GradingService;
@@ -86,6 +87,8 @@ public class GradeByStepController extends AbstractController {
 		if(action != null) {
 			if(action.equals("getGradingConfig")) {
 				return handleGetGradingConfig(request, response, run);
+			} else if(action.equals("postMaxScore")) {
+				return handlePostMaxScore(request, response, run);
 			}
 		} else {
 			
@@ -96,7 +99,7 @@ public class GradeByStepController extends AbstractController {
 				String portalurl = ControllerUtil.getBaseUrlString(request);
 
 		    	String getGradeByStepUrl = portalurl + "/vlewrapper/vle/gradebystep.html";
-				String getGradingConfigUrl = portalurl + "/webapp/student/vle/vle.html?action=getVLEConfig&runId=" + run.getId().toString();
+				String getGradingConfigUrl = portalurl + "/webapp/teacher/grading/gradebystep.html?action=getGradingConfig&runId=" + run.getId().toString();
 				
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.addObject(RUN_ID, runId);
@@ -122,7 +125,7 @@ public class GradeByStepController extends AbstractController {
 	}
 
 	/**
-	 * 
+	 * Generates and returns the grading config JSON
 	 * @param request
 	 * @param response
 	 * @param run
@@ -184,6 +187,9 @@ public class GradeByStepController extends AbstractController {
     	//get the url to post annotations
     	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
 		
+    	//get the url to post max scores
+    	String postMaxScoreUrl = portalurl + "/webapp/teacher/grading/gradebystep.html?action=postMaxScore&runId=" + run.getId().toString();
+    	
 		//the json object to return that will contain the config params
 		JSONObject config = new JSONObject();
 		
@@ -203,6 +209,7 @@ public class GradeByStepController extends AbstractController {
 			config.put("getRunInfoUrl", getRunInfoUrl);
 			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
 			config.put("getRunExtrasUrl", getRunExtrasUrl);
+			config.put("postMaxScoreUrl", postMaxScoreUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -218,6 +225,109 @@ public class GradeByStepController extends AbstractController {
 		
 		return null;	
 	}
+	
+	/**
+	 * Handles the saving of max score POSTs
+	 * @param request
+	 * @param response
+	 * @param run
+	 * @return
+	 */
+	private ModelAndView handlePostMaxScore(HttpServletRequest request,
+			HttpServletResponse response, Run run) {
+		
+		//get the nodeId
+		String nodeId = request.getParameter("nodeId");
+		
+		//get the new max score value
+		String maxScoreValue = request.getParameter("maxScoreValue");
+		
+		//parse the new max score value
+		int maxScore = Integer.parseInt(maxScoreValue);
+		
+		/*
+		 * the string that we will use to return the new max score JSON object
+		 * once we have successfully updated it on the server. this is so
+		 * that the client can retrieve confirmation that the new max
+		 * score has been saved and that it can then update its local copy.
+		 */
+		String maxScoreReturnJSON = "";
+		
+		//get the current run extras
+		String extras = run.getExtras();
+		try {
+			//create a JSONObject from the run extras
+			JSONObject jsonExtras = new JSONObject(extras);
+			
+			//get the max scores from the extras
+			JSONArray maxScores = (JSONArray) jsonExtras.get("maxScores");
+			
+			/*
+			 * value to remember if we have updated an existing entry or
+			 * need to add a new entry
+			 */
+			boolean maxScoreUpdated = false;
+			
+			//loop through all the max scores in the current run extras
+			for(int x=0; x<maxScores.length(); x++) {
+				//get a max score entry
+				JSONObject maxScoreObj = (JSONObject) maxScores.get(x);
+				
+				//get the node id
+				String maxScoreObjNodeId = (String) maxScoreObj.get("nodeId");
+				
+				//check if the node id matches the one new one we need to save
+				if(nodeId.equals(maxScoreObjNodeId)) {
+					//it matches so we will update the score
+					maxScoreObj.put("maxScoreValue", maxScore);
+					maxScoreUpdated = true;
+					
+					/*
+					 * generate the json string for the updated max score entry
+					 * so we can send it back in the response
+					 */
+					maxScoreReturnJSON = maxScoreObj.toString();
+				}
+			}
+			
+			//check if we were able to find an existing entry to update it
+			if(!maxScoreUpdated) {
+				/*
+				 * we did not find an existing entry to update so we will
+				 * create a new entry
+				 */
+				JSONObject newMaxScore = new JSONObject();
+				
+				//set the values
+				newMaxScore.put("nodeId", nodeId);
+				newMaxScore.put("maxScoreValue", maxScore);
+				
+				/*
+				 * generate the json string for the updated max score entry
+				 * so we can send it back in the response
+				 */
+				maxScoreReturnJSON = newMaxScore.toString();
+				
+				//put the new entry back into the maxScores JSON object
+				maxScores.put(newMaxScore);
+			}
+			
+			try {
+				//save the run extras back
+				runService.setExtras(run, jsonExtras.toString());
+				
+				//send the new max score entry back to the client
+				response.getWriter().print(maxScoreReturnJSON);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 		
 	/**
 	 * @param gradingService the gradingService to set

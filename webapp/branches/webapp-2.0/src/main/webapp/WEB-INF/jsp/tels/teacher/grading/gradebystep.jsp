@@ -94,7 +94,7 @@
 				</tr>
 		</table>
 
-				<iframe id="topifrm" src="${getGradeByStepUrl}?loadScriptsIndividually" onload="topiframeOnLoad();" name="topifrm" scrolling="auto" width="100%"
+				<iframe id="topifrm" src="${getGradeByStepUrl}?loadScriptsIndividually" name="topifrm" scrolling="auto" width="100%"
 				height="10000px" frameborder="0">Sorry, you cannot view this web page because your browser doesn't support iframes.</iframe>
 
 		</div>
