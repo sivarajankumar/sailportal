@@ -377,8 +377,6 @@ YAHOO.util.Event.onDOMReady(init);
 <div class="separator"></div>
 
 <dl id="list2">
-	<dt><spring:message code="student.index.5"/></dt>
-	<dd><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
 	<dt><spring:message code="student.index.6"/></dt>
 	<dd>
 	<c:choose>
@@ -392,6 +390,9 @@ YAHOO.util.Event.onDOMReady(init);
 	</c:choose>
 		
 	</dd>
+	<dt><spring:message code="student.index.5"/></dt>
+	<dd><fmt:formatDate value="${current_date}" type="both" dateStyle="short" timeStyle="short" /></dd>
+	
 	<dt class="listTitle2"><spring:message code="student.index.8"/></dt>
 	<dd id="numberOfLogins">${user.userDetails.numberOfLogins}</dd>
 	<dt class="listTitle2"><spring:message code="student.index.9"/></dt> 
@@ -402,7 +403,7 @@ YAHOO.util.Event.onDOMReady(init);
 
 <div style="text-align:center;margin-top:5px"><img src="../themes/tels/default/images/WISE-Logo-Small-1.png" alt="WISE Small Logo" /></div>
 
-<div id="displayAsEnglish">4.0 &amp; Amanda the Panda <br/>&#169; 1998-2010 <a href="../contactwisegeneral.html" title="Contact WISE Link"><spring:message code="student.index.11"/></a></div>
+<div id="displayAsEnglish">WISE &amp; Amanda the Panda <br/>All rights reserved. &#169; 1998-2010</div>
 
 <div style="display:none;" id="displayAsEnglish"><a href="#"><spring:message code="student.index.12"/></a></div>
 
@@ -485,7 +486,7 @@ YAHOO.util.Event.onDOMReady(init);
 								</tr>
 							<tr>
 								<td id="secondaryRowTightFormat" class="studentTableLeftHeaderCurrent"><spring:message code="student.index.24"/></td>
-								<td id="secondaryRowTightFormat" >${studentRunInfo.group.name} <span id="periodMessage">(to change period/team ask your teacher for help)</span></td>
+								<td id="secondaryRowTightFormat" >${studentRunInfo.group.name} <span id="periodMessage">(to change period or team ask your teacher for help)</span></td>
 						  	
 						  	</tr>
 							<tr>
