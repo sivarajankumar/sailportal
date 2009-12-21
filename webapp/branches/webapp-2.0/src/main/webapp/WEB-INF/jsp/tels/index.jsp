@@ -111,7 +111,7 @@ width: 100%;
 				<p>The Web-based Inquiry Science Environment is a research-based digital learning platform that fosters exploration and science inquiry.  
 					Students observe, analyze, experiment, and reflect as they navigate WISE projects. 
 					Teachers guide and evaluate the process using a suite of classroom-based and online tools.</p><br/>
-				<p>This site hosts the latest and most powerful version of WISE (v4.0).  Classic WISE can be accessed at <a href='http://wise.berkeley.edu' target='_blank'>http://wise.berkeley.edu</a>.</p>
+				<p>This site hosts the latest and most powerful version of WISE &mdash; version 4.0.  Classic WISE can be accessed at <a href='http://wise.berkeley.edu' target='_blank'>http://wise.berkeley.edu</a>.</p>
 				</div>
 
 				<div id="welcomeBullet2" style="display: none;">

@@ -26,7 +26,7 @@
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#CCC;
-	border: 1px solid #666;   
+	border: 1px solid #999;   
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -37,7 +37,7 @@
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#CCC;
-	border: 1px solid #666;   
+	border: 1px solid #999;   
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -48,7 +48,7 @@
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#CCC;
-	border: 1px solid #666;   
+	border: 1px solid #999;   
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -81,8 +81,9 @@
 #header {	
 	-moz-border-radius-topleft:4px;
 	-moz-border-radius-topright:4px;
-	background-image:url(../images/teacher/teacherSubHeader.png); 
-	border-bottom:1px solid #666;
+	background:#FFce8e;
+	background-image:url(../images/teacher/teacherSubHeader.png);
+	border-bottom:1px solid #999;
 	font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
 	font-size:1em;
 	font-weight:bold;
