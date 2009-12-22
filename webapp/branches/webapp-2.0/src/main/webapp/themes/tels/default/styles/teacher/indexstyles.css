@@ -18,54 +18,47 @@
  * $Id:styles.css 266 2007-04-04 15:40:42Z cynick $
  */
 
-#teacherHomeTable1 {
-	border-collapse:collapse;
-	vertical-align:top;
-	align:top;
-	margin-bottom:10px;
-}
-
-#teacherHomeTable1 td {
-	vertical-align:top;
-}
-
-#welcomePanel {
-    width: 680px;  
-	padding:0;
-	margin:0;
+#column1 {
+	float:left;
+	width:260px;
 	}
-	
-.panelStyleWelcome {
-	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
+
+#column2 {
+	float:left;
+	margin-left: 8px;
+	width:690px;
+	}
+
+.panelStyleStatus {
+	margin-top:0px;
+	min-height:72px; 
+	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-120px.png);  */
 	background-position: top;
 	background-repeat:repeat-x;
 	border: 1px solid #666666;  
-	background-color:#CCC;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.panelStyleMessages {
+	margin-top:12px;
+	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);  */
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #666666;  
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 	min-height:172px; 
 	}
 
-.panelStyleAbout {
-	min-height:72px; 
-	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
-	background-position: top;
-	background-repeat:repeat-x;
-	border: 1px solid #666666;  
-	background-color:#CCC;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-}
-
 .panelStyleCommunity{
-	margin-top:6px;
-	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
+	margin-top:12px;
+	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-200px.png);  */
 	background-position: top;
 	background-repeat:repeat-x;
 	border: 1px solid #666666;  
-	background-color:#CCC;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -74,12 +67,8 @@
 }
 
 .panelStyleMyProjectRuns {
-	min-height:310px; 
-	background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);
-	background-position: top;
-	background-repeat:repeat-x;
+	min-height:460px; 
 	border: 1px solid #666666;  
-	background-color:#CCC;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -102,75 +91,47 @@
 	border-bottom:1px solid #999;
 }
 
-#teacherWelcomeBoxTable1	{  
+#teacherStatusTable	{  
 	border-collapse:collapse;
 	font-size:.7em;
 	margin: -4px 0px 6px 12px;
 		}
 
-#teacherWelcomeBoxTable1 th  {
+#teacherStatusTable th  {
 	color:#336600;
 	width:110px;
 }
 
-#teacherWelcomeBoxTable1 th, #teacherWelcomeBoxTable1 td	{  
+#teacherStatusTable th, #teacherStatusTable td	{  
 	vertical-align:text-top;
 	text-align:left;
 	padding:0px;
 	}	
 
-#teacherWelcomeBoxTable2	{  
+#teacherMessageTable	{  
 	border-collapse:collapse;
 	font-size:.8em;
 	width:99%;
 	margin: -6px 5px 0 5px;
 		}
 	
-#teacherWelcomeBoxTable2 td	{  
+#teacherMessageTable td	{  
 	vertical-align:text-top;
 	letter-spacing:-.5px;
 	text-align:left;
 	}	
 		
-#teacherWelcomeBoxTable2 ul	{  
+#teacherMessageTable ul	{  
 	padding:0px;
 	margin:0;
-	height:142px;
 	overflow:auto;
 }
 		
-#teacherWelcomeBoxTable2 li	{  
+#teacherMessageTable li	{  
 	padding:4px 4px 10px 4px;
 	list-style-type:none;
 			}
 		
-#dashboardPanel {
-	width:270px;
-	padding:0;
-	margin:0;  
-}	
-
-#dashboardSections  {
-	margin:-2px auto 5px auto;
-	border-collapse:collapse;
-	text-align:center;
-}
-
-#dashboardSections td a:visited, #dashboardSections td a:link  {
-	font-size:.8em;
-	color:#0033CC;
-	font-style:italic;
-	padding:0 5px;
-	margin:0px 1px;
-	border:1px solid transparent;	
-	letter-spacing:-.6px;
-	text-decoration:none;
-}
-
-#dashboardSections td a:hover {
-	background:#FFFF00;	
-	border:1px solid #999;
-}
 
 /* TOOL TIP STYLES */
 

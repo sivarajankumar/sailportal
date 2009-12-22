@@ -1,24 +1,29 @@
-table #runContent{
-	border:1px solid #999999;
-	padding: 0 20px 20px 20px;
+
+#currentrunWrapper {
+	background-color:#CCC;
 }
 
-#header {
-	font-size:2.0em;
-	margin-bottom:5px;
-	padding-botton:0px;
+#currentRuns {
+	background-color:#CCC;
 }
 
 #subHeader {
 	margin:3px 0 8px 0 ;
 	font-size:.8em;
 	font-weight:bold;
-	color:#666;
+	color:#333;
+}
+
+#runBox {
+	padding:0;
+	margin:0;
 }
 
 #currentRunTable {
 	border-collapse:collapse;
-	margin:5px;
+	border:0;
+	margin:5px 0;
+	background:#FFF;
 }
 
 .tableHeaderMain {
@@ -41,9 +46,7 @@ table #runContent{
 }
 
 #runTitleRow {
-	border-bottom:4px ridge #666666;
-	margin-bottom:20px;
-	padding-bottom:10px;
+	border-bottom:2px solid #666;
 }
 
 #titleCell {
@@ -118,8 +121,9 @@ table #runContent{
 	font-weight:bold;
 	text-align:center;
 	padding: 2px 1px;
-	border-bottom:1px solid #666666;
-	border-right:1px solid #666666;
+	border-top:0px;
+	border-bottom:0px;
+	border-right:1px solid #000;
 	background-color:#CCCCCC;
 	}
 
@@ -128,7 +132,8 @@ table #runContent{
 	font-weight:bold;
 	text-align:center;
 	padding: 2px 1px;
-	border-bottom:1px solid #666666;
+	border-top:0px;
+	border-bottom:0px;
 	border-right:0px;
 	background-color:#CCCCCC;
 }
@@ -137,40 +142,38 @@ table #runContent{
 	font-size:.7em;
 	text-align:center;
 	padding: 0px;
-	border-bottom:1px solid #666666;
-	border-right:1px solid #666666;
 	margin:0px;
 }
 
 #currentRunInfoTable .tableInnerDataRight {
 	text-align:center;
 	padding: 0 0 2px 0px;
-	border-bottom:1px solid #666666;
 	border-right:0px;
 	margin:0px;
 }
 
 #actionList1  {
 	float:left;
-	width:160px;
 	text-align:left;
-	margin:5px 0 5px 12px;
+	margin:4px 0 4px 3px;
 	padding:0px;
 	}
 	
 #actionList2  {
 	float:left;
 	text-align:left;
-	margin:5px 5px 5px 20px;
+	margin:4px 0px 4px 0px;
 	padding:0px;
+	border-left:1px solid #CCC;
+	
 		}
 		
 #actionList3  {
 	text-align:left;
-	margin:5px 5px 5px 10px;
+	margin:4px 2px 4px 4px;
 	padding:0px;
 		}
-		
+	
 	
 #actionList1 li, #actionList2 li, #actionList3 li  {
 	list-style-type:none;

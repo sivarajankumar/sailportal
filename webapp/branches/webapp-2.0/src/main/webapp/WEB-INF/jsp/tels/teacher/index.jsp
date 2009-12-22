@@ -516,85 +516,13 @@ window.onload=resizeCaller
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<table id="teacherHomeTable1">
-		<tr>
-				<td id="welcomePanel">
-				<div class="panelStyleWelcome">
+<div id="column1">
 
-				<div id="headerTeacherHome">Messages</div>
-
-				<table id="teacherWelcomeBoxTable2" cellpadding="3" cellspacing="0">
-					<tr>
-								<td>
-								<ul class="announcementsList">
-										<li><b> <c:choose>
-												<c:when test="${(current_date.hours>=4) && (current_date.hours<5)}">
-														<spring:message code="teacher.index.7A" />
-												</c:when>
-												<c:when test="${(current_date.hours>=5) && (current_date.hours<6)}">
-														<spring:message code="teacher.index.7C" />
-												</c:when>
-												<c:when test="${(current_date.hours>=6) && (current_date.hours<7)}">
-														<spring:message code="teacher.index.7D" />
-												</c:when>	
-												<c:when test="${(current_date.hours>=7) && (current_date.hours<9)}">
-														<spring:message code="teacher.index.7B" />
-												</c:when>
-												<c:when test="${(current_date.hours>=9) && (current_date.hours<10)}">
-														<spring:message code="teacher.index.7E" />
-												</c:when>
-												<c:when test="${(current_date.hours>=10) && (current_date.hours<11)}">
-														<spring:message code="teacher.index.7F" />
-												</c:when>
-												<c:when test="${(current_date.hours>=11) && (current_date.hours<12)}">
-														<spring:message code="teacher.index.7G" />
-												</c:when>
-												<c:when test="${(current_date.hours>=12) && (current_date.hours<15)}">
-														<spring:message code="teacher.index.8A" />
-												</c:when>
-												<c:when test="${(current_date.hours>=15) && (current_date.hours<18)}">
-														<spring:message code="teacher.index.8B" />
-												</c:when>
-												<c:when test="${(current_date.hours>=18) && (current_date.hours<22)}">
-														<spring:message code="teacher.index.8C" />
-												</c:when>
-												<c:when test="${(current_date.hours>=22) && (current_date.hours<23)}">
-														<spring:message code="teacher.index.9A" />
-												</c:when>
-												<c:when test="${(current_date.hours>=23) && (current_date.hours<24)}">
-														<spring:message code="teacher.index.9B" />
-												</c:when>
-												<c:otherwise>
-														<spring:message code="teacher.index.9C" />
-												</c:otherwise>
-										</c:choose> </b></li>
-
-										<c:forEach var="run" items="${run_list}">
-												<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
-														<li id='extendReminder_${run.id}'>Your project run <i>${run.name}</i> has been open since
-														${run.starttime}. Do you want to archive it now? [ <a
-																onclick="window.open('run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font
-																color='blue'>Yes</font></a>/ <a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me
-														Later</font></a>].</li>
-												</c:if>
-										</c:forEach>
-
-								</ul>
-								</td>
-						</tr>
-				</table>
-				</div>
-				</td>
-
-				<td style="width: 6px;"></td>
-
-				<td id="dashboardPanel">
-
-				<div class="panelStyleAbout">
+<div class="panelStyleStatus">
 
 				<div id="headerTeacherHome">Status</div>
 
-				<table id="teacherWelcomeBoxTable1" cellpadding="3" cellspacing="0">
+				<table id="teacherStatusTable" cellpadding="3" cellspacing="0">
 						<tr>
 						<th><spring:message code="teacher.index.4" /></th>
 								<td><c:choose>
@@ -616,26 +544,88 @@ window.onload=resizeCaller
 
 				</div>
 
-				<div class="panelStyleCommunity">
-				<div id="headerTeacherHome">Community Tools</div>
-				<ul>
-						<li>Launch your <a href="#" class="lineThrough">Community Overview</a></li>
-						<li>Quicklink to <a href="#" class="lineThrough">MySharedProjects Forum</a></li>
-						<li>Quicklink to <a href="#" class="lineThrough">Mentor Forum</a></li>
+<div class="panelStyleMessages">
+
+<div id="headerTeacherHome">Messages</div>
+
+<table id="teacherMessageTable" cellpadding="2" cellspacing="0">
+		<tr>
+				<td>
+				<ul class="announcementsList">
+						<li><b> <c:choose>
+								<c:when test="${(current_date.hours>=4) && (current_date.hours<5)}">
+										<spring:message code="teacher.index.7A" />
+								</c:when>
+								<c:when test="${(current_date.hours>=5) && (current_date.hours<6)}">
+										<spring:message code="teacher.index.7C" />
+								</c:when>
+								<c:when test="${(current_date.hours>=6) && (current_date.hours<7)}">
+										<spring:message code="teacher.index.7D" />
+								</c:when>
+								<c:when test="${(current_date.hours>=7) && (current_date.hours<9)}">
+										<spring:message code="teacher.index.7B" />
+								</c:when>
+								<c:when test="${(current_date.hours>=9) && (current_date.hours<10)}">
+										<spring:message code="teacher.index.7E" />
+								</c:when>
+								<c:when test="${(current_date.hours>=10) && (current_date.hours<11)}">
+										<spring:message code="teacher.index.7F" />
+								</c:when>
+								<c:when test="${(current_date.hours>=11) && (current_date.hours<12)}">
+										<spring:message code="teacher.index.7G" />
+								</c:when>
+								<c:when test="${(current_date.hours>=12) && (current_date.hours<15)}">
+										<spring:message code="teacher.index.8A" />
+								</c:when>
+								<c:when test="${(current_date.hours>=15) && (current_date.hours<18)}">
+										<spring:message code="teacher.index.8B" />
+								</c:when>
+								<c:when test="${(current_date.hours>=18) && (current_date.hours<22)}">
+										<spring:message code="teacher.index.8C" />
+								</c:when>
+								<c:when test="${(current_date.hours>=22) && (current_date.hours<23)}">
+										<spring:message code="teacher.index.9A" />
+								</c:when>
+								<c:when test="${(current_date.hours>=23) && (current_date.hours<24)}">
+										<spring:message code="teacher.index.9B" />
+								</c:when>
+								<c:otherwise>
+										<spring:message code="teacher.index.9C" />
+								</c:otherwise>
+						</c:choose> </b></li>
+
+						<c:forEach var="run" items="${run_list}">
+								<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
+										<li id='extendReminder_${run.id}'>Your project run <i>${run.name}</i> has been open since ${run.starttime}. Do
+										you want to archive it now? [ <a
+												onclick="window.open('run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font
+												color='blue'>Yes</font></a>/ <a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].</li>
+								</c:if>
+						</c:forEach>
+
 				</ul>
-				</div>
-
-
 				</td>
 		</tr>
 </table>
+</div>
+
+		<div class="panelStyleCommunity">
+				<div id="headerTeacherHome">Community Tools</div>
+				<ul>
+						<li>Launch your <a href="#" class="lineThrough">Community Overview</a></li>
+						<li>Launch <a href="#" class="lineThrough">MyShared Projects Forum</a></li>
+						<li>Launch <a href="#" class="lineThrough">SharedWithMe Forum</a></li>
+						<li>Launch <a href="#" class="lineThrough">Mentor Forum</a></li>
+						<li>Launch <a href="#" class="lineThrough">Professional Development Forum</a></li>
+				</ul>
+		</div>
 
 
-<table id="teacherHomeTable1">
-		<tr>
-				<td id="myprojectrunsPanel">
+</div>
 
-				<div class="panelStyleMyProjectRuns">
+<div id="column2">
+
+<div class="panelStyleMyProjectRuns">
 
 				<div id="headerTeacherHome">My Project Runs</div>
 
@@ -643,9 +633,7 @@ window.onload=resizeCaller
 						vspace="0" hspace="0" style="overflow: visible;	overflow-y: hidden;	width: 100%;	display: none;	margin-top: 5px;"></iframe>
 
 				</div>
-				</td>
-		</tr>
-</table>
+</div>
 
 </div>   <!-- End of centeredDiv-->
 

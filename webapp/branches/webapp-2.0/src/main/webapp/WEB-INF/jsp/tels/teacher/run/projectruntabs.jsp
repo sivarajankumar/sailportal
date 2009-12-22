@@ -98,7 +98,7 @@
         <li style="margin:0 .4em 0 0px;" class="selected"><a href="#currentRuns"><em><spring:message code="teacher.run.myprojectruns.1A"/></em></a></li>
         <li><a href="#archivedRuns"><em><spring:message code="teacher.run.myprojectruns.1B"/></em></a></li>
     </ul>            
-    <div class="yui-content">
+    <div class="yui-content" id="currentrunWrapper">
         <div id="currentRuns">
         		<div id="subHeader">To see an archived project run click the tab above.</div>
         	       		
@@ -106,9 +106,9 @@
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:370px;"class="tableHeaderMain">Project Run</th>
-				       <th style="width:170px;" class="tableHeaderMain">Class Information</th>      
-				       <th style="width:430px;" class="tableHeaderMain">Tools</th>
+				       <th style="width:225x;"class="tableHeaderMain">Project Run</th>
+				       <th style="width:130px;" class="tableHeaderMain">Class Info</th>      
+				       <th style="width:265px;" class="tableHeaderMain">Tools</th>
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  
@@ -169,7 +169,7 @@
 				          </c:forEach>
 				        </table>
 				        
-						<ul id="actionList2" >
+						<ul id="actionList3" >
 					    	<li class="addremoveLink"><a style="text-decoration:line-through;" href="#">Add/Remove Periods</a></li>
 						</ul>
 
@@ -192,7 +192,7 @@
 				    		<li><a href="../projects/projectinfo.html?projectId=${run.project.id}" target="_top">Review Project Info</a></li>
 							<li><a href="../grading/gradebystep.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a style="text-decoration:line-through;" href="../grading/selectworkgroup.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
-		                    <li><a style="text-decoration:line-through;" href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary" target="_top">Student Score Summary</a></li>
+		                    <li><a style="text-decoration:line-through;" href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary" target="_top">Scores Summary</a></li>
 					               </c:otherwise>
 					           </c:choose>
 					    </ul>
