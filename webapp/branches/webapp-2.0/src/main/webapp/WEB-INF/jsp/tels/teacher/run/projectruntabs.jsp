@@ -106,9 +106,9 @@
 				
 				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:225x;"class="tableHeaderMain">Project Run</th>
+				       <th style="width:250px;"class="tableHeaderMain">Project Run</th>
 				       <th style="width:130px;" class="tableHeaderMain">Class Info</th>      
-				       <th style="width:265px;" class="tableHeaderMain">Tools</th>
+				       <th style="width:300px;" class="tableHeaderMain">Tools</th>
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  

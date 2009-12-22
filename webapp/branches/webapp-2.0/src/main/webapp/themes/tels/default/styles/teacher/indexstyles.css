@@ -20,12 +20,12 @@
 
 #column1 {
 	float:left;
-	width:260px;
+	width:258px;
 	}
 
 #column2 {
 	float:left;
-	margin-left: 8px;
+	margin-left: 10px;
 	width:690px;
 	}
 
@@ -35,18 +35,18 @@
 	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-120px.png);  */
 	background-position: top;
 	background-repeat:repeat-x;
-	border: 1px solid #666666;  
+	border: 1px solid #999;  
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 }
 
 .panelStyleMessages {
-	margin-top:12px;
+	margin-top:15px;
 	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);  */
 	background-position: top;
 	background-repeat:repeat-x;
-	border: 1px solid #666666;  
+	border: 1px solid #999;  
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -54,11 +54,11 @@
 	}
 
 .panelStyleCommunity{
-	margin-top:12px;
+	margin-top:15px;
 	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-200px.png);  */
 	background-position: top;
 	background-repeat:repeat-x;
-	border: 1px solid #666666;  
+	border: 1px solid #999;  
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
@@ -67,8 +67,9 @@
 }
 
 .panelStyleMyProjectRuns {
-	min-height:460px; 
-	border: 1px solid #666666;  
+	min-height:550px; 
+	border: 1px solid #999;
+	border-bottom: 2px solid #999;  
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;

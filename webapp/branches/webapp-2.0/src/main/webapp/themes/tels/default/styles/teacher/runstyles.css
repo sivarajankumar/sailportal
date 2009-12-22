@@ -50,7 +50,7 @@
 }
 
 #titleCell {
-	padding: 5px 10px 5px 10px;
+	padding: 5px 2px 5px 6px;
 	vertical-align:top;
 	}
 
@@ -95,6 +95,8 @@
 	width:100px;
 	text-align:left;
 	color:#666;
+	vertical-align:top;
+	
 	}
 	
 #runTitleTable .accesscodeClass {
@@ -106,7 +108,8 @@
 #runTitleTable td {
 	border:0px;
 	padding:1px 0;
-}
+	vertical-align:top;
+	}
 
 #currentRunInfoTable {
 	border-collapse:collapse;
