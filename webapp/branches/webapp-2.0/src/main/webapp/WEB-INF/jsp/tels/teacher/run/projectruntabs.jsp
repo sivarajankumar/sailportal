@@ -82,13 +82,22 @@
    		 var tabView = new YAHOO.widget.TabView('tabSystem');})();
  </script>
 
+<script type="text/javascript">
+	function checkRuns(){
+		//if(${current_run_list} == 0){
+			//  document.getElementById('runBox').innerHTML = '<div id="noRuns">No runs active.</div>';
+		// }
+	}
+
+</script>
+
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 </head>
 
 
-<body class="yui-skin-sam">
+<body class="yui-skin-sam" onload="checkRuns()">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="centeredDivDynamicFrame">
@@ -225,59 +234,98 @@
 				</table>
 				</div>
         </div><!-- end current runs tab -->
-        <div id="archivedRuns">
-        <h5 style="margin:3px 0 0 0;" id="subHeader"><spring:message code="teacher.run.myprojectruns.24"/><br />
-        					<spring:message code="teacher.run.myprojectruns.25"/></h5>
-        		<div id="runBox">
+
+<div id="archivedRuns">
+<h5 style="margin: 3px 0 0 0;" id="subHeader">The projects below have been archived.</h5>
+<h5 style="margin: 5px 0 0 0;color:brown;" id="subHeader">Want to review information within an archived project run?</h5>
+<h5 style="margin: 5px 0 10px 0;color:brown;" id="subHeader">First RESTORE the project run back to Current status. Then click the <i>My Current Project Runs</i> tab and refresh your web browser.</h5>
+<div id="runBox">
 				
-				<table id="customProjectTable" border="1" cellpadding="0" cellspacing="0" >
+				<table id="currentRunTable" border="1" cellpadding="0" cellspacing="0" >
 				    <tr>
-				       <th style="width:48%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.26"/></th>
-				       <th style="width:34%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.27"/></th>      
-				       <th style="width:18%;" class="tableHeaderMain archive"><spring:message code="teacher.run.myprojectruns.28"/></th>
+				       <th style="width:250px;"class="tableHeaderMain archive">Project Run</th>
+				       <th style="width:130px;" class="tableHeaderMain archive">Class Info</th>      
+				       <th style="width:300px;" class="tableHeaderMain archive">Tools</th>
 				    </tr>
 				  <c:forEach var="run" items="${ended_run_list}">
 				  
 				  <tr id="runTitleRow">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.name}</div>
-				      	<div id="titleSubHeader">Project ID: ${run.project.id}</div>
-				    	<div id="titleSubHeader">Run Started on: <fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></div>
-				    	<div id="titleSubHeader">Run Archived on: <fmt:formatDate value="${run.endtime}" type="date" dateStyle="short" /></div>				    	   	 
-				    </td>
-				    <td style="vertical-align:top; padding:0px;">
+				    	
+					    	<c:forEach var="sharedowner" items="${run.sharedowners}">
+					    	    <c:if test="${sharedowner == user}">
+					    	    	<div id="sharedTeacherMsg1"><spring:message code="teacher.run.myprojectruns.6"/>
+					    	    	<c:forEach var="owner" items="${run.owners}">
+					    	    		${owner.userDetails.firstname} ${owner.userDetails.lastname}
+					    	    	</c:forEach>
+					    	    	</div></c:if>
+					    	</c:forEach>
+				     
+						<table id="runTitleTable">
+				      			<tr>
+									<th>Access Code:</th>
+									<td>${run.runcode}</td>
+								</tr>
+								
+				      			<tr>
+				      				<th>Project Run ID:</hd>
+				      				<td>${run.id}</td>
+				      			</tr>
+				      			<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.13"/></th>
+				      				<td class="accesscodeClass"><fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" /></td>
+				      			</tr>
+								 <tr>
+				      				<th>Archived On:</th>
+				      				<td class="accesscodeClass"><fmt:formatDate value="${run.endtime}" type="date" dateStyle="short" /></td>
+				      			</tr>
+				      			<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.12"/></th>
+				      				<td>UC Berkeley library project</td>
+				      			</tr>
+								<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.11"/></th>
+				      				<td>${run.project.id}</td>
+				      			</tr>
+				      			
+						</table>
+				      	
+					</td>
+												
+				    <td style="vertical-align:top; padding:0px;" >
 				    	<table id="currentRunInfoTable" border="0" cellpadding="0" cellspacing="0">
 				          <tr>
-				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.29"/></th>
-				            <th class="tableInnerHeader"><spring:message code="teacher.run.myprojectruns.30"/></th>
-				            <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.31"/></th>
+				            <th class="tableInnerHeader">Period</th>
+				            <th class="tableInnerHeaderRight"><spring:message code="teacher.run.myprojectruns.9"/></th>
 				          </tr>
 				          <c:forEach var="period" items="${run.periods}">
 				            <tr>
 				              <td style="width:20%;" class="tableInnerData">${period.name}</td>
-				              <td style="width:45%;" class="tableInnerData">${run.runcode}-${period.name}</td>
-				              <td style="width:35%;" class="tableInnerDataRight">
-				                ${fn:length(period.members)} <spring:message code="teacher.run.myprojectruns.32"/>
-				                
-				              </td>
+				              <td style="width:35%;" class="tableInnerDataRight archivedNumberStudents">
+				                ${fn:length(period.members)}&nbsp;<spring:message code="teacher.run.myprojectruns.10"/></td>
 				            </tr>
 				          </c:forEach>
 				        </table>
-				    </td>
+				        
+						
+				     </td> 
 				    <td style="vertical-align:top; padding:1px 0;">
-					    <ul id="actionList">
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.33"/></a></li>
-					    	<li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')"><spring:message code="teacher.run.myprojectruns.34"/></a></li>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.35"/></a></li>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.36"/></a></li>
-					    	<li><a style="color:#cccccc;" href="#"><spring:message code="teacher.run.myprojectruns.37"/></a></li>
+					    <ul id="actionList1">
+					
+					        <li><a href="../../previewproject.html?projectId=${run.project.id}" target="_blank">View the Project</a></li>
+				    		<li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}')">Restore to <i>My Current Project Runs</i> Tab</a></li>
+							
+			
 					    </ul>
+						
 					</td>
 				   </tr>
 				  </c:forEach>
 				</table>
-			</div>
-		</div>
+				</div>
+
+</div>
 
 </div>
 </div>
