@@ -169,7 +169,7 @@ window.onload=resizeCaller
 
 <div id="navigationSubHeader2">My Project Runs & Access Codes<span id="navigationSubHeader1">management</span></div>
 
-<iframe id="dynamicFrame" src="projectruntabs.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; overflow-y:hidden; width:100%; display:none; margin-top:5px;"></iframe>
+<iframe id="dynamicFrame" src="projectruntabs.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%; display:none; margin-top:5px;"></iframe>
 
 
 </div>

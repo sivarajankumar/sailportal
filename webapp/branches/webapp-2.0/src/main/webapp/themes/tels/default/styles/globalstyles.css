@@ -129,5 +129,111 @@ form {margin:0px; padding:0px;}
 
 
 
+/* STYLES FOR PROJECT OVERVIEW PANEL, ACCESSED FROM MANY SECTIONS OF THE SITE   */	
 
+
+#projectOverviewTable {
+	border-collapse:collapse;
+	border-top:1px solid #333;
+	border-bottom:2px solid #333;
+	margin-bottom:15px;
+	text-align:left; 
+	}
+
+#projectOverviewTable th, #projectOverviewTable td  {
+	border:1px solid #000000; 
+	font-size:.7em;
+}
+
+#projectOverviewTable td {
+	padding:2px 8px;
+	border:1px solid #000000; 
+	}
 	
+#projectOverviewTable th {
+	padding:1px 2px 1px 6px;
+	margin:0px;
+	color:#fff;
+	background-color:#999;
+	font-size:.65em;
+			}	
+		
+#projectOverviewTable a {
+	color:blue;
+	padding:1px 3px;
+	border:1px solid transparent;
+	text-decoration:none;
+			}	
+
+#projectOverviewTable a:hover {
+	background-color:#FFFF00;
+	border:1px solid #999;
+			}	
+
+#projectOverviewTable #titleCell {
+	border-right:0px;	
+	padding:3px 4px 3px 2px;
+	}
+			
+#projectOverviewTable #titleCell a {
+	font-size:1.7em;
+	letter-spacing:-.5px;
+			}		
+			
+#projectOverviewTable .actions {
+	 border-left:0px;
+			}
+			
+#projectOverviewTable .actions ul {
+	 margin:4px 0 0 0px;
+	 padding:0;
+			}
+
+#projectOverviewTable .actions input {
+	 vertical-align:middle;
+	 position:relative;
+	 left:3px;
+	 top:-2px; 
+				}
+			
+#projectOverviewTable .actions li {
+	display:inline;
+	list-style-type:none;
+	margin-right:10px;
+	letter-spacing:-.5px;
+	
+			}		
+
+#projectOverviewTable #title4, #projectOverviewTable #title5 {
+	letter-spacing:-.5px; 
+			}	
+
+#projectOverviewTable #row4 #hideShowLink{
+	float:right;
+	font-size:85%;
+			}
+	
+#projectOverviewTable #row4 {
+	background:#ffedd5;
+			}	
+					
+#projectOverviewTable #row4 #details{
+	margin:5px 145px 5px 0px;
+	font-weight:bold;  
+			}	
+			
+#projectOverviewTable #row4 #detailsTable{
+	border-collapse:collapse;
+	text-align:left;
+	border:0;
+	margin-top:5px;
+			}	
+				
+#projectOverviewTable #row4 #detailsTable td {
+	border:0;
+	padding:4px 15px 4px 0;
+			}
+			
+#projectOverviewTable #row4 #detailsTable .keywords {
+	font-style:italic;
+			}				

@@ -48,9 +48,10 @@
 		<li class="level1"><a href="#">Projects</a>
 		<ul>
 				<li><a href="../teacher/projects/index.html">Overview</a></li>
-				<li><a href="projects/telsprojectlibrary.html">Beta Project Library</a></li>
-				<li><a href="projects/projectlibrary.html">Project Library</a></li>
-				<li><a href="#" style="color:#999;">My Bookmarked Projects</a></li>
+				<li><a href="projects/telsprojectlibrary.html">TELS Projects</a></li>
+				<li><a href="" style="color:#999;">VISUAL Projects</a></li>
+				<li><a href="projects/projectlibrary.html">Search Project Library</a></li>
+				<li><a href="" style="color:#999;">My Bookmarked Projects</a></li>
 				<li><a href="../author/authorproject.html">My Custom-Authored & Shared Projects</a></li>
 
 		</ul>
@@ -60,10 +61,10 @@
 		<ul>
 				<li><a href="../teacher/grading/overview.html">Overview</a></li>
 				<li><a href="./grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
-				<li><a href="#" style="color:#999;">Grade Work by Team</a></li>
-				<li><a href="#" style="color:#999;">Edit Maximum Score Values for a Project Run</a></li>
-				<li><a href="#" style="color:#999;">Review Student Score Summary</a></li>
-				<li><a href="#" style="color:#999;">Edit Pre-Made Grading Comments</a></li>
+				<li><a href="" style="color:#999;">Grade Work by Team</a></li>
+				<li><a href="" style="color:#999;">Edit Maximum Score Values for a Project Run</a></li>
+				<li><a href="" style="color:#999;">Review Student Score Summary</a></li>
+				<li><a href="" style="color:#999;">Edit Pre-Made Grading Comments</a></li>
 
 
 		</ul>
@@ -74,9 +75,9 @@
             <li><a href="../teacher/management/overview.html">Overview</a></li>
             <li><a href="run/myprojectruns.html">My Project Runs<br/>& Access Codes</a></li>
             <li><a href="./management/projectPickerManagement.html">Manage Students</a></li>
-            <li><a href="#" style="color:#999;">View Student RealTime Progress Monitor</a></li>
-            <li><a href="#" style="color:#999;">Print/Export Student Work</a></li>
-            <li><a href="#" style="color:#999;">Manage Extra Teachers</a></li>
+            <li><a href="" style="color:#999;">View Student RealTime Progress Monitor</a></li>
+            <li><a href="" style="color:#999;">Print/Export Student Work</a></li>
+            <li><a href="" style="color:#999;">Manage Extra Teachers</a></li>
             <li><a href="./management/updatemyaccount.html">Update My Account</a></li>
         </ul>
 		</li>

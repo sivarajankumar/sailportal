@@ -84,8 +84,8 @@
 
 <script type="text/javascript">
 	function checkRuns(){
-		//if(${current_run_list} == 0){
-			//  document.getElementById('runBox').innerHTML = '<div id="noRuns">No runs active.</div>';
+		//if(${current_run_list} == 0){          
+			//  document.getElementById('runBox').innerHTML = '<div id="noRuns"><br/><h5>You have no current project runs.</h5><br/><h5>Explore the Project Library (in PROJECTS) to find a curriculum project and set it up for a run in your classroom.</h5><br/><h5>Or review <a href="#" style="text-decoration:line-through;">Setting Up a Project Run</a> in the WISE 4.0 Help Guide.</h5></div>';
 		// }
 	}
 

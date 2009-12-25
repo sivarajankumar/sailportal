@@ -95,6 +95,21 @@
 	};
 </script>
 
+<script type="text/javascript">
+
+	/**
+	 * Toggles the search div
+	 */
+	function toggleDetails(){
+		var searchDiv = document.getElementById('details');
+		if(searchDiv.style.display=='none'){
+			searchDiv.style.display = 'block';
+		} else {
+			searchDiv.style.display = 'none';
+		};
+	};
+</script>
+
 <title><spring:message code="curnitlist.project.library" /></title>
 </head>
 
@@ -109,44 +124,68 @@
 <!--<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.tels.project.library" /></h2>-->
  
 <div id="searchResultsHeading">Search Results: ${fn:length(projectList) } projects found 
-	<div class="searchResultsButtons"><a href="#">Show/Hide Descriptions</a></div>
+	<div class="searchResultsButtons"><a href="#">Show/Hide All Project Details</a></div>
 </div>
 
-<div id="searchResultsInstructions">Click any project title below to review its <em>Project Overview</em>.</div>
+<div id="searchResultsInstructions">Click any Project Title below to review its detailed information and lesson plans.</div>
   
 <c:forEach var="project" items="${projectList}">
 
-	<table id="libraryProjectTable">
-		<tr>
-			<th>project title</th>
-			<th id="libraryProjectCol2">project id</th>
-			<th id="libraryProjectCol3">project source</th>
-			<th id="libraryProjectCol4">subjects/keywords</th>
-			<th>grade range</th>
-			<th>total</br>time</th>
-			<th>computer</br>time</th>
-			<th>usage</th>
-			<th>actions</th>
+	<table id="projectOverviewTable">
+		<tr id="row1">
+		<td id="titleCell" colspan="3"><a href="projectinfo.html?projectId=${project.id}">${project.projectInfo.name}</a></td>
+		<td class="actions" colspan="6"> 
+				<ul>
+					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
+					<li><a id="" href="#" onclick="javascript:bookmark('${project.id}')">Preview</a></li>
+					<li><a href="#">Set up as Project Run</a></li>
+					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Create copy in <i>My Custom-Authored</i></a></li>
+					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
+				</ul>
 		</tr>
-		<tr id="libraryProjectTableR2">
-			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.projectInfo.name}</a></td>
-			<td class="dataCell">${project.id}</td>   
+		<tr id="row2">
+			<th id="title1" style="width:60px;">Project ID</th>
+			<th id="title1" style="width:90px;">Project Family</th>
+			<th id="title2" style="width:292px;" >Topic(s)</th>
+			<th id="title3" style="width:100px;">Grades</th>
+			<th id="title4" style="width:110px;">Total Time (hrs)</th>
+			<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+			<th id="title6" style="width:92px;">Language</th>
+			<th id="title7" style="width:90px;">Usage</th>
+		</tr>
+		<tr id="row3">
+			<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
 			<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
 			<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
 			<td class="dataCell">${project.metadata.gradeRange}</td>              
 			<td class="dataCell">${project.metadata.totalTime}</td>              
 			<td class="dataCell">${project.metadata.compTime}</td> 
+			<td class="dataCell">[English]</td> 
 			<td class="dataCell">${usageMap[project.id]} runs</td>
-			<td class="dataCell" >
-				<ul>
-					<li class="list1"><span><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/>Bookmark</span></li>
-					<li class="list2"><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
-					<li class="list3"><input type="button" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" value="Make Copy"/></li>
-				</ul>
-			</td>
+
 		</tr>
-		<tr id="libraryProjectTableR3">  
-			<td colspan="9">${project.metadata.summary}</td>
+		<tr id="row4">  
+			<td colspan="8">
+				<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
+				<div id="details" style="display:none;">
+					<div>Consequat tincidunt veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat 
+t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat consequat accumsan te illum eum.</div> 
+					<table id="detailsTable">
+						<tr>
+							<td>Keywords:</td>
+							<td class="keywords">[List of comma-separated keywords go here]
+						</tr>
+<tr>
+							<td>Original Author:</td>
+							<td>[Name goes here]
+						</tr>
+						<tr>
+							<td>Technical Requirements:</td>
+							<td>[Tech Requirements go here]
+						</tr>
+					</table>
+				</div>
+			</td>
 		</tr>
 	</table>
 	

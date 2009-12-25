@@ -1,10 +1,29 @@
 
+
+/* NOTE: the min-height hack immediately below is a temporary measure, until we dynamically 
+resize the size of Projectruntabs.jsp when the user switches between Current or Archived tabs (MattFish Dec 2009) */
+
 #currentrunWrapper {
 	background-color:#FFF;
+	min-height:480px;
 }
 
 #currentRuns {
 	background-color:#FFF;
+}
+
+#noRuns {
+	color:#336600;
+}
+
+#noRuns a {
+	border:1px solid transparent;
+}
+
+#noRuns a:hover {
+	background:#FFFF00;
+	border:1px solid #999;
+	
 }
 
 #subHeader {
