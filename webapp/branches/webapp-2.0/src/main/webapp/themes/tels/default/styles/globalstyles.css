@@ -141,16 +141,16 @@ form {margin:0px; padding:0px;}
 	}
 
 #projectOverviewTable th, #projectOverviewTable td  {
-	border:1px solid #000000; 
+	border:1px solid #333; 
 	font-size:.7em;
 }
 
 #projectOverviewTable td {
 	padding:2px 8px;
-	border:1px solid #000000; 
+	border:1px solid #333; 
 	}
 	
-#projectOverviewTable th {
+#projectOverviewTable #row2 th {
 	padding:1px 2px 1px 6px;
 	margin:0px;
 	color:#fff;
@@ -217,8 +217,8 @@ form {margin:0px; padding:0px;}
 	background:#ffedd5;
 			}	
 					
-#projectOverviewTable #row4 #details{
-	margin:5px 145px 5px 0px;
+#projectOverviewTable #row4 .summary{
+	padding-right:10px;
 	font-weight:bold;  
 			}	
 			
@@ -226,12 +226,23 @@ form {margin:0px; padding:0px;}
 	border-collapse:collapse;
 	text-align:left;
 	border:0;
-	margin-top:5px;
-			}	
-				
+				}	
+	
+#projectOverviewTable #row4 #detailsTable th {
+	color:#000;
+	background:transparent;
+	border:0px;
+	width:100px;
+	padding:4px 4px 4px 0;
+	vertical-align:top;
+	font-weight:normal;
+				}
+						
 #projectOverviewTable #row4 #detailsTable td {
 	border:0;
-	padding:4px 15px 4px 0;
+	padding:4px 4px 4px 0;
+	vertical-align:top;
+	
 			}
 			
 #projectOverviewTable #row4 #detailsTable .keywords {

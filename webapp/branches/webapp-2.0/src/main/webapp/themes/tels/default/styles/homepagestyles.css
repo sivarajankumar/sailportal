@@ -378,15 +378,15 @@
 #newsContent {
 	background-image:url(../images/Pixel_Pale_Green.png);
 	background-repeat:repeat; 
-	position:relative;
+	position:relative; 
 	height:220px;
 	width:90%;
-	padding:4px;
-	margin-left:14px; 
+	padding:6px; 
+	margin-left:8px; 
 	overflow:auto; 
 	font-size:.75em; 
-	color:#006600;
 	color:#000000;
+	border:1px solid #99CC99;
 }
 
 #newsContentHeader {
