@@ -119,15 +119,16 @@
 
 <%@ include file="../headerteachersub.jsp"%>
 
-<div id="navigationSubHeader2">BETA Project Library<span id="navigationSubHeader1">projects</span></div> 
+<div id="navigationSubHeader2">Project Library<span id="navigationSubHeader1">projects</span></div> 
 
 <!--<h2 id="titleBar" class="headerText"><spring:message code="curnitlist.tels.project.library" /></h2>-->
  
-<div id="searchResultsHeading">Search Results: ${fn:length(projectList) } projects found 
-	<div class="searchResultsButtons"><a href="#">Show/Hide All Project Details</a></div>
+<div id="libraryHeader">
+	<div id="libraryButtons"><a href="#" onclick="toggleDetails()">Show/Hide All Project Details</a></div>
+	<div id="libraryResults">Search Results: ${fn:length(projectList) } projects found</div> 
 </div>
 
-<div id="searchResultsInstructions">Click any Project Title below to review its detailed information and lesson plans.</div>
+<div id="libraryInstructions">Click any project title below for additional information and lesson plans.</div>
   
 <c:forEach var="project" items="${projectList}">
 
@@ -146,7 +147,7 @@
 		<tr id="row2">
 			<th id="title1" style="width:60px;">Project ID</th>
 			<th id="title1" style="width:90px;">Project Family</th>
-			<th id="title2" style="width:292px;" >Topic(s)</th>
+			<th id="title2" style="width:292px;" >Subject(s)</th>
 			<th id="title3" style="width:100px;">Grades</th>
 			<th id="title4" style="width:110px;">Total Time (hrs)</th>
 			<th id="title5" style="width:110px;">Computer Time (hrs)</th>
@@ -168,20 +169,23 @@
 			<td colspan="8">
 				<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
 				<div id="details" style="display:none;">
-					<div>Consequat tincidunt veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat 
-t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat consequat accumsan te illum eum.</div> 
 					<table id="detailsTable">
 						<tr>
-							<td>Keywords:</td>
-							<td class="keywords">[List of comma-separated keywords go here]
-						</tr>
-<tr>
-							<td>Original Author:</td>
-							<td>[Name goes here]
+							<th>Summary:</th>
+							<td class="summary">Consequat tincidunt veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat 
+t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat consequat accumsan te illum eum.</td>
 						</tr>
 						<tr>
-							<td>Technical Requirements:</td>
-							<td>[Tech Requirements go here]
+							<th>Keywords:</th>
+							<td class="keywords">[List of comma-separated keywords go here]</td>
+						</tr>
+<tr>
+							<th>Original Author:</th>
+							<td>[Name goes here]</td>
+						</tr>
+						<tr>
+							<th>Tech Needs:</th>
+							<td>[Tech Requirements go here]</td>
 						</tr>
 					</table>
 				</div>

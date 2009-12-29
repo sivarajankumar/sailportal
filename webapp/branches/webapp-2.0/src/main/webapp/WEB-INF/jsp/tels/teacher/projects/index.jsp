@@ -54,15 +54,18 @@
 	<table id="overview_choices" cellspacing="20">
 		<tr>
 			<td class="link"><a href="telsprojectlibrary.html"><spring:message code="teacher.pro.lib.index.3"/></a></td>
-			<td class="description"><spring:message code="teacher.pro.lib.index.4"/></td></tr>
+			<td class="description">View a list of all TELS curriculum projects</td></tr>
 		<tr>
-			<td class="link"><a href="projectlibrary.html"><spring:message code="teacher.pro.lib.index.3A"/></a></td>
+			<td class="link"><a style="color:#999999;" href="">VISUAL Projects</a></td>
+			<td class="description">View a list of all VISUAL curriculum projects</td></tr>
+		<tr>
+			<td class="link"><a href="projectlibrary.html">Search the Project Library</a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.4A"/></td></tr>
 		<tr>
 			<td class="link"><a style="color:#999999;" href="bookmarkedprojects.html"><spring:message code="teacher.pro.lib.index.7"/></a></td>
 			<td class="description"><spring:message code="teacher.pro.lib.index.8"/></td></tr>
 		<tr>
-			<td class="link"><a href="http://wise4.telscenter.org/webapp/author/authorproject.html">Author Custom/Shared Projects</a></td>
+			<td class="link"><a href="http://wise4.telscenter.org/webapp/author/authorproject.html">My Custom-Authored & Shared Projects</a></td>
 			<td class="description">Author your customized projects or projects shared with you. 
 					Use the WISE 4 Authoring Tool to edit these projects or create a new project.</td></tr>
 		<tr>

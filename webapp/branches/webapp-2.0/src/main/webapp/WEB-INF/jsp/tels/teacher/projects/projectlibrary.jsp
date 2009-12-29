@@ -116,17 +116,118 @@
 
 <%@ include file="../headerteachersub.jsp"%> 
 
-<div id="navigationSubHeader2">WISE Project Library<span id="navigationSubHeader1">projects</span></div>
+<div id="navigationSubHeader2">Project Library<span id="navigationSubHeader1">projects</span></div>
  
-<div id="searchResultsHeading">Search Results: ${fn:length(projectList) } projects found 
-	<div class="searchResultsButtons"><a href="#">Show/Hide Descriptions</a></div>
-	<div class="searchResultsButtons"><a href='#' onclick='toggleSearch()'>Show/Hide Search Options</a></div>
+<div class="searchContainer">
+	<div class="header">Browse by Topic</div>
+	<div id='searchInstructions'>Hold your mouse over any topic to learn more about it.  Click to find the associated projects.</div>
+
+	<div>contents go here</div>
+</div>
+	
+<div class="searchContainer">
+	<div class='header'>Search by Category</div>
+	<div id='searchInstructions'>Refine your search by selecting one or more categories using the drop-down menus. Then click <i>Search By Category</i> to find matching projects.</div>
+	<div id='projectOverviewSearchContainer'>
+	
+		<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
+		<table id="projectOverviewTable">
+			
+				<tr id="row2">
+						<th id="title1" style="width: 90px;">Project Family</th>
+						<th id="title2" style="width: 222px;">Subject</th>
+						<th id="title3" style="width: 100px;">Grades</th>
+						<th id="title4" style="width: 110px;">Total Time (hrs)</th>
+						<th id="title5" style="width: 110px;">Computer Time (hrs)</th>
+						<th id="title6" style="width: 92px;">Language</th>
+						<th id="title7" style="width: 120px;">Tech Requirements</th>
+				</tr>
+				<tr id="row3">
+						<td class="dataCell">
+							<select name="searchFamily">
+							<option id='telsRadio' path='family' value='0'>TELS</option>
+							<option id='uccpRadio' path='family' value='1'>VISUAL</option>
+							<option id='allRadio' path='family' value='2'>UCCP</option>
+							<option selected id='allRadio' path='family' value='-1'>All</option>
+							</select>
+						</td>
+						<td class="dataCell">
+							<select name="searchSubject">
+							<option id='subjectAllBiology' path='subject' value='subjectBio'>Biology</option>
+							<option id='subjectAllChemistry' path='subject' value='subjectChemistry'>Chemistry</option>
+							<option id='subjectAllPhysics' path='subject' value='subjectPhysics'>Physics</option>
+							<option id='subjectAllEarthScience' path='subject' value='subjectEarth'>Earth Science</option>
+							<option selected id='subjectAll' path='subject' value='subjectAll'>All</option>
+							</select>
+						</td>
+						<td class="dataCell">
+							<select name="searchGrade">
+							<option id='grade1' path='grade' value='grade1'>Grades 3-5</option>
+							<option id='grade2' path='grade' value='grade2'>Grades 6-8</option>
+							<option id='grade3' path='grade' value='grade3'>Grades 9-12</option>
+							<option id='grade4' path='grade' value='grade4'>Grades 6-12</option>
+							<option selected id='gradeAll' path='grade' value='gradeAll'>All</option>
+							</select>
+						</td>
+						<td class="dataCell">
+							<select name="searchTotalTime">
+							<option id='total1' path='totalTime' value='total1'>2-3 hours</option>
+							<option id='total2' path='totalTime' value='total2'>4-5 hours</option>
+							<option id='total3' path='totalTime' value='total3'>6-7 hours</option>
+							<option id='total4' path='totalTime' value='total4'>8-9 hours</option>
+							<option id='total5' path='totalTime' value='total5'>10-11 hours</option>
+							<option id='total6' path='totalTime' value='total6'>12+ hours</option>
+							<option selected id='totalAll' path='totalTime' value='totalAll'>All</option>
+							</select>
+						</td>
+						<td class="dataCell">
+							<select name="searchTotalTime">
+							<option id='computer1' path='computerTime' value='computer1'>2-3 hours</option>
+							<option id='computer2' path='computerTime' value='computer2'>4-5 hours</option>
+							<option id='computer3' path='computerTime' value='computer3'>6-7 hours</option>
+							<option id='computer4' path='computerTime' value='computer4'>8-9 hours</option>
+							<option id='computer5' path='computerTime' value='computer5'>10-11 hours</option>
+							<option id='computer6' path='computerTime' value='computer6'>12+ hours</option>
+							<option selected id='computerAll' path='computerTime' value='computerAll'>All</option>
+							</select>
+						</td>
+						<td class="dataCell">
+							<select name="searchLanguage">
+							<option id='language1' path='language' value='language1'>English</option>
+							<option id='language2' path='language' value='language2'>Spanish</option>
+							<option id='language3' path='language' value='language3'>Hebrew</option>
+							<option id='language4' path='language' value='language4'>German</option>
+							<option id='language5' path='language' value='language5'>U.K. English</option>
+							<option id='language6' path='language' value='language6'>French</option>
+							<option selected id='languageAll' path='language' value='languageAll'>All</option>
+							</select>
+						</td>
+						<td class="dataCell">
+							<select name="searchTech">
+							<option id='tech1' path='tech' value='tech1'>Browser</option>
+							<option id='tech2' path='tech' value='tech2'>Browser + Flash</option>
+							<option id='tech3' path='tech' value='tech3'>Browser + Flash + Java</option>
+							<option selected id='techAll' path='tech' value='techAll'>All</option>
+							</select>
+						</td>
+
+				</tr>
+		</table>
+		<input type='submit' value='Search by Category'/>
+		</form:form>
+		</div>
 </div>
 
-<div id="searchResultsInstructions">Click any project title below to review its <em>Project Overview</em>.</div>
+<div class="searchContainer">
+	<div class="header">Search by Keyword</div>
+	<div id='searchInstructions'>Type one or more keywords to search for matching projects.  Keywords can be from Project Name, Project ID (5 digits), Topic, or words within a Project Summary.  Click <i>Search By Keyword</i> to find matching projects.</div>
+	<form name="myform" action="http://www.mydomain.com/myformhandler.cgi" method="POST">
+		<input type="text" size="25" value="Enter your name here!"> <br>
+		<input type="submit" value="Send me your name!"><br>
+	</form>
+</div>
 
-<div id='searchDiv'>
-	<div id='searchTextDiv'>Enter your search criteria below. Enter more information for a more restrictive search. Searches are case insensitive.</div><br/>
+<div>
 	<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
 	<table id='searchTable'>
 		<thead></thead>

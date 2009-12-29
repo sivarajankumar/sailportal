@@ -287,8 +287,8 @@ width: 100%;
 
 				<td >
 				<div id="boxLatestNews"  class="panelColor1">
-				<div id="header"><spring:message code="home.latestnewslabel" /></div>
-				<div id="newsContent" class="dataBoxStyle">
+				<div id="header">WISE News</div>
+				<div id="newsContent">
 				<div id="newsContentHeader">${newsItem.title}</div>
 				${newsItem.news}</div>
 

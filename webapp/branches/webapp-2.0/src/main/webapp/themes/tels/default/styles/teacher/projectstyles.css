@@ -141,7 +141,7 @@ img#none{
 /* OVERVIEW CHOICES FOR ALL SECTIONS  */ 
 
 #overview_choices   {
-	padding:10px 0 30px 5px;
+	padding:10px 0 28px 5px;
 }
 	
 #overview_choices tr  {
@@ -151,14 +151,14 @@ img#none{
 	font-size:1.1em;
 	letter-spacing:-.2px;
 	font-weight:bold; 
-	width:360px;
+	width:390px;
 	}
 
 #overview_choices a:link, #overview_choices a:visited   {
 	text-decoration:none;
 	color:#000066;
 	display:block;
-	padding:6px 0px 6px 20px;
+	padding:6px 10px 6px 15px;
 	margin:0px;
 	border-top: 1px solid #999999;
 	border-right: 1px solid #000000;
@@ -251,36 +251,93 @@ img#none{
 
 /* STYLES FOR PROJECT LIBRARY PAGES */
 	
-#searchResultsHeading {
-	font-weight:bold;
-	font-size:1.1em;
-	margin: 20px 0 5px 0;
+#libraryHeader {
+
 }
 
-.searchResultsButtons{
-	float:right;
-} 
-
-#searchResultsButtons a {
+#libraryHeader a {
 	color:blue;
 	padding:1px 3px;
-	font-size:.9em;
-	font-variant:small-caps;
+	font-size:.75em;
 	border:1px solid transparent;
 	text-decoration:none;
 			}	
 
-#searchResultsButtons a:hover {
+#libraryHeader a:hover {
 	background-color:#FFFF00;
 	border:1px solid #999;
-			}
+	outline:none;
+			}	
+
+/* This style keeps the link from having an browser outline after losing focus.  */
+#libraryHeader a:focus {
+	outline:none;
+			}	
 			
-#searchResultsInstructions {
+#libraryResults{
 	font-weight:bold;
 	font-size:.8em;
-	color:#333333;
-	margin:0 0 20px 0;
+	letter-spacing:.5px;
 }
+
+#libraryButtons a{
+	float:right;
+}
+		
+#libraryInstructions {
+	font-weight:bold;
+	font-size:.8em;
+	color:#666;
+	margin:5px 0 15px 5px;
+}
+
+.searchContainer {
+	margin-top:15px;
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #999;  
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	min-height:172px; 
+	 		
+}
+
+.searchContainer .header {	
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; 
+	text-align:left;
+	margin: 0px 0px 12px 0px;
+	padding: 3px 10px;
+	font-size: .9em;
+	font-weight:bold;
+	background-image:url(../../images/teacher/teacherSubHeader.png);
+	-moz-border-radius-topleft:4px;
+	-moz-border-radius-topright:4px;
+	-webkit-border-radius-topleft:4px;
+	-webkit-border-radius-topright:4px;
+	border-radius-topleft:4px;
+	border-radius-topright:4px;
+	border-bottom:1px solid #999;
+	}
+
+
+#searchInstructions {
+	font-size:.75em;
+	color:#000;
+	margin:5px 0 10px 10px;
+}
+
+
+#projectOverviewSearchContainer { 
+	margin:0 5px 0 8px;
+}
+
+
+#projectOverviewSearchContainer #projectOverviewTable {
+	border-bottom:1px solid #333;
+
+	}
+	
 
 
 /* STYLES FOR PROJECT OVERVIEW section */

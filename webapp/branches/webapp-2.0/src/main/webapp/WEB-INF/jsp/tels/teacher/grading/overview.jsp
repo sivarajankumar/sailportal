@@ -27,6 +27,7 @@
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../../<spring:theme code="teachergradingstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
@@ -51,28 +52,28 @@
 
 <div id="navigationSubHeader2">Overview<span id="navigationSubHeader1">grading</span></div>
  
-<div id="overviewContentGrading"> 
+<div id="overviewContent"> 
 
-	<table id="overview_choices_grading" cellspacing="20">
+	<table id="overview_choices" cellspacing="20">
 		<tr>
-		    <td class="link_grading"><a href="./projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.grading.overview.3"/></a></td>
-			<td class="description_grading"><spring:message code="teacher.grading.overview.4"/></td></tr>
+		    <td class="link"><a href="./projectPickerGrading.html?gradeByType=step"><spring:message code="teacher.grading.overview.3"/></a></td>
+			<td class="description"><spring:message code="teacher.grading.overview.4"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999" href="./projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.overview.5"/></a></td>
-			<td class="description_grading"><spring:message code="teacher.grading.overview.6"/></td></tr>
+			<td class="link"><a style="color:#999999" href="./projectPickerGrading.html?gradeByType=group"><spring:message code="teacher.grading.overview.5"/></a></td>
+			<td class="description"><spring:message code="teacher.grading.overview.6"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;" href="./projectPickerGrading.html?gradeByType=value"><spring:message code="teacher.grading.overview.7"/></a></td>
-			<td class="description_grading"><spring:message code="teacher.grading.overview.8"/></td></tr>
+			<td class="link"><a style="color:#999999;" href="./projectPickerGrading.html?gradeByType=value"><spring:message code="teacher.grading.overview.7"/></a></td>
+			<td class="description"><spring:message code="teacher.grading.overview.8"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.9"/></a></td>
-			<td class="description_grading"><spring:message code="teacher.grading.overview.10"/></td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.9"/></a></td>
+			<td class="description"><spring:message code="teacher.grading.overview.10"/></td></tr>
 		<tr>
-			<td class="link_grading"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.11"/></a></td>
-			<td class="description_grading"><spring:message code="teacher.grading.overview.12"/></td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.11"/></a></td>
+			<td class="description"><spring:message code="teacher.grading.overview.12"/></td></tr>
 
 		<tr>
-			<td class="link_grading"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.13"/></a></td>
-			<td class="description_grading"><spring:message code="teacher.grading.overview.14"/></td></tr>
+			<td class="link"><a style="color:#999999;" href="#"><spring:message code="teacher.grading.overview.13"/></a></td>
+			<td class="description"><spring:message code="teacher.grading.overview.14"/></td></tr>
 	</table>
 	
 </div>
