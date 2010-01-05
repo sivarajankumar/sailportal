@@ -27,10 +27,16 @@
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="../.././javascript/tels/general.js"></script>
-<script type="text/javascript" src="../.././javascript/tels/yui/yahoo/yahoo.js"></script>
-<script type="text/javascript" src="../.././javascript/tels/yui/event/event.js"></script>
-<script type="text/javascript" src="../.././javascript/tels/yui/connection/connection.js"></script>
+<script type="text/javascript" src="../../javascript/tels/prototype.js" ></script>
+<script type="text/javascript" src="../../javascript/tels/effects.js" ></script>
+<script type="text/javascript" src="../../javascript/tels/scriptaculous.js" ></script>
+<script type="text/javascript" src="../../javascript/tels/rotator.js" ></script>
+<script type="text/javascript" src="../../javascript/tels/rotatorT.js" ></script>
+
+<script type="text/javascript" src="../../javascript/tels/general.js"></script>
+<script type="text/javascript" src="../../javascript/tels/yui/yahoo/yahoo.js"></script>
+<script type="text/javascript" src="../../javascript/tels/yui/event/event.js"></script>
+<script type="text/javascript" src="../../javascript/tels/yui/connection/connection.js"></script>
 
 <script type="text/javascript"><!--
 	
@@ -94,18 +100,9 @@
 		};
 	};
 
-	/**
-	 * Toggles the search div
-	 */
-	function toggleSearch(){
-		var searchDiv = document.getElementById('searchDiv');
-		if(searchDiv.style.display=='none'){
-			searchDiv.style.display = 'block';
-		} else {
-			searchDiv.style.display = 'none';
-		};
-	};
 --></script>
+
+<link rel="shortcut icon" href="../.././themes/tels/default/images/favicon_panda.ico" />
 
 <title><spring:message code="curnitlist.project.library" /></title>
 </head>
@@ -120,9 +117,66 @@
  
 <div class="searchContainer">
 	<div class="header">Browse by Topic</div>
-	<div id='searchInstructions'>Hold your mouse over any topic to learn more about it.  Click to find the associated projects.</div>
+	<div id='searchInstructions'>Select any topic for additional details.</div>
 
-	<div>contents go here</div>
+	<ul class="topicLinks"> 
+			<li><a href="#" onclick="javascript:projectTopic1();">Life Science</a></li>
+			<li><a href="#" onclick="javascript:projectTopic2();">Physical Science</a></li>
+			<li><a href="#" onclick="javascript:projectTopic3();">Earth Science</a></li>
+			<li><a href="#" onclick="javascript:projectTopic4();">Biology</a></li>
+			<li><a href="#" onclick="javascript:projectTopic5();">Chemistry</a></li>
+			<li><a href="#" onclick="javascript:projectTopic6();">Physics</a></li>
+	</ul>
+
+	<ul class="topicLinks">
+			<li><a style="text-decoration:line-through;" href="#" onclick="javascript:projectTopic1();">Topic X</a></li>
+			<li><a style="text-decoration:line-through;" href="#" onclick="javascript:projectTopic2();">Topic Y</a></li>
+			<li><a style="text-decoration:line-through;" href="#" onclick="javascript:projectTopic3();">Topic Z</a></li>
+	</ul>
+
+	<div id="topicDisplayContainer">
+
+		<div id="lifescience" style="display: none;">
+			<div class="topicHeader">LIFE SCIENCE</div>
+			<p>Images here.</p><br/>
+			<p>Life science projects for grades 6-8 currently include Photosynthesis, Mitosis & Cell Proceses, Simple Inheritance, and more.</p>
+			<p><a href='' target='_blank'>View Project Overviews</a></p>
+		</div>
+
+		<div id="physicalscience" style="display: none;">
+			<div class="topicHeader">PHYSICAL SCIENCE</div>
+			<p>Images here.</p><br/>
+			<p>Life science projects for grades 6-8 currently include Motion and Velocity, Introductory Chemistry, Heat & Temperature, The Moon, and more.</p>
+			<p><a href='' target='_blank'>View Project Overviews</a></p>
+		</div>
+
+		<div id="earthscience" style="display: none;">
+			<div class="topicHeader">EARTH SCIENCE</div>
+			<p>Images here.</p><br/>
+			<p>Earth science projects for grades 6-8 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
+			<p><a href='' target='_blank'>View Project Overviews</a></p>
+		</div>
+
+		<div id="biology" style="display: none;">
+			<div class="topicHeader">CHEMISTRY</div>
+			<p>Images here.</p><br/>
+			<p>Chemistry projects for grades 9-12 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
+			<p><a href='' target='_blank'>View Project Overviews</a></p>
+		</div>
+		<div id="chemistry" style="display: none;">
+			<div class="topicHeader">CHEMISTRY</div>
+			<p>Images here.</p><br/>
+			<p>Chemistry projects for grades 9-12 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
+			<p><a href='' target='_blank'>View Project Overviews</a></p>
+		</div>
+		<div id="physics" style="display: none;">
+			<div class="topicHeader">CHEMISTRY</div>
+			<p>Images here.</p><br/>
+			<p>Chemistry projects for grades 9-12 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
+			<p><a href='' target='_blank'>View Project Overviews</a></p>
+		</div>
+	</div>
+
 </div>
 	
 <div class="searchContainer">

@@ -1244,7 +1244,6 @@ function fabulousTurnOff6() { //v3.0
 
 function fabulousTurnOff7() {  
 
-
 	var welcome1 = document.getElementById('welcomeBullet1');
 	welcome1.style.display = 'none';
 	
@@ -1265,3 +1264,49 @@ function fabulousTurnOff7() {
 	
 	Effect.toggle('welcomeBullet7','slide');
 }
+
+//Used for the WISE Project Library BROWSE BY TOPIC Area 
+//Sets all other descriptions to display:none and does "effect.toggle" on the current bullet.
+
+function projectTopic1() {  
+
+	var pt2 = document.getElementById('physicalscience');
+	pt2.style.display = 'none';
+	
+	var pt3 = document.getElementById('earthscience');
+	pt3.style.display = 'none';
+	
+	var pt4 = document.getElementById('biology');
+	pt4.style.display = 'none';
+	
+	var pt5 = document.getElementById('chemistry');
+	pt5.style.display = 'none';
+	
+	var pt6 = document.getElementById('physics');
+	pt6.style.display = 'none';
+	
+	/*Effect.toggle('biology_ms','slide');*/
+	document.getElementById('lifescience').style.display = "block";
+}
+
+function projectTopic2() {  
+
+	var pt1 = document.getElementById('lifescience');
+	pt1.style.display = 'none';
+	
+	var pt3 = document.getElementById('earthscience');
+	pt3.style.display = 'none';
+	
+	var pt4 = document.getElementById('biology');
+	pt4.style.display = 'none';
+	
+	var pt5 = document.getElementById('chemistry');
+	pt5.style.display = 'none';
+	
+	var pt6 = document.getElementById('physics');
+	pt6.style.display = 'none';
+	
+	/*Effect.toggle('biology_ms','slide');   Commented out because of conflict tween Scriptalicious selector and jQuery selector style in nav-menus */
+	document.getElementById('physicalscience').style.display = "block";
+}
+
