@@ -105,77 +105,78 @@ width: 100%;
 				<p class="smallText"><spring:message code="clickabovefordetails" /></p>
 
 				</div>
-
-				<div id="welcomeBullet1" style="">
-				<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
-				<p>The Web-based Inquiry Science Environment is a research-based digital learning platform that fosters exploration and science inquiry.  
-					Students observe, analyze, experiment, and reflect as they navigate WISE projects. 
-					Teachers guide and evaluate the process using a suite of classroom-based and online tools.</p><br/>
-				<p>This site hosts the latest and most powerful version of WISE &mdash; version 4.0.  Classic WISE can be accessed at <a href='http://wise.berkeley.edu' target='_blank'>http://wise.berkeley.edu</a>.</p>
+				
+				<div id="welcomeBulletContainer">
+					<div id="welcomeBullet1" style="">
+					<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
+					<p>The Web-based Inquiry Science Environment is a research-based digital learning platform that fosters exploration and science inquiry.  
+						Students observe, analyze, experiment, and reflect as they navigate WISE projects. 
+						Teachers guide and evaluate the process using a suite of classroom-based and online tools.</p><br/>
+					<p>This site hosts the latest and most powerful version of WISE &mdash; version 4.0.  Classic WISE can be accessed at <a href='http://wise.berkeley.edu' target='_blank'>http://wise.berkeley.edu</a>.</p>
+					</div>
+					
+					<div id="welcomeBullet2" style="display: none;">
+					<div class="welcomeBulletHeader"><spring:message code="curriculumbasedheader" /></div>
+					<p><spring:message code="curriculumbasedbullet" /></p>
+					</div>
+	
+					<div id="welcomeBullet3" style="display: none;">
+					<div class="welcomeBulletHeader"><spring:message code="inquiryprojectsheader" /></div>
+					<p><spring:message code="inquiryprojectsbullet" /></p>
+					</div>
+	
+					<div id="welcomeBullet4" style="display: none;">
+					<div class="welcomeBulletHeader"><spring:message code="studentengagementheader" /></div>
+					<p><spring:message code="studentengagementbullet" /></p>
+					</div>
+	
+					<div id="welcomeBullet5" style="display: none;">
+					<div class="welcomeBulletHeader"><spring:message code="interactivemodelsheader" /></div>
+					<p><spring:message code="interactivemodelsbullet" /></p>
+					</div>
+	
+					<div id="welcomeBullet6" style="display: none;">
+					<div class="welcomeBulletHeader"><spring:message code="teachertoolsheader" /></div>
+					<p><spring:message code="teachertoolsbullet" /></p>
+					</div>
+	
+					<div id="welcomeBullet7" style="display: none;">
+					<div class="welcomeBulletHeader"><spring:message code="freeandopensourceheader" /></div>
+					<p><spring:message code="freeandopensourcebullet" /></p>
+					</div>
 				</div>
-
-				<div id="welcomeBullet2" style="display: none;">
-				<div class="welcomeBulletHeader"><spring:message code="curriculumbasedheader" /></div>
-				<p><spring:message code="curriculumbasedbullet" /></p>
-				</div>
-
-				<div id="welcomeBullet3" style="display: none;">
-				<div class="welcomeBulletHeader"><spring:message code="inquiryprojectsheader" /></div>
-				<p><spring:message code="inquiryprojectsbullet" /></p>
-				</div>
-
-				<div id="welcomeBullet4" style="display: none;">
-				<div class="welcomeBulletHeader"><spring:message code="studentengagementheader" /></div>
-				<p><spring:message code="studentengagementbullet" /></p>
-				</div>
-
-				<div id="welcomeBullet5" style="display: none;">
-				<div class="welcomeBulletHeader"><spring:message code="interactivemodelsheader" /></div>
-				<p><spring:message code="interactivemodelsbullet" /></p>
-				</div>
-
-				<div id="welcomeBullet6" style="display: none;">
-				<div class="welcomeBulletHeader"><spring:message code="teachertoolsheader" /></div>
-				<p><spring:message code="teachertoolsbullet" /></p>
-				</div>
-
-				<div id="welcomeBullet7" style="display: none;">
-				<div class="welcomeBulletHeader"><spring:message code="freeandopensourceheader" /></div>
-				<p><spring:message code="freeandopensourcebullet" /></p>
-				</div>
-
 
 				<ul id="welcomeButtonPosTable">
-
-						<li><a href="wiseoverview.html" title="Launch a brief Flash-based animated overview of the WISE system."
-								onmouseout="MM_swapImgRestore()"
-								onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/AnimatedOverviewRoll.png',1)">
-						<img src="./themes/tels/default/images/AnimatedOverview.png" width="145" height="33"
-								alt="<spring:message code="animatedoverviewofwise"/>" class="imgNoBorder" id="Overview of WISE button" /> </a></li>
-
-						<li><a href="previewprojectlist.html"
-								title="View instant previews of WISE inquiry projects across biology, chemistry, and physics topics."
-								onmouseout="MM_swapImgRestore()"
-								onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/PreviewProjectRoll.png',1)">
-						<img src="./themes/tels/default/images/PreviewProject.png" width="145" height="33"
-								alt="<spring:message code="instantpreview"/>" class="imgNoBorder" id="Preview of WISE Button" /></a></li>
-
-						<li><a href="signup.html"
-								title="New to WISE? Create a teacher or student account to enjoy the full array of learning tools offered by WISE."
-								onmouseout="MM_swapImgRestore()"
-								onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateWiseAccountRoll.png',1)">
-						<img src="./themes/tels/default/images/CreateWiseAccount.png" width="145" height="33"
-								alt="<spring:message code="createnewwiseaccount"/>" class="imgNoBorder" id="Create Account Button" /></a></li>
-
-						<li><a href="./contactwisegeneral.html"
-								title="Have a question or a problem with the WISE tools or curriculum projects? Write a message to the WISE team."
-								onmouseout="MM_swapImgRestore()"
-								onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)"> <img
-								src="./themes/tels/default/images/ContactWise.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
-								id="Contact Wise Button" /></a></li>
-
-				</ul>
-				</div>
+	
+							<li><a href="wiseoverview.html" title="Launch a brief Flash-based animated overview of the WISE system."
+									onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/AnimatedOverviewRoll.png',1)">
+							<img src="./themes/tels/default/images/AnimatedOverview.png" width="145" height="33"
+									alt="<spring:message code="animatedoverviewofwise"/>" class="imgNoBorder" id="Overview of WISE button" /> </a></li>
+	
+							<li><a href="previewprojectlist.html"
+									title="View instant previews of WISE inquiry projects across biology, chemistry, and physics topics."
+									onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/PreviewProjectRoll.png',1)">
+							<img src="./themes/tels/default/images/PreviewProject.png" width="145" height="33"
+									alt="<spring:message code="instantpreview"/>" class="imgNoBorder" id="Preview of WISE Button" /></a></li>
+	
+							<li><a href="signup.html"
+									title="New to WISE? Create a teacher or student account to enjoy the full array of learning tools offered by WISE."
+									onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateWiseAccountRoll.png',1)">
+							<img src="./themes/tels/default/images/CreateWiseAccount.png" width="145" height="33"
+									alt="<spring:message code="createnewwiseaccount"/>" class="imgNoBorder" id="Create Account Button" /></a></li>
+	
+							<li><a href="./contactwisegeneral.html"
+									title="Have a question or a problem with the WISE tools or curriculum projects? Write a message to the WISE team."
+									onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)"> <img
+									src="./themes/tels/default/images/ContactWise.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
+									id="Contact Wise Button" /></a></li>
+	
+					</ul>
+								</div>
 				</td>
 				<!--    End of Welcome Box-->
 
