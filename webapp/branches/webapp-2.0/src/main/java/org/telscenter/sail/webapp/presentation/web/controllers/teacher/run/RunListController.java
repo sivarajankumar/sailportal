@@ -114,7 +114,10 @@ public class RunListController extends AbstractController {
 		SecurityContext context = SecurityContextHolder.getContext();
 		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
 		User user = userService.retrieveUser(userDetails);
-		List<Run> runList = this.runService.getRunList();
+		//List<Run> runList = this.runService.getRunList();
+		
+		List<Run> runList = this.runService.getRunListByOwner(user);
+		runList.addAll(this.runService.getRunListBySharedOwner(user));
 		// this is a temporary solution to filtering out runs that the logged-in user owns.
 		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
 		// start temporary code

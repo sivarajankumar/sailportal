@@ -596,7 +596,9 @@ window.onload=resizeCaller
 
 						<c:forEach var="run" items="${run_list}">
 								<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
-										<li id='extendReminder_${run.id}'>Your project run <i>${run.name}</i> has been open since ${run.starttime}. Do
+										<li id='extendReminder_${run.id}'>Your project run <i>${run.name}</i> has been open since
+										<fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" timeStyle="short" />.
+										 Do
 										you want to archive it now? [ <a
 												onclick="window.open('run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font
 												color='blue'>Yes</font></a>/ <a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].</li>

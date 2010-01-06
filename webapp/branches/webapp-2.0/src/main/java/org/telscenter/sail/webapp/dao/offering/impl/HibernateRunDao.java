@@ -99,6 +99,7 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 	/**
 	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#getWorkgroupsForOfferingAndPeriod(java.lang.Long, java.lang.Long)
 	 */
+	@SuppressWarnings("unchecked")
 	public Set<Workgroup> getWorkgroupsForOfferingAndPeriod(Long offeringId, Long periodId){
 		String q = "select workgroup from WISEWorkgroupImpl workgroup where workgroup.offering.id = '" + offeringId + "' and " +
 		"workgroup.period.id = '" + periodId + "' and workgroup.teacherWorkgroup = false";
@@ -129,7 +130,8 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
     /**
      * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunListByUserInPeriod(net.sf.sail.webapp.domain.User)
      */
-    public List<Run> getRunListByUserInPeriod(User user){
+    @SuppressWarnings("unchecked")
+	public List<Run> getRunListByUserInPeriod(User user){
     	String q = "select run from RunImpl run inner join run.periods period inner " +
     			"join period.members user where user.id='" + user.getId() + "'";
     	return this.getHibernateTemplate().find(q);
@@ -138,8 +140,20 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
     /**
      * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunsOfProject(java.lang.Long)
      */
-    public List<Run> getRunsOfProject(Long id){
+    @SuppressWarnings("unchecked")
+	public List<Run> getRunsOfProject(Long id){
     	String q = "select run from RunImpl run where run.project.id=" + id;
     	return this.getHibernateTemplate().find(q);
     }
-}
+
+	@SuppressWarnings("unchecked")
+	public List<Run> getRunListByOwner(User owner) {
+    	String q = "select run from RunImpl run inner join run.owners owner where owner.id='" + owner.getId() + "'";
+    	return this.getHibernateTemplate().find(q);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Run> getRunListBySharedOwner(User owner) {
+    	String q = "select run from RunImpl run inner join run.sharedowners owner where owner.id='" + owner.getId() + "'";
+    	return this.getHibernateTemplate().find(q);
+	}}

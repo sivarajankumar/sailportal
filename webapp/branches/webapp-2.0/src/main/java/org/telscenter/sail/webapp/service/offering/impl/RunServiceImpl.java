@@ -119,6 +119,26 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	}
 	
 	/**
+	 * @see net.sf.sail.webapp.service.offering.OfferingService#getRunListByOwner()
+	 */
+	@Transactional()
+	public List<Run> getRunListByOwner(User owner) {
+		// for some reason, runDao.getList returns all runs, when it should
+		// only return runs with the right privileges according to Acegi.
+		return runDao.getRunListByOwner(owner);
+	}
+	
+	/**
+	 * @see net.sf.sail.webapp.service.offering.OfferingService#getRunListByOwner()
+	 */
+	@Transactional()
+	public List<Run> getRunListBySharedOwner(User owner) {
+		// for some reason, runDao.getList returns all runs, when it should
+		// only return runs with the right privileges according to Acegi.
+		return runDao.getRunListBySharedOwner(owner);
+	}
+	
+	/**
 	 * @see org.telscenter.sail.webapp.service.offering.RunService#getAllRunList()
 	 */
 	@Transactional()

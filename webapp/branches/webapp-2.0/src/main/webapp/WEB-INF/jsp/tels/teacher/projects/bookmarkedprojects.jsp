@@ -64,8 +64,6 @@
 <body>
 
 <div id="centeredDiv">
-<%@ include file="./headerteacherprojects.jsp"%>
-<%@ include file="./L2projects_nohighlight.jsp"%>
 
 <h2 id="titleBar" class="headerText">My Bookmarked Projects</h2>
 

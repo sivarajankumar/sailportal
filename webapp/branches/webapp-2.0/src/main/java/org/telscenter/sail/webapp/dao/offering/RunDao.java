@@ -60,6 +60,24 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
     public List<T> retrieveByField(String field, String type, Object term);
     
     /**
+     * Retrieves a list of runs from the data store given a <code>User</code>
+     * who is the owner of the runs.
+     * 
+     * @param owner <code>User</code>
+     * @return a list of runs that the specified user owns
+     */
+    public List<T> getRunListByOwner(User owner);
+    
+    /**
+     * Retrieves a list of runs from the data store given a <code>User</code>
+     * who is the shared-owner of the runs.
+     * 
+     * @param owner <code>User</code>
+     * @return a list of runs that the specified user owns
+     */
+	public List<Run> getRunListBySharedOwner(User owner);
+
+    /**
      * Retrieves a <code>List<Run></code> list of runs from the data store given a
      * <code>User</code> who is attached to a period that is attached to the run.
      * 
@@ -86,4 +104,5 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
      * @return <code>List<Run></code>
      */
     public List<Run> getRunsOfProject(Long id);
+
 }

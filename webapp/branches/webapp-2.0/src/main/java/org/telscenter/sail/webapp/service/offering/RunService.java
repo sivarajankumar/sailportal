@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.offering;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -86,6 +87,22 @@ public interface RunService extends OfferingService {
     @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
     public List<Run> getRunList();
     
+	/**
+	 * Retrieves a list of <code>Run</code> that the specified user owns
+	 * 
+	 * @return <code>List</code> of <code>Run</code>
+	 */
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+    public List<Run> getRunListByOwner(User owner);
+    
+	/**
+	 * Retrieves a list of <code>Run</code> that the specified user is an shared-owner
+	 * 
+	 * @return <code>List</code> of <code>Run</code>
+	 */
+    @Secured( { "ROLE_USER", "AFTER_ACL_COLLECTION_READ" })
+	public List<Run> getRunListBySharedOwner(User user);
+
     /**
      * Retrieves a list of all <code>Runs</code>. Only
      * adminstrators may invoke this method.

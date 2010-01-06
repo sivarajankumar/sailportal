@@ -51,8 +51,9 @@
 				<li><a href="projects/telsprojectlibrary.html">TELS Projects</a></li>
 				<li><a href="" style="color:#999;">VISUAL Projects</a></li>
 				<li><a href="projects/projectlibrary.html">Search Project Library</a></li>
-				<li><a href="" style="color:#999;">My Bookmarked Projects</a></li>
-				<li><a href="../author/authorproject.html">My Custom-Authored & Shared Projects</a></li>
+				<li><a href="../teacher/projects/bookmarkedprojects.html">My Bookmarked Projects</a></li>
+				<li><a href="../teacher/projects/customized/index.html">My Custom-Authored & Shared Projects</a></li>
+				<li><a href="../author/authorproject.html">Launch Authoring Tool</a></li>
 
 		</ul>
 		</li>
