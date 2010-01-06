@@ -34,13 +34,11 @@
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
-<!-- 
-<ul id="tabnav2"  >
-<li> <a href="#">Current</a></li>
-<li> <a href="#">Archived</a></li>
-</ul>
- -->
+
+<%@ include file="../headerteacher.jsp"%>
+
+<div id="navigationSubHeader2">Manage my Project Runs<span id="navigationSubHeader1">management</span></div>
+
  <a href="../run/myprojectruns.html"><spring:message code="teacher.pro.runmanager.2"/></a>
  <h2><spring:message code="teacher.pro.runmanager.3"/></h2>
 <div id="overviewContent"> 

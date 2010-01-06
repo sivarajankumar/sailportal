@@ -19,33 +19,20 @@
 
 <!-- $Id: header.jsp 368 2007-05-05 01:41:18Z archana $ -->
 
-<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
-
-<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
-<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
-
-<script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
-    
-            </script>
-
 <div id="bannerArea2">
 
-    <div id="wiseLogo"><a href="../index.html" 
+	<div id="betaTag"><img src="/webapp/themes/tels/default/images/WISE-Logo-betatag.png" alt="Beta graphic" border="0" /></div>
+
+    <div id="wiseLogo"><a href="/webapp/index.html" 
     	onmouseout="MM_swapImgRestore()" 
-    	onmouseover="MM_swapImage('WISE Medium Logo','','../../themes/tels/default/images/WISE-Logo-Medium-Roll-1.png',1)">
-    	<img src="../../themes/tels/default/images/WISE-Logo-Medium-1.png" alt="WISE Logo" border="0" id="WISE Medium Logo" /></a>
+    	onmouseover="MM_swapImage('WISE Medium Logo','','/webapp/themes/tels/default/images/WISE-Logo-Medium-Roll-1.png',1)">
+    	<img src="/webapp/themes/tels/default/images/WISE-Logo-Medium-1.png" alt="WISE Logo" border="0" id="WISE Medium Logo" /></a>
     </div>
     
     <div style="display:none;" id="teacherBannerLabel"><a href="#" 
     	onmouseout="MM_swapImgRestore()" 
-    	onmouseover="MM_swapImage('Teacher Dashboard Label','','../../themes/tels/default/images/Teacher-Dashboard-Label.png',1)">
-    	<img src="../../themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" width="169" height="11" border="0" id="Teacher Dashboard Label" /></a>
+    	onmouseover="MM_swapImage('Teacher Dashboard Label','','/webapp/themes/tels/default/images/Teacher-Dashboard-Label.png',1)">
+    	<img src="/webapp/themes/tels/default/images/Teacher-Dashboard-Label.png" alt="Teacher Dashboard Label" width="169" height="11" border="0" id="Teacher Dashboard Label" /></a>
    </div>
 
     <div id="teacherInterfaceHeader">teacher dashboard</div>
@@ -55,25 +42,26 @@
 <ul class="sf-menu">
 			
 			<li class="current level1">
-					<a href="../../teacher/index.html" >Home</a>
+					<a href="/webapp/teacher/index.html" >Home</a>
 			</li>
 
 		<li class="level1"><a href="#">Projects</a>
 		<ul>
-				<li><a href="../../teacher/projects/index.html">Overview</a></li>
-				<li><a href="../../teacher/projects/telsprojectlibrary.html">TELS Projects</a></li>
+				<li><a href="/webapp/teacher/projects/index.html">Overview</a></li>
+				<li><a href="/webapp/teacher/projects/telsprojectlibrary.html">TELS Projects</a></li>
 				<li><a href="" style="color:#999;">VISUAL Projects</a></li>
-				<li><a href="../../teacher/projects/projectlibrary.html">Search Project Library</a></li>
-				<li><a href="" style="color:#999;">My Bookmarked Projects</a></li>
-				<li><a href="../../author/authorproject.html">My Custom-Authored & Shared Projects</a></li>
+				<li><a href="/webapp/teacher/projects/projectlibrary.html">Search Project Library</a></li>
+				<li><a href="/webapp/teacher/projects/bookmarkedprojects.html">My Bookmarked Projects</a></li>
+				<li><a href="/webapp/teacher/projects/customized/index.html">My Custom-Authored & Shared Projects</a></li>
+				<li><a href="/webapp/author/authorproject.html">Launch Authoring Tool</a></li>
 
 		</ul>
 		</li>
 
 		<li class="level1"><a href="#">Grading</a>
 		<ul>
-				<li><a href="../../teacher/grading/overview.html">Overview</a></li>
-				<li><a href="../grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
+				<li><a href="/webapp/teacher/grading/overview.html">Overview</a></li>
+				<li><a href="/webapp/teacher/grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
 				<li><a href="" style="color:#999;">Grade Work by Team</a></li>
 				<li><a href="" style="color:#999;">Edit Maximum Score Values for a Project Run</a></li>
 				<li><a href="" style="color:#999;">Review Student Score Summary</a></li>
@@ -85,21 +73,21 @@
 
 		<li class="level1"><a href="#">Management</a>
 	    <ul>
-            <li><a href="../../teacher/management/overview.html">Overview</a></li>
-            <li><a href="../run/myprojectruns.html">My Project Runs<br/>& Access Codes</a></li>
-            <li><a href="../management/projectPickerManagement.html">Manage Students</a></li>
+            <li><a href="/webapp/teacher/management/overview.html">Overview</a></li>
+            <li><a href="/webapp/teacher/run/myprojectruns.html">My Project Runs<br/>& Access Codes</a></li>
+            <li><a href="/webapp/teacher/management/projectPickerManagement.html">Manage Students</a></li>
             <li><a href="" style="color:#999;">View Student RealTime Progress Monitor</a></li>
             <li><a href="" style="color:#999;">Print/Export Student Work</a></li>
             <li><a href="" style="color:#999;">Manage Extra Teachers</a></li>
-            <li><a href="../management/updatemyaccount.html">Update My Account</a></li>
+            <li><a href="/webapp/teacher/management/updatemyaccount.html">Update My Account</a></li>
         </ul>
 		</li>
 
-		<li class="level1"><a href="../teacher/help/overview.html">Help</a> 
+		<li class="level1"><a href="#">Help</a> 
 		<ul>	
-            <li><a href="" style="color:#999;">Frequently Asked Questions</a></li>
-            <li><a href="" style="color:#999;">Search the Help Guide</a></li>
-            <li><a href="../../contactwisegeneral.html">Contact WISE Staff</a></li>
+            <li><a href="#" style="color:#999;">Frequently Asked Questions</a></li>
+            <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
+            <li><a href="/webapp/contactwisegeneral.html">Contact WISE Staff</a></li>
 		</ul>
 		</li>
 		</ul>

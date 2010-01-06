@@ -8,6 +8,7 @@
 <title>Contact WISE General Issues</title>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <%@ include file="teacher/grading/styles.jsp"%>
@@ -87,7 +88,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headermain_nousername.jsp"%>
+<%@ include file="headermain.jsp"%>
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 

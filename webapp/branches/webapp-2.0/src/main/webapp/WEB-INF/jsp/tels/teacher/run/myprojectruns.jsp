@@ -157,6 +157,20 @@ window.onload=resizeCaller
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="teacherrunstylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
 
 </head>
 
@@ -165,7 +179,7 @@ window.onload=resizeCaller
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div id="centeredDiv">
 
-<%@ include file="../headerteachersub.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
 <div id="navigationSubHeader2">My Project Runs & Access Codes<span id="navigationSubHeader1">management</span></div>
 
