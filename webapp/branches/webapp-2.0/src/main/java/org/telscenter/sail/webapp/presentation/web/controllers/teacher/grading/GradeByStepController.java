@@ -235,32 +235,46 @@ public class GradeByStepController extends AbstractController {
 	 */
 	private ModelAndView handlePostMaxScore(HttpServletRequest request,
 			HttpServletResponse response, Run run) {
-		
-		//get the nodeId
-		String nodeId = request.getParameter("nodeId");
-		
-		//get the new max score value
-		String maxScoreValue = request.getParameter("maxScoreValue");
-		
-		//parse the new max score value
-		int maxScore = Integer.parseInt(maxScoreValue);
-		
-		/*
-		 * the string that we will use to return the new max score JSON object
-		 * once we have successfully updated it on the server. this is so
-		 * that the client can retrieve confirmation that the new max
-		 * score has been saved and that it can then update its local copy.
-		 */
-		String maxScoreReturnJSON = "";
-		
-		//get the current run extras
-		String extras = run.getExtras();
 		try {
-			//create a JSONObject from the run extras
-			JSONObject jsonExtras = new JSONObject(extras);
+			//get the nodeId
+			String nodeId = request.getParameter("nodeId");
 			
-			//get the max scores from the extras
-			JSONArray maxScores = (JSONArray) jsonExtras.get("maxScores");
+			//get the new max score value
+			String maxScoreValue = request.getParameter("maxScoreValue");
+			
+			int maxScore = 0;
+			
+			//check if a max score value was provided
+			if(maxScoreValue != null && !maxScoreValue.equals("")) {
+				//parse the new max score value
+				maxScore = Integer.parseInt(maxScoreValue);	
+			}
+			
+			/*
+			 * the string that we will use to return the new max score JSON object
+			 * once we have successfully updated it on the server. this is so
+			 * that the client can retrieve confirmation that the new max
+			 * score has been saved and that it can then update its local copy.
+			 */
+			String maxScoreReturnJSON = "";
+			
+			//get the current run extras
+			String extras = run.getExtras();
+			
+			JSONObject jsonExtras;
+			JSONArray maxScores;
+			
+			//check if there are extras
+			if(extras == null || extras.equals("")) {
+				//there are no extras so we will have to create it
+				jsonExtras = new JSONObject("{'summary':'','contact':'','title':'','comptime':'','graderange':'','subject':'','techreqs':'','maxScores':[],'author':'','totaltime':''}");
+			} else {
+				//create a JSONObject from the run extras
+				jsonExtras = new JSONObject(extras);
+			}
+			
+			//get the maxScores from the extras
+			maxScores = (JSONArray) jsonExtras.get("maxScores");
 			
 			/*
 			 * value to remember if we have updated an existing entry or
@@ -280,13 +294,14 @@ public class GradeByStepController extends AbstractController {
 				if(nodeId.equals(maxScoreObjNodeId)) {
 					//it matches so we will update the score
 					maxScoreObj.put("maxScoreValue", maxScore);
-					maxScoreUpdated = true;
 					
 					/*
 					 * generate the json string for the updated max score entry
 					 * so we can send it back in the response
 					 */
 					maxScoreReturnJSON = maxScoreObj.toString();
+					
+					maxScoreUpdated = true;
 				}
 			}
 			
@@ -300,7 +315,9 @@ public class GradeByStepController extends AbstractController {
 				
 				//set the values
 				newMaxScore.put("nodeId", nodeId);
-				newMaxScore.put("maxScoreValue", maxScore);
+				
+				//set the max score
+				newMaxScore.put("maxScoreValue", maxScore);	
 				
 				/*
 				 * generate the json string for the updated max score entry
@@ -312,16 +329,16 @@ public class GradeByStepController extends AbstractController {
 				maxScores.put(newMaxScore);
 			}
 			
-			try {
-				//save the run extras back
-				runService.setExtras(run, jsonExtras.toString());
-				
-				//send the new max score entry back to the client
-				response.getWriter().print(maxScoreReturnJSON);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			//save the run extras back
+			runService.setExtras(run, jsonExtras.toString());
+			
+			//send the new max score entry back to the client
+			response.getWriter().print(maxScoreReturnJSON);
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
