@@ -30,7 +30,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.UserService;
 
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -45,6 +49,8 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class ProjectPickerClassMonitorController extends AbstractController {
 
 	private RunService runService;
+
+	private UserService userService;
 
 	private static final String VIEW_NAME = "teacher/management/projectpickerclassmonitor";
 
@@ -64,7 +70,9 @@ public class ProjectPickerClassMonitorController extends AbstractController {
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
  
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
 		List<Run> runList = this.runService.getRunList();
 		// this is a temporary solution to filtering out runs that the logged-in user owns.
 		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
@@ -97,5 +105,11 @@ public class ProjectPickerClassMonitorController extends AbstractController {
 		this.runService = runService;
 	}
 
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 }

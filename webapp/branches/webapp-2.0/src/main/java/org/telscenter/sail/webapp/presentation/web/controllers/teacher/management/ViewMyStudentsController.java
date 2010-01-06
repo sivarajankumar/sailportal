@@ -29,9 +29,13 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.*;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -61,6 +65,8 @@ public class ViewMyStudentsController extends AbstractController{
 	protected static final String FALSE = "FALSE";
 
 	private RunService runService;
+
+	private UserService userService;
 
 	private WorkgroupService workgroupService;
 
@@ -105,7 +111,10 @@ public class ViewMyStudentsController extends AbstractController{
     	ModelAndView modelAndView = new ModelAndView();
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		//User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
 		List<Run> runList = this.runService.getRunList();
 		// this is a temporary solution to filtering out runs that the logged-in user owns.
 		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
@@ -220,4 +229,12 @@ public class ViewMyStudentsController extends AbstractController{
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
+	
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 }

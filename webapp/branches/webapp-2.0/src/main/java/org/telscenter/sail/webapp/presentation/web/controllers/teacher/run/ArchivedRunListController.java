@@ -34,9 +34,13 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -52,6 +56,8 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class ArchivedRunListController extends AbstractController {
 	
 	private RunService runService;
+	
+	private UserService userService;
 
 	private WorkgroupService workgroupService;
 
@@ -81,7 +87,10 @@ public class ArchivedRunListController extends AbstractController {
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
-		User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		//User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
 		List<Run> runList = this.runService.getRunList();
 		List<Run> current_run_list = new ArrayList<Run>();
 		List<Run> ended_run_list = new ArrayList<Run>();
@@ -123,6 +132,12 @@ public class ArchivedRunListController extends AbstractController {
 	@Required
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**

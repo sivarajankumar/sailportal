@@ -485,12 +485,14 @@ function changePublic(id){
 			<c:forEach var="project" items="${ownedProjectsList}">
 				<tr id="customProjectR2">
 					<td class="customProjectTitle">${project.name}
+					<c:if test="${fn:length(project.sharedowners) > 0}">
 					<br>
 					This project is shared with:<br>
 					<c:forEach var="sharedowner" items="${project.sharedowners}">
 					  <c:out value="${sharedowner.userDetails.firstname}"/>
 					  <c:out value="${sharedowner.userDetails.lastname}"/><br>
 					</c:forEach>
+					</c:if>
 					</td>
 					<td class="dataText">${project.metadata.subject}</td>
 					<td class="dataText">${project.id}</td>

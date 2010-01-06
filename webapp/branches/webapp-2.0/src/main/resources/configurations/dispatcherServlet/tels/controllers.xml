@@ -390,6 +390,7 @@
 	<bean id="myArchivedRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunListController">
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -451,6 +452,7 @@
 	<bean id="projectPickerClassMonitorController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ProjectPickerClassMonitorController">
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService" />
 	</bean>
 	
 	<bean id="projectPickerGradingController"
@@ -661,6 +663,7 @@
 	<bean id="viewMyStudentsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ViewMyStudentsController">
 		<property name="runService" ref="runService" />
+		<property name="userService" ref="userService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
@@ -735,6 +738,7 @@
  	<bean id="customizedIndexController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.CustomizedIndexController">
         <property name="projectService" ref="projectService" />
+        <property name="userService" ref="userService" />
     </bean>
     
 	<bean id="shareProjectController"
