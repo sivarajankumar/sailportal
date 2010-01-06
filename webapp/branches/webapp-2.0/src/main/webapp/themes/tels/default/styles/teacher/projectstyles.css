@@ -178,7 +178,7 @@ img#none{
 	display:block;
 	padding:6px 0px 6px 15px;
 	margin:0px;
-	background-color:#FFFF33;
+	background-color:#FFFF00;
 	background-image:none;
 	border-top: 1px solid #999999;
 	border-right: 1px solid #000000;
@@ -251,10 +251,6 @@ img#none{
 
 /* STYLES FOR PROJECT LIBRARY PAGES */
 	
-#libraryHeader {
-
-}
-
 #libraryHeader a {
 	color:blue;
 	padding:1px 3px;
@@ -293,14 +289,13 @@ img#none{
 
 .searchContainer {
 	text-align:center;
-	margin-top:15px;
-	background-position: top;
-	background-repeat:repeat-x;
+	margin:15px 0 10px 0;  
 	border: 1px solid #999;  
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
-	min-height:172px; 
+	min-height:130px; 
+	border-bottom:1px solid #333;
 	 		
 }
 
@@ -322,7 +317,7 @@ img#none{
 	}
 
 .topicLinks {
-	margin:0 auto 8px auto;
+	margin:0 auto 0px auto;
 }
 
 .topicLinks li {
@@ -341,7 +336,7 @@ img#none{
 }
 
 .topicLinks a:hover {
-	background:#fffFcc;
+	background:#fffF00;
 	border:1px solid #666;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -354,10 +349,44 @@ img#none{
 	text-align:left;
 	padding:10px;
 	width:700px;
-	min-height:100px;
+	min-height:50px;
 	border:1px solid #999;
 }
 
+#topicDisplayContainer .topicHeader{
+	font-weight:bold;
+	margin: 0 0 10px 0;
+	}
+	
+#topicDisplayContainer img{
+	margin: 0 15px 0 0 ;
+	}
+	
+#topicDisplayContainer p{
+	font-weight:bold;
+	margin: 10px 0;
+	}
+
+#topicDisplayContainer a{
+	text-decoration:none;
+	color:black;
+	margin:0;
+	font-size:.7em;
+	font-weight:bold;
+	border:1px solid #666;
+	padding:3px 5px;
+	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	}
+	
+#topicDisplayContainer a:hover{
+	background-image:none;
+	background-color:#FFFF00; 
+	}
+	
 #searchInstructions {
 	text-align:left;
 	font-size:.75em;
@@ -365,17 +394,70 @@ img#none{
 	margin:5px 0 10px 10px;
 }
 
-
 #projectOverviewSearchContainer { 
 	margin:0 5px 0 8px;
 }
 
 #projectOverviewSearchContainer #projectOverviewTable {
 	border-bottom:1px solid #333;
-
 }
-	
 
+#searchCategoryButton, #searchKeywordButton {
+	text-align:right;
+	padding: 0 10px 15px 0;
+}
+
+#projectOverviewSearchContainer input, #searchKeywordButton input[type=submit]  {
+	margin:0;
+	font-size:.7em;
+	font-weight:bold;
+	border:1px solid #666;
+	padding:3px 5px;
+	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	    }	
+
+#projectOverviewSearchContainer input:hover, #searchKeywordButton input[type=submit]:hover {
+	background-image:none;
+	background-color:#FFFF00; 
+	    }	
+
+#searchKeywordButton {
+	margin-top:15px;
+	margin-right:5px;
+}
+
+#searchKeywordButton input[type=text] {
+	margin-right:15px;
+	padding:4px;
+	font-weight:bold;
+	font-size:.8em;
+	color:#003300;
+	border:1px solid #666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+}
+
+#searchKeywordButton input[type=text]:hover {
+	background-color:#FFFF00;
+}
+
+#searchTypeDiv {
+	float:left;
+	margin:4px 0 0 75px;
+	font-size:.75em;
+	text-align:left;
+	vertical-align:top;
+}
+
+#searchTypeDiv input {
+	vertical-align:middle;
+}
+
+	
 
 /* STYLES FOR PROJECT OVERVIEW section */
 
@@ -433,7 +515,7 @@ img#none{
 #projectInfoActionButtons td a:hover{
 	display:block;
 	background-image: none;
-	background-color:#FFFF66;	
+	background-color:#FFFF00;	
 	    }	  
 	  
 #editInfoLink {
@@ -447,7 +529,7 @@ img#none{
 	}
 	
 #editInfoLink a:hover {
-	background-color:#FFFF66;	
+	background-color:#FFFF00;	
 	color:#000099;	
 	}
 		 
@@ -587,7 +669,7 @@ img#none{
 #customProjectsButtons td a:hover{
 	display:block;
 	background-image: none;
-	background-color:#FFFF66;	
+	background-color:#FFFF00;	
 	    }
 	    
 #customProjectTable {
@@ -663,7 +745,7 @@ img#none{
 	font-size:0.8em;
 	color:#000066;
 	padding:2px;
-	background-color:#ffff33;
+	background-color:#ffff00;
 	letter-spacing:-.2px;
 	border:1px solid gray;
 	}

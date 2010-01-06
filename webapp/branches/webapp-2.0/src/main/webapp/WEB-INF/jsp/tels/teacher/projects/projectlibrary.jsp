@@ -113,7 +113,7 @@
 
 <%@ include file="../headerteachersub.jsp"%> 
 
-<div id="navigationSubHeader2">Project Library<span id="navigationSubHeader1">projects</span></div>
+<div id="navigationSubHeader2">Search the Project Library<span id="navigationSubHeader1">projects</span></div> 
  
 <div class="searchContainer">
 	<div class="header">Browse by Topic</div>
@@ -129,51 +129,67 @@
 	</ul>
 
 	<ul class="topicLinks">
-			<li><a style="text-decoration:line-through;" href="#" onclick="javascript:projectTopic1();">Topic X</a></li>
-			<li><a style="text-decoration:line-through;" href="#" onclick="javascript:projectTopic2();">Topic Y</a></li>
-			<li><a style="text-decoration:line-through;" href="#" onclick="javascript:projectTopic3();">Topic Z</a></li>
+			<li><a href="#" onclick="javascript:projectTopic7();">TELS Projects</a></li>
+			<li><a style="text-decoration:line-through;" href="#" onclick="">VISUAL Projects</a></li>
+			<li><a style="text-decoration:line-through;" href="#" onclick="">Scientific Controversy</a></li>
+			<li><a style="text-decoration:line-through;" href="#" onclick="">Earthquakes</a></li>
+			<li><a style="text-decoration:line-through;" href="#" onclick="">Health</a></li>
 	</ul>
 
 	<div id="topicDisplayContainer">
 
 		<div id="lifescience" style="display: none;">
 			<div class="topicHeader">LIFE SCIENCE</div>
-			<p>Images here.</p><br/>
+			<div class="topicImages">	
+				<img src="../../themes/tels/default/images/teacher/topic_photo.jpg" height="100" alt="Photosynthesis graphic" />
+				<img src="../../themes/tels/default/images/teacher/topic_mitosis.jpg" height="100" alt="Mitosis graphic" />
+				<img src="../../themes/tels/default/images/teacher/topic_inheritance.jpg" height="100" alt="Inheritance graphic" />
+			</div>
 			<p>Life science projects for grades 6-8 currently include Photosynthesis, Mitosis & Cell Proceses, Simple Inheritance, and more.</p>
-			<p><a href='' target='_blank'>View Project Overviews</a></p>
+			<a href='' target='_blank'>Browse Topic</a>
 		</div>
 
 		<div id="physicalscience" style="display: none;">
 			<div class="topicHeader">PHYSICAL SCIENCE</div>
-			<p>Images here.</p><br/>
+			<div class="topicImages">	
+				<img src="../../themes/tels/default/images/teacher/topic_photo.jpg" height="100" alt="Photosynthesis graphic" />
+				<img src="../../themes/tels/default/images/teacher/topic_mitosis.jpg" height="100" alt="Mitosis graphic" />
+				<img src="../../themes/tels/default/images/teacher/topic_inheritance.jpg" height="100" alt="Inheritance graphic" />
+			</div>
 			<p>Life science projects for grades 6-8 currently include Motion and Velocity, Introductory Chemistry, Heat & Temperature, The Moon, and more.</p>
-			<p><a href='' target='_blank'>View Project Overviews</a></p>
+			<a href='' target='_blank'>Browse Topic</a>
 		</div>
 
 		<div id="earthscience" style="display: none;">
 			<div class="topicHeader">EARTH SCIENCE</div>
 			<p>Images here.</p><br/>
 			<p>Earth science projects for grades 6-8 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
-			<p><a href='' target='_blank'>View Project Overviews</a></p>
+			<a href='' target='_blank'>Browse Topic</a>
 		</div>
 
 		<div id="biology" style="display: none;">
-			<div class="topicHeader">CHEMISTRY</div>
+			<div class="topicHeader">BIOLOGY</div>
 			<p>Images here.</p><br/>
-			<p>Chemistry projects for grades 9-12 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
-			<p><a href='' target='_blank'>View Project Overviews</a></p>
+			<p>Biology projects for grades 9-12 currently include X,Y, and Z.</p>
+			<a href='' target='_blank'>Browse Topic</a>
 		</div>
 		<div id="chemistry" style="display: none;">
 			<div class="topicHeader">CHEMISTRY</div>
 			<p>Images here.</p><br/>
-			<p>Chemistry projects for grades 9-12 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
-			<p><a href='' target='_blank'>View Project Overviews</a></p>
+			<p>Chemistry projects for grades 9-12 currently include X, Y, and Z.</p>
+			<a href='' target='_blank'>Browse Topic</a>
 		</div>
 		<div id="physics" style="display: none;">
-			<div class="topicHeader">CHEMISTRY</div>
+			<div class="topicHeader">PHYSICS</div>
 			<p>Images here.</p><br/>
-			<p>Chemistry projects for grades 9-12 currently include Plate Tectonics, Global Warming, Rock Cycle, Ocean Ecosystems, and more.</p>
-			<p><a href='' target='_blank'>View Project Overviews</a></p>
+			<p>Physics projects for grades 9-12 currently include A, B, C, and D.</p>
+			<a href='' target='_blank'>Browse Topic</a>
+		</div>
+		<div id="tels" style="display: none;">
+			<div class="topicHeader">TELS: Technology Enhanced Learning in Science</div>
+			<p>Images here.</p><br/>
+			<p>The projects in this family have been developed for the Technology Enhanced Learning in Science Center. Since these projects include new technologies it is important to review a project on the computers the students will be using prior to an actual classroom run. Several additional projects are under development and will be added to this family in the near future.</p>
+			<a href='' target='_blank'>Browse Topic</a>
 		</div>
 	</div>
 
@@ -207,10 +223,12 @@
 						</td>
 						<td class="dataCell">
 							<select name="searchSubject">
-							<option id='subjectAllBiology' path='subject' value='subjectBio'>Biology</option>
-							<option id='subjectAllChemistry' path='subject' value='subjectChemistry'>Chemistry</option>
-							<option id='subjectAllPhysics' path='subject' value='subjectPhysics'>Physics</option>
-							<option id='subjectAllEarthScience' path='subject' value='subjectEarth'>Earth Science</option>
+							<option id='subjectLife' path='subject' value='subjectLife'>Life Science</option>
+							<option id='subjectPhysical' path='subject' value='subjectPhysical'>Physical Science</option>
+							<option id='subjectEarth' path='subject' value='subjectEarth'>Earth Science</option>
+							<option id='subjectBiology' path='subject' value='subjectBiology'>Biology</option>
+							<option id='subjectChemistry' path='subject' value='subjectChemistry'>Chemistry</option>
+							<option id='subjectPhysics' path='subject' value='subjectPhysics'>Physics</option>
 							<option selected id='subjectAll' path='subject' value='subjectAll'>All</option>
 							</select>
 						</td>
@@ -267,21 +285,32 @@
 
 				</tr>
 		</table>
-		<input type='submit' value='Search by Category'/>
+		<div id="searchCategoryButton">
+			<input type='submit' value='Search by Category'/>
+		</div>
 		</form:form>
 		</div>
 </div>
 
 <div class="searchContainer">
 	<div class="header">Search by Keyword</div>
-	<div id='searchInstructions'>Type one or more keywords to search for matching projects.  Keywords can be from Project Name, Project ID (5 digits), Topic, or words within a Project Summary.  Click <i>Search By Keyword</i> to find matching projects.</div>
-	<form name="myform" action="http://www.mydomain.com/myformhandler.cgi" method="POST">
-		<input type="text" size="25" value="Enter your name here!"> <br>
-		<input type="submit" value="Send me your name!"><br>
+	<div id='searchInstructions'>Type one or more words into the search field below. Then click <i>Search By Keyword</i> to find matching projects.</div>
+	<form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
+		<div id='searchTypeDiv'>
+						<b>Search should:</b>  
+						<INPUT type="radio"  id='exactRadio' path='searchtype' value='matches'/>Match text exactly
+						<INPUT type="radio"  id='containsRadio' path='searchtype' value='contains'/>Contain text
+					</div>
+		<div id="searchKeywordButton">
+			<input type="text" size="45" value=""> 
+			<input type="submit" value="Search by Keyword"><br>
+		</div>
+
 	</form>
 </div>
 
-<div>
+<!--Old search form.  Commented out but left for reference.  (MF)-->
+<!--<div>
 	<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
 	<table id='searchTable'>
 		<thead></thead>
@@ -306,9 +335,9 @@
 				</td>
 				<td id='searchTypeTD'>
 					<div id='searchTypeDiv'>
-						Search should: <br/>
-						<form:radiobutton id='exactRadio' path='searchtype' value='matches'/> Match text exactly<br/>
-						<form:radiobutton id='containsRadio' path='searchtype' value='contains'/> Contain text<br/>
+						Search should: 
+						<form:radiobutton id='exactRadio' path='searchtype' value='matches'/> Match text exactly
+						<form:radiobutton id='containsRadio' path='searchtype' value='contains'/> Contain text
 					</div>
 				</td>
 			</tr>
@@ -391,6 +420,7 @@
 	
 </c:forEach>	
 <script>bookmarked();</script>
-</div>
+
+--></div>
 </body>
 </html>

@@ -1284,6 +1284,9 @@ function projectTopic1() {
 	
 	var pt6 = document.getElementById('physics');
 	pt6.style.display = 'none';
+
+	var pt7 = document.getElementById('tels');
+	pt7.style.display = 'none';
 	
 	/*Effect.toggle('biology_ms','slide');*/
 	document.getElementById('lifescience').style.display = "block";
@@ -1305,8 +1308,129 @@ function projectTopic2() {
 	
 	var pt6 = document.getElementById('physics');
 	pt6.style.display = 'none';
+
+	var pt7 = document.getElementById('tels');
+	pt7.style.display = 'none';
 	
-	/*Effect.toggle('biology_ms','slide');   Commented out because of conflict tween Scriptalicious selector and jQuery selector style in nav-menus */
+	/*Effect.toggle('biology_ms','slide');*/
 	document.getElementById('physicalscience').style.display = "block";
 }
 
+function projectTopic3() {  
+
+	var pt1 = document.getElementById('lifescience');
+	pt1.style.display = 'none';
+	
+	var pt2 = document.getElementById('physicalscience');
+	pt2.style.display = 'none';
+	
+	var pt4 = document.getElementById('biology');
+	pt4.style.display = 'none';
+	
+	var pt5 = document.getElementById('chemistry');
+	pt5.style.display = 'none';
+	
+	var pt6 = document.getElementById('physics');
+	pt6.style.display = 'none';
+
+	var pt7 = document.getElementById('tels');
+	pt7.style.display = 'none';
+	
+	/*Effect.toggle('biology_ms','slide');*/
+	document.getElementById('earthscience').style.display = "block";
+}
+
+function projectTopic4() {  
+
+	var pt1 = document.getElementById('lifescience');
+	pt1.style.display = 'none';
+	
+	var pt2 = document.getElementById('physicalscience');
+	pt2.style.display = 'none';
+	
+	var pt3 = document.getElementById('earthscience');
+	pt3.style.display = 'none';
+	
+	var pt5 = document.getElementById('chemistry');
+	pt5.style.display = 'none';
+	
+	var pt6 = document.getElementById('physics');
+	pt6.style.display = 'none';
+
+	var pt7 = document.getElementById('tels');
+	pt7.style.display = 'none';
+	
+	/*Effect.toggle('biology_ms','slide');*/
+	document.getElementById('biology').style.display = "block";
+}
+
+function projectTopic5() {  
+	var pt1 = document.getElementById('lifescience');
+	pt1.style.display = 'none';
+	
+	var pt2 = document.getElementById('physicalscience');
+	pt2.style.display = 'none';
+	
+	var pt3 = document.getElementById('earthscience');
+	pt3.style.display = 'none';
+	
+	var pt4 = document.getElementById('biology');
+	pt4.style.display = 'none';
+	
+	var pt6 = document.getElementById('physics');
+	pt6.style.display = 'none';
+
+	var pt7 = document.getElementById('tels');
+	pt7.style.display = 'none';
+	
+	/*Effect.toggle('biology_ms','slide');*/
+	document.getElementById('chemistry').style.display = "block";
+}
+
+function projectTopic6() {  
+
+	var pt1 = document.getElementById('lifescience');
+	pt1.style.display = 'none';
+	
+	var pt2 = document.getElementById('physicalscience');
+	pt2.style.display = 'none';
+	
+	var pt3 = document.getElementById('earthscience');
+	pt3.style.display = 'none';
+	
+	var pt4 = document.getElementById('biology');
+	pt4.style.display = 'none';
+	
+	var pt5 = document.getElementById('chemistry');
+	pt5.style.display = 'none';
+	
+	var pt7 = document.getElementById('tels');
+	pt7.style.display = 'none';
+	
+	/*Effect.toggle('biology_ms','slide');*/
+	document.getElementById('physics').style.display = "block";
+}
+
+function projectTopic7() {  
+
+	var pt1 = document.getElementById('lifescience');
+	pt1.style.display = 'none';
+	
+	var pt2 = document.getElementById('physicalscience');
+	pt2.style.display = 'none';
+	
+	var pt3 = document.getElementById('earthscience');
+	pt3.style.display = 'none';
+	
+	var pt4 = document.getElementById('biology');
+	pt4.style.display = 'none';
+	
+	var pt5 = document.getElementById('chemistry');
+	pt5.style.display = 'none';
+	
+	var pt6 = document.getElementById('physics');
+	pt6.style.display = 'none';
+
+	/*Effect.toggle('biology_ms','slide');*/
+	document.getElementById('tels').style.display = "block";
+}
