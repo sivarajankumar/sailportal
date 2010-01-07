@@ -32,16 +32,56 @@
 <script type="text/javascript" src="../../.././javascript/tels/general.js"></script>
  
 <title><spring:message code="teacher.pro.custom.sharepro.1"/></title>
+<script type="text/javascript">
+//extend Array prototype
+Array.prototype.contains = function(obj) {
+	  var i = this.length;
+	  while (i--) {
+	    if (this[i] === obj) {
+	      return true;
+	    }
+	  }
+	  return false;
+}
 
+var teacherUsernamesString = "${teacher_usernames}";
+var teacherUsernames = teacherUsernamesString.split(":");
+teacherUsernames = teacherUsernames.sort();
+
+// updates the search input box with the specified text
+function updateInputBox(text) {
+	document.getElementById("sharedOwnerUsernameInput").value=text;
+}
+function autocomplete(username) {
+	var matchedUsernameUL = document.getElementById("matchedUsernames");
+	matchedUsernameUL.innerHTML = "";
+	if (username.length > 0) {
+		var resultArray = findStringsContaining(username, teacherUsernames);
+		for (k=0; k < resultArray.length; k++) {
+			var matchedUsernameLI = document.createElement("<li>");
+			matchedUsernameLI.innerHTML = "<a onclick='updateInputBox(\""+resultArray[k]+"\")'>" + resultArray[k] + "</a>";
+			matchedUsernameUL.appendChild(matchedUsernameLI);
+		}
+	}
+}
+
+
+// returns an array of strings that contain what
+function findStringsContaining(what, all_array) {
+	var resultArray = new Array();
+	for (i=0; i < all_array.length; i++) {
+		if (all_array[i].toLowerCase().indexOf(what.toLowerCase()) > -1) {
+			resultArray.push(all_array[i]);
+		}
+	}	
+	return resultArray;
+}
+</script>
 </head>
 
 <body>
 
 <div id="centeredDiv">
-
-<%@ include file="headerteacherprojects.jsp"%>
-
-<%@ include file="L2projects_projectlibrary.jsp"%>
 
 <div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE. -->
 
@@ -105,25 +145,23 @@
 					<form:hidden path="sharedOwnerUsername" />
 					<tr>
 						<td>${sharedowner.userDetails.username}</td>
-						<td align="left">
+						<td align="left">		
+						<form:radiobutton path="permission"
+							onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" />Can Run the project<br />
+						<form:radiobutton path="permission"
+							onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" />Can Run + Edit the project<br />
 						<sec:authorize ifAllGranted="ROLE_USER">
 						   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 							<form:radiobutton path="permission"
-								onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can View + Edit + Share the project<br />
+								onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />
 							</sec:authorize>
 						   <sec:authorize ifNotGranted="ROLE_ADMINISTRATOR">
 								<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
 							        <form:radiobutton path="permission"
-								        onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can View + Edit + Share the project<br />								
+								        onclick="javscript:this.form.submit();" value="ROLE_SHARE_PROJECT" />Can Run + Edit + Share the project<br />								
 								</sec:accesscontrollist>					
 							</sec:authorize>							
-					    </sec:authorize>				
-						<form:radiobutton path="permission"
-							onclick="javscript:this.form.submit();" value="ROLE_READ_PROJECT" /><spring:message
-							code="teacher.pro.custom.sharepro.8" /><br />
-						<form:radiobutton path="permission"
-							onclick="javscript:this.form.submit();" value="ROLE_WRITE_PROJECT" /><spring:message
-							code="teacher.pro.custom.sharepro.9" />
+					    </sec:authorize>									
 						</td>
 						<td><!-- <a href='#' onclick="return confirm('Proceed with removing this shared teacher?');">Remove this User</a> -->
 						<a href='#'
@@ -139,9 +177,11 @@
 		<td id="sharingSearchBox" colspan=2>
 			<div id="sharingSearchBoxHelp"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
 				<form:form method="post" commandName="addSharedTeacherParameters">
-					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>
+					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="25"/>
 					<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
 				</form:form>
+				<ul id="matchedUsernames">
+				</ul>
 		</td>
 	</tr>
 

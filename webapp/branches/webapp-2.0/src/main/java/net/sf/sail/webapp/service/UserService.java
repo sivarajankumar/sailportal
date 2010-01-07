@@ -73,6 +73,15 @@ public interface UserService {
 	public User retrieveUserByUsername(String username);
 
 	/**
+	 * Retrieve users with a similar username as the one provided
+	 * Does a LIKE comparison
+	 * 
+	 * @param username
+	 * @return <code>User</code> associated with the given username
+	 */
+	public List<User> retrieveUsersByUsername(String username);
+
+	/**
 	 * Retrieve users with the given emailAddress
 	 * 
 	 * @param emailAddress

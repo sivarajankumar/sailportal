@@ -133,6 +133,15 @@ public class UserServiceImpl implements UserService {
 	public User retrieveUserByUsername(String username) {
 		return this.userDao.retrieveByUsername(username);
 	}
+	
+	/**
+	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByUsername(java.lang.String)
+	 */
+	@Transactional(readOnly = true)
+	public List<User> retrieveUsersByUsername(String username) {
+		return retrieveByField("username", "like", username, "UserDetails");
+	}
+
 
 	/**
 	 * @see net.sf.sail.webapp.service.UserService#retrieveUserByEmailAddress(java.lang.String)
