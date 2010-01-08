@@ -84,17 +84,46 @@ public class TelsSimpleMappingExceptionResolver extends
 				String subject = HANDLE_EXCEPTION_MAIL_SUBJECT + ": (" + portal.getPortalName() + ")";
 				String fromEmail = HANDLE_EXCEPTION_FROM_EMAIL;
 				String message = getHandleExceptionMessage(request, response, handler, exception);
-				try {
-					javaMail.postMail(recipients, subject, message, fromEmail);
-				} catch (MessagingException e) {
-					e.printStackTrace();
-				}
+
+				ExceptionEmailSender emailSender = 
+					new ExceptionEmailSender(recipients,subject,fromEmail,message);
+				Thread thread = new Thread(emailSender);
+				thread.start();
 			}
 			return super.resolveException(request, response, handler, exception);
 		} catch (ObjectNotFoundException e1) {
 			e1.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * Sends exception email in a new thread.
+	 * @author hirokiterashima
+	 * @version $Id:$
+	 */
+	class ExceptionEmailSender implements Runnable {
+		String[] recipients;
+		String subject;
+		String fromEmail;
+		String message;
+
+		public ExceptionEmailSender(String[] recipients, String subject,
+				String fromEmail, String message) {
+			this.recipients = recipients;
+			this.subject = subject;
+			this.fromEmail = fromEmail;
+			this.message = message;
+		}
+
+		public void run() {
+			try {
+				javaMail.postMail(recipients, subject, message, fromEmail);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	/**
