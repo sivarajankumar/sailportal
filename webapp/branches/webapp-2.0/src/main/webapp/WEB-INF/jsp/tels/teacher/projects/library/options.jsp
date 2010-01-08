@@ -33,7 +33,9 @@
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
+
+<%@ include file="../../headerteacher.jsp"%>
+
 <div id="projectoptions">
    <SELECT NAME="projectnames">
 	<option selected> Library Projects [default] </option>

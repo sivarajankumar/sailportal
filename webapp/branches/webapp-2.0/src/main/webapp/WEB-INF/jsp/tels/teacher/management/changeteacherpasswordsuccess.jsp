@@ -40,9 +40,8 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="L2management_updatemyaccount.jsp"%>
  
 <div id="overviewContent"> 
 

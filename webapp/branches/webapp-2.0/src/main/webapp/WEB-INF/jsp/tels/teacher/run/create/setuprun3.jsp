@@ -52,6 +52,21 @@ if(form.manualCheckbox.checked==true){
 
 <title><spring:message code="teacher.setup-project-run-step-three" /></title>
 
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 </head>
 
 <!-- Support for Spring errors object -->
@@ -73,7 +88,7 @@ if(form.manualCheckbox.checked==true){
 
 <div id="centeredDiv">
 
-<%@ include file="../../headerteachersub.jsp"%> 
+<%@ include file="../../headerteacher.jsp"%> 
 
 <div id="navigationSubHeader2">Project Run Setup<span id="navigationSubHeader1">projects</span></div> 
 

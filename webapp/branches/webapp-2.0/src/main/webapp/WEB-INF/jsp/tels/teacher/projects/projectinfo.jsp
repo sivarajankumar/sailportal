@@ -30,6 +30,21 @@
 
 <script type="text/javascript" src="../.././javascript/tels/general.js"></script>
 
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 <title><spring:message code="teacher.pro.projinfo.1"/></title>
 
 </head>
@@ -38,7 +53,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="../headerteachersub.jsp"%> 
+<%@ include file="../headerteacher.jsp"%> 
 
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.projinfo.1"/></h2> 
 

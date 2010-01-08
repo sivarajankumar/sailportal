@@ -30,12 +30,26 @@
 	pageManager = new PageManager('${brainstorm.id}', '${workgroup.id}', sortCriteria, sortOrder, '${brainstorm.questiontype}');
 </script>
 
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 </head>
 <body  style="background-color:#FFFFFF;" onload="javascript:hideallanswers('${brainstorm.id}', false);">
 
 <div id="centeredDiv">
 
-<%@ include file="../../headerteachersub.jsp"%> 
+<%@ include file="../../headerteacher.jsp"%> 
 
 <div id="navigationSubHeader2">Brainstorm Management<span id="navigationSubHeader1">management</span></div> 
 

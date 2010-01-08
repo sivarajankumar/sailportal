@@ -33,8 +33,6 @@
 </head>
 
 <body>
-<%@ include file="helpHeader.jsp"%>
-<br />
 
 <div id="overviewContent">
 <h3>New Users </h3>

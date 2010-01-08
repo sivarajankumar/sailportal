@@ -83,9 +83,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
-
-<%@ include file="L2grading_bystep.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
 <div id="gradeStepSelectionArea">
 

@@ -34,7 +34,9 @@
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
+
+<%@ include file="../headerteacher.jsp"%>
+
  <a href="runmanager.html"> Back to Project Run Manager </a>
  <h2>STUDENT MESSAGE </h2>
 

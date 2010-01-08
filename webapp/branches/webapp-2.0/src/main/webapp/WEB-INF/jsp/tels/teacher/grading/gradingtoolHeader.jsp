@@ -25,5 +25,5 @@
 <!-- $Id: projectHeader.jsp 1011 2007-09-05 20:01:48Z archana $ -->
 
 
-<%@ include file="../../logout.jsp"%> 
+<%@ include file="../logout.jsp"%> 
    

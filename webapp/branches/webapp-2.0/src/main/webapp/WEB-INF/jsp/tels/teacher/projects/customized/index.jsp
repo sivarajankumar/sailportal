@@ -448,7 +448,7 @@ function changePublic(id){
 
 <%@ include file="../../headerteacher.jsp"%> 
 
-<div id="navigationSubHeader2">My Custom-Authored and Shared Projects<span id="navigationSubHeader1">projects</span></div> 
+<div id="navigationSubHeader2">My Custom-Authored &amp; Shared Projects<span id="navigationSubHeader1">projects</span></div> 
 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
@@ -476,6 +476,67 @@ function changePublic(id){
 		<td><a href='/webapp/author/authorproject.html?command=launchAuthoring'><spring:message code='teacher.pro.custom.index.29'/></a></td>
 	</tr>
 </table>
+
+<table id="projectOverviewTable">
+		<tr id="row1">
+		<td id="titleCell" colspan="3"><a href="projectinfo.html?projectId=${project.id}">${project.name}</a></td>
+		<td class="actions" colspan="6"> 
+				<ul>
+					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
+					<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
+					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
+					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Create copy in <i>My Custom-Authored</i></a></li>
+					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
+				</ul>
+		</tr>
+		<tr id="row2">
+			<th id="title1" style="width:60px;">Project ID</th>
+			<th id="title1" style="width:90px;">Project Family</th>
+			<th id="title2" style="width:292px;" >Subject(s)</th>
+			<th id="title3" style="width:100px;">Grades</th>
+			<th id="title4" style="width:110px;">Total Time (hrs)</th>
+			<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+			<th id="title6" style="width:92px;">Language</th>
+			<th id="title7" style="width:90px;">Usage</th>
+		</tr>
+		<tr id="row3">
+			<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+			<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+			<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+			<td class="dataCell">${project.metadata.gradeRange}</td>              
+			<td class="dataCell">${project.metadata.totalTime}</td>              
+			<td class="dataCell">${project.metadata.compTime}</td> 
+			<td class="dataCell">[English]</td> 
+			<td class="dataCell">${usageMap[project.id]} runs</td>
+
+		</tr>
+		<tr id="row4">  
+			<td colspan="8">
+				<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
+				<div id="details" style="display:none;">
+					<table id="detailsTable">
+						<tr>
+							<th>Summary:</th>
+							<td class="summary">Consequat tincidunt veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat 
+t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat consequat accumsan te illum eum.</td>
+						</tr>
+						<tr>
+							<th>Keywords:</th>
+							<td class="keywords">[List of comma-separated keywords go here]</td>
+						</tr>
+<tr>
+							<th>Original Author:</th>
+							<td>[Name goes here]</td>
+						</tr>
+						<tr>
+							<th>Tech Needs:</th>
+							<td>[Tech Requirements go here]</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
 
 <table id="customProjectTable" border="1" cellpadding="0"
 	cellspacing="0">

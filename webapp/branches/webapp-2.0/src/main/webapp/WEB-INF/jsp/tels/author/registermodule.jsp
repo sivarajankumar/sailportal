@@ -41,7 +41,7 @@ addEvent(window, 'load', onLoadHandler);
 
 <body>
 
-<%@ include file="../headermain.jsp"%>
+<%@ include file="../teacher/headerteacher.jsp"%>
 
 <c:forEach var="error" items="${status.errorMessages}">
 	<b> <br />

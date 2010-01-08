@@ -32,15 +32,30 @@
 
 <title><spring:message code="teacher.pro.translations.0"/>Language Translations</title>
 
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 </head>
 
 <body>
 
 <div id="centeredDiv">
 
-<%@ include file="headerteacherprojects.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="L2projects_nohighlight.jsp"%>
+<div id="navigationSubHeader2">Language Translations<span id="navigationSubHeader1">projects</span></div> 
 
 <div id="overviewContent"> 
 
@@ -59,8 +74,6 @@
  
 </div>      <!--end of Translations div-->
 </div>    <!--end of CenteredDiv div-->
-
-<h3 class="center"><a href="index.html"><spring:message code="teacher.pro.translations.10"/></a></h3>
 
 </body>
 </html>

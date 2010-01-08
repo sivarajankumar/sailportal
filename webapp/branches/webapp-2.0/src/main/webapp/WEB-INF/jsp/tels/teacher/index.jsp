@@ -559,7 +559,10 @@ window.onload=resizeCaller
 								<c:when test="${(current_date.hours>=5) && (current_date.hours<6)}">
 										<spring:message code="teacher.index.7C" />
 								</c:when>
-								<c:when test="${(current_date.hours>=6) && (current_date.hours<7)}">
+								<c:when test="${(current_date.hours>=6) && (current_date.hours<6.5)}">
+										"Each morning we are born again.  What we do today is what matters most."  (Guatama Siddharta)
+								</c:when>
+								<c:when test="${(current_date.hours>=6.5) && (current_date.hours<7)}">
 										<spring:message code="teacher.index.7D" />
 								</c:when>
 								<c:when test="${(current_date.hours>=7) && (current_date.hours<9)}">

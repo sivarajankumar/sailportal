@@ -111,9 +111,8 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="L2grading_bystep.jsp"%>
 
 <div id="overviewHeaderGrading">Edit Values for Graded Steps</div>
 

@@ -36,9 +36,9 @@
 
 <div id="centeredDiv">
 
-<%@ include file="./headerteacherprojects.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="./L2projects_projectlibrary.jsp"%>
+<div id="navigationSubHeader2">Project List<span id="navigationSubHeader1">Projects</span></div>
 
 <div id="titleBar">
     	<h1 class="headerText"><spring:message code="curnitlist.project.library" /></h1></div>

@@ -142,9 +142,8 @@ tabView.set('activeIndex', 0);
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="L2grading_overview.jsp"%>
 
 <h4><spring:message code="teacher.currentscore.1"/></h4>
 

@@ -33,8 +33,6 @@
 </head>
 
 <body>
-<%@ include file="helpHeader.jsp"%>
-
 
 <div id="overviewContent">
 <h3><spring:message code="teacher.help.contactwise.2"/></h3>

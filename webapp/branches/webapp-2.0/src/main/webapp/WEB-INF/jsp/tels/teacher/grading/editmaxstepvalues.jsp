@@ -111,9 +111,8 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="L2grading_byvalue.jsp"%>
 
 <div id="overviewHeaderGrading"><spring:message code="teacher.editmaxvalues.1"/></div>
 

@@ -217,21 +217,37 @@ function showsamplediv(brainstormId) {
 		return confirm("No choice has been selected as the 'correct' choice. Do you wish to continue?");
 	};
 </script>
+
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 </head>
 
 <body>
 
 <div id="centeredDiv">
 
-<%@ include file="headermain.jsp"%> 
+<%@ include file="../../teacher/headerteacher.jsp"%> 
+
+<div id="navigationSubHeader2">Q&A Authoring<span id="navigationSubHeader1">Management: My Project Runs</span></div>
+
 
 <c:if test="${brainstorm.run != null}">
 
 <div id="authorQuote">You unlock this door with the key of imagination.  
 Beyond it is another dimension - a dimension of sound, a dimension of sight, a dimension of mind. 
 You're moving into a land of both shadow and substance, of things and ideas. You've just crossed over into...the Authoring Zone.</div>
-
-<div class="bigTitle">Authoring Area</div>
 
 <div>
 	<table id="authorInfoTable">

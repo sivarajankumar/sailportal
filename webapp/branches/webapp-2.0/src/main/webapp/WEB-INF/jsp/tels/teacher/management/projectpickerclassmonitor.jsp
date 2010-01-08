@@ -48,15 +48,29 @@
     YAHOO.util.Event.onDOMReady(init);
 </script>
 
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 </head>
 
 <body class="yui-skin-sam">
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachermanagement.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="L2management_classmonitor.jsp"%>
 
 <div id="pickerHeader">
 		<div id="mainHeader"><spring:message code="teacher.manage.projectpicker.2"/></div>

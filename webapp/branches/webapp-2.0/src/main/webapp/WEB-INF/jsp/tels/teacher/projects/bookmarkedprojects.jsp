@@ -59,43 +59,98 @@
 </script>
 
 <title>My Bookmarked Projects</title>
+
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
+
+<link rel="stylesheet" type="text/css" href="../../themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="../../javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
+
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 </head>
 
 <body>
 
 <div id="centeredDiv">
 
-<h2 id="titleBar" class="headerText">My Bookmarked Projects</h2>
+<%@ include file="../headerteacher.jsp"%> 
+
+<div id="navigationSubHeader2">My Bookmarked Projects<span id="navigationSubHeader1">projects</span></div> 
 
 <c:forEach var="project" items="${projectList}">
-	<table name="table_${project.id}" id="libraryProjectTable">
-		<tr>
-			<th>project title</th>
-			<th id="libraryProjectCol2">project id</th>
-			<th id="libraryProjectCol3">project source</th>
-			<th id="libraryProjectCol4">subjects/keywords</th>
-			<th>grade range</th>
-			<th>total</br>time</th>
-			<th>computer</br>time</th>
-			<th>usage</th>
-			<th>bookmark</th>
+
+<table id="projectOverviewTable">
+		<tr id="row1">
+		<td id="titleCell" colspan="3"><a href="projectinfo.html?projectId=${project.id}">${project.name}</a></td>
+		<td class="actions" colspan="6"> 
+				<ul>
+					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
+					<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
+					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
+					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Create copy in <i>My Custom-Authored</i></a></li>
+					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
+				</ul>
 		</tr>
-		<tr id="libraryProjectTableR2">
-			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.name}</a></td>
-			<td class="dataCell">${project.id}</td>   
-			<td class="dataCell libraryProjectSmallText">${project.projectInfo.source}</td>       		   
-			<td class="dataCell libraryProjectSmallText">${project.projectInfo.subject} ${project.projectInfo.keywords}</td>
-			<td class="dataCell">${project.projectInfo.gradeLevel}</td>              
-			<td class="dataCell">[6 periods]</td>              
-			<td class="dataCell">[5 periods]</td> 
-			<td class="dataCell">[27 runs]</td>
-			<td class="dataCell"><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"></td>
+		<tr id="row2">
+			<th id="title1" style="width:60px;">Project ID</th>
+			<th id="title1" style="width:90px;">Project Family</th>
+			<th id="title2" style="width:292px;" >Subject(s)</th>
+			<th id="title3" style="width:100px;">Grades</th>
+			<th id="title4" style="width:110px;">Total Time (hrs)</th>
+			<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+			<th id="title6" style="width:92px;">Language</th>
+			<th id="title7" style="width:90px;">Usage</th>
 		</tr>
-		<tr id="libraryProjectTableR3">  
-			<td colspan="9">${project.projectInfo.description}</td>
+		<tr id="row3">
+			<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+			<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+			<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+			<td class="dataCell">${project.metadata.gradeRange}</td>              
+			<td class="dataCell">${project.metadata.totalTime}</td>              
+			<td class="dataCell">${project.metadata.compTime}</td> 
+			<td class="dataCell">[English]</td> 
+			<td class="dataCell">${usageMap[project.id]} runs</td>
+
+		</tr>
+		<tr id="row4">  
+			<td colspan="8">
+				<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
+				<div id="details" style="display:none;">
+					<table id="detailsTable">
+						<tr>
+							<th>Summary:</th>
+							<td class="summary">Consequat tincidunt veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat 
+t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat consequat accumsan te illum eum.</td>
+						</tr>
+						<tr>
+							<th>Keywords:</th>
+							<td class="keywords">[List of comma-separated keywords go here]</td>
+						</tr>
+<tr>
+							<th>Original Author:</th>
+							<td>[Name goes here]</td>
+						</tr>
+						<tr>
+							<th>Tech Needs:</th>
+							<td>[Tech Requirements go here]</td>
+						</tr>
+					</table>
+				</div>
+			</td>
 		</tr>
 	</table>
 </c:forEach>
+<br/>
+<p class="center"><b>To remove a project from your bookmark list click any Bookmark checkbox above, then refresh your browser window.</b></p>
+
 
 <script>bookmarked();</script>
 </div>

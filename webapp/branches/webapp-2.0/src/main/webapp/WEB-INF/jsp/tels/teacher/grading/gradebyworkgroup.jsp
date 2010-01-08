@@ -333,9 +333,8 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
-<%@ include file="L2grading_bygroup.jsp"%>
 
 <div id="overviewHeaderGradingv2"><spring:message code="teacher.gradebyteam.1"/></div>
 

@@ -211,5 +211,7 @@ t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud dele
 </c:forEach>	
 <script>bookmarked();</script>
 </div>
+<h5 class="center"><spring:message code="teacher.pro.lib.index.11"/> &nbsp; <a href="languagetranslations.html"><spring:message code="teacher.pro.lib.index.12"/></a></h5>
+
 </body>
 </html>

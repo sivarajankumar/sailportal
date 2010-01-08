@@ -36,7 +36,8 @@
 </head>
 
 <body>
-<%@ include file="projectHeader.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
+
  <a href="runmanager.html"><spring:message code="teacher.pro.reportproblem.2"/></a>
  <h2><spring:message code="teacher.pro.reportproblem.3"/></h2>
 

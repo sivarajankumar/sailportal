@@ -115,9 +115,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="headerteachergrading.jsp"%>
-
-<%@ include file="L2grading_bygroup.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
 <div id="overviewHeaderGrading"><spring:message code="teacher.grading.selectteam.1"/></div>
 
