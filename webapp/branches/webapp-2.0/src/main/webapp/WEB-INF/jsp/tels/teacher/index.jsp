@@ -571,8 +571,11 @@ window.onload=resizeCaller
 								<c:when test="${(current_date.hours>=10) && (current_date.hours<11)}">
 										<spring:message code="teacher.index.7F" />
 								</c:when>
-								<c:when test="${(current_date.hours>=11) && (current_date.hours<12)}">
+								<c:when test="${(current_date.hours>=11) && (current_date.hours<11.5)}">
 										<spring:message code="teacher.index.7G" />
+								</c:when>
+								<c:when test="${(current_date.hours>=11.5) && (current_date.hours<12)}">
+										"Time flies like an arrow.  Fruit flies like a banana."  (Groucho Marx)
 								</c:when>
 								<c:when test="${(current_date.hours>=12) && (current_date.hours<15)}">
 										<spring:message code="teacher.index.8A" />
