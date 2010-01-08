@@ -22,23 +22,34 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.run;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.service.UserService;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -60,11 +71,28 @@ public class ShareProjectRunController extends SimpleFormController {
 	private WISEWorkgroupService workgroupService = null;
 
 	private UserService userService;
-	
+
+	private UserDetailsService userDetailsService;
+
+	private IMailFacade javaMail = null;
+
+	private Properties emaillisteners = null;
+
+	protected Properties portalProperties;	
+
 	protected static final String RUNID_PARAM_NAME = "runId";
 
 	protected static final String RUN_PARAM_NAME = "run";
+
+	private static final String ALL_TEACHER_USERNAMES = "teacher_usernames";
 	
+	/* change this to true if you are testing and do not want to send mail to
+	   the actual groups */
+	private static final Boolean DEBUG = false;
+	
+	//set this to your email
+	private static final String DEBUG_EMAIL = "youremail@email.com";
+
 	/**
 	 * Adds the AddSharedTeacherParameters object as a form-backing
 	 * object. This object will be filled out and submitted for adding
@@ -105,6 +133,9 @@ public class ShareProjectRunController extends SimpleFormController {
 					addSharedTeacherParameters);
 		}
 		model.put(RUN_PARAM_NAME, run);
+		List<String> allTeacherUsernames = userDetailsService.retrieveAllUsernames("TeacherUserDetails");
+		String allTeacherUsernameString = StringUtils.join(allTeacherUsernames.iterator(), ":");
+		model.put(ALL_TEACHER_USERNAMES, allTeacherUsernameString);
 		
 		return model;
 	}
@@ -137,6 +168,10 @@ public class ShareProjectRunController extends SimpleFormController {
 	    	return modelAndView;
     	} else {
     	try {
+    		boolean newSharedOwner = false;
+			if (!params.getRun().getSharedowners().contains(retrievedUser)) {
+				newSharedOwner = true;
+			}
 			runService.addSharedTeacherToRun(params);
 			
 			// make a workgroup for this shared teacher for this run
@@ -144,7 +179,11 @@ public class ShareProjectRunController extends SimpleFormController {
 			User sharedOwner = userService.retrieveUserByUsername(sharedOwnerUsername);
 			Set<User> sharedOwners = new HashSet<User>();
 			sharedOwners.add(sharedOwner);
-			workgroupService.createWISEWorkgroup("teacher", sharedOwners, params.getRun(), null);
+			workgroupService.createWISEWorkgroup("teacher", sharedOwners, params.getRun(), null);			
+			// only send email if this is a new shared owner
+			if (newSharedOwner) {
+				sendEmail(retrievedUser,  params.getRun());
+			}
 		} catch (ObjectNotFoundException e) {
 			modelAndView = new ModelAndView(new RedirectView(getFormView()));
 	    	modelAndView.addObject(RUNID_PARAM_NAME, params.getRun().getId());
@@ -156,6 +195,82 @@ public class ShareProjectRunController extends SimpleFormController {
     	}
     }
 
+    /**
+     * Sends an email to individuals to notify them that the run has been shared
+     * On exception sending the email, ignore.
+     * @param sharee user that the run was shared with
+     * @param run the run that was shared
+     */
+	private void sendEmail(User sharee, Run run) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User sharer = userService.retrieveUser(userDetails);
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMMM d, yyyy");
+		
+		TeacherUserDetails sharerUserDetails = 
+			(TeacherUserDetails) sharer.getUserDetails();
+		String sharerName = sharerUserDetails.getFirstname() + " " + 
+			sharerUserDetails.getLastname();
+		String sharerEmailAddress = sharerUserDetails.getEmailAddress();
+		
+		TeacherUserDetails shareeDetails = (TeacherUserDetails) sharee.getUserDetails();
+		
+		String shareeEmailAddress = shareeDetails.getEmailAddress();
+		
+		String[] recipients = {shareeEmailAddress, emaillisteners.getProperty("uber_admin")};
+		
+		String subject = sharerName + " shared a project run with you on WISE4";	
+		String message = sharerName + " shared a project run with you on WISE4:\n\n" +
+			"Run Name: " + run.getName() + "\n" +
+			"Run ID: " + run.getId() + "\n" +
+			"Project Name: " + run.getProject().getName() + "\n" +
+			"Project ID: " + run.getProject().getId() + "\n" +
+			"Shared with username: " + shareeDetails.getUsername() + "\n" +
+			"Date this project was shared: " + sdf.format(date) + "\n\n\n" +
+			"Thanks,\n" +
+			"WISE4 Team";
+
+		
+		String fromEmail = sharerEmailAddress;
+		
+		//for testing out the email functionality without spamming the groups
+		if(DEBUG) {
+			recipients[0] = DEBUG_EMAIL;
+		}
+		
+		//sends the email to the recipients
+		try {
+			javaMail.postMail(recipients, subject, message, fromEmail);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			// do nothing, no notification to uber_admin required.
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @param emaillisteners the emaillisteners to set
+	 */
+	public void setEmaillisteners(Properties emaillisteners) {
+		this.emaillisteners = emaillisteners;
+	}
+	
+	/**
+	 * @param javaMail the javaMail to set
+	 */
+	public void setJavaMail(IMailFacade javaMail) {
+		this.javaMail = javaMail;
+	}
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+	
 	/**
 	 * @param runService the runService to set
 	 */
@@ -177,6 +292,13 @@ public class ShareProjectRunController extends SimpleFormController {
 		this.userService = userService;
 	}
 
+	/**
+	 * @return the userDetailsService
+	 */
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
+	
 	/**
 	 * @param workgroupService the workgroupService to set
 	 */

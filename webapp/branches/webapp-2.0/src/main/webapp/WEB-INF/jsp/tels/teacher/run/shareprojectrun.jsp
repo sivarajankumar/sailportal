@@ -36,13 +36,58 @@
  
 <title><spring:message code="teacher.run.shareprojectrun.1"/></title>
 
+<script type="text/javascript">
+//extend Array prototype
+Array.prototype.contains = function(obj) {
+	  var i = this.length;
+	  while (i--) {
+	    if (this[i] === obj) {
+	      return true;
+	    }
+	  }
+	  return false;
+}
+
+var teacherUsernamesString = "${teacher_usernames}";
+var teacherUsernames = teacherUsernamesString.split(":");
+teacherUsernames = teacherUsernames.sort();
+
+// updates the search input box with the specified text
+function updateInputBox(text) {
+	document.getElementById("sharedOwnerUsernameInput").value=text;
+}
+function autocomplete(username) {
+	var matchedUsernameUL = document.getElementById("matchedUsernames");
+	matchedUsernameUL.innerHTML = "";
+	if (username.length > 0) {
+		var resultArray = findStringsContaining(username, teacherUsernames);
+		for (k=0; k < resultArray.length; k++) {
+			var matchedUsernameLI = document.createElement("<li>");
+			matchedUsernameLI.innerHTML = "<a onclick='updateInputBox(\""+resultArray[k]+"\")'>" + resultArray[k] + "</a>";
+			matchedUsernameUL.appendChild(matchedUsernameLI);
+		}
+	}
+}
+
+
+// returns an array of strings that contain what
+function findStringsContaining(what, all_array) {
+	var resultArray = new Array();
+	for (i=0; i < all_array.length; i++) {
+		if (all_array[i].toLowerCase().indexOf(what.toLowerCase()) > -1) {
+			resultArray.push(all_array[i]);
+		}
+	}	
+	return resultArray;
+}
+</script>
 </head>
 
 <body>
 
 <div id="centeredDiv">
 
-<%@ include file="../headerteachersub.jsp"%>
+<%@ include file="../headerteacher.jsp"%>
 
 <div id="navigationSubHeader2">Sharing a Project Run<span id="navigationSubHeader1">Management: My Project Runs</span></div>
 
@@ -118,9 +163,11 @@
 		<td id="sharingSearchBox" colspan=3>
 			<div id="sharingSearchBoxHelp"><spring:message code="teacher.run.shareprojectrun.17"/></div>
 			    <form:form method="post" commandName="addSharedTeacherParameters">
-					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>
-				    <input type="submit" value="Add this User" />
+					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="25"/>
+				    <input type="submit" value="Save" />
 				</form:form>
+				<ul id="matchedUsernames">
+				</ul>
 		</td>
 	</tr>
 

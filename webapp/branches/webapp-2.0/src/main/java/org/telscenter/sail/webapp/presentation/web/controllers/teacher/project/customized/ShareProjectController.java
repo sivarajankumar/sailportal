@@ -143,7 +143,12 @@ public class ShareProjectController extends SimpleFormController {
 	    	modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
 	    	modelAndView.addObject("message", "Username not recognized. Make sure to use the exact spelling of the username.");
 	    	return modelAndView;
-    	} else {
+    	}  else if (!retrievedUser.getUserDetails().hasGrantedAuthority(UserDetailsService.TEACHER_ROLE)) {
+    		modelAndView = new ModelAndView(new RedirectView("shareproject.html"));
+	    	modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
+	    	modelAndView.addObject("message", "The user is not a teacher and thus cannot be added as a shared teacher.");
+	    	return modelAndView;
+    	}  else {
     		SecurityContext context = SecurityContextHolder.getContext();
     		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
     		User signedInUser = userService.retrieveUser(userDetails);
@@ -156,9 +161,16 @@ public class ShareProjectController extends SimpleFormController {
     			}
     		}
     		try {
+    			boolean newSharedOwner = false;
+    			if (!params.getProject().getSharedowners().contains(retrievedUser)) {
+    				newSharedOwner = true;
+    			}
     			projectService.addSharedTeacherToProject(params);
     			Project project = projectService.getById(params.getProject().getId());
-    			sendEmail(signedInUser, retrievedUser, project);
+    			// only send email if this is a new shared owner
+    			if (newSharedOwner) {
+    				sendEmail(signedInUser, retrievedUser, project);
+    			}
     		} catch (ObjectNotFoundException e) {
     			modelAndView = new ModelAndView(new RedirectView(getFormView()));
     			modelAndView.addObject(PROJECTID_PARAM_NAME, params.getProject().getId());
