@@ -3,8 +3,13 @@
 <title>Loading Sample PAS Project to Virtual Learning Environment</title>
 
 	<script type="text/javascript">
+		function notifyFatal(type,args,obj){
+			window.location = '/webapp/errors/outsideerror.html?msg=' + encodeURIComponent(args[0]);
+		}
+	
 		function startWithConfig() {
 			var vleConfigUrl = "${vleConfigUrl}";
+			window.frames['topifrm'].eventManager.subscribe('fatalError', notifyFatal);
 			window.frames['topifrm'].eventManager.fire('startVLEFromConfig', vleConfigUrl);
 		}
 	</script>

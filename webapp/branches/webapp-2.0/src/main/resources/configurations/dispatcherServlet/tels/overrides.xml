@@ -296,6 +296,7 @@
 				<!-- /author/authorrooloproject.html=authorRooloProjectController -->
 				/author/uploadxml.html=uploadXMLProjectController
 				/bridge/**/*.html=bridgeController
+				/errors/outsideerror.html=outsideErrorController
     		</value>
     	</property>
     </bean>

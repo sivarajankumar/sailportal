@@ -1357,6 +1357,10 @@
     	<property name="runService" ref="runService"/>	
     </bean>
  
+ 	<bean id="outsideErrorController"
+ 		class="org.telscenter.sail.webapp.presentation.web.controllers.OutsideErrorController">
+ 		<property name="exceptionResolver" ref="exceptionResolver"/>
+ 	</bean>
  <!--    
     <bean id="repositController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.TestRepositController">

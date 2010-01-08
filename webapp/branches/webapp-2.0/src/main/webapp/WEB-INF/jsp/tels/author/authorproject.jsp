@@ -3,7 +3,13 @@
 
 <script type='text/javascript'>
 var portalAuthorUrl = "${portalAuthorUrl}";
+
+function notifyFatal(type,args,obj){
+	window.location = '/webapp/errors/outsideerror.html?msg=' + encodeURIComponent(args[0]);
+}
+
 function loaded(){
+	window.frames['authorfrm'].eventManager.subscribe('fatalError', notifyFatal);
 	window.frames['authorfrm'].eventManager.fire('portalMode', ['${portalAuthorUrl}', '${curriculumBaseDir}', '${command}', '${projectId}']);
 };
 </script>
