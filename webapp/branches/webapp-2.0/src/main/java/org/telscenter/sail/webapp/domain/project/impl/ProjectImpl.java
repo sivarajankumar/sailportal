@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.domain.project.impl;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -131,6 +132,9 @@ public class ProjectImpl implements Project {
     
     @Transient
     private static final String ISPUBLIC_COLUMN_NAME = "ispublic";
+    
+    @Transient
+    private static final String COLUMN_NAME_DATE_CREATED = "datecreated";
 
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
@@ -188,6 +192,9 @@ public class ProjectImpl implements Project {
 	
     @Column(name = ProjectImpl.ISPUBLIC_COLUMN_NAME)
     protected boolean isPublic;
+    
+    @Column(name = ProjectImpl.COLUMN_NAME_DATE_CREATED)
+    protected Date dateCreated;
     
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
@@ -449,5 +456,19 @@ public class ProjectImpl implements Project {
 	 */
 	public void setPublic(boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+
+	/**
+	 * @return the dateCreated
+	 */
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	/**
+	 * @param dateCreated the dateCreated to set
+	 */
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
  }

@@ -56,7 +56,7 @@ public class ProjectParameters implements Serializable {
 	private Set<User> owners = new HashSet<User>();
 	
 	private ProjectMetadata metadata;
-
+	
 	/**
 	 * @return the curnitId
 	 */

@@ -52,6 +52,8 @@ public class PublishProjectMetadataParameters implements Serializable {
 	
 	private String comptime;
 
+	private String lessonplan;
+	
 	/**
 	 * @return <code>String</code> the id to get
 	 */
@@ -190,5 +192,19 @@ public class PublishProjectMetadataParameters implements Serializable {
 	 */
 	public void setComptime(String comptime) {
 		this.comptime = comptime;
+	}
+
+	/**
+	 * @return <code>String</code> the lessonplan
+	 */
+	public String getLessonplan() {
+		return lessonplan;
+	}
+
+	/**
+	 * @param <code>String</code> lessonplan the lessonplan to set
+	 */
+	public void setLessonplan(String lessonplan) {
+		this.lessonplan = lessonplan;
 	}
 }

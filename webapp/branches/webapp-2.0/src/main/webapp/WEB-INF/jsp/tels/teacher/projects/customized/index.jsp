@@ -510,7 +510,7 @@ function changePublic(id){
 					</td>
 					<td class="dataText">${project.metadata.subject}</td>
 					<td class="dataText">${project.id}</td>
-					<td class="dataText">;;;</td>
+					<td class="dataText">${project.dateCreated }</td>
 					<td class="smallText1">${project.familytag }</td>
 					<td class="dataText">${project.metadata.gradeRange }</td>
 					<td class="dataTime">${project.metadata.totalTime }</td>
@@ -605,7 +605,7 @@ function changePublic(id){
 					</td>
 					<td class="dataText">${project.metadata.subject}</td>
 					<td class="dataText">${project.id}</td>
-					<td class="dataText">;;;</td>
+					<td class="dataText">${project.dateCreated }</td>
 					<td class="smallText1">${project.familytag }</td>
 					<td class="dataText">${project.metadata.gradeRange }</td>
 					<td class="dataTime">${project.metadata.totalTime }</td>
@@ -693,7 +693,7 @@ function changePublic(id){
 					<td class="customProjectTitle">${project.name}</td>
 					<td class="dataText">${project.metadata.subject}</td>
 					<td class="dataText">${project.id}</td>
-					<td class="dataText">;;;</td>
+					<td class="dataText">${project.dateCreated }</td>
 					<td class="smallText1">${project.familytag}</td>
 					<td class="dataText">${project.metadata.gradeRange }</td>
 					<td class="dataTime">${project.metadata.totalTime }</td>

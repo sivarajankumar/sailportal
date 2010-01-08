@@ -11,7 +11,7 @@
 <body>
 <div id='mainDiv'>
 	<div id='topDiv'>
-		Please confirm the changes below. <b>This operation cannot be undone!</b>
+		Please confirm the changes below.
 	</div>
 	
 	<!-- Support for Spring errors object -->
@@ -40,6 +40,7 @@
 						<div id='contact'>Contact: ${currentContact}</div>
 						<div id='summary'>Summary: ${currentSummary}</div>
 						<div id='techreqs'>Technical Requirements: ${currentTechreqs}</div>
+						<div id='lessonplan'>Lesson Plan: ${currentLessonplan}</div>
 					</td>
 					<td id='replacementMetaTd'>
 						<form:form method='post' action='publishprojectmetadata.html' id='publishMetadataForm'  commandName='publishProjectMetadataParameters'>
@@ -61,6 +62,8 @@
 							<form:textarea path='summary' id='replacementSummary' disabled="true"/><br/>
 							<label for='replacementTechreqs'>Technical Requirements: </label>
 							<form:textarea path='techreqs' id='replacementTechreqs' disabled="true"/><br/>
+							<label for='replacementLessonplan'>Lesson Plan: </label>
+							<form:textarea rows='10' path='lessonplan' id='replacementLessonplan' disabled="true"/><br/>
 							<form:hidden path='projectId' id='projectId'/>
 							<input type='submit' value='publish' id='submitButt'/>
 						</form:form>

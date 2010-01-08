@@ -86,6 +86,8 @@
 	    			<dd>${project.metadata.compTime }</dd>
 	    		<dt>Usage:</dt>
 	    			<dd>${usage}</dd>
+	    		<dt>Created On:</dt>
+	    			<dd>${project.dateCreated}</dd>
 	    		
 	    	</dl>
 	    	
@@ -100,6 +102,8 @@
 			${project.metadata.techReqs }
 		</div>	
 
+		<div class="projectInfoHeader">Lesson Plan</div>
+		<div class="projectInfoDataBox">${project.metadata.lessonPlan}</div>
 	         
 	    </div>       <!--	    End of Tab 1 content-->
         

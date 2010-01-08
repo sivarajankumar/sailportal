@@ -76,6 +76,9 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	public final static String COLUMN_NAME_TECH_REQS = "tech_reqs";
 	
 	@Transient
+	public final static String COLUMN_NAME_LESSON_PLAN = "lesson_plan";
+	
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = COLUMN_NAME_TITLE)
@@ -104,6 +107,9 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Column(name = COLUMN_NAME_TECH_REQS)
 	private String techReqs;
+	
+	@Column(name = COLUMN_NAME_LESSON_PLAN)
+	private String lessonPlan;
 	
 	public String getGradeRange() {
 		return gradeRange;
@@ -183,5 +189,19 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the lessonPlan
+	 */
+	public String getLessonPlan() {
+		return lessonPlan;
+	}
+
+	/**
+	 * @param lessonPlan the lessonPlan to set
+	 */
+	public void setLessonPlan(String lessonPlan) {
+		this.lessonPlan = lessonPlan;
 	}
 }

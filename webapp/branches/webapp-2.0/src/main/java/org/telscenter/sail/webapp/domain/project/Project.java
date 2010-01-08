@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.project;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.Run;
@@ -188,4 +189,14 @@ public interface Project extends Persistable {
 	 * @param <code>boolean</code> isPublic
 	 */
 	public void setPublic(boolean isPublic);
+	
+	/**
+	 * @return <code>Date</code> date created
+	 */
+	public Date getDateCreated();
+	
+	/**
+	 * @param <code>Date</code> date created
+	 */
+	public void setDateCreated(Date datecreated);
 }

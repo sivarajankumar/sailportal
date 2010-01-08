@@ -78,6 +78,7 @@ public class PublishProjectMetadataController extends SimpleFormController{
 		metadata.setGradeRange(params.getGraderange());
 		metadata.setContact(params.getContact());
 		metadata.setTechReqs(params.getTechreqs());
+		metadata.setLessonPlan(params.getLessonplan());
 		
 		try{
 			Long total = Long.parseLong(params.getTotaltime());
@@ -111,6 +112,7 @@ public class PublishProjectMetadataController extends SimpleFormController{
 				String graderange = metadata.getGradeRange();
 				String contact = metadata.getContact();
 				String techreqs = metadata.getTechReqs();
+				String lessonplan = metadata.getLessonPlan();
 				Long totaltime = metadata.getTotalTime();
 				Long comptime = metadata.getCompTime();
 				
@@ -142,6 +144,10 @@ public class PublishProjectMetadataController extends SimpleFormController{
 					model.put("currentTechreqs", techreqs);
 				}
 				
+				if(lessonplan != null && lessonplan != ""){
+					model.put("currentLessonplan", lessonplan);
+				}
+				
 				if(totaltime != null){
 					model.put("currentTotaltime", totaltime);
 				}
@@ -171,6 +177,7 @@ public class PublishProjectMetadataController extends SimpleFormController{
 		params.setContact(jsonMeta.getString("contact"));
 		params.setTechreqs(jsonMeta.getString("techreqs"));
 		params.setProjectId(request.getParameter("projectId"));
+		params.setLessonplan(jsonMeta.getString("lessonplan"));
 		
 		return params;
 	}
