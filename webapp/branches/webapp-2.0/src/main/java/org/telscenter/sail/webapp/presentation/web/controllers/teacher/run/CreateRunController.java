@@ -34,6 +34,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -355,88 +356,114 @@ public class CreateRunController extends AbstractWizardFormController {
 				runService.endRun(runToArchive);
 			}
 		}
-		sendEmail(request, command, run);
 		
-    	return modelAndView;
-	}
-	
-	/*
-	 * sends an email to individuals to notify them of a new project run
-	 * having been set up by a teacher
-	 */
-	private void sendEmail(HttpServletRequest request, Object command, Run run)
-			throws Exception {
-		RunParameters runParameters = (RunParameters) command;
-		String teacherName = null;
-		String teacherEmail = null;
-		String projectName = null;
-		Serializable projectID = null;
-		String schoolName = null;
-		String schoolCity = null;
-		String schoolState = null;
-		String schoolPeriods = null;
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMMM d, yyyy");
-		
+		// send email to the recipients in new thread
 		//tries to retrieve the user from the session
 		SecurityContext context = SecurityContextHolder.getContext();
 		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
 		User user = userService.retrieveUser(userDetails);
 
-		TeacherUserDetails teacherUserDetails = 
-			(TeacherUserDetails) user.getUserDetails();
-			
-		teacherName = teacherUserDetails.getFirstname() + " " + 
-				teacherUserDetails.getLastname();
-		teacherEmail = teacherUserDetails.getEmailAddress();
+		CreateRunEmailService emailService = 
+			new CreateRunEmailService(command, run, user);
+		Thread thread = new Thread(emailService);
+		thread.start();
+		
+    	return modelAndView;
+	}
+	
+	class CreateRunEmailService implements Runnable {
 
-		schoolName = teacherUserDetails.getSchoolname();
-		schoolCity = teacherUserDetails.getCity();
-		schoolState = teacherUserDetails.getState();
+		private Object command;
+		private Run run;
+		private User user;
 		
-		
-		schoolPeriods = runParameters.printAllPeriods();
-		Set<String> projectcodes = new TreeSet<String>();
-		String runcode = run.getRuncode();
-		Set<Group> periods = run.getPeriods();
-		for (Group period : periods) {
-			projectcodes.add(runcode + "-" + period.getName());
+		public CreateRunEmailService(
+				Object command, Run run, User user) {
+			this.command = command;
+			this.run = run;
+			this.user = user;
+		}
+
+		public void run() {
+			try {
+				sendEmail();
+			} catch (MessagingException e) {
+				// what if there was an error sending email?
+				// should uber_admin be notified?
+				e.printStackTrace();
+			}
 		}
 		
-		projectName = runParameters.getName();
-		projectID = runParameters.getProject().getId();
-		
-		String[] recipients = {emaillisteners.getProperty("project_setup")};
-		
-		String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject") 
-		    + " (" + portalProperties.getProperty("portal.name") + ")";		
-		String message = uiHTMLProperties.getProperty("setuprun.confirmation.email.message") + "\n\n" +
-			
-		    "Portal name: " + portalProperties.getProperty("portal.name") + "\n" +
-			"Teacher Name: " + teacherName + "\n" +
-			"Teacher Username: " + teacherUserDetails.getUsername() + "\n" +
-			"Teacher Email: " + teacherEmail + "\n" +
-			"School Name: " + schoolName + "\n" +
-			"School Location: " + schoolCity + ", " + schoolState + "\n" + 
-			"School Periods: " + schoolPeriods + "\n" +
-			"Project codes: " + projectcodes.toString() + "\n" +
-			"Project Name: " + run.getProject().getProjectInfo().getName() + "\n" + 
-			"Project ID: "+ projectID + "\n" +
-			"Run Created: " + sdf.format(date) + "\n" + 
+		/**
+		 * sends an email to individuals to notify them of a new project run
+		 * having been set up by a teacher
+		 */
+		private void sendEmail() throws MessagingException {
+			RunParameters runParameters = (RunParameters) command;
+			String teacherName = null;
+			String teacherEmail = null;
+			Serializable projectID = null;
+			String schoolName = null;
+			String schoolCity = null;
+			String schoolState = null;
+			String schoolPeriods = null;
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMMM d, yyyy");
 
-			"\n\nThis does not guarantee that the project is actually going to " +
-			"be run in the classroom, only that the teacher has gone " + 
-			"through all the setup steps."; 
-		
-		String fromEmail = teacherEmail;
-		
-		//for testing out the email functionality without spamming the groups
-		if(DEBUG) {
-			recipients[0] = DEBUG_EMAIL;
+			TeacherUserDetails teacherUserDetails = 
+				(TeacherUserDetails) user.getUserDetails();
+				
+			teacherName = teacherUserDetails.getFirstname() + " " + 
+					teacherUserDetails.getLastname();
+			teacherEmail = teacherUserDetails.getEmailAddress();
+
+			schoolName = teacherUserDetails.getSchoolname();
+			schoolCity = teacherUserDetails.getCity();
+			schoolState = teacherUserDetails.getState();
+			
+			
+			schoolPeriods = runParameters.printAllPeriods();
+			Set<String> projectcodes = new TreeSet<String>();
+			String runcode = run.getRuncode();
+			Set<Group> periods = run.getPeriods();
+			for (Group period : periods) {
+				projectcodes.add(runcode + "-" + period.getName());
+			}
+			
+			projectID = runParameters.getProject().getId();
+			
+			String[] recipients = {emaillisteners.getProperty("project_setup")};
+			
+			String subject = uiHTMLProperties.getProperty("setuprun.confirmation.email.subject") 
+			    + " (" + portalProperties.getProperty("portal.name") + ")";		
+			String message = uiHTMLProperties.getProperty("setuprun.confirmation.email.message") + "\n\n" +
+				
+			    "Portal name: " + portalProperties.getProperty("portal.name") + "\n" +
+				"Teacher Name: " + teacherName + "\n" +
+				"Teacher Username: " + teacherUserDetails.getUsername() + "\n" +
+				"Teacher Email: " + teacherEmail + "\n" +
+				"School Name: " + schoolName + "\n" +
+				"School Location: " + schoolCity + ", " + schoolState + "\n" + 
+				"School Periods: " + schoolPeriods + "\n" +
+				"Project codes: " + projectcodes.toString() + "\n" +
+				"Project Name: " + run.getProject().getProjectInfo().getName() + "\n" + 
+				"Project ID: "+ projectID + "\n" +
+				"Run Created: " + sdf.format(date) + "\n" + 
+
+				"\n\nThis does not guarantee that the project is actually going to " +
+				"be run in the classroom, only that the teacher has gone " + 
+				"through all the setup steps."; 
+			
+			String fromEmail = teacherEmail;
+			
+			//for testing out the email functionality without spamming the groups
+			if(DEBUG) {
+				recipients[0] = DEBUG_EMAIL;
+			}
+			
+			//sends the email to the recipients
+			javaMail.postMail(recipients, subject, message, fromEmail);
 		}
-		
-		//sends the email to the recipients
-		javaMail.postMail(recipients, subject, message, fromEmail);
 	}
 	
 	/**

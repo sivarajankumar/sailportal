@@ -182,7 +182,13 @@ public class ShareProjectRunController extends SimpleFormController {
 			workgroupService.createWISEWorkgroup("teacher", sharedOwners, params.getRun(), null);			
 			// only send email if this is a new shared owner
 			if (newSharedOwner) {
-				sendEmail(retrievedUser,  params.getRun());
+				SecurityContext context = SecurityContextHolder.getContext();
+				UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+				User sharer = userService.retrieveUser(userDetails);
+				
+				ProjectRunEmailService emailService = new ProjectRunEmailService(sharer, retrievedUser,  params.getRun());
+				Thread thread = new Thread(emailService);
+				thread.start();
 			}
 		} catch (ObjectNotFoundException e) {
 			modelAndView = new ModelAndView(new RedirectView(getFormView()));
@@ -195,60 +201,73 @@ public class ShareProjectRunController extends SimpleFormController {
     	}
     }
 
-    /**
-     * Sends an email to individuals to notify them that the run has been shared
-     * On exception sending the email, ignore.
-     * @param sharee user that the run was shared with
-     * @param run the run that was shared
-     */
-	private void sendEmail(User sharee, Run run) {
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User sharer = userService.retrieveUser(userDetails);
-		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMMM d, yyyy");
-		
-		TeacherUserDetails sharerUserDetails = 
-			(TeacherUserDetails) sharer.getUserDetails();
-		String sharerName = sharerUserDetails.getFirstname() + " " + 
-			sharerUserDetails.getLastname();
-		String sharerEmailAddress = sharerUserDetails.getEmailAddress();
-		
-		TeacherUserDetails shareeDetails = (TeacherUserDetails) sharee.getUserDetails();
-		
-		String shareeEmailAddress = shareeDetails.getEmailAddress();
-		
-		String[] recipients = {shareeEmailAddress, emaillisteners.getProperty("uber_admin")};
-		
-		String subject = sharerName + " shared a project run with you on WISE4";	
-		String message = sharerName + " shared a project run with you on WISE4:\n\n" +
-			"Run Name: " + run.getName() + "\n" +
-			"Run ID: " + run.getId() + "\n" +
-			"Project Name: " + run.getProject().getName() + "\n" +
-			"Project ID: " + run.getProject().getId() + "\n" +
-			"Shared with username: " + shareeDetails.getUsername() + "\n" +
-			"Date this project was shared: " + sdf.format(date) + "\n\n\n" +
-			"Thanks,\n" +
-			"WISE4 Team";
+    class ProjectRunEmailService implements Runnable {
 
-		
-		String fromEmail = sharerEmailAddress;
-		
-		//for testing out the email functionality without spamming the groups
-		if(DEBUG) {
-			recipients[0] = DEBUG_EMAIL;
+    	private User sharer;
+    	private User sharee;
+    	private Run run;
+    	
+		public ProjectRunEmailService(User sharer, User sharee, Run run) {
+			this.sharer = sharer;
+			this.sharee = sharee;
+			this.run = run;
 		}
-		
-		//sends the email to the recipients
-		try {
-			javaMail.postMail(recipients, subject, message, fromEmail);
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			// do nothing, no notification to uber_admin required.
-			e.printStackTrace();
+
+		public void run() {
+			this.sendEmail();
 		}
-	}
+
+		/**
+	     * Sends an email to individuals to notify them that the run has been shared
+	     * On exception sending the email, ignore.
+	     * @param sharee user that the run was shared with
+	     * @param run the run that was shared
+	     */
+		private void sendEmail() {
+			
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMMMM d, yyyy");
+			
+			TeacherUserDetails sharerUserDetails = 
+				(TeacherUserDetails) sharer.getUserDetails();
+			String sharerName = sharerUserDetails.getFirstname() + " " + 
+				sharerUserDetails.getLastname();
+			String sharerEmailAddress = sharerUserDetails.getEmailAddress();
+			
+			TeacherUserDetails shareeDetails = (TeacherUserDetails) sharee.getUserDetails();
+			
+			String shareeEmailAddress = shareeDetails.getEmailAddress();
+			
+			String[] recipients = {shareeEmailAddress, emaillisteners.getProperty("uber_admin")};
+			
+			String subject = sharerName + " shared a project run with you on WISE4";	
+			String message = sharerName + " shared a project run with you on WISE4:\n\n" +
+				"Run Name: " + run.getName() + "\n" +
+				"Run ID: " + run.getId() + "\n" +
+				"Project Name: " + run.getProject().getName() + "\n" +
+				"Project ID: " + run.getProject().getId() + "\n" +
+				"Shared with username: " + shareeDetails.getUsername() + "\n" +
+				"Date this project was shared: " + sdf.format(date) + "\n\n\n" +
+				"Thanks,\n" +
+				"WISE4 Team";
+
+			
+			String fromEmail = sharerEmailAddress;
+			
+			//for testing out the email functionality without spamming the groups
+			if(DEBUG) {
+				recipients[0] = DEBUG_EMAIL;
+			}
+			
+			//sends the email to the recipients
+			try {
+				javaMail.postMail(recipients, subject, message, fromEmail);
+			} catch (MessagingException e) {
+				// do nothing, no notification to uber_admin required.
+				e.printStackTrace();
+			}
+		}
+    }
 
 	/**
 	 * @param emaillisteners the emaillisteners to set
