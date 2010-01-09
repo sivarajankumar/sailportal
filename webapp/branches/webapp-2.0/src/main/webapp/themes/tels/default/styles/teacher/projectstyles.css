@@ -400,6 +400,7 @@ img#none{
 
 #projectOverviewSearchContainer #projectOverviewTable {
 	border-bottom:1px solid #333;
+	vertical-align:top;
 }
 
 #searchCategoryButton, #searchKeywordButton {
@@ -641,7 +642,7 @@ img#none{
  /* STYLES FOR MY CUSTOMIZED/SHARED PROJECTS section */
       
 #customProjectsButtons  {
-	margin:8px 0 13px 2px;
+	margin:8px 0 0px 2px;
 	padding:0px;
 	border:0px;
 	text-align:center;
@@ -652,18 +653,21 @@ img#none{
 	display:block;
 	color:#000000;
 	text-decoration:none;
-	font-size:.70em;
+	font-size:.6em;
 	font-weight:bold;
 	border-top:1px solid #666666;
 	border-right:1px solid black;
 	border-bottom:1px solid black;
 	border-left:1px solid #666666;
-	padding:4px 5px;
+	padding:3px 4px;
 	background-color:#CCCCFF;
 	background-image: url(../../images/textureLightBlue.png);
 	background-position: right;
-	width:140px;
+	width:170px;
 	margin:0 10px 0 0;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
 }
 
 #customProjectsButtons td a:hover{
@@ -672,6 +676,13 @@ img#none{
 	background-color:#FFFF00;	
 	    }
 	    
+#customProjectInstructions {
+	margin:12px 10px;
+	font-size:.8em;
+	font-weight:bold;
+	color:#666;
+}
+	
 #customProjectTable {
 	clear:both;
 	border-collapse:collapse;

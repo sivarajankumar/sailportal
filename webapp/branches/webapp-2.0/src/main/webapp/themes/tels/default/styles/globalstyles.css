@@ -143,6 +143,7 @@ form {margin:0px; padding:0px;}
 #projectOverviewTable th, #projectOverviewTable td  {
 	border:1px solid #333; 
 	font-size:.7em;
+	vertical-align:top;
 }
 
 #projectOverviewTable td {
@@ -180,6 +181,21 @@ form {margin:0px; padding:0px;}
 	letter-spacing:-.5px;
 			}		
 			
+#projectOverviewTable #sharedNamesContainer {
+	padding:8px;
+	margin:3px 10px 5px 5px;
+	background:#ffb759;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+	
+#projectOverviewTable #sharedNames  {
+	display:inline;
+	font-weight:bold;
+}
+	
+	
 #projectOverviewTable .actions {
 	 border-left:0px;
 			}
