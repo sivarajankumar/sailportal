@@ -175,6 +175,7 @@
 				/teacher/run/report.html=projectRunReportController
     		    /teacher/grading/overview.html=gradeOverviewController
     		    /teacher/grading/gradebystep.html=gradeByStepController
+    		    /teacher/grading/gradework.html=gradeWorkController
 				/teacher/grading/gradingtool.html=gradingToolController
 				/teacher/grading/gradingsubmit.html=gradingSubmitController
 				/teacher/grading/currentscore.html=currentScoreController

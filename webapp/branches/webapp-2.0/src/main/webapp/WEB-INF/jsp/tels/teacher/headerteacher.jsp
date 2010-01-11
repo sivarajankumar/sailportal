@@ -62,7 +62,7 @@
 		<ul>
 				<li><a href="/webapp/teacher/grading/overview.html">Overview</a></li>
 				<li><a href="/webapp/teacher/grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
-				<li><a href="" style="color:#999;">Grade Work by Team</a></li>
+				<li><a href="/webapp/teacher/grading/projectPickerGrading.html?gradeByType=team">Grade Work by Team</a></li>
 				<li><a href="" style="color:#999;">Edit Maximum Score Values for a Project Run</a></li>
 				<li><a href="" style="color:#999;">Review Student Score Summary</a></li>
 				<li><a href="" style="color:#999;">Edit Pre-Made Grading Comments</a></li>

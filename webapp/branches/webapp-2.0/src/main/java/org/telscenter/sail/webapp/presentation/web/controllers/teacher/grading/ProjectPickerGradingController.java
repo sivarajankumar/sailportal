@@ -101,7 +101,9 @@ public class ProjectPickerGradingController extends AbstractController {
 		String gradingPageBaseUrl = "";
 		String gradeByTypeParam = request.getParameter(GRADE_BY_TYPE_REQUEST_PARAM_NAME);
 		if (gradeByTypeParam.equals("step")) {
-			gradingPageBaseUrl = "gradebystep.html";
+			gradingPageBaseUrl = "gradework.html?gradingType=step";
+		} else if (gradeByTypeParam.equals("team")) {
+			gradingPageBaseUrl = "gradework.html?gradingType=team";
 		} else if (gradeByTypeParam.equals("group")) {
 			gradingPageBaseUrl = "selectworkgroup.html";
 		} else if (gradeByTypeParam.equals("value")) {

@@ -205,6 +205,13 @@
 		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
+	<bean id="gradeWorkController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeWorkController">
+		<property name="runService" ref="runService" />
+		<property name="gradingService" ref="gradingService" />
+		<property name="portalProperties" ref="portalproperties" />
+	</bean>
+	
 	<bean id="gradeOverviewController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeOverviewController">
 	</bean>

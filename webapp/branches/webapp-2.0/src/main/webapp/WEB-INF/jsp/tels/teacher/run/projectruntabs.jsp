@@ -199,8 +199,8 @@
 					               <c:otherwise>
 					        <li><a href="../../previewproject.html?projectId=${run.project.id}" target="_blank">View the Project</a></li>
 				    		<li><a href="../projects/projectinfo.html?projectId=${run.project.id}" target="_top">Review Project Info</a></li>
-							<li><a href="../grading/gradebystep.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
-   	                        <li><a style="text-decoration:line-through;" href="../grading/selectworkgroup.html?runId=${run.id}" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
+							<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
+   	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
 		                    <li><a style="text-decoration:line-through;" href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary" target="_top">Scores Summary</a></li>
 					               </c:otherwise>
 					           </c:choose>

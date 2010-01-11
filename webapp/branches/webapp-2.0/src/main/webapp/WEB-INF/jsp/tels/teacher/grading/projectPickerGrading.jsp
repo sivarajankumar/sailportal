@@ -120,19 +120,19 @@
 	      </c:otherwise>
 	    </c:choose>
 	    <tr>
-			<th scope="row"><a href="${gradingpage}?runId=${currentRun.id}">${currentRun.name}</a></th>
-			<td><a href="${gradingpage}?runId=${currentRun.id}">${currentRun.project.id}</a></td>
-			<td><a href="${gradingpage}?runId=${currentRun.id}"><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></a></td>
-			<td><a href="${gradingpage}?runId=${currentRun.id}">[pending]</a></td>
+			<th scope="row"><a href="${gradingpage}&runId=${currentRun.id}">${currentRun.name}</a></th>
+			<td><a href="${gradingpage}&runId=${currentRun.id}">${currentRun.project.id}</a></td>
+			<td><a href="${gradingpage}&runId=${currentRun.id}"><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></a></td>
+			<td><a href="${gradingpage}&runId=${currentRun.id}">[pending]</a></td>
 			<td>
-			    <a href="${gradingpage}?runId=${currentRun.id}">
+			    <a href="${gradingpage}&runId=${currentRun.id}">
 			    <c:forEach var="period" items="${currentRun.periods}">
 			        <c:out value="${period.name}" />,
 			    </c:forEach>
 				</a>
 			</td>
-			<td><a href="${gradingpage}?runId=${currentRun.id}">${currentRun.project.projectInfo.subject}</a></td>
-			<td><a href="${gradingpage}?runId=${currentRun.id}">[pending]</a></td>
+			<td><a href="${gradingpage}&runId=${currentRun.id}">${currentRun.project.projectInfo.subject}</a></td>
+			<td><a href="${gradingpage}&runId=${currentRun.id}">[pending]</a></td>
 		</tr>
 		</c:forEach>
 	</tbody>
