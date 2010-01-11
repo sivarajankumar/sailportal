@@ -21,7 +21,7 @@
 /* TAGS FOR THE TABLE LAYOUT METHOD   */	
 		
 .panelColor1 {
-	background-image:url(../images/Gradient_blue_320b.png);
+	background-image:url(../images/Gradient_blue_320.png);
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#FFF;
@@ -33,7 +33,7 @@
 	 		}
 
 .panelColor2 {
-	background-image:url(../images/Gradient_blue_200b.png);
+	background-image:url(../images/Gradient_blue_200.png);
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#FFF;
@@ -45,7 +45,7 @@
 	 		}
 	 		
 .panelColor3 {
-	background-image:url(../images/Gradient_blue_120b.png);
+	background-image:url(../images/Gradient_blue_120.png);
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#FFF;
