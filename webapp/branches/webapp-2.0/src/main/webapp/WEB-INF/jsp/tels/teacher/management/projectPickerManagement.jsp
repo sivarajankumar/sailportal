@@ -85,7 +85,7 @@
 <table id="projectPickerTable" style="margin-bottom:20px; margin-top:10px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
-			<th style="width:50%; text-align:left;" scope="col"><spring:message code="teacher.manage.projectpicker.7"/></th>
+			<th style="width:40%; text-align:left;" scope="col"><spring:message code="teacher.manage.projectpicker.7"/></th>
 			<th scope="col"><spring:message code="teacher.manage.projectpicker.8"/></th>
 			<th scope="col"><spring:message code="teacher.manage.projectpicker.9"/></th>
 			<th scope="col"><spring:message code="teacher.manage.projectpicker.10"/></th>
@@ -106,16 +106,18 @@
 	    </c:choose>
 	    <tr>
 			<th scope="row" id="projectTitle"><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.name}</a></th>
-			<td>${currentRun.project.id}</td>
-			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
-			<td>[ongoing]</td>
+			<td><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.project.id}</a></td>
+			<td><a href="viewmystudents.html?runId=${currentRun.id}"><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></a></td>
+			<td><a href="viewmystudents.html?runId=${currentRun.id}">[ongoing]</a></td>
 			<td>
+			    <a href="viewmystudents.html?runId=${currentRun.id}">
 			    <c:forEach var="period" items="${currentRun.periods}">
 			        <c:out value="${period.name}" />,
 			    </c:forEach>
+				</a>
 			</td>
-			<td>${currentRun.project.projectInfo.subject}</td>
-			<td>[NOT YET IMPLEMENTED]</td>
+			<td><a href="viewmystudents.html?runId=${currentRun.id}">${currentRun.project.projectInfo.subject}</a></td>
+			<td><a href="viewmystudents.html?runId=${currentRun.id}">[pending]</a></td>
 		</tr>
 		</c:forEach>
 	</tbody>

@@ -100,7 +100,7 @@
 <table id="projectPickerTable" style="margin-bottom:40px;" summary="project picker screen for management area">
 	<thead>
 		<tr>
-			<th style="width:50%;" scope="col"><spring:message code="teacher.grading.projectpicker.8"/></th>
+			<th style="width:40%;" scope="col"><spring:message code="teacher.grading.projectpicker.8"/></th>
 			<th scope="col"><spring:message code="teacher.grading.projectpicker.9"/></th>
 			<th scope="col"><spring:message code="teacher.grading.projectpicker.10"/></th>
 			<th scope="col"><spring:message code="teacher.grading.projectpicker.11"/></th>
@@ -121,16 +121,18 @@
 	    </c:choose>
 	    <tr>
 			<th scope="row"><a href="${gradingpage}?runId=${currentRun.id}">${currentRun.name}</a></th>
-			<td>${currentRun.project.id}</td>
-			<td><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></td>
-			<td>[ongoing]</td>
+			<td><a href="${gradingpage}?runId=${currentRun.id}">${currentRun.project.id}</a></td>
+			<td><a href="${gradingpage}?runId=${currentRun.id}"><fmt:formatDate value="${currentRun.starttime}" dateStyle="short" /></a></td>
+			<td><a href="${gradingpage}?runId=${currentRun.id}">[pending]</a></td>
 			<td>
+			    <a href="${gradingpage}?runId=${currentRun.id}">
 			    <c:forEach var="period" items="${currentRun.periods}">
 			        <c:out value="${period.name}" />,
 			    </c:forEach>
+				</a>
 			</td>
-			<td>${currentRun.project.projectInfo.subject}</td>
-			<td>[NOT YET IMPLEMENTED]</td>
+			<td><a href="${gradingpage}?runId=${currentRun.id}">${currentRun.project.projectInfo.subject}</a></td>
+			<td><a href="${gradingpage}?runId=${currentRun.id}">[pending]</a></td>
 		</tr>
 		</c:forEach>
 	</tbody>

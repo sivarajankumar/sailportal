@@ -21,7 +21,7 @@
 /* TAGS FOR THE TABLE LAYOUT METHOD   */	
 		
 .panelColor1 {
-	background-image:url(../images/Gradient_tan320b.png);    
+	background-image:url(../images/Gradient_blue_320b.png);
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#FFF;
@@ -33,9 +33,9 @@
 	 		}
 
 .panelColor2 {
-	background-image:url(../images/Gradient_tan200b.png);   	
+	background-image:url(../images/Gradient_blue_200b.png);
 	background-position: top;
-	background-repeat:repeat-x; 
+	background-repeat:repeat-x;
 	background-color:#FFF;
 	border: 1px solid #999;   
 	border-bottom:2px solid #999; 
@@ -45,9 +45,9 @@
 	 		}
 	 		
 .panelColor3 {
-	background-image:url(../images/Gradient_tan120b.png);   
+	background-image:url(../images/Gradient_blue_120b.png);
 	background-position: top;
-	background-repeat:repeat-x;  
+	background-repeat:repeat-x;
 	background-color:#FFF;
 	border: 1px solid #999;   
 	border-bottom:2px solid #999; 
@@ -85,6 +85,7 @@
 	-moz-border-radius-topright:4px;
 	background:#FFce8e;
 	background-image:url(../images/teacher/teacherSubHeader.png);
+	background-position: top;  
 	border-bottom:1px solid #999;
 	font-family:"Trebuchet MS",Arial,Helvetica,sans-serif;
 	font-size:1em;
