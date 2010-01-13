@@ -76,6 +76,9 @@ table {
 	background-image: url(../../images/WISE-Secondary-Banner-Gradient.png);
 	background-position: top;
 	text-decoration:none;
+  	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
 	    }	
     
 #periodHeaderBar a:hover {

@@ -176,9 +176,12 @@ function findStringsContaining(what, all_array) {
 	
 	<tr>
 		<td id="sharingSearchBox" colspan=3>
-			<div id="sharingSearchBoxHelp"><spring:message code="teacher.run.shareprojectrun.17"/></div>
+			<div id="sharingSearchBoxHelp">
+			<p>To share this project with another person type in part of their name below.</p>
+			<p>Click the matching Username from the search results, then click <i>Save</i>.</p> 
+			</div>
 			    <form:form method="post" commandName="addSharedTeacherParameters">
-					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="25"/>
+					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="30"/>
 				    <input type="submit" value="Save" />
 				</form:form>
 				<ul id="matchedUsernames">

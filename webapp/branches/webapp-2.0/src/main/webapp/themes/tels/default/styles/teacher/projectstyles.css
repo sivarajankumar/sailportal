@@ -843,7 +843,38 @@ img#none{
 	margin:5px 0 7px 0;	
 }
 
+#sharingSearchBoxHelp p{
+	font-size:1.1em;
+	margin-bottom:4px;
+	}
 
+#sharedOwnerUsernameInput {
+	margin-top:10px;
+}
+
+#matchedUsernames {
+	margin:20px 0 0 -250x;
+	width:100%;
+	padding:0;
+}
+
+#matchedUsernames li {
+	list-style-type:none;
+	padding:2px 0;
+}
+
+#matchedUsernames a {
+	border:1px solid transparent;
+	padding:2px 4px;
+	
+}
+
+#matchedUsernames a:hover {
+	background-color:#FFFF00;
+	color:#333;
+	border:1px solid #999;
+}
+	
 
 
 
