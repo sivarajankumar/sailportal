@@ -114,6 +114,39 @@
   margin-top:20px;
 }
 
+/* The following styles were added as we've moved away from image-rollovers on the student reg page as it was causing a conflict with the code used if a student tries to 
+CREATE before they click the Show Class Periods buttons  */
+
+#regButtonsStudent {
+  clear: both;
+  text-align:center;
+  margin-top:20px;
+}
+
+#regButtonsStudent a {
+ 	color:#000;
+ 	font-size:1.2em;
+	font-weight:bold;
+	border-top:1px solid #666666;
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	border-left:1px solid #666666;
+	padding:4px 15px;
+	margin:0 10px;
+	background-image: url(../images/WISE-Secondary-Banner-Gradient.png);
+	background-position: top;
+	text-decoration:none;
+  	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;	
+}
+
+#regButtonsStudent a:hover {
+ 	background-image:none;
+ 	background-color:#FFFF00;
+ 	cursor:pointer;
+}
+	
 #regButtonsUpdate {
   margin-top:25px;
 }

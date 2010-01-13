@@ -89,13 +89,13 @@ function createAccount() {
 			periodSelect.innerHTML = "";
 	  		periodSelect.disabled = true;
 	} else if ((period != null && period == "none") || period == null || period == "") {
-		alert('Please choose a period');
+		alert('Please click SHOW CLASS PERIODS. Then select a period from the menu.');
 	} else if (runcode != null && period != null && period != "none") {
 		var projectCode = document.getElementById("projectCode");
 		projectCode.value = runcode + "-" + period;
 		document.getElementById("studentRegForm").submit();		
 	} else {
-		alert('invalid project code. Please talk to your teacher');
+		alert('Invalid project code. Please talk to your teacher');
 	}
 }
 
@@ -236,20 +236,13 @@ document.getElementById('firstname').focus();
 	 </dl>
       
       
-      <!--  
- 	  <div id="regButtons">
- 	    <input type="image" id="save" onclick="createAccount()" src="../themes/tels/default/images/CreateAccount.png" 
-    onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')" 
-    onmouseout="swapImage('save','../themes/tels/default/images/CreateAccount.png')"
-    />
-    -->
-    
-    <a id="createAccountLink" onclick="createAccount()">Create Account</a>
-    
-    <a href="../index.html"><input type="image" id="cancel" src="../<spring:theme code="register_cancel" />" 
-    onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')" 
-    onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
-    /> </a>	  </div>
+  
+	<div id="regButtonsStudent">
+ 				
+	    <a id="createAccountLink" onclick="createAccount()">Create Account</a>
+	    <a href="../index.html">Cancel</a>	
+
+		</div>  
  
  </form:form>
  
