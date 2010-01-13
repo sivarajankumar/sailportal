@@ -10,7 +10,16 @@ function notifyFatal(type,args,obj){
 
 function loaded(){
 	window.frames['authorfrm'].eventManager.subscribe('fatalError', notifyFatal);
-	window.frames['authorfrm'].eventManager.fire('portalMode', ['${portalAuthorUrl}', '${curriculumBaseDir}', '${command}', '${projectId}']);
+	window.frames['authorfrm'].eventManager.fire('portalMode', ["${portalAuthorUrl}", "${curriculumBaseDir}", "${command}", "${projectId}"]);
+};
+
+function escapeQuotes(str){
+	if(str){
+		console.warn(str);
+		console.log(escape(str));
+	} else {
+		return null;
+	};
 };
 </script>
 
