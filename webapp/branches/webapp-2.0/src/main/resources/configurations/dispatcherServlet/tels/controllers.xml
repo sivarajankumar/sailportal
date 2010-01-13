@@ -746,6 +746,8 @@
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized.CustomizedIndexController">
         <property name="projectService" ref="projectService" />
         <property name="userService" ref="userService" />
+        <property name="runService" ref="runService"/>
+        <property name="portalProperties" ref="portalproperties" />
     </bean>
     
 	<bean id="shareProjectController"

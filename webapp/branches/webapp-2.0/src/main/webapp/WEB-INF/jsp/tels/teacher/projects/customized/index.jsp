@@ -390,6 +390,41 @@
             
             });
 
+            
+            function copy(pID, type, name, filename, url, base){
+        		var yes = confirm("Copying a project may take some time. If you proceed, please" +
+        			" do not click the 'make copy' button again. A message will be displayed when" +
+        			" the copy has completed.");
+        		if(yes){
+        			if(type=='LD'){
+        				var callback = {
+        					success:function(o){
+        						var fullPath = o.responseText;
+        						var portalPath = fullPath.substring(base.length, fullPath.length) + '/' + filename;
+        						var callback = {
+        							success:function(o){
+        								alert('The LD project has been successfully copied with the name Copy of ' + name + '. The project can be found in the My Customized Projects section.');
+        							},
+        							failure:function(o){alert('Project files were copied but the project was not successfully registered in the portal.');},
+        							scope:this
+        						};
+
+        						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&param1=' + portalPath + '&param2=Copy of ' + name);
+        					},
+        					failure:function(o){alert('Could not copy project folder, aborting copy.');},
+        					scope:this
+        				};
+        				
+        				YAHOO.util.Connect.asyncRequest('POST', '/vlewrapper/vle/filemanager.html', callback, 'command=copyProject&param1=' + url + '&param2=' + base);
+        			} else {
+        				var callback = {
+        					success:function(o){alert(o.responseText);},
+        					failure:function(o){alert('copy: failed update to server');}
+        				};
+        				YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
+        			};
+        		};
+        	};
         </script>
 
 <!--USED TO SHOW/HIDE A DIV ELEMENT-->
@@ -496,7 +531,7 @@ function changePublic(id){
 					<table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
-									<a href="projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
 										<div id="sharedNamesContainer">
 											This project is shared with:
@@ -510,13 +545,14 @@ function changePublic(id){
 											</div>
 										</div>
 							</td>
-							<td class="actions" colspan="6"> 
+							<td class="actions" colspan="8"> 
 									<ul>
 										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 										<li><a href="#" style="color:#666;">Edit Project Overview</a></li>
 										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Project Content</a></li>
-										<li><a href="shareproject.html?projectId=${project.id}">Share this project</a>
-										    <input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>
+										<li><a href="shareproject.html?projectId=${project.id}">Share this project</a></li>
+										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy this project</a></li>
+										<li><input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>
 									</ul>
 							</tr>
 							<tr id="row2">
