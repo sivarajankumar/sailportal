@@ -506,6 +506,29 @@ window.onload=resizeCaller
 				runLI.innerHTML = 'Updating run on server...';
 				YAHOO.util.Connect.asyncRequest('GET', 'run/manage/extendremindertime.html?runId=' + id, callback, null);
             };
+
+            function archiveRun(runId){
+				var runLI = document.getElementById('extendReminder_' + runId);
+				
+				var callback = {
+					success:function(o){
+						/* update message on teacher index page announcements section */
+						runLI.innerHTML = '<font color="24DD24">Run with id ' + runId + ' has been archived.</font>';
+
+						/* remove archived run from quick runs list */
+						var child = window.frames['dynamicFrame'].document.getElementById('runTitleRow_' + runId);
+						child.parentNode.removeChild(child);
+					},
+					failure:function(o){
+						/* set failure message */
+						runLI.innerHTML = '<font color="992244">Unable to archive run! Refresh this page to try again.</font>';
+					},
+					scope:this
+				};	
+
+				runLI.innerHTML = 'Archiving run on server...';
+				YAHOO.util.Connect.asyncRequest('POST', 'run/manage/archiveRun.html?runId=' + runId, callback, null);
+            };
         </script>
     
 <body class="yui-skin-sam"> 
@@ -606,7 +629,7 @@ window.onload=resizeCaller
 										<fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" timeStyle="short" />.
 										 Do
 										you want to archive it now? [ <a
-												onclick="window.open('run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}', title, 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width=640,height=480,left = 320,top = 240')"><font
+												onclick="archiveRun('${run.id}')"><font
 												color='blue'>Yes</font></a>/ <a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].</li>
 								</c:if>
 						</c:forEach>
@@ -637,7 +660,7 @@ window.onload=resizeCaller
 
 				<div id="headerTeacherHome">My Project Runs</div>
 
-				<iframe id="dynamicFrame" src="run/projectruntabs.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"
+				<iframe id="dynamicFrame" name="dynamicFrame" src="run/projectruntabs.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"
 						vspace="0" hspace="0" style="overflow: visible;	overflow-y: hidden;	width: 100%; display: none;	margin-top: 5px;"></iframe>
 
 				</div>

@@ -121,7 +121,7 @@
 				    </tr>
 				  <c:forEach var="run" items="${current_run_list}">
 				  
-				  <tr id="runTitleRow">
+				  <tr id="runTitleRow_${run.id}">
 				    <td id="titleCell">
 				    	<div id="runTitle">${run.name}</div>
 				    	

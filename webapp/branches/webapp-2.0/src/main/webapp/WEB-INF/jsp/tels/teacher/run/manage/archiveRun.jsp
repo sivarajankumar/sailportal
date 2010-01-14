@@ -37,18 +37,6 @@
  * work on the parent page needs to be done.
  */
 function checkB4Submit(){
-	if(window.opener && window.opener.isTeacherIndex){
-		var oDoc = window.opener.document;
-		var id = document.getElementById('runId').value;
-
-		//update message on teacher index page announcements section
-		oDoc.getElementById('extendReminder_' + id).innerHTML = '<font color="24DD24">Run with id ' + id + ' has been archived.</font>';
-
-		//remove newly archived run from project run quick links
-		var child = oDoc.getElementById('quickLinksRow_' + id);
-		child.parentNode.removeChild(child);
-	};
-
 	//submit the form
 	document.getElementById('archiveRun').submit();
 };
