@@ -144,6 +144,7 @@
 	<bean id="startProjectController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StartProjectController">
 	    <property name="runService" ref="runService" />
+	    <property name="userService" ref="userService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
 		<property name="projectService" ref="projectService" />
@@ -314,6 +315,7 @@
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentIndexController">
 	    <property name="runService" ref="runService" />
 	    <property name="studentService" ref="studentService" />
+	    <property name="userService" ref="userService" />
 		<property name="brainstormService" ref="brainstormService" />
 	    <property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />

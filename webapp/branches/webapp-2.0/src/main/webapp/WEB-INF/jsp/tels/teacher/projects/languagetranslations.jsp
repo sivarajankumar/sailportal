@@ -71,7 +71,8 @@
 <p><b><spring:message code="teacher.pro.translations.7"/></b> <spring:message code="teacher.pro.translations.8"/></p>
 
 <p><spring:message code="teacher.pro.translations.9"/></p>
- 
+
+<p align="center"><a href="/webapp/contactwisegeneral.html"><spring:message code="teacher.pro.translations.11"/></a></p>
 </div>      <!--end of Translations div-->
 </div>    <!--end of CenteredDiv div-->
 

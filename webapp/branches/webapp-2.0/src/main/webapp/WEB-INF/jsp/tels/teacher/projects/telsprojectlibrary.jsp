@@ -22,6 +22,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -98,10 +99,11 @@
 <script type="text/javascript">
 
 	/**
-	 * Toggles the search div
+	 * Toggles the summary div
+	 * projectId: id of project whose summary div to toggle
 	 */
-	function toggleDetails(){
-		var searchDiv = document.getElementById('details');
+	function toggleDetails(projectId){
+		var searchDiv = document.getElementById('details_'+projectId);
 		if(searchDiv.style.display=='none'){
 			searchDiv.style.display = 'block';
 		} else {
@@ -154,8 +156,8 @@
 				<ul>
 					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
 					<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
-					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Create copy in <i>My Custom-Authored</i></a></li>
+					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Run</a></li>
+					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
 					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
 				</ul>
 		</tr>
@@ -182,8 +184,8 @@
 		</tr>
 		<tr id="row4">  
 			<td colspan="8">
-				<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
-				<div id="details" style="display:none;">
+				<a id="hideShowLink" href="#" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
+				<div id="details_${project.id}" style="display:none;">
 					<table id="detailsTable">
 						<tr>
 							<th>Summary:</th>
@@ -194,7 +196,11 @@ t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud dele
 							<th>Keywords:</th>
 							<td class="keywords">[List of comma-separated keywords go here]</td>
 						</tr>
-<tr>
+						<tr>
+							<th>Date Created:</th>
+							<td><fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="long" /></td>
+						</tr>
+						<tr>
 							<th>Original Author:</th>
 							<td>[Name goes here]</td>
 						</tr>

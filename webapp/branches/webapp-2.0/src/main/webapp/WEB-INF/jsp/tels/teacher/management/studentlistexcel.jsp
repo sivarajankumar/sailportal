@@ -1,10 +1,11 @@
 <%-- Set the content type header with the JSP directive --%>
 <%@ page contentType="application/vnd.ms-excel" %>
+<%@ include file="include.jsp"%>
                                                                                                                    
 <%-- Set the content disposition header --%>
-<% response.setHeader("Content-Disposition", "attachment; filename=\"mult-table.xls\""); %>
 
-<%@ include file="include.jsp"%>
+<% response.setHeader("Content-Disposition", "attachment; filename=WISE4-student-list.xls"); %>
+
 
 
 <table>

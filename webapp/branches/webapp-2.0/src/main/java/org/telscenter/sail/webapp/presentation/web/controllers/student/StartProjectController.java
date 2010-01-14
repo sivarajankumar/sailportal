@@ -33,10 +33,14 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.service.UserService;
 
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -61,6 +65,8 @@ public class StartProjectController extends AbstractController {
 
 	private RunService runService;
 	
+	private UserService userService;
+
 	private WISEWorkgroupService workgroupService;
 
 	private ProjectService projectService;
@@ -73,8 +79,9 @@ public class StartProjectController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		 SecurityContext context = SecurityContextHolder.getContext();
+		 StudentUserDetails userDetails = (StudentUserDetails) context.getAuthentication().getPrincipal();
+		 User user = userService.retrieveUser(userDetails);
 
 		String runIdStr = request.getParameter("runId");
 		String projectIdStr = request.getParameter("projectId");
@@ -173,6 +180,13 @@ public class StartProjectController extends AbstractController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**

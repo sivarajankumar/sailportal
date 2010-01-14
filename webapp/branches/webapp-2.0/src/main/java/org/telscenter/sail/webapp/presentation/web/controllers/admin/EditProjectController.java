@@ -44,7 +44,6 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class EditProjectController extends SimpleFormController{
 	
 	public EditProjectController() {
-		setSessionForm(true);
 	}
 	
 	/**
@@ -54,7 +53,6 @@ public class EditProjectController extends SimpleFormController{
 	protected Map<String, Object> referenceData(HttpServletRequest request, Object command,
 			Errors errors) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("project", projectService.getById(request.getParameter("projectId")));
 		model.put("familytags", FamilyTag.values());
 		return model;
 	}

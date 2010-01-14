@@ -34,9 +34,13 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -65,6 +69,8 @@ public class StudentIndexController extends AbstractController {
 	
 	private StudentService studentService;
 	
+	private UserService userService;
+
 	private WorkgroupService workgroupService;
 	
 	private BrainstormService brainstormService;
@@ -99,13 +105,9 @@ public class StudentIndexController extends AbstractController {
 
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
-    	User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
-    	
-    	StudentUserDetails userDetails = null;
-    	if (user.getUserDetails() instanceof StudentUserDetails) {
-    		userDetails = (StudentUserDetails) user.getUserDetails();
-    	}
+		 SecurityContext context = SecurityContextHolder.getContext();
+		 StudentUserDetails userDetails = (StudentUserDetails) context.getAuthentication().getPrincipal();
+		 User user = userService.retrieveUser(userDetails);
     	
 		List<Run> runlist = runService.getRunList(user);
 		List<StudentRunInfo> current_run_list = new ArrayList<StudentRunInfo>();
@@ -195,6 +197,13 @@ public class StudentIndexController extends AbstractController {
 	@Required
 	public void setStudentService(StudentService studentService) {
 		this.studentService = studentService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**
