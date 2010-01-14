@@ -43,6 +43,21 @@
 <script type="text/javascript" src="../../../javascript/tels/general.js"></script>
 
 <title><spring:message code="teacher.pro.custom.index.1"/></title>
+<script type="text/javascript">
+
+    // un-bookmarks the specified project. pID=projectID of project to remove bookmark
+	function unbookmark(pID){
+		var callback = {
+			success:function(o){
+				alert(o.responseText);
+				document.getElementById('bookmarked_' + pID).parentNode.removeChild(document.getElementById('bookmarked_' + pID));
+			},
+			failure:function(o){alert('failed update to server');}
+		};
+		YAHOO.util.Connect.asyncRequest('GET', '../bookmark.html?projectId=' + pID + '&checked=' + 
+			false, callback);
+	};
+</script>
 </head>
 
         <!-- Page-specific script -->
@@ -455,7 +470,7 @@
 <script type="text/javascript">
 
 function populateCheckboxes(){
-	<c:forEach var='project' items='${ownedProjectsList}'>
+	<c:forEach var='project' items='${currentOwnedProjectsList}'>
 		if('${project.public}'=='true'){
 			document.getElementById('public_${project.id}').checked = true;
 		};
@@ -506,8 +521,8 @@ function changePublic(id){
     <ul class="yui-nav" >
         <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.custom.index.12"/></em></a></li>
         <li style="margin-left:4px;"><a href="#tab2"><em><spring:message code="teacher.pro.custom.index.13"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.custom.index.14"/></em></a></li>
-        
+        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.custom.index.tab.bookmark"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab4"><em><spring:message code="teacher.pro.custom.index.14"/></em></a></li>        
     </ul>     
 <div class="yui-content" style="background-color: #FFFFFF;">
 
@@ -517,16 +532,20 @@ function changePublic(id){
 	<tr>
 		<td><a href='/webapp/author/authorproject.html?command=launchAuthoring'>Launch Authoring Tool</a></td>
 		<td><a href="/webapp/author/authorproject.html?command=launchAuthoring&param1=createProject">Create New Custom Project</a></td>
-		<td><a href="#" onclick="toggleProjectSummaryAll()">Hide/Show All Project Details</a></td>
+		<c:if test="${fn:length(currentOwnedProjectsList) > 0}">
+			<td><a href="#" onclick="toggleProjectSummaryAll()">Hide/Show All Project Details</a></td>
+		</c:if>
+		
 	</tr>
 </table>
 
 	<c:choose>
-		<c:when test="${fn:length(ownedProjectsList) == 0}">
+		<c:when test="${fn:length(currentOwnedProjectsList) == 0}">
+		   You currently do not own any projects.
 		</c:when>
 		<c:otherwise>
 		    <div id="customProjectInstructions">You own the following customized projects:</div>
-			<c:forEach var="project" items="${ownedProjectsList}">
+			<c:forEach var="project" items="${currentOwnedProjectsList}">
 
 					<table id="projectOverviewTable">
 							<tr id="row1">
@@ -548,11 +567,11 @@ function changePublic(id){
 							<td class="actions" colspan="8"> 
 									<ul>
 										<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="#" style="color:#666;">Edit Project Overview</a></li>
-										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Project Content</a></li>
-										<li><a href="shareproject.html?projectId=${project.id}">Share this project</a></li>
-										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy this project</a></li>
-										<li><input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>
+										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Run</a></li>
+										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit</a></li>
+										<li><a href="shareproject.html?projectId=${project.id}">Share</a></li>
+										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
+										<!-- <li><input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>  -->
 									</ul>
 							</tr>
 							<tr id="row2">
@@ -617,8 +636,8 @@ function changePublic(id){
 </div>
 <!--	    End of Tab 1 content-->
 
-<div id="tab2">
-
+<div id="tab2">  <!-- shared projects -->
+<!--  
 <table id="customProjectsButtons">
 	<tr>
 		<td><a href="#"><spring:message
@@ -629,7 +648,13 @@ function changePublic(id){
 			code="teacher.pro.custom.index.17" /></a></td>
 	</tr>
 </table>
+-->
 
+<c:choose>
+		<c:when test="${fn:length(currentSharedProjectsList) == 0}">
+		You currently do not have any shared projects.
+		</c:when>
+		<c:otherwise>
 <table id="customProjectTable" border="1" cellpadding="0"
 	cellspacing="0">
 	<tr>
@@ -654,11 +679,8 @@ function changePublic(id){
 	</tr>
 
 
-	<c:choose>
-		<c:when test="${fn:length(sharedProjectsList) == 0}">
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="project" items="${sharedProjectsList}">
+	
+			<c:forEach var="project" items="${currentSharedProjectsList}">
 				<tr id="customProjectR2">
 					<td class="customProjectTitle">${project.name}
 					<br>
@@ -693,122 +715,282 @@ function changePublic(id){
 							<a href="shareproject.html?projectId=${project.id}">Share Project</a>
 						</li>
 						</sec:accesscontrollist>
+						<!-- 
 						<li>
 							<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public
 						</li>		
+						 -->
 						</div>
 					</td>
 				</tr>
 			</c:forEach>
+		</table>
 		</c:otherwise>
 	</c:choose>
 
-	<tr>
-		<td id="customProjectSummaryHeader" colspan="10">
-		<div><a href="#"
-			onclick="toggle_visibility('toggleProjectSummaryCurrent');"><spring:message
-			code="teacher.pro.custom.index.27" /></a></div>
-		<div id="toggleAllCurrent">
-		<div id="toggleProjectSummaryCurrent">
-		<div id="customProjectSummaryData"><b>Project Summary:</b>
-		${project.metadata.summary }</div>
-		<div id="customProjectSummaryData"><b>Keywords:</b>
-		${project.metadata.subject}</div>
-		<div id="customProjectSummaryData"><b>Sharing:</b> off</div>
-		</div>
-		</div>
-		</td>
-	</tr>
-	<tr></tr>
-</table>
-
 </div>
 
-<div id="tab3">
-
-<table id="customProjectTable" border="1" cellpadding="0"
-	cellspacing="0">
-	<tr>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.19" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.20" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.21" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.22" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.23" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.24" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.25" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.26" /></th>
-		<th style="background-color: #CC0000;"><spring:message
-			code="teacher.pro.custom.index.26B" /></th>
-	</tr>
+<div id="tab3">  <!-- bookmarked projects -->
 
 	<c:choose>
-		<c:when test="${fn:length(sharedProjectsList) == 0}">
+		<c:when test="${fn:length(bookmarkedProjectsList) == 0}">
+		   You currently do not have any bookmarked projects.
 		</c:when>
 		<c:otherwise>
-			<c:forEach var="project" items="${sharedProjectsList}">
-			<!-- <sec:accesscontrollist domainObject="${project}" hasPermission="16"> -->
-				<tr id="customProjectR2">
-					<td class="customProjectTitle">${project.name}</td>
-					<td class="dataText">${project.metadata.subject}</td>
-					<td class="dataText">${project.id}</td>
-					<td class="dataText">${project.dateCreated }</td>
-					<td class="smallText1">${project.familytag}</td>
-					<td class="dataText">${project.metadata.gradeRange }</td>
-					<td class="dataTime">${project.metadata.totalTime }</td>
-					<td class="dataTime">${project.metadata.compTime }</td>
-					<td class="actionMenuButton">
-					<div id="customProjectActionsMenu"
-						class="yuimenubar yuimenubarnav customProjectsMenuCSS">
-					<div class="bd">
-					<ul class="first-of-type">
-						<li class="yuimenubaritem first-of-type" style="width: 100%;">
-						<a class="yuimenubaritemlabel" href="#actionsCurrent">ACTIONS</a>
-						</li>
-					</ul>
-					<a href="shareproject.html?projectId=${project.id}">share this
-					project</a></div>
-					</div>
-					</td>
-				</tr>
-			<!-- </sec:accesscontrollist> -->
-			</c:forEach>
+		    <div id="customProjectInstructions">You own the following bookmarked projects:</div>
+			<c:forEach var="project" items="${bookmarkedProjectsList}">
+
+					<table id="bookmarked_${project.id}">
+							<tr id="row1">
+							<td id="titleCell" colspan="3">
+									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+							</td>
+							<td class="actions" colspan="8"> 
+									<ul>
+										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
+										<li><a href="#" onclick="unbookmark(${project.id})">Un-bookmark this project</a></li>
+									</ul>
+							</td>		
+							</tr>
+							<tr id="row2">
+								<th id="title1" style="width:60px;">Project ID</th>
+								<th id="title1" style="width:90px;">Project Family</th>
+								<th id="title2" style="width:292px;" >Subject(s)</th>
+								<th id="title3" style="width:100px;">Grades</th>
+								<th id="title4" style="width:110px;">Total Time (hrs)</th>
+								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+								<th id="title6" style="width:92px;">Language</th>
+								<th id="title7" style="width:90px;">Usage</th>
+							</tr>
+							<tr id="row3">
+								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+								<td class="dataCell">${project.metadata.gradeRange}</td>              
+								<td class="dataCell">${project.metadata.totalTime}</td>              
+								<td class="dataCell">${project.metadata.compTime}</td> 
+								<td class="dataCell">[English]</td> 
+								<td class="dataCell">${usageMap[project.id]} runs</td>
+					
+							</tr>
+							<tr id="row4">  
+								<td colspan="8">
+									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
+									<div id="toggleAllCurrent">
+									<div id="toggleProjectSummaryCurrent">
+										<table id="detailsTable">
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords">${project.dateCreated }</td>
+											</tr>
+											<tr>
+												<th>Summary:</th>
+												<td class="summary">${project.metadata.summary}</td>
+											</tr>
+											<tr>
+												<th>Keywords:</th>
+												<td class="keywords">[List of comma-separated keywords go here]</td>
+											</tr>
+					<tr>
+												<th>Original Author:</th>
+												<td>[Name goes here]</td>
+											</tr>
+											<tr>
+												<th>Tech Needs:</th>
+												<td>[Tech Requirements go here]</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+	</c:forEach>
 		</c:otherwise>
 	</c:choose>
 
-	<tr>
-		<td id="customProjectSummaryHeader" colspan="10">
-		<div><a href="#"
-			onclick="toggle_visibility('toggleCustomProjectArchive');"><spring:message
-			code="teacher.pro.custom.index.27" /></a></div>
 
-		<div id="toggleCustomProjectArchive">
-		<div id="customProjectSummaryData"><b>Project Summary:</b>
-		Laoreet dignissim consequat nulla eu, dolore consectetuer aliquam
-		nulla iriure commodo, ut, enim lobortis nisl delenit, nostrud facilisi
-		et praesent sed qui, ea. Velit suscipit eu blandit, hendrerit, aliquip
-		dolor et, veniam, facilisis lobortis aliquam enim et ut, velit eros
-		iriure sed dolor feugait, odio dolore. In, commodo luptatum accumsan
-		velit illum laoreet consequat, ipsum ut duis duis dolore illum nulla
-		exerci tation, praesent. Odio dolore eros ullamcorper hendrerit et
-		feugiat hendrerit esse consequat exerci.</div>
-		<div id="customProjectSummaryData"><b>Keywords:</b> Biology,
-		Evolution, Mitosis, Meiosis, Environmental Selective Pressures,
-		Genetics, Cloning, Asexual Reproduction, Sexual Reproduction</div>
-		</div>
-		</td>
-	</tr>
-</table>
 
 </div>
 
+
+<div id="tab4">  <!--  Archived projects tab -->
+
+	<c:choose>
+		<c:when test="${fn:length(archivedOwnedProjectsList) == 0 && fn:length(archivedSharedProjectsList) == 0}">
+		   You currently do not have any archived projects.
+		</c:when>
+		<c:otherwise>
+		    <div id="customProjectInstructions">Archived Projects which you own:</div>
+			<c:if test="${fn:length(archivedOwnedProjectsList) == 0}">
+				Now such project exists.
+			</c:if>
+			<c:forEach var="project" items="${archivedOwnedProjectsList}">
+
+					<table id="projectOverviewTable">
+							<tr id="row1">
+							<td id="titleCell" colspan="3">
+									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<c:if test="${fn:length(project.sharedowners) > 0}">
+										<div id="sharedNamesContainer">
+											This project is shared with:
+											<div id="sharedNames">
+												<c:forEach var="sharedowner" items="${project.sharedowners}">
+												  <c:out value="${sharedowner.userDetails.firstname}"/>
+												  <c:out value="${sharedowner.userDetails.lastname}"/>
+												  <c:out value=",  "/>
+												</c:forEach>
+												</c:if>
+											</div>
+										</div>
+							</td>
+							<td class="actions" colspan="8"> 
+									<ul>
+										<li><a href="#" style="color:#666;">Un-Archived this Project</a></li>
+									</ul>
+							</td>
+							<tr id="row2">
+								<th id="title1" style="width:60px;">Project ID</th>
+								<th id="title1" style="width:90px;">Project Family</th>
+								<th id="title2" style="width:292px;" >Subject(s)</th>
+								<th id="title3" style="width:100px;">Grades</th>
+								<th id="title4" style="width:110px;">Total Time (hrs)</th>
+								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+								<th id="title6" style="width:92px;">Language</th>
+								<th id="title7" style="width:90px;">Usage</th>
+							</tr>
+							<tr id="row3">
+								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+								<td class="dataCell">${project.metadata.gradeRange}</td>              
+								<td class="dataCell">${project.metadata.totalTime}</td>              
+								<td class="dataCell">${project.metadata.compTime}</td> 
+								<td class="dataCell">[English]</td> 
+								<td class="dataCell">${usageMap[project.id]} runs</td>
+					
+							</tr>
+							<tr id="row4">  
+								<td colspan="8">
+									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
+									<div id="toggleAllCurrent">
+									<div id="toggleProjectSummaryCurrent">
+										<table id="detailsTable">
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords">${project.dateCreated }</td>
+											</tr>
+											<tr>
+												<th>Summary:</th>
+												<td class="summary">${project.metadata.summary}</td>
+											</tr>
+											<tr>
+												<th>Keywords:</th>
+												<td class="keywords">[List of comma-separated keywords go here]</td>
+											</tr>
+					<tr>
+												<th>Original Author:</th>
+												<td>[Name goes here]</td>
+											</tr>
+											<tr>
+												<th>Tech Needs:</th>
+												<td>[Tech Requirements go here]</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+	</c:forEach>
+	
+		    <div id="customProjectInstructions">Archived Projects which were shared with you:</div>
+			<c:if test="${fn:length(archivedSharedProjectsList) == 0}">
+				Now such project exists.
+			</c:if>
+			<c:forEach var="project" items="${archivedSharedProjectsList}">
+
+					<table id="projectOverviewTable">
+							<tr id="row1">
+							<td id="titleCell" colspan="3">
+									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<c:if test="${fn:length(project.sharedowners) > 0}">
+										<div id="sharedNamesContainer">
+											This project is shared with:
+											<div id="sharedNames">
+												<c:forEach var="sharedowner" items="${project.sharedowners}">
+												  <c:out value="${sharedowner.userDetails.firstname}"/>
+												  <c:out value="${sharedowner.userDetails.lastname}"/>
+												  <c:out value=",  "/>
+												</c:forEach>
+												</c:if>
+											</div>
+										</div>
+							</td>
+							<td class="actions" colspan="8"> 
+							</tr>
+							<tr id="row2">
+								<th id="title1" style="width:60px;">Project ID</th>
+								<th id="title1" style="width:90px;">Project Family</th>
+								<th id="title2" style="width:292px;" >Subject(s)</th>
+								<th id="title3" style="width:100px;">Grades</th>
+								<th id="title4" style="width:110px;">Total Time (hrs)</th>
+								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+								<th id="title6" style="width:92px;">Language</th>
+								<th id="title7" style="width:90px;">Usage</th>
+							</tr>
+							<tr id="row3">
+								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+								<td class="dataCell">${project.metadata.gradeRange}</td>              
+								<td class="dataCell">${project.metadata.totalTime}</td>              
+								<td class="dataCell">${project.metadata.compTime}</td> 
+								<td class="dataCell">[English]</td> 
+								<td class="dataCell">${usageMap[project.id]} runs</td>
+					
+							</tr>
+							<tr id="row4">  
+								<td colspan="8">
+									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
+									<div id="toggleAllCurrent">
+									<div id="toggleProjectSummaryCurrent">
+										<table id="detailsTable">
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords">${project.dateCreated }</td>
+											</tr>
+											<tr>
+												<th>Summary:</th>
+												<td class="summary">${project.metadata.summary}</td>
+											</tr>
+											<tr>
+												<th>Keywords:</th>
+												<td class="keywords">[List of comma-separated keywords go here]</td>
+											</tr>
+					<tr>
+												<th>Original Author:</th>
+												<td>[Name goes here]</td>
+											</tr>
+											<tr>
+												<th>Tech Needs:</th>
+												<td>[Tech Requirements go here]</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+	</c:forEach>	
+		</c:otherwise>
+	</c:choose>
+
+
+</div>
 
 </div>
 </div>

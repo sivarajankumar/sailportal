@@ -1280,6 +1280,7 @@
 	<bean id="bookmarkController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.bookmarked.BookmarkController">
 		<property name="projectService" ref="projectService"/>
+		<property name="userService" ref="userService"/>
 	</bean>
 	
 	<bean id="publicController"

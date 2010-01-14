@@ -3,6 +3,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -50,12 +51,39 @@ public class CustomizedIndexController extends AbstractController {
 		 UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
 		 User user = userService.retrieveUser(userDetails);
 
+		 // separate owned projects to current and archived.
 		 List<Project> ownedProjectsList = this.projectService.getProjectList(user);
-	     modelAndView.addObject("ownedProjectsList", ownedProjectsList);
+		 List<Project> currentOwnedProjectsList = new ArrayList<Project>();
+		 List<Project> archivedOwnedProjectsList = new ArrayList<Project>();
+		 for (Project project : ownedProjectsList) {
+			 if (project.isCurrent()) {
+				 currentOwnedProjectsList.add(project);
+			 } else {
+				 archivedOwnedProjectsList.add(project);
+			 }
+		 }
+	     modelAndView.addObject("currentOwnedProjectsList", currentOwnedProjectsList);
+	     modelAndView.addObject("archivedOwnedProjectsList", archivedOwnedProjectsList);
+
+		 // separate shared projects to current and archived.
 	     List<Project> sharedProjectsList = this.projectService.getSharedProjectList(user);
 	     sharedProjectsList.removeAll(ownedProjectsList);
-	     modelAndView.addObject("sharedProjectsList", sharedProjectsList);
+		 List<Project> currentSharedProjectsList = new ArrayList<Project>();
+		 List<Project> archivedSharedProjectsList = new ArrayList<Project>();
+		 for (Project project : sharedProjectsList) {
+			 if (project.isCurrent()) {
+				 currentSharedProjectsList.add(project);
+			 } else {
+				 archivedSharedProjectsList.add(project);
+			 }
+		 }
+		 modelAndView.addObject("currentSharedProjectsList", currentSharedProjectsList);
+	     modelAndView.addObject("archivedSharedProjectsList", archivedSharedProjectsList);
 	     
+	     // send in bookmarked projects
+		 List<Project> bookmarkedProjectsList = this.projectService.getBookmarkerProjectList(user);
+		 modelAndView.addObject("bookmarkedProjectsList", bookmarkedProjectsList);
+
 	     Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
 	     Map<Long,String> urlMap = new TreeMap<Long,String>();
 	     Map<Long,String> filenameMap = new TreeMap<Long,String>();
