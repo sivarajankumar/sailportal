@@ -159,6 +159,11 @@ form {margin:0px; padding:0px;}
 	font-size:.65em;
 			}	
 		
+#projectOverviewTable #row2 th.archive {
+	color:#fff;
+	background-color:#FF0000;
+			}	
+			
 #projectOverviewTable a {
 	color:blue;
 	padding:1px 3px;
@@ -173,23 +178,46 @@ form {margin:0px; padding:0px;}
 
 #projectOverviewTable #titleCell {
 	border-right:0px;	
-	padding:3px 4px 3px 2px;
+	padding:3px 4px 3px 5px;
 	}
 			
 #projectOverviewTable #titleCell a {
-	font-size:1.7em;
+	font-size:1.8em;
 	letter-spacing:-.5px;
 			}		
-			
+		
+		
 #projectOverviewTable #sharedNamesContainer {
 	padding:8px;
-	margin:3px 10px 5px 5px;
+	margin:7px 10px 5px 3px;
 	background:#ffb759;
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
 	border-radius:2px;
 }
-	
+
+#projectOverviewTable #sharedNamesContainerOwned {
+	padding:8px;
+	margin:7px 10px 5px 3px;
+	background:#46587B;
+	color:#FFF;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+
+#projectOverviewTable #sharedNamesContainerArchived {
+	padding:8px;
+	margin:7px 10px 5px 3px;
+	background-color:#FF0000;
+	color:#FFF;
+	font-weight:bold;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+}
+
+
 #projectOverviewTable #sharedNames  {
 	display:inline;
 	font-weight:bold;
@@ -262,5 +290,5 @@ form {margin:0px; padding:0px;}
 			}
 			
 #projectOverviewTable #row4 #detailsTable .keywords {
-	font-style:italic;
+	font-style:normal;
 			}				

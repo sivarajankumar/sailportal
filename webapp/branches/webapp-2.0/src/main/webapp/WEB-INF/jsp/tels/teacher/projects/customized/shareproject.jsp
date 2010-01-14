@@ -78,6 +78,19 @@ function findStringsContaining(what, all_array) {
 }
 </script>
 
+<!--USED TO SHOW/HIDE A DIV ELEMENT-->
+<script type="text/javascript">
+
+	function toggleProjectSummaryCurrent(){
+		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
+		if(searchDiv.style.display=='none'){
+			searchDiv.style.display = 'block';
+		} else {
+			searchDiv.style.display = 'none';
+		};
+	};
+</script>
+
 <!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
 
 <link rel="stylesheet" type="text/css" href="../../../themes/tels/default/styles/teacher/superfish.css" media="screen">
@@ -109,30 +122,85 @@ function findStringsContaining(what, all_array) {
 
 <div class="sharedprojectHeadline1"><spring:message code="teacher.pro.custom.sharepro.3"/></div>
 
- <table id="customProjectTable" border="1" cellpadding="0" cellspacing="0">
-				    <tr>
-				        <th><spring:message code="teacher.pro.custom.index.19"/></th>
-				        <th><spring:message code="teacher.pro.custom.index.20"/></th>
-				        <th><spring:message code="teacher.pro.custom.index.21"/></th>
-				        <th><spring:message code="teacher.pro.custom.index.22"/></th>
-						<th><spring:message code="teacher.pro.custom.index.23"/></th>
-						<th><spring:message code="teacher.pro.custom.index.24"/></th>
-						<th><spring:message code="teacher.pro.custom.index.25"/></th>
-						<th><spring:message code="teacher.pro.custom.index.26"/></th>
-				    </tr>
-				  
-				  <tr id="customProjectR2">
-				    <td class="customProjectTitle">${project.name}</td>
-				    <td class="dataText">${project.projectInfo.subject} ${project.projectInfo.keywords}</td>
-				    <td class="dataText">${project.id}</td>
-				    <td class="dataText">${project.projectInfo.projectLiveCycle }</td>
-				    <td class="smallText1">UC Berkeley library project</td>
-				    <td class="dataText">${project.projectInfo.gradeLevel}</td>
-				    <td class="dataTime">[6 hours]</td>
-				    <td class="dataTime">[5 hours]</td>
-				  </tr>
-				   
-				</table>
+<table id="projectOverviewTable">
+							<tr id="row1">
+							<td id="titleCell" colspan="3">
+									<a href="projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<c:if test="${fn:length(project.sharedowners) > 0}">
+										<div id="sharedNamesContainer">
+											This project is shared with:
+											<div id="sharedNames">
+												<c:forEach var="sharedowner" items="${project.sharedowners}">
+												  <c:out value="${sharedowner.userDetails.firstname}"/>
+												  <c:out value="${sharedowner.userDetails.lastname}"/>
+												  <c:out value=",  "/>
+												</c:forEach>
+												</c:if>
+											</div>
+										</div>
+							</td>
+							<td class="actions" colspan="6"> 
+									<ul>
+										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
+										<li><a href="#" style="color:#666;">Set up as Project Run</a></li>
+										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Content</a></li>
+										<li><a href="shareproject.html?projectId=${project.id}">Share Project</a>
+										    <input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>
+									</ul>
+							</tr>
+							<tr id="row2">
+								<th id="title1" style="width:60px;">Project ID</th>
+								<th id="title1" style="width:90px;">Project Family</th>
+								<th id="title2" style="width:292px;" >Subject(s)</th>
+								<th id="title3" style="width:100px;">Grades</th>
+								<th id="title4" style="width:110px;">Total Time (hrs)</th>
+								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+								<th id="title6" style="width:92px;">Language</th>
+								<th id="title7" style="width:90px;">Usage</th>
+							</tr>
+							<tr id="row3">
+								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+								<td class="dataCell">${project.metadata.gradeRange}</td>              
+								<td class="dataCell">${project.metadata.totalTime}</td>              
+								<td class="dataCell">${project.metadata.compTime}</td> 
+								<td class="dataCell">[English]</td> 
+								<td class="dataCell">${usageMap[project.id]} runs</td>
+					
+							</tr>
+							<tr id="row4">  
+								<td colspan="8">
+									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
+									<div id="toggleAllCurrent">
+									<div id="toggleProjectSummaryCurrent" style="display:none;">
+										<table id="detailsTable">
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords">${project.dateCreated }</td>
+											</tr>
+											<tr>
+												<th>Summary:</th>
+												<td class="summary">${project.metadata.summary}</td>
+											</tr>
+											<tr>
+												<th>Keywords:</th>
+												<td class="keywords">[List of comma-separated keywords go here]</td>
+											</tr>
+					<tr>
+												<th>Original Author:</th>
+												<td>[Name goes here]</td>
+											</tr>
+											<tr>
+												<th>Tech Needs:</th>
+												<td>[Tech Requirements go here]</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								</td>
+							</tr>
+						</table>
 				
 <div class="sharedprojectHeadline1"><spring:message code="teacher.pro.custom.sharepro.4"/></div>			
 
@@ -141,6 +209,7 @@ function findStringsContaining(what, all_array) {
 	<tr>
 		<th><spring:message code="teacher.pro.custom.sharepro.5"/></th>
 		<th><spring:message code="teacher.pro.custom.sharepro.6"/></th> 
+		<th>Actions</th> 
 	</tr>
 	<tr>
 		<c:choose>
@@ -194,7 +263,7 @@ function findStringsContaining(what, all_array) {
 	</c:choose>
 	
 	<tr>
-		<td id="sharingSearchBox" colspan=2>
+		<td id="sharingSearchBox" colspan=3>
 			<div id="sharingSearchBoxHelp"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
 				<form:form method="post" commandName="addSharedTeacherParameters">
 					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="25"/>

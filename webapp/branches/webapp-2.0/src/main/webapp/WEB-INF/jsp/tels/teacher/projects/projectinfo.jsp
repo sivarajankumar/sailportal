@@ -55,6 +55,8 @@
 
 <%@ include file="../headerteacher.jsp"%> 
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <h2 id="titleBar" class="headerText"><spring:message code="teacher.pro.projinfo.1"/></h2> 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
@@ -62,63 +64,92 @@
 <div id="projectInfoTabs" class="yui-navset">
     <ul class="yui-nav" >
         <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.projinfo.2"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab2"><em><spring:message code="teacher.pro.projinfo.3"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.projinfo.4"/></em></a></li>
+        <li style="margin-left:4px;"><a href="#tab3"><em>Lesson Plan & Learning Goals</em></a></li>
+		<li style="margin-left:4px;"><a href="#tab2"><em>Teacher Step-By-Step Guide</em></a></li>
         <li style="margin-left:4px;"><a href="#tab4"><em><spring:message code="teacher.pro.projinfo.5"/></em></a></li>
     </ul>            
     <div class="yui-content">
         <div id="tab1">
-        
-            <div id="projectInfoProjectTitle">${project.projectInfo.name}</div>
-            
-            <table id="projectInfoActionButtons"  >
-            	<tr>
-            		<td><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	             			PREVIEW <br>PROJECT</a></td>
-	             	<td><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">
-	             			SET UP AS A<br>PROJECT RUN</a></td>
-	             	<td><a href="#" style="color:#999999;">CREATE LINK IN <br/><em>MY BOOKMARKED PROJECTS</em></a></td>
-	            	<td><a href="#" style="color:#999999;">CREATE EDTIABLE COPY IN <em>MY CUSTOMIZED PROJECTS</em></a></td>
-	            </tr>
-	         </table> 
-	        
-	        <div id="editInfoLink"><a href="#">edit overview information</a></div>
-	    
-	    	<dl id="projectInfo">
-	    		<dt>Project Name:</dt>
-	    			<dd>${project.projectInfo.name}</dd>
-	    		<dt>Project ID:</dt>
-	    			<dd>${project.id}</dd>
-	    		<dt>Project Source:</dt>
-	    			<dd>${project.familytag}</dd>
-	    		<dt style="letter-spacing:-.7px;">Subjects/Keywords:</dt>
-	    			<dd>${project.metadata.subject}</dd>
-	    		<dt>Grade Range:</dt>
-	    			<dd>${project.metadata.gradeRange}</dd>
-	    		<dt>Total Time:</dt>
-	    			<dd>${project.metadata.totalTime }</dd>
-	    		<dt>Computer Time:</dt>
-	    			<dd>${project.metadata.compTime }</dd>
-	    		<dt>Usage:</dt>
-	    			<dd>${usage}</dd>
-	    		<dt>Created On:</dt>
-	    			<dd>${project.dateCreated}</dd>
-	    		
-	    	</dl>
-	    	
-	    <div class="projectInfoHeader">Project Summary</div>
-	    <div class="projectInfoDataBox">${project.metadata.summary}</div>
-	    
-	    <div class="projectInfoHeader">Contact(s)</div>
-	    <div class="projectInfoDataBox">${project.metadata.contact }</div>
-	    	
-		<div class="projectInfoHeader">Technical Requirements</div>
-	    <div class="projectInfoDataBox">
-			${project.metadata.techReqs }
-		</div>	
-
-		<div class="projectInfoHeader">Lesson Plan</div>
-		<div class="projectInfoDataBox">${project.metadata.lessonPlan}</div>
+  			<br/>
+            <table id="projectOverviewTable">
+							<tr id="row1">
+							<td id="titleCell" colspan="3">
+									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<c:if test="${fn:length(project.sharedowners) > 0}">
+										<div id="sharedNamesContainer">
+											This project is shared with:
+											<div id="sharedNames">
+												<c:forEach var="sharedowner" items="${project.sharedowners}">
+												  <c:out value="${sharedowner.userDetails.firstname}"/>
+												  <c:out value="${sharedowner.userDetails.lastname}"/>
+												  <c:out value=",  "/>
+												</c:forEach>
+												</c:if>
+											</div>
+										</div>
+							</td>
+							<td class="actions" colspan="6"> 
+									<ul>
+										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
+										<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
+										<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit Content</a></li>
+										<li><a href="customized/shareproject.html?projectId=${project.id}">Share Project</a>
+										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
+									</ul>
+							</tr>
+							<tr id="row2">
+								<th id="title1" style="width:60px;">Project ID</th>
+								<th id="title1" style="width:90px;">Project Family</th>
+								<th id="title2" style="width:292px;" >Subject(s)</th>
+								<th id="title3" style="width:100px;">Grades</th>
+								<th id="title4" style="width:110px;">Total Time (hrs)</th>
+								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+								<th id="title6" style="width:92px;">Language</th>
+								<th id="title7" style="width:90px;">Usage</th>
+							</tr>
+							<tr id="row3">
+								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+								<td class="dataCell">${project.metadata.gradeRange}</td>              
+								<td class="dataCell">${project.metadata.totalTime}</td>              
+								<td class="dataCell">${project.metadata.compTime}</td> 
+								<td class="dataCell">[English]</td> 
+								<td class="dataCell">${usageMap[project.id]} runs</td>
+					
+							</tr>
+							<tr id="row4">  
+								<td colspan="8">
+									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
+									<div id="toggleAllCurrent">
+									<div id="toggleProjectSummaryCurrent">
+										<table id="detailsTable">
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
+											</tr>
+											<tr>
+												<th>Summary:</th>
+												<td class="summary">${project.metadata.summary}</td>
+											</tr>
+											<tr>
+												<th>Keywords:</th>
+												<td class="keywords">[List of comma-separated keywords go here]</td>
+											</tr>
+					<tr>
+												<th>Original Author:</th>
+												<td>[Name goes here]</td>
+											</tr>
+											<tr>
+												<th>Tech Needs:</th>
+												<td>[Tech Requirements go here]</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								</td>
+							</tr>
+						</table>
 	         
 	    </div>       <!--	    End of Tab 1 content-->
         

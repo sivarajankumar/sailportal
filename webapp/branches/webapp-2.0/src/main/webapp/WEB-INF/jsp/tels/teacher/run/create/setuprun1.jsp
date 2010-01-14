@@ -49,6 +49,19 @@
     
 </script>
 
+<!--USED TO SHOW/HIDE A DIV ELEMENT-->
+<script type="text/javascript">
+
+	function toggleProjectSummaryCurrent(){
+		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
+		if(searchDiv.style.display=='none'){
+			searchDiv.style.display = 'block';
+		} else {
+			searchDiv.style.display = 'none';
+		};
+	};
+</script>
+
 </head>
 
 <body>
@@ -56,6 +69,8 @@
 <div id="centeredDiv">
 
 <%@ include file="../../headerteacher.jsp"%> 
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="navigationSubHeader2">Project Run Setup<span id="navigationSubHeader1">projects</span></div> 
 
@@ -69,29 +84,80 @@
 
 <h5><spring:message code="teacher.run.setup.7"/>&nbsp;<em>[Library/Customized]</em>&nbsp;<spring:message code="teacher.run.setup.8"/></h5>
 
-<table id="setupProjectTable" border="1" cellpadding="3" cellspacing="2">
-	<tr id="setupProjectTableR1">
-		<td style="width:40%;">Project Title</td>
-		<td>Project ID</td>
-		<td style="width:25%;">Keywords</td>
-		<td>Grade</td>
-		<td>Total Time</td>
-		<td>Computer Time</td>
-		<td>Usage</td>
-	</tr>
-	<tr id="setupProjectTableR2">
-		<td class="setupProjectTitle">${project.projectInfo.name}</td>
-		<td>${project.id}</td>       		   
-		<td>${project.projectInfo.keywords}</td>
-		<td>${project.projectInfo.gradeLevel}</td>              
-		<td>[# hours here]</td>              
-		<td>[# hours here]</td>
-		<td>[# Runs Here]
-	</tr>
-	<tr id="setupProjectTableR3">
-		<td class="indent15px" colspan="7">Project Description: ${project.projectInfo.description}</td>
-	</tr>
-	</table>
+<table id="projectOverviewTable">
+							<tr id="row1">
+							<td id="titleCell" colspan="3">
+									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<c:if test="${fn:length(project.sharedowners) > 0}">
+										<div id="sharedNamesContainer">
+											This project is shared with:
+											<div id="sharedNames">
+												<c:forEach var="sharedowner" items="${project.sharedowners}">
+												  <c:out value="${sharedowner.userDetails.firstname}"/>
+												  <c:out value="${sharedowner.userDetails.lastname}"/>
+												  <c:out value=",  "/>
+												</c:forEach>
+												</c:if>
+											</div>
+										</div>
+							</td>
+							<td class="actions" colspan="6"> 
+									<ul>
+									</ul>
+							</tr>
+							<tr id="row2">
+								<th id="title1" style="width:60px;">Project ID</th>
+								<th id="title1" style="width:90px;">Project Family</th>
+								<th id="title2" style="width:292px;" >Subject(s)</th>
+								<th id="title3" style="width:100px;">Grades</th>
+								<th id="title4" style="width:110px;">Total Time (hrs)</th>
+								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+								<th id="title6" style="width:92px;">Language</th>
+								<th id="title7" style="width:90px;">Usage</th>
+							</tr>
+							<tr id="row3">
+								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+								<td class="dataCell">${project.metadata.gradeRange}</td>              
+								<td class="dataCell">${project.metadata.totalTime}</td>              
+								<td class="dataCell">${project.metadata.compTime}</td> 
+								<td class="dataCell">[English]</td> 
+								<td class="dataCell">${usageMap[project.id]} runs</td>
+					
+							</tr>
+							<tr id="row4">  
+								<td colspan="8">
+									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
+									<div id="toggleAllCurrent">
+									<div id="toggleProjectSummaryCurrent" style="display:none;">
+										<table id="detailsTable">
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
+											</tr>
+											<tr>
+												<th>Summary:</th>
+												<td class="summary">${project.metadata.summary}</td>
+											</tr>
+											<tr>
+												<th>Keywords:</th>
+												<td class="keywords">[List of comma-separated keywords go here]</td>
+											</tr>
+					<tr>
+												<th>Original Author:</th>
+												<td>[Name goes here]</td>
+											</tr>
+											<tr>
+												<th>Tech Needs:</th>
+												<td>[Tech Requirements go here]</td>
+											</tr>
+										</table>
+									</div>
+									</div>
+								</td>
+							</tr>
+						</table>
 			
 <h5><spring:message code="teacher.run.setup.9"/>&nbsp;<em><spring:message code="teacher.run.setup.10"/></em>&nbsp;<spring:message code="teacher.run.setup.11"/></h5>
 
