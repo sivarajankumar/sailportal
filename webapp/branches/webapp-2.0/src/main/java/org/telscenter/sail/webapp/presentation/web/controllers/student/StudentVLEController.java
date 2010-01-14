@@ -376,7 +376,7 @@ public class StudentVLEController extends AbstractController {
 
 		//get the url for the *.project.meta.json file
 		int lastIndexOfDot = getContentUrl.lastIndexOf(".");
-		String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + ".meta.json";
+		String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + "-meta.json";
 
 		//get the location of the last slash
 		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
