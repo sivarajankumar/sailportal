@@ -58,23 +58,9 @@
 		</ul>
 		</li>
 
-		<li class="level1"><a href="#">Grading</a>
-		<ul>
-				<li><a href="/webapp/teacher/grading/overview.html">Overview</a></li>
-				<li><a href="/webapp/teacher/grading/projectPickerGrading.html?gradeByType=step">Grade Work by Step</a></li>
-				<li><a href="/webapp/teacher/grading/projectPickerGrading.html?gradeByType=team">Grade Work by Team</a></li>
-				<li><a href="" style="color:#999;">Edit Maximum Score Values for a Project Run</a></li>
-				<li><a href="" style="color:#999;">Review Student Score Summary</a></li>
-				<li><a href="" style="color:#999;">Edit Pre-Made Grading Comments</a></li>
-
-
-		</ul>
-		</li>
-
 		<li class="level1"><a href="#">Management</a>
 	    <ul>
             <li><a href="/webapp/teacher/management/overview.html">Overview</a></li>
-            <li><a href="/webapp/teacher/run/myprojectruns.html">My Project Runs<br/>& Access Codes</a></li>
             <li><a href="/webapp/teacher/management/projectPickerManagement.html">Manage Students</a></li>
             <li><a href="" style="color:#999;">View Student RealTime Progress Monitor</a></li>
             <li><a href="" style="color:#999;">Print/Export Student Work</a></li>
