@@ -547,7 +547,7 @@ function changePublic(id){
 							</td>
 							<td class="actions" colspan="8"> 
 									<ul>
-										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
+										<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 										<li><a href="#" style="color:#666;">Edit Project Overview</a></li>
 										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Project Content</a></li>
 										<li><a href="shareproject.html?projectId=${project.id}">Share this project</a></li>
