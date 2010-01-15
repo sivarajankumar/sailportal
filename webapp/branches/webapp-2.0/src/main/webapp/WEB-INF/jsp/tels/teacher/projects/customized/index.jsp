@@ -442,23 +442,14 @@
         	};
         </script>
 
-<!--USED TO SHOW/HIDE A DIV ELEMENT-->
 <script type="text/javascript">
 
-	function toggleProjectSummaryCurrent(){
-		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
-		if(searchDiv.style.display=='none'){
-			searchDiv.style.display = 'block';
-		} else {
-			searchDiv.style.display = 'none';
-		};
-	};
-</script>
-
-<script type="text/javascript">
-
-	function toggleProjectSummaryAll(){
-		var searchDiv = document.getElementById('toggleAllCurrent');
+	/**
+	 * Toggles the summary div
+	 * projectId: id of project whose summary div to toggle
+	 */
+	function toggleDetails(projectId){
+		var searchDiv = document.getElementById('details_'+projectId);
 		if(searchDiv.style.display=='none'){
 			searchDiv.style.display = 'block';
 		} else {
@@ -515,7 +506,7 @@ function changePublic(id){
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div id="navigationSubHeader2">My Custom-Authored &amp; Shared Projects<span id="navigationSubHeader1">projects</span></div> 
+<div id="navigationSubHeader2">My Projects<span id="navigationSubHeader1">projects</span></div> 
 
 
 <!--<div id="projectInfoInstructions">Click any tab below for more information.</div>-->
@@ -543,12 +534,10 @@ function changePublic(id){
 
 	<c:choose>
 		<c:when test="${fn:length(currentOwnedProjectsList) == 0}">
-		   You currently do not own any projects.
+		   <h5>You currently do not own any projects.</h5>
 		</c:when>
 		<c:otherwise>
 		    <div id="customProjectInstructions">You own the customized projects listed below.</div>
-			<c:forEach var="project" items="${ownedProjectsList}">
-		    <div id="customProjectInstructions">You own the following customized projects:</div>
 			<c:forEach var="project" items="${currentOwnedProjectsList}">
 
 					<table id="projectOverviewTable">
@@ -564,25 +553,20 @@ function changePublic(id){
 												  <c:out value="${sharedowner.userDetails.lastname}"/>
 												  <c:out value=",  "/>
 												</c:forEach>
-												</c:if>
 											</div>
 										</div>
+									</c:if>
 							</td>
 							<td class="actions" colspan="8"> 
 									<ul>
-										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
-										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
-										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Content</a></li>
-										<li><a href="shareproject.html?projectId=${project.id}">Share Project</a>
-										<li><a href="#" style="color:#666;">Archive</a>
-											<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 										<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Run</a></li>
-										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit</a></li>
-										<li><a href="shareproject.html?projectId=${project.id}">Share</a></li>
+										<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
+										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
+										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
+										<li><a href="shareproject.html?projectId=${project.id}">Share</a>
 										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
-										<!-- <li><input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>  -->
+										<li><a href="#" style="color:#666;">Archive</a>
+										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>
 							</tr>
 							<tr id="row2">
@@ -608,9 +592,8 @@ function changePublic(id){
 							</tr>
 							<tr id="row4">  
 								<td colspan="8">
-									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
-									<div id="toggleAllCurrent">
-									<div id="toggleProjectSummaryCurrent">
+									<a id="hideShowLink" href="#" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
+									<div id="details_${project.id}" >
 										<table id="detailsTable">
 											<tr>
 												<th>Created On:</th>
@@ -648,6 +631,7 @@ function changePublic(id){
 <!--	    End of Tab 1 content-->
 
 <div id="tab2">  <!-- shared projects -->
+
 <!--  
 <table id="customProjectsButtons">
 	<tr>
@@ -656,195 +640,48 @@ function changePublic(id){
 </table>
 -->
 
-	<c:choose>
-		<c:when test="${fn:length(sharedProjectsList) == 0}">
+<c:choose>
+		<c:when test="${fn:length(currentSharedProjectsList) == 0}">
+		<h5>No projects are currently being shared with you.</h5>
 		</c:when>
 		<c:otherwise>
-		    <div id="customProjectInstructions">The projects below are being shared with you by another WISE user.</div>
-			<c:forEach var="project" items="${sharedProjectsList}">
-					<table id="projectOverviewTable">
+<div id="customProjectInstructions">The projects below have been shared with you by another user.</div>
+
+	<table id="projectOverviewTable">
+							<c:forEach var="project" items="${currentSharedProjectsList}">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
 									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
 										<div id="sharedNamesContainerOwned">
-											This project is SHARED WITH YOU by:<br>
-											<c:forEach var="projectowner" items="${project.owners}">
-											  <c:out value="${projectowner.userDetails.firstname}" />
-											  <c:out value="${projectowner.userDetails.lastname}" />
-					  
-												</c:forEach>
-												</c:if>
+											Project OWNER is:
+											<div id="sharedNames">
+												<c:forEach var="projectowner" items="${project.owners}">
+					  							<c:out value="${projectowner.userDetails.firstname}" />
+					  							<c:out value="${projectowner.userDetails.lastname}" />
+				 								</c:forEach>
 											</div>
 										</div>
-							</td>
-							<td class="actions" colspan="6"> 
-									<ul>
-										<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
-										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
-										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Content</a></li>
-										<li><a href="shareproject.html?projectId=${project.id}">Share Project</a>
-										<li><a href="#" style="color:#666;">Archive</a>
-											<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
-									</ul>
-							</tr>
-							<tr id="row2">
-								<th id="title1" style="width:60px;">Project ID</th>
-								<th id="title1" style="width:90px;">Project Family</th>
-								<th id="title2" style="width:292px;" >Subject(s)</th>
-								<th id="title3" style="width:100px;">Grades</th>
-								<th id="title4" style="width:110px;">Total Time (hrs)</th>
-								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
-								<th id="title6" style="width:92px;">Language</th>
-								<th id="title7" style="width:90px;">Usage</th>
-							</tr>
-							<tr id="row3">
-								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
-								<td class="dataCell">${project.metadata.gradeRange}</td>              
-								<td class="dataCell">${project.metadata.totalTime}</td>              
-								<td class="dataCell">${project.metadata.compTime}</td> 
-								<td class="dataCell">[English]</td> 
-								<td class="dataCell">${usageMap[project.id]} runs</td>
-					
-							</tr>
-							<tr id="row4">  
-								<td colspan="8">
-									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
-									<div id="toggleAllCurrent">
-									<div id="toggleProjectSummaryCurrent" style="display:none;">
-										<table id="detailsTable">
-											<tr>
-												<th>Created On:</th>
-												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
-											</tr>
-											<tr>
-												<th>Summary:</th>
-												<td class="summary">${project.metadata.summary}</td>
-											</tr>
-											<tr>
-												<th>Keywords:</th>
-												<td class="keywords">[List of comma-separated keywords go here]</td>
-											</tr>
-					<tr>
-												<th>Original Author:</th>
-												<td>[Name goes here]</td>
-											</tr>
-											<tr>
-												<th>Tech Needs:</th>
-												<td>[Tech Requirements go here]</td>
-											</tr>
-										</table>
-									</div>
-									</div>
-								</td>
-							</tr>
-						</table>
+									</c:if>
 
-	</c:forEach>
-<c:choose>
-		<c:when test="${fn:length(currentSharedProjectsList) == 0}">
-		You currently do not have any shared projects.
-		</c:when>
-		<c:otherwise>
-<table id="customProjectTable" border="1" cellpadding="0"
-	cellspacing="0">
-	<tr>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.19" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.20" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.21" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.22" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.23" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.24" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.25" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.26" /></th>
-		<th style="background-color: #0000CC;"><spring:message
-			code="teacher.pro.custom.index.26B" /></th>
-	</tr>
-
-
-	
-			<c:forEach var="project" items="${currentSharedProjectsList}">
-				<tr id="customProjectR2">
-					<td class="customProjectTitle">${project.name}
-					<br>
-					This project is owned by:<br>
-					<c:forEach var="projectowner" items="${project.owners}">
-					  <c:out value="${projectowner.userDetails.firstname}" />
-					  <c:out value="${projectowner.userDetails.lastname}" />
-					  <br>					  
-					</c:forEach>
-					</td>
-					<td class="dataText">${project.metadata.subject}</td>
-					<td class="dataText">${project.id}</td>
-					<td class="dataText">${project.dateCreated }</td>
-					<td class="smallText1">${project.familytag }</td>
-					<td class="dataText">${project.metadata.gradeRange }</td>
-					<td class="dataTime">${project.metadata.totalTime }</td>
-					<td class="dataTime">${project.metadata.compTime }</td>
-					<td class="actionMenuButton">
-					<div id="actionList">
-						<div class="bd">
-						<li>
-							<a href="../../../previewproject.html?projectId=${project.id}">Preview Project</a>
-						</li>
-							<sec:accesscontrollist domainObject="${project}" hasPermission="2">	
-						<li>
-							<a href="../../../author/authorproject.html?projectId=${project.id}"><spring:message
-								code="edit.curnit" /></a>
-						</li>
-							</sec:accesscontrollist>
-							<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
-						<li>
-							<a href="shareproject.html?projectId=${project.id}">Share Project</a>
-						</li>
-						</sec:accesscontrollist>
-						<!-- 
-						<li>
-							<input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public
-						</li>		
-						 -->
-						</div>
-					</td>
-				</tr>
-			</c:forEach>
-		</table>
-		</c:otherwise>
-	</c:choose>
-
-</div>
-
-<div id="tab3">  <!-- bookmarked projects -->
-
-	<c:choose>
-		<c:when test="${fn:length(bookmarkedProjectsList) == 0}">
-		   You currently do not have any bookmarked projects.
-		</c:when>
-		<c:otherwise>
-		    <div id="customProjectInstructions">You own the following bookmarked projects:</div>
-			<c:forEach var="project" items="${bookmarkedProjectsList}">
-
-					<table id="bookmarked_${project.id}">
-							<tr id="row1">
-							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
 							</td>
 							<td class="actions" colspan="8"> 
 									<ul>
-										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="#" onclick="unbookmark(${project.id})">Un-bookmark this project</a></li>
+
+
+										<li><a href="../../../previewproject.html?projectId=${project.id}">Preview Project</a></li>
+										<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
+										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
+										<sec:accesscontrollist domainObject="${project}" hasPermission="2">	
+											<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
+										</sec:accesscontrollist>		
+										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
+										<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
+											<li><a href="shareproject.html?projectId=${project.id}">Share</a></li>
+										</sec:accesscontrollist>										
+										<li><a href="#" style="color:#666;">Archive</a>
+										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>
-							</td>		
 							</tr>
 							<tr id="row2">
 								<th id="title1" style="width:60px;">Project ID</th>
@@ -875,110 +712,6 @@ function changePublic(id){
 										<table id="detailsTable">
 											<tr>
 												<th>Created On:</th>
-												<td class="keywords">${project.dateCreated }</td>
-											</tr>
-											<tr>
-												<th>Summary:</th>
-												<td class="summary">${project.metadata.summary}</td>
-											</tr>
-											<tr>
-												<th>Keywords:</th>
-												<td class="keywords">[List of comma-separated keywords go here]</td>
-											</tr>
-					<tr>
-												<th>Original Author:</th>
-												<td>[Name goes here]</td>
-											</tr>
-											<tr>
-												<th>Tech Needs:</th>
-												<td>[Tech Requirements go here]</td>
-											</tr>
-										</table>
-									</div>
-									</div>
-								</td>
-							</tr>
-						</table>
-
-	</c:forEach>
-		</c:otherwise>
-	</c:choose>
-
-
-
-</div>
-
-
-<table id="customProjectsButtons">
-	<tr>
-		<td><a href="#" onclick="toggleProjectSummaryAll()">Hide/Show All Project Details</a></td>
-	</tr>
-</table>
-<div id="tab4">  <!--  Archived projects tab -->
-
-	<c:choose>
-		<c:when test="${fn:length(archivedOwnedProjectsList) == 0 && fn:length(archivedSharedProjectsList) == 0}">
-		   You currently do not have any archived projects.
-		</c:when>
-		<c:otherwise>
-		    <div id="customProjectInstructions">The following projects have been ARCHIVED.</div>
-			<c:forEach var="project" items="${sharedProjectsList}">
-					<table id="projectOverviewTable">
-							<tr id="row1">
-							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
-									<c:if test="${fn:length(project.sharedowners) > 0}">
-										<div id="sharedNamesContainerArchived">
-											This project is SHARED WITH YOU by:<br>
-											<c:forEach var="projectowner" items="${project.owners}">
-											  <c:out value="${projectowner.userDetails.firstname}" />
-											  <c:out value="${projectowner.userDetails.lastname}" />
-					  
-												</c:forEach>
-												</c:if>
-											</div>
-										</div>
-							</td>
-							<td class="actions" colspan="6"> 
-									<ul>
-										<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
-										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
-										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Content</a></li>
-										<li><a href="shareproject.html?projectId=${project.id}">Share Project</a>
-										<li><a href="#" style="color:#666;">Archive</a>
-											<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
-									</ul>
-							</tr>
-							<tr id="row2" >
-								<th class="archive" id="title1" style="width:60px;">Project ID</th>
-								<th class="archive" id="title1" style="width:90px;">Project Family</th>
-								<th class="archive" id="title2" style="width:292px;" >Subject(s)</th>
-								<th class="archive" id="title3" style="width:100px;">Grades</th>
-								<th class="archive" id="title4" style="width:110px;">Total Time (hrs)</th>
-								<th class="archive" id="title5" style="width:110px;">Computer Time (hrs)</th>
-								<th class="archive" id="title6" style="width:92px;">Language</th>
-								<th class="archive" id="title7" style="width:90px;">Usage</th>
-							</tr>
-							<tr id="row3">
-								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
-								<td class="dataCell">${project.metadata.gradeRange}</td>              
-								<td class="dataCell">${project.metadata.totalTime}</td>              
-								<td class="dataCell">${project.metadata.compTime}</td> 
-								<td class="dataCell">[English]</td> 
-								<td class="dataCell">${usageMap[project.id]} runs</td>
-					
-							</tr>
-							<tr id="row4">  
-								<td colspan="8">
-									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
-									<div id="toggleAllCurrent">
-									<div id="toggleProjectSummaryCurrent" style="display:none;">
-										<table id="detailsTable">
-											<tr>
-												<th>Created On:</th>
 												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
 											</tr>
 											<tr>
@@ -989,7 +722,7 @@ function changePublic(id){
 												<th>Keywords:</th>
 												<td class="keywords">[List of comma-separated keywords go here]</td>
 											</tr>
-					<tr>
+											<tr>
 												<th>Original Author:</th>
 												<td>[Name goes here]</td>
 											</tr>
@@ -1002,12 +735,114 @@ function changePublic(id){
 									</div>
 								</td>
 							</tr>
-						</table>
+							</c:forEach>
+	</table>
+
+	</c:otherwise>
+</c:choose>
+
+</div>
+
+
+
+<div id="tab3">  <!-- bookmarked projects -->
+
+	<c:choose>
+		<c:when test="${fn:length(bookmarkedProjectsList) == 0}">
+		   <h5>You currently have not bookmarked any WISE library projects.</h5>
+		</c:when>
+		<c:otherwise>
+		    <div id="customProjectInstructions">You have bookmarked the following WISE library projects:</div>
+			<c:forEach var="project" items="${bookmarkedProjectsList}">
+
+			<table id="projectOverviewTable">
+					<tr id="row1">
+					<td id="titleCell" colspan="3"><a href="../projectinfo.html?projectId=${project.id}">${project.name}</a></td>
+					<td class="actions" colspan="6"> 
+							<ul>
+
+								<li><a href="#" onclick="unbookmark(${project.id})">Unnbookmark</a></li>
+								<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
+								<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
+								<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
+								<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
+							</ul>
+					</tr>
+					<tr id="row2">
+						<th id="title1" style="width:60px;">Project ID</th>
+						<th id="title1" style="width:90px;">Project Family</th>
+						<th id="title2" style="width:292px;" >Subject(s)</th>
+						<th id="title3" style="width:100px;">Grades</th>
+						<th id="title4" style="width:110px;">Total Time (hrs)</th>
+						<th id="title5" style="width:110px;">Computer Time (hrs)</th>
+						<th id="title6" style="width:92px;">Language</th>
+						<th id="title7" style="width:90px;">Usage</th>
+					</tr>
+					<tr id="row3">
+						<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+						<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+						<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+						<td class="dataCell">${project.metadata.gradeRange}</td>              
+						<td class="dataCell">${project.metadata.totalTime}</td>              
+						<td class="dataCell">${project.metadata.compTime}</td> 
+						<td class="dataCell">[English]</td> 
+						<td class="dataCell">${usageMap[project.id]} runs</td>
+			
+					</tr>
+					<tr id="row4">  
+						<td colspan="8">
+							<a id="hideShowLink" href="#" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
+							<div id="details_${project.id}">
+								<table id="detailsTable">
+									<tr>
+										<th>Summary:</th>
+										<td class="summary">Consequat tincidunt veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat 
+			t veniam elit molestie in vel ullamcorper duis autem ipsum, aliquip nostrud delenit feugait, dolore dolore, dolor feugiat consequat accumsan te illum eum.</td>
+									</tr>
+									<tr>
+										<th>Keywords:</th>
+										<td class="keywords">[List of comma-separated keywords go here]</td>
+									</tr>
+									<tr>
+										<th>Date Created:</th>
+										<td><fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="long" /></td>
+									</tr>
+									<tr>
+										<th>Original Author:</th>
+										<td>[Name goes here]</td>
+									</tr>
+									<tr>
+										<th>Tech Needs:</th>
+										<td>[Tech Requirements go here]</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
 
 	</c:forEach>
-		    <div id="customProjectInstructions">Archived Projects which you own:</div>
+		</c:otherwise>
+	</c:choose>
+
+
+
+</div>
+
+
+<div id="tab4">  <!--  Archived projects tab -->
+
+	<c:choose>
+		<c:when test="${fn:length(archivedOwnedProjectsList) == 0 && fn:length(archivedSharedProjectsList) == 0}">
+		   <h5>You currently do not have any archived projects.</h5>
+		</c:when>
+		<c:otherwise>
+		    
+
+
+		    <div id="customProjectInstructions">Archived Projects which you owned:</div>
 			<c:if test="${fn:length(archivedOwnedProjectsList) == 0}">
-				Now such project exists.
+				<h5>None</h5>
 			</c:if>
 			<c:forEach var="project" items="${archivedOwnedProjectsList}">
 
@@ -1016,7 +851,7 @@ function changePublic(id){
 							<td id="titleCell" colspan="3">
 									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
-										<div id="sharedNamesContainer">
+										<div id="sharedNamesContainerArchived">
 											This project is shared with:
 											<div id="sharedNames">
 												<c:forEach var="sharedowner" items="${project.sharedowners}">
@@ -1024,9 +859,9 @@ function changePublic(id){
 												  <c:out value="${sharedowner.userDetails.lastname}"/>
 												  <c:out value=",  "/>
 												</c:forEach>
-												</c:if>
 											</div>
 										</div>
+									</c:if>
 							</td>
 							<td class="actions" colspan="8"> 
 									<ul>
@@ -1072,7 +907,7 @@ function changePublic(id){
 												<th>Keywords:</th>
 												<td class="keywords">[List of comma-separated keywords go here]</td>
 											</tr>
-					<tr>
+											<tr>
 												<th>Original Author:</th>
 												<td>[Name goes here]</td>
 											</tr>
@@ -1091,7 +926,7 @@ function changePublic(id){
 	
 		    <div id="customProjectInstructions">Archived Projects which were shared with you:</div>
 			<c:if test="${fn:length(archivedSharedProjectsList) == 0}">
-				Now such project exists.
+				<h5>None.</h5>
 			</c:if>
 			<c:forEach var="project" items="${archivedSharedProjectsList}">
 
@@ -1100,7 +935,7 @@ function changePublic(id){
 							<td id="titleCell" colspan="3">
 									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
-										<div id="sharedNamesContainer">
+										<div id="sharedNamesContainerArchived">
 											This project is shared with:
 											<div id="sharedNames">
 												<c:forEach var="sharedowner" items="${project.sharedowners}">
@@ -1108,9 +943,10 @@ function changePublic(id){
 												  <c:out value="${sharedowner.userDetails.lastname}"/>
 												  <c:out value=",  "/>
 												</c:forEach>
-												</c:if>
 											</div>
 										</div>
+									</c:if>
+									
 							</td>
 							<td class="actions" colspan="8"> 
 							</tr>
@@ -1153,7 +989,7 @@ function changePublic(id){
 												<th>Keywords:</th>
 												<td class="keywords">[List of comma-separated keywords go here]</td>
 											</tr>
-					<tr>
+											<tr>
 												<th>Original Author:</th>
 												<td>[Name goes here]</td>
 											</tr>
@@ -1171,10 +1007,6 @@ function changePublic(id){
 	</c:forEach>	
 		</c:otherwise>
 	</c:choose>
-
-
-
-
 
 
 </div>

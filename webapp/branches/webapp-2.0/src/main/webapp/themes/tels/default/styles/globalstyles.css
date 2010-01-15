@@ -178,15 +178,14 @@ form {margin:0px; padding:0px;}
 
 #projectOverviewTable #titleCell {
 	border-right:0px;	
-	padding:3px 4px 3px 5px;
+	padding:3px 4px 5px 5px;
 	}
 			
 #projectOverviewTable #titleCell a {
 	font-size:1.8em;
 	letter-spacing:-.5px;
-			}		
-		
-		
+		}		
+			
 #projectOverviewTable #sharedNamesContainer {
 	padding:8px;
 	margin:7px 10px 5px 3px;
@@ -229,7 +228,7 @@ form {margin:0px; padding:0px;}
 			}
 			
 #projectOverviewTable .actions ul {
-	 margin:4px 0 0 0px;
+	 margin:7px 0 0 0px;
 	 padding:0;
 			}
 

@@ -140,12 +140,7 @@ function findStringsContaining(what, all_array) {
 										</div>
 							</td>
 							<td class="actions" colspan="6"> 
-									<ul>
-										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="#" style="color:#666;">Set up as Project Run</a></li>
-										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit Content</a></li>
-										<li><a href="shareproject.html?projectId=${project.id}">Share Project</a>
-										    <input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>
+									<ul>									
 									</ul>
 							</tr>
 							<tr id="row2">
@@ -276,7 +271,7 @@ function findStringsContaining(what, all_array) {
 
 </table> 
 
-<h5><a href="../customized/index.html#actionsCurrent"><spring:message code="teacher.pro.custom.sharepro.14"/>&nbsp;<em><spring:message code="teacher.pro.custom.sharepro.15"/></em></a></h5>
+<h5><a href="../customized/index.html#actionsCurrent"><spring:message code="teacher.pro.custom.sharepro.14"/><em>My Projects</em></a></h5>
 
 </div>
 </div>

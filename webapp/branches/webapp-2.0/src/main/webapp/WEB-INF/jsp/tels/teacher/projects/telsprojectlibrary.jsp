@@ -145,7 +145,7 @@
 	<div id="libraryResults">Search Results: ${fn:length(projectList) } projects found</div> 
 </div>
 
-<div id="libraryInstructions">Click any project title below for additional information and lesson plans.</div>
+<div id="libraryInstructions"><br/>To see lesson plans and additional information for a project, click its Title.</div>
   
 <c:forEach var="project" items="${projectList}">
 
@@ -156,8 +156,8 @@
 				<ul>
 					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
 					<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Run</a></li>
-					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
+					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
+					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
 					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
 				</ul>
 		</tr>

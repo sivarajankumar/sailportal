@@ -45,6 +45,22 @@
     
 </script>
 
+<script type="text/javascript">
+
+	/**
+	 * Toggles the summary div
+	 */
+	function toggleDetails(){
+		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
+		if(searchDiv.style.display=='none'){
+			searchDiv.style.display = 'block';
+		} else {
+			searchDiv.style.display = 'none';
+		};
+	};
+</script>
+
+
 <title><spring:message code="teacher.pro.projinfo.1"/></title>
 
 </head>
@@ -74,26 +90,14 @@
             <table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
-									<c:if test="${fn:length(project.sharedowners) > 0}">
-										<div id="sharedNamesContainer">
-											This project is shared with:
-											<div id="sharedNames">
-												<c:forEach var="sharedowner" items="${project.sharedowners}">
-												  <c:out value="${sharedowner.userDetails.firstname}"/>
-												  <c:out value="${sharedowner.userDetails.lastname}"/>
-												  <c:out value=",  "/>
-												</c:forEach>
-												</c:if>
-											</div>
-										</div>
+								<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
 							</td>
 							<td class="actions" colspan="6"> 
 									<ul>
 										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-										<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up as Project Run</a></li>
-										<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit Content</a></li>
-										<li><a href="customized/shareproject.html?projectId=${project.id}">Share Project</a>
+										<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
+										<li><a href="../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
+										<li><a href="customized/shareproject.html?projectId=${project.id}">Share</a>
 										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>
 							</tr>
@@ -120,7 +124,7 @@
 							</tr>
 							<tr id="row4">  
 								<td colspan="8">
-									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
+									<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
 									<div id="toggleAllCurrent">
 									<div id="toggleProjectSummaryCurrent">
 										<table id="detailsTable">
