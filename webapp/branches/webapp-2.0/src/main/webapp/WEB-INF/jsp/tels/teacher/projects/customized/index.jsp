@@ -597,7 +597,7 @@ function changePublic(id){
 										<table id="detailsTable">
 											<tr>
 												<th>Created On:</th>
-												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
+												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="long" timeStyle="short" /></td>
 											</tr>
 											<tr>
 												<th>Summary:</th>
@@ -712,7 +712,7 @@ function changePublic(id){
 										<table id="detailsTable">
 											<tr>
 												<th>Created On:</th>
-												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
+												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="date" dateStyle="long" timeStyle="short" /></td>
 											</tr>
 											<tr>
 												<th>Summary:</th>
@@ -761,7 +761,7 @@ function changePublic(id){
 					<td class="actions" colspan="6"> 
 							<ul>
 
-								<li><a href="#" onclick="unbookmark(${project.id})">Unnbookmark</a></li>
+								<li><a href="#" onclick="unbookmark(${project.id})">Unbookmark</a></li>
 								<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 								<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
 								<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
