@@ -257,7 +257,11 @@ form {margin:0px; padding:0px;}
 			}
 	
 #projectOverviewTable #row4 {
-	background:#FFDBAC;
+	background-color:#FFDBAC;
+	background-color:#FFF;
+	background-image:url(../images/Gradient_tan320.png);
+	background-position: bottom;
+	
 			}	
 					
 #projectOverviewTable #row4 .summary{
