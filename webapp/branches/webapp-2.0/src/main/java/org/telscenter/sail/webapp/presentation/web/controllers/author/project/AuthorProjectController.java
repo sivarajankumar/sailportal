@@ -144,7 +144,7 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	@SuppressWarnings("unchecked")
 	private ModelAndView handleNotifyProjectOpen(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String projectPath = request.getParameter("path");
+		String projectPath = request.getParameter("param1");
 		
 		HttpSession currentUserSession = request.getSession();
 		HashMap<String, ArrayList<String>> openedProjectsToSessions = 
