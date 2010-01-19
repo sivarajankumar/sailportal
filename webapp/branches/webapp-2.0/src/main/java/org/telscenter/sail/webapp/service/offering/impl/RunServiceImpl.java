@@ -214,6 +214,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 			}
 			run.setPeriods(periods);
 		}
+		run.setLoggingLevel(runParameters.getLoggingLevel());
 
 		this.runDao.save(run);
 		this.aclService.addPermission(run, BasePermission.ADMINISTRATION);

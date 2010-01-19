@@ -49,6 +49,8 @@ public class RunParameters extends OfferingParameters implements Serializable {
 
 	private Integer maxWorkgroupSize = 3;
 	
+	private Integer loggingLevel = 5;
+	
 	/**
 	 * @return <code>Integer</code> the maximum size of workgroup
 	 */
@@ -203,6 +205,20 @@ public class RunParameters extends OfferingParameters implements Serializable {
 		} else if (!runIdsToArchive.equals(other.runIdsToArchive))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the loggingLevel
+	 */
+	public Integer getLoggingLevel() {
+		return loggingLevel;
+	}
+
+	/**
+	 * @param loggingLevel the loggingLevel to set
+	 */
+	public void setLoggingLevel(Integer loggingLevel) {
+		this.loggingLevel = loggingLevel;
 	}
 
 }

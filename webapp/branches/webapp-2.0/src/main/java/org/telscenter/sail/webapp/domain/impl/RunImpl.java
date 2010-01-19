@@ -134,6 +134,9 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
     private static final String COLUMN_NAME_MAX_WORKGROUP_SIZE = "maxWorkgroupSize";
+    
+    @Transient
+    private static final String COLUMN_NAME_LOGGING_LEVEL = "loggingLevel";
 
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
@@ -188,6 +191,9 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
     private Set<Brainstorm> brainstorms = new TreeSet<Brainstorm>();
+    
+    @Column(name = RunImpl.COLUMN_NAME_LOGGING_LEVEL)
+    private Integer loggingLevel;
     
     /**
      * @return the endtime
@@ -471,5 +477,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setExtras(String extras) {
 		this.extras = extras;
+	}
+
+	/**
+	 * @return the loggingLevel
+	 */
+	public Integer getLoggingLevel() {
+		return loggingLevel;
+	}
+
+	/**
+	 * @param loggingLevel the loggingLevel to set
+	 */
+	public void setLoggingLevel(Integer loggingLevel) {
+		this.loggingLevel = loggingLevel;
 	}
 }

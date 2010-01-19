@@ -258,4 +258,14 @@ public interface Run extends Offering {
 	 * @param extras the extras to set
 	 */
 	public void setExtras(String extras);
+	
+	/**
+	 * @return the loggingLevel
+	 */
+	public Integer getLoggingLevel();
+
+	/**
+	 * @param loggingLevel the loggingLevel to set
+	 */
+	public void setLoggingLevel(Integer loggingLevel);
 }

@@ -133,7 +133,8 @@ public class CreateRunController extends AbstractWizardFormController {
 	public CreateRunController() {
 		setBindOnNewForm(true);
 		setPages(new String[]{"teacher/run/create/setuprun1", "teacher/run/create/setuprun2", "teacher/run/create/setuprun3", 
-				"teacher/run/create/setuprun3a", "teacher/run/create/setuprun4", "teacher/run/create/setuprun5", "teacher/run/create/setuprun6"});
+				"teacher/run/create/setuprun3a", "teacher/run/create/setuprun4", "teacher/run/create/setuprun4a", "teacher/run/create/setuprun5", 
+				"teacher/run/create/setuprun6"});
 		setSessionForm(true);
 	}
 	
@@ -225,6 +226,8 @@ public class CreateRunController extends AbstractWizardFormController {
 	    	break;
 	    case 6:
 	    	break;
+	    case 7:
+	    	break;
 	    default:
 	    	break;
 	    }
@@ -288,9 +291,10 @@ public class CreateRunController extends AbstractWizardFormController {
 		case 3:
 		case 4:
 		case 5:
+		case 6:
 			model.put("projectId", projectId);
 			break;
-		case 6:
+		case 7:
 		default:
 			break;
 		}

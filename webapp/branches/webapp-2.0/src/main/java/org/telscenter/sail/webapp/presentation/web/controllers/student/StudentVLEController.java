@@ -436,6 +436,9 @@ public class StudentVLEController extends AbstractController {
 		//get the post student data level
 		String postLevel = "all";
 		
+		/* Set the logging level if specified in the run */
+		Integer loggingLevel = run.getLoggingLevel();
+		
 		//the json object to return that will contain the config params
 		JSONObject config = new JSONObject();
 		
@@ -465,6 +468,9 @@ public class StudentVLEController extends AbstractController {
 			config.put("postLevel", postLevel);
 			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
 			config.put("getRunExtrasUrl", getRunExtrasUrl);
+			if(loggingLevel!=null){
+				config.put("loggingLevel", loggingLevel);
+			};
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

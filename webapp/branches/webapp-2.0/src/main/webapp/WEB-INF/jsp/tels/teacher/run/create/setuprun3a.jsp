@@ -79,7 +79,7 @@
 
 <div id="setUpRunBox">
 
-<div id="stepNumber"><spring:message code="teacher.run.setup.25"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.26"/></span></div>
+<div id="stepNumber"><spring:message code="teacher.run.setup.28.1"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.26"/></span></div>
 
 <h5 style="margin:20px 0px 15px 0;"><spring:message code="teacher.run.setup.27"/>&nbsp;<em><spring:message code="teacher.run.setup.28"/></em>.</h5>
 

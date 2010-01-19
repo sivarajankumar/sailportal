@@ -16,10 +16,12 @@
   * License along with this library; if not, write to the Free Software
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
+
+<!-- $Id: setupRun3.jsp 357 2007-05-03 00:49:48Z archana $ -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
-
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -30,7 +32,7 @@
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
-<title><spring:message code="teacher.setup-project-run-step-five" /></title>
+<title><spring:message code="teacher.setup-project-run-step-four" /></title>
 
 <!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
 
@@ -48,6 +50,22 @@
 </script>
 
 </head>
+
+<!-- Support for Spring errors object -->
+<spring:bind path="runParameters.loggingLevel">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <c:choose>
+      <c:when test="${fn:length(error) > 0}" >
+        <script type="text/javascript">
+          <!--
+            alert("${error}");
+          //-->
+        </script>
+      </c:when>
+    </c:choose>
+  </c:forEach>
+</spring:bind>
+
 <body>
 
 <div id="centeredDiv">
@@ -60,26 +78,24 @@
 
 <div id="setUpRunBox">
 
-	<div id="stepNumber"><spring:message code="teacher.run.setup.37"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.38"/></span></div>
+	<div id="stepNumber"><spring:message code="teacher.run.setup.36.1"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.36.2"/></span></div>
 
-	<h5><spring:message code="teacher.recommend-preview-project" />
-		<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
-		<spring:message code="teacher.preview-project" /> </a>
-		<spring:message code="teacher.before-running" /></h5>
-		
-	<h6 class="indent15px"><spring:message code="teacher.preview-project-now" /></h6>
+<form:form method='post' commandName='runParameters'>	
+	<div>
+		Select the Logging Level for this run.<br/>
+		<form:radiobutton path='loggingLevel' value='5'/>High (Everything)<br/>
+		<form:radiobutton path='loggingLevel' value='1'/>Low (Student Work Only)<br/>
+	</div>
 
-	<h5><spring:message code="teacher.cont-no-preview" />
-		<i><spring:message code="navigate.next" /></i>
-		<spring:message code="teacher.cont-no-preview-below" /></h5>
-</div>
+</div>     <!--end of SetUpRunBox -->
 
-<form class="center" method="post">
-<input type="submit" name="_target5" value="<spring:message code="navigate.back" />" />
+<div class='center'>
+<input type="submit" name="_target4" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_target7" value="<spring:message code="navigate.next" />" />
-</form>
-
+<input type="submit" name="_target6" value="<spring:message code="navigate.next" />" />
+</div> 
+</form:form>
 </div>
+
 </body>
 </html>

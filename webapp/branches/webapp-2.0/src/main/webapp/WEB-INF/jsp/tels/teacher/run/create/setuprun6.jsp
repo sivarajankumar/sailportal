@@ -140,7 +140,7 @@
 </div>
 
 <form class="center" method="post">
-<input type="submit" name="_target5" value="<spring:message code="navigate.back" />" />
+<input type="submit" name="_target6" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
 </form>
