@@ -77,7 +77,7 @@
 
 <%@ include file="../headerteacher.jsp"%>
 
-<div id="navigationSubHeader2">Grade by Step<span id="navigationSubHeader1">grading</span></div> 
+<div id="navigationSubHeader2">Grade Student Work<span id="navigationSubHeader1">grading</span></div> 
 
 <div id="gradeStepSelectionArea">
 

@@ -125,7 +125,7 @@ function setup() {
       
       <form:hidden path="projectcode" id="projectcode"/>
      
-      <a onclick="save()">Add Project</a>
+      <div id="addButtonContainer"><a id="addButton" onclick="save()">Add Project</a><div>
      <!--  
    	 <input id="addProjectButton" onclick="save()" type="image" src="../<spring:theme code="student_add_this_project" />" 
     	onmouseover="swapImage('addProjectButton','../<spring:theme code="student_add_this_project_roll" />');" 

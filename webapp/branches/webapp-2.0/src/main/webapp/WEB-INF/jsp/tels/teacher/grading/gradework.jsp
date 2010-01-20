@@ -77,7 +77,9 @@
 
 <%@ include file="../headerteacher.jsp"%>
 
-<div id="navigationSubHeader2">Grade by Step<span id="navigationSubHeader1">grading</span></div> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<div id="navigationSubHeader2">Grade Student Work<span id="navigationSubHeader1">grading</span></div> 
 
 <div id="gradeStepSelectionArea">
 

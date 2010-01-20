@@ -3,7 +3,7 @@
 #menuContainer {
 	position:absolute;
 	top: 32px;
-	left:165px;
+	left:170px;
 }
 
 .sf-menu, .sf-menu * {
@@ -80,7 +80,7 @@ ul.sf-menu li li li.sfHover ul {
 
 .sf-menu li li {
 	background:		#AABDE6;
-	background:		#FFCC99;
+	background:		#FFCC99 ;
 }
 	
 .sf-menu li li li {
