@@ -1,4 +1,5 @@
 /**
+
  * Copyright (c) 2007 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
  *
@@ -268,4 +269,14 @@ public interface Run extends Offering {
 	 * @param loggingLevel the loggingLevel to set
 	 */
 	public void setLoggingLevel(Integer loggingLevel);
+	
+	/**
+	 * @return the postLevel
+	 */
+	public Integer getPostLevel();
+
+	/**
+	 * @param postLevel the postLevel to set
+	 */
+	public void setPostLevel(Integer postLevel);
 }

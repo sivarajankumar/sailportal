@@ -51,6 +51,8 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	
 	private Integer loggingLevel = 5;
 	
+	private Integer postLevel = 5;
+	
 	/**
 	 * @return <code>Integer</code> the maximum size of workgroup
 	 */
@@ -219,6 +221,20 @@ public class RunParameters extends OfferingParameters implements Serializable {
 	 */
 	public void setLoggingLevel(Integer loggingLevel) {
 		this.loggingLevel = loggingLevel;
+	}
+
+	/**
+	 * @return the postLevel
+	 */
+	public Integer getPostLevel() {
+		return postLevel;
+	}
+
+	/**
+	 * @param postLevel the postLevel to set
+	 */
+	public void setPostLevel(Integer postLevel) {
+		this.postLevel = postLevel;
 	}
 
 }

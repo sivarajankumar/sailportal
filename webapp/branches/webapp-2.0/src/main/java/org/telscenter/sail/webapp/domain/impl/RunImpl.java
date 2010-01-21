@@ -137,6 +137,9 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
     private static final String COLUMN_NAME_LOGGING_LEVEL = "loggingLevel";
+    
+    @Transient
+    private static final String COLUMN_NAME_POST_LEVEL = "postLevel";
 
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
@@ -194,6 +197,9 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Column(name = RunImpl.COLUMN_NAME_LOGGING_LEVEL)
     private Integer loggingLevel;
+    
+    @Column(name = RunImpl.COLUMN_NAME_POST_LEVEL)
+    private Integer postLevel;
     
     /**
      * @return the endtime
@@ -491,5 +497,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setLoggingLevel(Integer loggingLevel) {
 		this.loggingLevel = loggingLevel;
+	}
+
+	/**
+	 * @return the postLevel
+	 */
+	public Integer getPostLevel() {
+		return postLevel;
+	}
+
+	/**
+	 * @param postLevel the postLevel to set
+	 */
+	public void setPostLevel(Integer postLevel) {
+		this.postLevel = postLevel;
 	}
 }

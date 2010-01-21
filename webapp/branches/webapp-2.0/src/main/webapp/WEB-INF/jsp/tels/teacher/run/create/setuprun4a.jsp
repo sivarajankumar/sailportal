@@ -52,7 +52,7 @@
 </head>
 
 <!-- Support for Spring errors object -->
-<spring:bind path="runParameters.loggingLevel">
+<spring:bind path="runParameters.postLevel">
   <c:forEach var="error" items="${status.errorMessages}">
     <c:choose>
       <c:when test="${fn:length(error) > 0}" >
@@ -82,9 +82,9 @@
 
 <form:form method='post' commandName='runParameters'>	
 	<div>
-		Select the Logging Level for this run.<br/>
-		<form:radiobutton path='loggingLevel' value='5'/>High (Everything)<br/>
-		<form:radiobutton path='loggingLevel' value='1'/>Low (Student Work Only)<br/>
+		Select the Post Level for this run.<br/>
+		<form:radiobutton path='postLevel' value='5'/>High (All Steps)<br/>
+		<form:radiobutton path='postLevel' value='1'/>Low (Steps With Student Work Only)<br/>
 	</div>
 
 </div>     <!--end of SetUpRunBox -->
