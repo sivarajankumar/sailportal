@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -36,15 +37,12 @@ import javax.servlet.http.HttpSession;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
-import net.sf.sail.webapp.domain.impl.CurnitParameters;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -106,6 +104,8 @@ public class AuthorProjectController extends AbstractController {
 				return handleProjectList(request, response);
 			} else if (command.equals("notifyProjectOpen")) {
 				return handleNotifyProjectOpen(request, response);
+			} else if (command.equals("notifyProjectClose")){
+				return handleNotifyProjectClose(request, response);
 			}
 		}
 		
@@ -176,6 +176,35 @@ public class AuthorProjectController extends AbstractController {
 		}
 		response.getWriter().write(otherUsersAlsoEditingProject);
 		return null;
+	}
+	
+	/**
+	 * Handles notifications of closed projects
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	private ModelAndView handleNotifyProjectClose(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String projectPath = request.getParameter("param1");
+		HttpSession currentSession = request.getSession();
+		
+		Map<String, ArrayList<String>> openedProjectsToSessions = (Map<String, ArrayList<String>>) currentSession.getServletContext().getAttribute("openedProjectsToSessions");
+		
+		if(openedProjectsToSessions == null || openedProjectsToSessions.get(projectPath) == null){
+			return null;
+		} else {
+			ArrayList<String> sessions = openedProjectsToSessions.get(projectPath);
+			if(!sessions.contains(currentSession.getId())){
+				return null;
+			} else {
+				sessions.remove(currentSession.getId());
+				response.getWriter().write("success");
+				return null;
+			}
+		}
 	}
 	
 	private ModelAndView handleProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
