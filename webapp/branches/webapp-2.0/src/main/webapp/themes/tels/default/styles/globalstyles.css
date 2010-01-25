@@ -185,6 +185,15 @@ form {margin:0px; padding:0px;}
 	font-size:1.8em;
 	letter-spacing:-.5px;
 		}		
+	
+#projectOverviewTable #titleCellUnlinked {
+	border-right:0px;	
+	padding:3px 5px 8px 5px;
+	font-size:1.1em;
+	font-weight:bold;
+	letter-spacing:-.5px;
+	color:#333;
+	}
 			
 #projectOverviewTable #sharedNamesContainer {
 	padding:8px;

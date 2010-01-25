@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp"%>
+ <%@ include file="../include.jsp"%>
 <!--
   * Copyright (c) 2006 Encore Research Group, University of Toronto
   * 
@@ -89,9 +89,7 @@
   			<br/>
             <table id="projectOverviewTable">
 							<tr id="row1">
-							<td id="titleCell" colspan="3">
-								<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
-							</td>
+							<td id="titleCellUnlinked" colspan="3">${project.name}</td>
 							<td class="actions" colspan="6"> 
 									<ul>
 										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
