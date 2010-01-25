@@ -634,4 +634,9 @@ public class PodProjectServiceImpl implements ProjectService {
 		
 		return projectList;
 	}
+
+	public String minifyProject(Project project) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

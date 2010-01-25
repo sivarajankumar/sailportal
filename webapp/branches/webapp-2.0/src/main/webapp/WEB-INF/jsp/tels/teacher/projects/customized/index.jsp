@@ -481,6 +481,16 @@ function changePublic(id){
 
 	YAHOO.util.Connect.asyncRequest('GET', 'public.html?projectId=' + id + '&checked=' + document.getElementById('public_'+id).checked, callback);
 };
+
+function minifyProject(id){
+	var callback= {
+			success:function(o){alert(o.responseText);},
+			failure:function(o){alert('Unable to minify project file, please clean up any old node references and make sure that all node content is in valid JSON format.');},
+			scope:this
+	};
+
+	YAHOO.util.Connect.asyncRequest('GET', '../minifyproject.html?projectId=' + id, callback);
+};
 </script>
 
 <!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
@@ -565,6 +575,7 @@ function changePublic(id){
 										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
 										<li><a href="shareproject.html?projectId=${project.id}">Share</a>
 										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
+										<li><a onclick="minifyProject('${project.id}')">Minify Project (faster loading)</a></li>
 										<li><a href="#" style="color:#666;">Archive</a>
 										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>

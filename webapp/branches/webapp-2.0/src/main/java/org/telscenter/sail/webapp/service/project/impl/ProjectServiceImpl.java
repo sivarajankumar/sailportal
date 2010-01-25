@@ -232,4 +232,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectService.getProjectList(query);
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#minifyProject(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public String minifyProject(Project project){
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.minifyProject(project);
+	}
 }

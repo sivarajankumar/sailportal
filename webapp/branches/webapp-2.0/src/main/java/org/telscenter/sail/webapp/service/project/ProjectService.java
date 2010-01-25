@@ -233,4 +233,13 @@ public interface ProjectService {
 	 * @return <code>List<Project></code>
 	 */
 	public List<Project> getProjectList(String query);
+	
+	/**
+	 * Given a <code>Project</code> project, attempts to minify a file and returns
+	 * a <code>String</code> of the final status of the operation.
+	 * 
+	 * @param project
+	 * @return
+	 */
+	public String minifyProject(Project project);
 }

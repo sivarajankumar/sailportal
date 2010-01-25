@@ -396,6 +396,11 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 	</bean>
 	
+	<bean id="minifyProjectController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.MinifyProjectController">
+		<property name="projectService" ref="projectService"/>
+	</bean>
+	
 	<bean id="myArchivedRunsController"
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ArchivedRunListController">
 		<property name="runService" ref="runService" />

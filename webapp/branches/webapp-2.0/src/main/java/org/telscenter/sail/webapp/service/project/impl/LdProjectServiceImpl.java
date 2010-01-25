@@ -22,7 +22,14 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
@@ -437,5 +444,53 @@ public class LdProjectServiceImpl implements ProjectService {
 		}
 		
 		return projectList;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#minifyProject(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public String minifyProject(Project project) {
+		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
+		String minifyUrl = this.portalProperties.getProperty("vlewrapper_baseurl") + "/util/minifier.html";
+		String projectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		String params = "command=minifyProject&path=" + curriculumBaseDir + "/" + projectUrl;
+		
+		if(projectUrl != null && projectUrl != ""){
+			try{
+				URL url = new URL(minifyUrl);
+				URLConnection conn = url.openConnection();
+				conn.setDoOutput(true);
+				OutputStreamWriter paramWriter = new OutputStreamWriter(conn.getOutputStream());
+				paramWriter.write(params);
+				paramWriter.flush();
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String line;
+				String response = "";
+				
+				while((line = br.readLine()) != null){
+					response += line;
+				}
+				
+				paramWriter.close();
+				br.close();
+				
+				if(response.equals("success")){
+					return "Project has been successfully minified!";
+				} else if(response.equals("current")){
+					return "Project minification is current, no need to minify";
+				} else {
+					return response + " was returned from the minifier, check error and retry if necessary.";
+				}
+			} catch (MalformedURLException e){
+				e.printStackTrace();
+				return "The url to the minifier is invalid, cannot minify the project.";
+			} catch (IOException e){
+				e.printStackTrace();
+				return "Connection to the minifier failed, cannot minify the project.";
+			}
+		} else {
+			return "Unable to retrieve the url of the project, cannot minify the project.";
+		}
 	}
 }

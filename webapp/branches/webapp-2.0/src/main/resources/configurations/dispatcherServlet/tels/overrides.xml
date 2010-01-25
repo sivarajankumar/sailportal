@@ -283,6 +283,7 @@
 				/teacher/projects/customized/public.html=publicController
 				/teacher/projects/copyproject.html=copyProjectController
 				/teacher/projects/uploadproject.html=uploadProjectController
+				/teacher/projects/minifyproject.html=minifyProjectController
 				/teacher/run/manage/extendremindertime.html=extendReminderTimeController
 				/student/viewannouncements.html=viewAnnouncementsController
 				/createhierarchytype.html=createHierarchyTypeController

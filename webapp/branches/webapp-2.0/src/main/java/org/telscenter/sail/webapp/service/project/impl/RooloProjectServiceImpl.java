@@ -376,4 +376,9 @@ public class RooloProjectServiceImpl implements ProjectService{
 		return null;
 	}
 
+	public String minifyProject(Project project) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

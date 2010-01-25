@@ -353,4 +353,8 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String minifyProject(Project project) {
+		return null;
+	}
 }
