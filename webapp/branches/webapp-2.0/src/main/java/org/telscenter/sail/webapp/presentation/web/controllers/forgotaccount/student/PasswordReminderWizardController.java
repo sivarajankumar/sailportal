@@ -107,18 +107,26 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 		switch (page) {
 		case 0:
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors,
-					"username", "error.username-not-found");
-			try {
-				
-				String username = reminderParameters.get(ReminderParameters.USERNAME);
-				username = StringUtils.trimToNull(username);
-				user = userService.retrieveUserByUsername(username);
-				if( user == null ) {
-					errors.reject("username", "error.username-not-found");
+					"username", "error.no-username");
+			
+			if(errors.getErrorCount() == 0){
+				try {
+					String username = reminderParameters.getUsername();
+					
+					if(username == null){
+						errors.rejectValue("username", "error.username-not-found");
+						break;
+					} else {
+						username = StringUtils.trimToNull(username);
+						user = userService.retrieveUserByUsername(username);
+						if( user == null ) {
+							errors.rejectValue("username", "error.username-not-found");
+						}
+					}
+				} catch (EmptyResultDataAccessException e) {
+					//TODO: archana needs to update these
+					errors.rejectValue("username", "error.username-not-found");
 				}
-			} catch (EmptyResultDataAccessException e) {
-				//TODO: archana needs to update these
-				errors.reject("username", "error.username-not-found");
 			}
 			
 			break;
