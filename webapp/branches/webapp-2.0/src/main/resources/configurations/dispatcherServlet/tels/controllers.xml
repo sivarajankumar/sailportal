@@ -110,6 +110,7 @@
 	<bean id="teacherIndexController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.TeacherIndexController" >
 		<property name="runService" ref="runService" />
+		<property name="messageService" ref="messageService" />
 		<property name="userService" ref="userService" />
 	</bean>
 
@@ -1436,6 +1437,14 @@
     	<property name="commandClass"
     		value="org.telscenter.sail.webapp.domain.portal.impl.PortalImpl"/>
     </bean>	
+    
+    <bean id="messageController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.MessageController">
+    	<property name="messageService" ref="messageService"/>
+    	<property name="userService" ref="userService" />
+        <property name="javaMail" ref="javaMail"/>
+		<property name="emaillisteners" ref="emaillisteners" />			
+    </bean>
     
     <bean id="bridgeController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.BridgeController">

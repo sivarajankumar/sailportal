@@ -41,6 +41,14 @@
     
 </script>
 
+<style type="text/css">
+a.runArchiveLink, a.messageArchiveLink, a.messageReplyLink {
+	color:blue;
+	cursor:pointer;
+}
+
+</style>
+
 <!-- Core + Skin CSS --> 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/menu/assets/skins/sam/menu.css"> 
  
@@ -529,6 +537,35 @@ window.onload=resizeCaller
 				runLI.innerHTML = 'Archiving run on server...';
 				YAHOO.util.Connect.asyncRequest('POST', 'run/manage/archiveRun.html?runId=' + runId, callback, null);
             };
+
+            // asynchronously archives a message
+            function archiveMessage(messageId, sender) {
+				var messageDiv = document.getElementById('message_' + messageId);
+				
+				var callback = {
+					success:function(o){
+						/* update message on teacher index page announcements section */
+						messageDiv.parentNode.removeChild(messageDiv);
+						document.getElementById("message_confirm_div_" + messageId).innerHTML = '<font color="24DD24">Message from ' + sender + ' has been archived.</font>';
+						/* update count of new message in message count div */
+						var messageCountDiv = document.getElementById("newMessageCountDiv");
+						var messages = document.getElementsByClassName("messageDiv");
+						if (messages.length > 0) {
+							messageCountDiv.innerHTML = "You have " + messages.length + " new message(s).";
+						} else {
+							messageCountDiv.innerHTML = "";
+						}
+					},
+					failure:function(o){
+						/* set failure message */
+						messageDiv.innerHTML = '<font color="992244">Unable to archive message! Refresh this page to try again.</font>';
+					},
+					scope:this
+				};	
+
+				messageDiv.innerHTML = 'Archiving message on server...';
+				YAHOO.util.Connect.asyncRequest('POST', '/webapp/message.html?action=archive&messageId='+messageId, callback, null);
+            }
         </script>
     
 <body class="yui-skin-sam"> 
@@ -569,7 +606,7 @@ window.onload=resizeCaller
 
 <div class="panelStyleMessages">
 
-<div id="headerTeacherHome">Messages</div>
+<div id="headerTeacherHome"><a href="/webapp/message.html?action=index">Messages</a></div>
 
 <table id="teacherMessageTable" cellpadding="2" cellspacing="0">
 		<tr>
@@ -628,12 +665,25 @@ window.onload=resizeCaller
 										<li id='extendReminder_${run.id}'>Your project run <i>${run.name}</i> has been open since
 										<fmt:formatDate value="${run.starttime}" type="date" dateStyle="short" timeStyle="short" />.
 										 Do
-										you want to archive it now? [ <a
+										you want to archive it now? [ <a class="runArchiveLink"
 												onclick="archiveRun('${run.id}')"><font
-												color='blue'>Yes</font></a>/ <a onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].</li>
+												color='blue'>Yes</font></a>/ <a class="runArchiveLink" onclick='extendReminder("${run.id}")'><font color='blue'>Remind Me Later</font></a>].</li>
 								</c:if>
 						</c:forEach>
-
+						<c:if test="${fn:length(unreadMessages) > 0}">
+							<div id="newMessageCountDiv"><c:out value="You have ${fn:length(unreadMessages)} new message(s)."/><br/></div>
+							<c:forEach var="message" items="${unreadMessages}">
+							    <div class="messageDiv" id="message_${message.id}">
+							    Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
+								From: <c:out value="${message.sender.userDetails.username}"/><br/>
+								Subject: <c:out value="${message.subject}"/><br/>
+								<c:out value="${message.body}" /><br/>
+								<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}');">Archive</a> | 
+								<a class="messageReplyLink" href="/webapp/message.html?action=index">Reply</a><br/><br/>
+								</div>
+								<div id="message_confirm_div_${message.id}"></div>
+							</c:forEach>
+						</c:if>
 				</ul>
 				</td>
 		</tr>

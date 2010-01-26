@@ -490,6 +490,19 @@
 		<property name="announcementDao" ref="announcementDao"/>
 	</bean>
 	
+	<bean id="messageDao"
+    	class="org.telscenter.sail.webapp.dao.message.impl.HibernateMessageDao">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="message" scope="prototype"
+    	class="org.telscenter.sail.webapp.domain.message.impl.MessageImpl">
+    </bean>
+	
+	<bean id="messageService"
+		class="org.telscenter.sail.webapp.service.message.impl.MessageServiceImpl">
+		<property name="messageDao" ref="messageDao" />
+	</bean>
 	    <!--      
     <bean id="rooloLORProject"
         class="org.telscenter.sail.webapp.domain.project.cmsImpl.RooloLORProjectImpl">

@@ -297,6 +297,7 @@
 				<!-- /rooloproject.html=rooloProjectController -->
 				<!-- /author/authorrooloproject.html=authorRooloProjectController -->
 				/author/uploadxml.html=uploadXMLProjectController
+				/message/message.html=messageController
 				/bridge/**/*.html=bridgeController
 				/errors/outsideerror.html=outsideErrorController
     		</value>

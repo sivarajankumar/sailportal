@@ -38,6 +38,8 @@ import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.message.Message;
+import org.telscenter.sail.webapp.service.message.MessageService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
 /**
@@ -53,9 +55,13 @@ public class TeacherIndexController extends AbstractController {
 	private final static String VIEW_NAME = "teacher/index";
 	
 	protected final static String RUN_LIST = "run_list";
+
+	private static final String UNREAD_MESSAGES = "unreadMessages";
 	
 	private RunService runService;
-	
+
+	private MessageService messageService;
+
 	private UserService userService;
 	
 	/** 
@@ -84,6 +90,11 @@ public class TeacherIndexController extends AbstractController {
     	
     	modelAndView.addObject(RUN_LIST, run_list);
     	modelAndView.addObject(CURRENT_DATE, null);
+    	
+    	// retrieve all unread messages
+    	List<Message> unreadMessages = messageService.retrieveUnreadMessages(user);
+    	modelAndView.addObject(UNREAD_MESSAGES, unreadMessages);
+    	
         return modelAndView;
 	}
 	/**
@@ -97,6 +108,12 @@ public class TeacherIndexController extends AbstractController {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+	/**
+	 * @param messageService the messageService to set
+	 */
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
 	}
 
 }
