@@ -33,7 +33,7 @@
 
 <h4><spring:message code=teacher.run.manage.addteacher.2"/></h4>
 	
-<form:form method="post" commandName="addSharedTeacherParameters">
+<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
 	<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" size="25"/>
 <div class="center">
 <input type="submit" name="_target0" value="back" />

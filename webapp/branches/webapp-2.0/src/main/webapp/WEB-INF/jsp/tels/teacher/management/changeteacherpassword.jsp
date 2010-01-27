@@ -74,7 +74,7 @@
 	<div id="teacherchangepasswordbox">
 		<table cellpadding="8" border="1" style="margin:5px;">
 			<tr>
-			<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword">
+			<form:form method="post" action="changestudentpassword.html" commandName="changeStudentPasswordParameters" id="changestudentpassword" autocomplete='off'>
 			<td><label for="changestudentpassword"><spring:message code="changepassword.password1" /></label></td>
 	      	<td><form:password path="passwd1" id="teacherchangePasswordField"/></td>
 			</tr>

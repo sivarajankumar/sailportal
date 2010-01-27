@@ -61,7 +61,7 @@
 <h3>This Q&A Discussion step is active. Your students can see it and work on it.</h3>
 </c:otherwise>
 </c:choose>
-<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" autocomplete='off'>
     <form:hidden path="id" />
     <ul>
       <li id="test">
@@ -73,7 +73,7 @@
     </ul>
 </form:form>
 <c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
-	<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform">
+	<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" autocomplete='off'>
 		<form:hidden path="id"/>
 		<ul>
 			<li id="instantPoll">
@@ -85,7 +85,7 @@
 		</ul>
 	</form:form>
 </c:if>
-<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" autocomplete='off'>
     <form:hidden path="id" />
     <ul>
       <li id="test">
@@ -96,7 +96,7 @@
 	  </li>
     </ul>
 </form:form>
-<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" autocomplete='off'>
     <form:hidden path="id" />
     <ul>
       <li id="test">
@@ -107,7 +107,7 @@
 	  </li>
     </ul>
 </form:form>
-<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" >
+<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" autocomplete='off'>
     <form:hidden path="id" />
     <ul>
       <li id="test">
@@ -122,7 +122,7 @@
     </ul>
 </form:form>
 <c:if test="${brainstorm.questiontype=='SINGLE_CHOICE'}">
-	<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform">
+	<form:form method="post" action="managebrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" id="brainstormform" autocomplete='off'>
 		<form:hidden path="id"/>
 		<ul>
 			<li id="test">

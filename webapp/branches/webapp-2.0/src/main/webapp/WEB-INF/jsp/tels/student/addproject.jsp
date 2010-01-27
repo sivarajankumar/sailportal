@@ -113,7 +113,7 @@ function setup() {
 
 <div id="popUpWindow1">
 
-<form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" >
+<form:form method="post" action="addproject.html" commandName="addProjectParameters" id="addproject" autocomplete='off'>
 
   <div>
       <label for="runCode_part1" id="runCode_part1_label">Access Code:</label>

@@ -49,7 +49,7 @@
 <div id="navigationSubHeader2">Announcements<span id="navigationSubHeader1">Management: My Project Runs</span></div>
 
 <h3>Edit Announcement</h3>
-<form:form method="post" action="editannouncement.html" commandName="announcementParameters" id="editannouncement">
+<form:form method="post" action="editannouncement.html" commandName="announcementParameters" id="editannouncement" autocomplete='off'>
 	<label for="titleField">Title</label>
 	<form:input path="title" id="titleField"/>
 	<label for="announcementField">Announcement</label>

@@ -156,7 +156,7 @@
 <body>
 Create Multiple Choice/Single Response Brainstorm
 <br>
-<form:form method="post" action="createsinglechoicebrainstorm.html" commandName="createSingleChoiceBrainstormParameters" onsubmit="return Validate()" id="createbrainstormForm">
+<form:form method="post" action="createsinglechoicebrainstorm.html" commandName="createSingleChoiceBrainstormParameters" onsubmit="return Validate()" id="createbrainstormForm" autocomplete='off'>
 
 	<br>
     Options for Students:

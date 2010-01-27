@@ -100,7 +100,7 @@ if(form.manualCheckbox.checked==true){
 
 <h5 style="margin:20px 0px 15px 0;"><spring:message code="teacher.run.setup.27"/>&nbsp;<em><spring:message code="teacher.run.setup.28"/></em>.</h5>
 
-<form:form method="post" commandName="runParameters">
+<form:form method="post" commandName="runParameters" autocomplete='off'>
 
     <div>
       <label for="periods" id="periodlabel"><spring:message code="periods" /></label><br />

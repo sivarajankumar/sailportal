@@ -112,7 +112,7 @@ function MM_swapImage() { //v3.0
 </spring:bind>
 </div>
 
-<form:form method="post" action="updatemyaccountinfo.html" commandName="teacherAccountForm" id="teacherRegForm" >  
+<form:form method="post" action="updatemyaccountinfo.html" commandName="teacherAccountForm" id="teacherRegForm" autocomplete='off'>  
   <dl>
   
   	<dt><label for="firstname" id="firstname1"><spring:message code="signup.firstname" /></label></dt>

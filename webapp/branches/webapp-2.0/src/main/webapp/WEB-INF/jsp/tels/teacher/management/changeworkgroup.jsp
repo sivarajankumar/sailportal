@@ -20,7 +20,7 @@
 
 <h3><spring:message code="changeworkgroupto.message" /></h3>
 
-<form:form method="post" action="changeworkgroup.html" commandName="changeWorkgroupParameters" id="changeWorkgroups" >
+<form:form method="post" action="changeworkgroup.html" commandName="changeWorkgroupParameters" id="changeWorkgroups" autocomplete='off'>
        <form:select path="workgroupToId" id="workgroupTo">       
           <c:forEach items="${workgroupsTo}" var="workgroupToChoice">
             <form:option value="${workgroupToChoice.id}">

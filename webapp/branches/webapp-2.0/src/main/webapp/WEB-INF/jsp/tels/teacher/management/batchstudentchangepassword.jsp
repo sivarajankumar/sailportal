@@ -61,7 +61,7 @@ function popup(URL, title) {
 <div id="studentchangepasswordbox">
 
 	<form:form method="post" action="batchstudentchangepassword.html" 
-	commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword">
+	commandName="batchStudentChangePasswordParameters" id="batchstudentchangepassword" autocomplete='off'>
 
 <dl>
 	<dt><label for="batchstudentchangepassword"><spring:message code="teacher.manage.batchpassword.7"/></label></dt>

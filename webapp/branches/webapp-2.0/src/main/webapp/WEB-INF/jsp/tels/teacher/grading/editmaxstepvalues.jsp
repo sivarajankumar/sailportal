@@ -134,7 +134,7 @@
 		</ul>
 	</div>
 
-<form:form method="post" action="editmaxstepvalues.html?runId=${run.id}" commandName="curnitmap" id="curnitmapform" >  				
+<form:form method="post" action="editmaxstepvalues.html?runId=${run.id}" commandName="curnitmap" id="curnitmapform" autocomplete='off'>  				
 	
 	<table id="editValuesTable">
 		<tr>

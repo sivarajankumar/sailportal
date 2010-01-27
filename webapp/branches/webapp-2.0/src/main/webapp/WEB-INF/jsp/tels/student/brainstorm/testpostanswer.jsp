@@ -14,7 +14,7 @@ brainstorm question: ${brainstorm.question.prompt}
 <br/></p>
 
 <h2>Response</h2>
-<form:form id="postanswerform" commandName="revision" method="post" action="testpostanswer.html?brainstormId=${brainstorm.id}">
+<form:form id="postanswerform" commandName="revision" method="post" action="testpostanswer.html?brainstormId=${brainstorm.id}" autocomplete='off'>
 <textarea cols="100" rows="10">  </textarea> <br />
 <input type="submit" value="post answer" />
 

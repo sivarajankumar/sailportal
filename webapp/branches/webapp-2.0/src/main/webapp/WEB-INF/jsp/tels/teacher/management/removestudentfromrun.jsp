@@ -86,7 +86,7 @@
   </c:forEach>
 </spring:bind>
 
-<form:form method="post" action="removestudentfromrun.html" commandName="removeStudentFromRunParameters" id="removeStudentFromRun" >
+<form:form method="post" action="removestudentfromrun.html" commandName="removeStudentFromRunParameters" id="removeStudentFromRun" autocomplete='off'>
   <div style="visibility:hidden;"><label for="runId">Run ID:</label>
       <form:input disabled="true" path="runId" id="runId"/>
       <form:errors path="runId" />

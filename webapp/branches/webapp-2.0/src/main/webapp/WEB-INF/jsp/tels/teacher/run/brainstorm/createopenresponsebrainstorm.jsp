@@ -6,7 +6,7 @@
 <body>
 Create Open Response Brainstorm
 <br>
-<form:form method="post" action="createopenresponsebrainstorm.html" commandName="createOpenResponseBrainstormParameters" id="createbrainstormForm">
+<form:form method="post" action="createopenresponsebrainstorm.html" commandName="createOpenResponseBrainstormParameters" id="createbrainstormForm" autocomplete='off'>
 
     <br>
     Options for Students:

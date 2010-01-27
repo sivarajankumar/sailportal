@@ -69,7 +69,7 @@ function checkB4Submit(){
 </spring:bind>
 
 
-<form:form method="post" action="archiveRun.html" commandName="endRunParameters" id="archiveRun" >
+<form:form method="post" action="archiveRun.html" commandName="endRunParameters" id="archiveRun" autocomplete='off'>
   <div style="visibility:hidden;"><label for="runId"><spring:message code="teacher.run.manage.archiverun.5"/></label>
       <form:input disabled="true" path="runId" id="runId"/>
       <form:errors path="runId" />

@@ -115,7 +115,7 @@
 </spring:bind>
 </div>
 
-<form:form commandName="contactWISEProject" method="post" action="contactwiseproject.html" id="contactWiseForm" >  
+<form:form commandName="contactWISEProject" method="post" action="contactwiseproject.html" id="contactWiseForm" autocomplete='off'>  
   <dl>
 
   	<sec:authorize ifAllGranted="ROLE_ANONYMOUS">

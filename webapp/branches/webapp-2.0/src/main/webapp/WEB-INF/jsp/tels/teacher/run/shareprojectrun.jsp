@@ -159,7 +159,7 @@ function findStringsContaining(what, all_array) {
 	
 	<!--  display shared owners of the run -->
 	<c:forEach var="sharedowner" items="${run.sharedowners}">
-        <form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}">
+        <form:form method="post" id="${sharedowner.userDetails.username}" commandName="${sharedowner.userDetails.username}" autocomplete='off'>
             <form:hidden path="sharedOwnerUsername" />
 		    <tr>
 		        <td>${sharedowner.userDetails.username}</td>
@@ -180,7 +180,7 @@ function findStringsContaining(what, all_array) {
 			<p>To share this project with another person type in part of their name below.</p>
 			<p>Click the matching Username from the search results, then click <i>Save</i>.</p> 
 			</div>
-			    <form:form method="post" commandName="addSharedTeacherParameters">
+			    <form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
 					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="30"/>
 				    <input type="submit" value="Save" />
 				</form:form>

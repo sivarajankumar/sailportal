@@ -215,7 +215,7 @@
 	<div id='searchInstructions'>Refine your search by selecting one or more categories using the drop-down menus. Then click <i>Search By Category</i> to find matching projects.</div>
 	<div id='projectOverviewSearchContainer'>
 	
-		<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
+		<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html' autocomplete='off'>
 		<table id="projectOverviewTable">
 			
 				<tr id="row2">
@@ -326,7 +326,7 @@
 
 <!--Old search form.  Commented out but left for reference.  (MF)-->
 <!--<div>
-	<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
+	<form:form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html' autocomplete='off'>
 	<table id='searchTable'>
 		<thead></thead>
 		<tbody>

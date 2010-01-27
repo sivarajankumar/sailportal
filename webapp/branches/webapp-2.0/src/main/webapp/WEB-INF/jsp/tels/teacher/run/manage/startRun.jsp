@@ -46,7 +46,7 @@
   </c:forEach>
 </spring:bind>
 
-<form:form method="post" action="startRun.html" commandName="startRunParameters" id="startRun" >
+<form:form method="post" action="startRun.html" commandName="startRunParameters" id="startRun" autocomplete='off'>
   <div><label for="runId"><spring:message code="teacher.run.manage.archiverun.5"/></label>
       <form:input disabled="true" path="runId" id="runId"/>
       <form:errors path="runId" />

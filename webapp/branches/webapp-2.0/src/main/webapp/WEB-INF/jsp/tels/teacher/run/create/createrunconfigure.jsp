@@ -79,7 +79,7 @@
 
 <div id="setUpRunBox">
 
-<form:form method="post" commandName="runParameters">
+<form:form method="post" commandName="runParameters" autocomplete='off'>
 
 <div id="stepNumber"><spring:message code="teacher.run.setup.28.1"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.28.2"/></span></div>
 

@@ -51,7 +51,7 @@
 <div id="centeredDiv">
 
 <h3>Create Announcement</h3>
-<form:form method="post" action="createannouncement.html" commandName="announcementParameters" id="createannouncement">
+<form:form method="post" action="createannouncement.html" commandName="announcementParameters" id="createannouncement" autocomplete='off'>
 	<label for="titleField">Title</label>
 	<form:input path="title" id="titleField"/>
 	<label for="announcementField">Announcement</label>

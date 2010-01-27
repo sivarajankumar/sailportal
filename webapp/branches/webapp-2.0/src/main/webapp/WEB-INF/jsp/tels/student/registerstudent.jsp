@@ -131,7 +131,7 @@ function setup() {
 </spring:bind>
 </div>
 
-<form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html">
+<form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html" autocomplete='off'>
   
   <dl>
   	<dt><label for="studentFirstName"><spring:message code="student.registerstudent.4"/></label></dt>	    

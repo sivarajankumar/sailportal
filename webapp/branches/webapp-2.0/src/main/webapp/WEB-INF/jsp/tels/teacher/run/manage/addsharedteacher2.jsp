@@ -32,7 +32,7 @@
 <body>
 
 <h4><spring:message code=teacher.run.manage.addteacher.3"/>&nbsp ${sharedOwner.userDetails.firstname} ${sharedOwner.userDetails.lastname} 
-<form:form method="post" commandName="addSharedTeacherParameters">
+<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
 	        <c:forEach items="${runpermissions}" var="runpermission">
 	          <form:checkbox path="newRoles" value="${runpermission}" /> ${runpermission}<br/>
 	        </c:forEach>

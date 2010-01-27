@@ -225,7 +225,7 @@ function findStringsContaining(what, all_array) {
 		<c:otherwise>
 			<c:forEach var="sharedowner" items="${project.sharedowners}">
 				<form:form method="post" id="${sharedowner.userDetails.username}"
-					commandName="${sharedowner.userDetails.username}">
+					commandName="${sharedowner.userDetails.username}" autocomplete='off'>
 					<form:hidden path="sharedOwnerUsername" />
 					<tr>
 						<td>${sharedowner.userDetails.username}</td>
@@ -260,7 +260,7 @@ function findStringsContaining(what, all_array) {
 	<tr>
 		<td id="sharingSearchBox" colspan=3>
 			<div id="sharingSearchBoxHelp"><spring:message code="teacher.pro.custom.sharepro.12"/></div>
-				<form:form method="post" commandName="addSharedTeacherParameters">
+				<form:form method="post" commandName="addSharedTeacherParameters" autocomplete='off'>
 					<form:input path="sharedOwnerUsername" id="sharedOwnerUsernameInput" onkeyup="autocomplete(this.value)" size="25"/>
 					<input type="submit" value="<spring:message code="teacher.pro.custom.sharepro.13"/>"></input>
 				</form:form>

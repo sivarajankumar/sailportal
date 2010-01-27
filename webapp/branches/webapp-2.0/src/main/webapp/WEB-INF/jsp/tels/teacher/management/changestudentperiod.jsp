@@ -24,7 +24,7 @@
  
 <div id="popUpWindowTeacherPeriod">
 	
-	<form:form method="post" action="changestudentperiod.html" commandName="changePeriodParameters" id="changestudentperiod">
+	<form:form method="post" action="changestudentperiod.html" commandName="changePeriodParameters" id="changestudentperiod" autocomplete='off'>
 	
 	<table id="studentInfoTable">
 	<tr>
