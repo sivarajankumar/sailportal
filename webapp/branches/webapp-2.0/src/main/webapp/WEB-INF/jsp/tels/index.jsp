@@ -30,6 +30,8 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
+<script src="./javascript/tels/killautocomplete.js" type="text/javascript"></script>
+
 <script src="./javascript/tels/general.js" type="text/javascript">
 	
 </script>
@@ -187,7 +189,7 @@ width: 100%;
 				<div id="boxTableSignInSub1" class="panelColor2"><!--  SignIn Sub Box 1-->
 				<div id="header"><spring:message code="signinheader" /></div>
 
-				<form id="home" method="post" action="j_acegi_security_check">
+				<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
 				<dl id="signinDefinList">
 						<dt><label for="username"><spring:message code="username" /></label></dt>
 						<dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" /></dd>

@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.forgotaccount.student;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,17 +71,18 @@ public class CheckProjectCodeController extends
             throws Exception {
         ReminderParameters params = (ReminderParameters) command;
 
-        Projectcode projectcode = new Projectcode(params.getProjectCode());
+        Projectcode projectcode = new Projectcode(params.getProjectCode(), null);
         
         String runCode = projectcode.getRuncode();
-        String runPeriod = projectcode.getRunPeriod();
         
         try {
         	Run run = runService.retrieveRunByRuncode(runCode);
         	
-        	Group group = run.getPeriodByName(runPeriod);
-        	
-        	Set<User> members = group.getMembers();
+        	Set<Group> groups = run.getPeriods();
+        	Set<User> members = new HashSet<User>();
+        	for(Group group : groups){
+        		members.addAll(group.getMembers());
+        	}
         	
         	Map<String, String> usersMap = new HashMap<String, String>();
         	for (User user : members) {
@@ -91,7 +93,7 @@ public class CheckProjectCodeController extends
         	
         	
         	Map<String, Object> model = new HashMap<String, Object>();
-			model.put(PROJECT_CODE, projectcode.getProjectcode());
+			model.put(PROJECT_CODE, projectcode.getRuncode());
 			model.put(RUN_TITLE, run.getName());
 			model.put(USERS, usersMap);
 			return new ModelAndView(getSuccessView(), model);

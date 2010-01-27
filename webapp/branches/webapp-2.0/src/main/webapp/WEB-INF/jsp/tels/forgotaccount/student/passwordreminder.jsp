@@ -50,7 +50,7 @@
 		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.4"/></li>
 		<li class="forgotPasswordInstructionText reminderHighlight"><spring:message code="forgot.student.passremind.5"/></li>
 		<li class="forgotPasswordInstructionText2">
-			<form:form id="username" name="retrievepassword" method="post" commandName="reminderParameters">
+			<form:form id="username" name="retrievepassword" method="post" commandName="reminderParameters" autocomplete='off'>
 				<label style="font-weight:bold;" for="send_username"><spring:message code="login.username" /></label>
 	  			<input class="dataBoxStyle" type="text" name="username" id="userName" size="20" tabindex="1" />
 	 			

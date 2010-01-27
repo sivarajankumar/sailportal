@@ -119,7 +119,9 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 					} else {
 						username = StringUtils.trimToNull(username);
 						user = userService.retrieveUserByUsername(username);
-						if( user == null ) {
+						
+						/* check to see if user exists and ensure that user is a student */
+						if(user == null || !(user.getUserDetails() instanceof StudentUserDetails)){
 							errors.rejectValue("username", "error.username-not-found");
 						}
 					}
@@ -264,7 +266,7 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 	@Override
 	protected ModelAndView processCancel(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors) {
-		return new ModelAndView(new RedirectView("forgotaccount/student/index.html"));
+		return new ModelAndView(new RedirectView("../../index.html"));
 	}
 
 	/**

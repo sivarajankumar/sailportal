@@ -60,7 +60,7 @@
 
  <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor2">
                     			<div id="header"><spring:message code="login.failed10"/></div>
-								<form id="home" method="post" action="j_acegi_security_check">
+								<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
                                 <dl id="signinDefinList">
                                     <dt><label for="username"><spring:message code="login.failed11"/></label> </dt>
                                     <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60"/></dd>

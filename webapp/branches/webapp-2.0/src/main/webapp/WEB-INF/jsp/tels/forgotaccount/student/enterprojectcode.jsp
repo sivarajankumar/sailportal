@@ -60,7 +60,7 @@
 			</spring:bind>
 	</div>
 	
-	<form name="projectCode" method="post" commandName="reminderParameters">
+	<form name="projectCode" method="post" commandName="reminderParameters" autocomplete='off'>
 			<label id="projectCodeLabel" for="send_projectcode"><spring:message code="student.enterprojectcode.5"/></label>
  			<input type="text" name="projectCode" id="projectCode" />
     	 	<input type="submit" value="Search"/>

@@ -310,7 +310,7 @@
 <div class="searchContainer">
 	<div class="header">Search by Keyword</div>
 	<div id='searchInstructions'>Type one or more words into the search field below. Then click <i>Search By Keyword</i> to find matching projects.</div>
-	<form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html'>
+	<form commandName='searchProjectLibraryParameters' id='searchLibraryForm' method='post' action='projectlibrary.html' autocomplete='off'>
 		<div id='searchTypeDiv'>
 						<b>Search should:</b>  
 						<INPUT type="radio"  id='exactRadio' path='searchtype' value='matches'/>Match text exactly

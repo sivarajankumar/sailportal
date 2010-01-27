@@ -56,7 +56,7 @@
 	</spring:bind>
 </div>
 
-<form id="username" method="post" action="index.html" commandName="userDetails">
+<form id="username" method="post" action="index.html" commandName="userDetails" autocomplete='off'>
 
 <div id="boxSecondary">
  <h2><b><spring:message code="forgot.teacher.index.1"/></b></h2>

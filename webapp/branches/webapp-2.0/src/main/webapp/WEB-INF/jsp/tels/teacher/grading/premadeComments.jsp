@@ -367,7 +367,7 @@
 
 <div>
 	<a href="#" id="newList" onclick="toggleCreateNewListDisplay()"><spring:message code="teacher.grading.premade.3"/></a>
-	<form onsubmit="return false;">
+	<form onsubmit="return false;" autocomplete='false'>
 	<p id="createNewListDisplay" style="display:none"><spring:message code="teacher.grading.premade.4"/><input id="newListField" type="text" /><input type="submit" value="Create New List" onclick="createNewList()" /></p>
 	</form>
 </div>
@@ -382,7 +382,7 @@
 <div id="commentButtonsAndCheckboxes">
 
 	<c:forEach var="premadeCommentList" items="${premadeCommentLists}" varStatus="listStatus">
-		<form id="premadeCommentList${premadeCommentList.id}" style="display:none">
+		<form id="premadeCommentList${premadeCommentList.id}" style="display:none" autocomplete='off'>
 <!-- 
 			<a href="#" id="duplicateList" onclick="duplicateList('premadeCommentList${premadeCommentList.id}')">Duplicate List</a>
 			<a href="#" id="renameList" onclick="renameList('premadeCommentList${premadeCommentList.id}')">Rename List</a>

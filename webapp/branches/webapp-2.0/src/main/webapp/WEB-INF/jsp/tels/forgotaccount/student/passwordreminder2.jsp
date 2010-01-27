@@ -51,7 +51,7 @@
 		<li class="forgotPasswordInstructionText"><spring:message code="forgot.student.passremind.6"/></li>
 		<li class="forgotPasswordInstructionText reminderHighlight"><spring:message code="forgot.student.passremind.7"/>, ${username},</li>
 		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.8"/></li>
-		<form id="submittedAccountAnswer" method="post" commandName="reminderParameters">
+		<form id="submittedAccountAnswer" method="post" commandName="reminderParameters" autocomplete='off'>
 		<li class="forgotPasswordInstructionText3">Question: <spring:message code="accountquestions.${accountQuestion}"/></li>
 		<li class="forgotPasswordInstructionText3">
 			<label for="send_accountanswer">Answer:</label>

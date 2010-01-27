@@ -55,7 +55,7 @@
 		<li class="forgotPasswordInstructionText2"><spring:message code="forgot.student.passremind.11"/></li>
 	</ul>
 	
-	<form id="submittedAccountPasswords" method="post" commandName="reminderParameters">
+	<form id="submittedAccountPasswords" method="post" commandName="reminderParameters" autocomplete='off'>
 		<table id="submittedAccountPasswordTable">
 		<tr>
 			<td><label id="passwordform" for="send_passwords"><spring:message code="lostpassword.student.new-password" /></label></td>
