@@ -104,7 +104,7 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private BrainstormService brainstormService = null;
 	
-	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/setuprunconfirm";
+	private static final String COMPLETE_VIEW_NAME = "teacher/run/create/createrunfinish";
 	
 	private static final String CANCEL_VIEW_NAME = "../../teacher/index.html";
 
@@ -132,9 +132,8 @@ public class CreateRunController extends AbstractWizardFormController {
 	 */
 	public CreateRunController() {
 		setBindOnNewForm(true);
-		setPages(new String[]{"teacher/run/create/setuprun1", "teacher/run/create/setuprun2", "teacher/run/create/setuprun3", 
-				"teacher/run/create/setuprun3a", "teacher/run/create/setuprun4", "teacher/run/create/setuprun4a", "teacher/run/create/setuprun5", 
-				"teacher/run/create/setuprun6"});
+		setPages(new String[]{"teacher/run/create/createrunconfirm", "teacher/run/create/createrunarchive", "teacher/run/create/createrunperiods", 
+				"teacher/run/create/createrunconfigure", "teacher/run/create/createrunreview"});
 		setSessionForm(true);
 	}
 	
@@ -222,12 +221,6 @@ public class CreateRunController extends AbstractWizardFormController {
 	    	break;
 	    case 4:
 	    	break;
-	    case 5:
-	    	break;
-	    case 6:
-	    	break;
-	    case 7:
-	    	break;
 	    default:
 	    	break;
 	    }
@@ -243,7 +236,6 @@ public class CreateRunController extends AbstractWizardFormController {
 			Object command, Errors errors, int page) {
 		String projectId = request.getParameter("projectId");
 		RunParameters runParameters = (RunParameters) command;
-		Module module = null;
 		Project project = null;
 		Map<String, Object> model = new HashMap<String, Object>();
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -290,11 +282,8 @@ public class CreateRunController extends AbstractWizardFormController {
 			break;
 		case 3:
 		case 4:
-		case 5:
-		case 6:
 			model.put("projectId", projectId);
 			break;
-		case 7:
 		default:
 			break;
 		}

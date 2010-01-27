@@ -32,7 +32,25 @@
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
-<title><spring:message code="teacher.setup-project-run-step-four" /></title>
+<script type="text/javascript">
+function checkIfTextAreaEmpty (form) {
+if(form.manualCheckbox.checked==true){
+	form.manualPeriods.disabled=false;
+	for(i=0;i<form.options.length;i++){
+	   form.options[i].disabled=true;
+	   form.options[i].checked=false;
+	}
+}else{
+	form.manualPeriods.disabled=true;
+	for(i=0;i<form.options.length;i++){
+	   form.options[i].disabled=false;
+	}	
+}
+}
+// End -->
+</script>
+
+<title><spring:message code="teacher.setup-project-run-step-three" /></title>
 
 <!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
 
@@ -52,7 +70,7 @@
 </head>
 
 <!-- Support for Spring errors object -->
-<spring:bind path="runParameters.postLevel">
+<spring:bind path="runParameters.periodNames">
   <c:forEach var="error" items="${status.errorMessages}">
     <c:choose>
       <c:when test="${fn:length(error) > 0}" >
@@ -78,24 +96,40 @@
 
 <div id="setUpRunBox">
 
-	<div id="stepNumber"><spring:message code="teacher.run.setup.36.1"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.36.2"/></span></div>
+<div id="stepNumber"><spring:message code="teacher.run.setup.25"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.26"/></span></div>
 
-<form:form method='post' commandName='runParameters'>	
-	<div>
-		Select the Post Level for this run.<br/>
-		<form:radiobutton path='postLevel' value='5'/>High (All Steps)<br/>
-		<form:radiobutton path='postLevel' value='1'/>Low (Steps With Student Work Only)<br/>
-	</div>
+<h5 style="margin:20px 0px 15px 0;"><spring:message code="teacher.run.setup.27"/>&nbsp;<em><spring:message code="teacher.run.setup.28"/></em>.</h5>
+
+<form:form method="post" commandName="runParameters">
+
+    <div>
+      <label for="periods" id="periodlabel"><spring:message code="periods" /></label><br />
+          <div id="periodBoxes">
+          	<c:forEach items="${periodNames}" var="periodName">
+            <form:checkbox path="periodNames" value="${periodName}" id="${periodName}"/>
+            <label for="${periodName}"><spring:message code="defaultPeriodNames.${periodName}" /></label><br/>
+          	</c:forEach>
+          </div>      
+    </div>
+
+<div>
+	<h5><spring:message code="teacher.run.setup.29"/></h5>
+	<form:textarea path="manuallyEnteredPeriods" id="manualperiodsinput" rows="1" cols="65"/>
+	<div id="manualperiodsinstructions"><spring:message code="teacher.run.setup.30"/><br />
+		<spring:message code="teacher.run.setup.31"/></div>
+</div>
 
 </div>     <!--end of SetUpRunBox -->
 
-<div class='center'>
-<input type="submit" name="_target4" value="<spring:message code="navigate.back" />" />
-<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_target6" value="<spring:message code="navigate.next" />" />
-</div> 
-</form:form>
+<div class="center">
+<input type="submit" name="_target1" value="<spring:message code="navigate.back"/>" />
+<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel"/>" />
+<input type="submit" name="_target3" value="<spring:message code="navigate.next"/>" />
 </div>
 
+</form:form>
+
+<!--end of centered div-->
+</div>
 </body>
 </html>

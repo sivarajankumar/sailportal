@@ -16,10 +16,10 @@
   * License along with this library; if not, write to the Free Software
   * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
 <html xml:lang="en" lang="en">
 <head>
-
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
@@ -30,7 +30,7 @@
 <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 
-<title><spring:message code="teacher.setup-project-run-step-five" /></title>
+<title><spring:message code="teacher.setup-project-run-step-two" /></title>
 
 <!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
 
@@ -48,6 +48,7 @@
 </script>
 
 </head>
+
 <body>
 
 <div id="centeredDiv">
@@ -58,28 +59,62 @@
 
 <h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
 
+     	    	    
 <div id="setUpRunBox">
 
-	<div id="stepNumber"><spring:message code="teacher.run.setup.37"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.38"/></span></div>
+<div id="stepNumber"><spring:message code="teacher.run.setup.12"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.13"/></span></div>
 
-	<h5><spring:message code="teacher.recommend-preview-project" />
-		<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
-		<spring:message code="teacher.preview-project" /> </a>
-		<spring:message code="teacher.before-running" /></h5>
-		
-	<h6 class="indent15px"><spring:message code="teacher.preview-project-now" /></h6>
+<form:form method="post" commandName="runParameters">
 
-	<h5><spring:message code="teacher.cont-no-preview" />
-		<i><spring:message code="navigate.next" /></i>
-		<spring:message code="teacher.cont-no-preview-below" /></h5>
-</div>
+<h5><spring:message code="teacher.run.setup.14"/></h5>
+<h6 class="indent15px" style="color:#660000;"><spring:message code="teacher.run.setup.15a"/></h6><br/>
+<h6 class="indent15px" style="color:#660000;"><spring:message code="teacher.run.setup.15b"/></h6><br/>
 
-<form class="center" method="post">
-<input type="submit" name="_target5" value="<spring:message code="navigate.back" />" />
+<c:choose>
+	<c:when test="${fn:length(existingRunList) == 0}">
+      <b><spring:message code="teacher.run.setup.16"/></b>
+	</c:when>
+	<c:otherwise>
+	<div id="setupProjectTableContainer">
+	<table  id="setupProjectTable">
+	<tr id="setupProjectTableR1">
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.17"/></td>
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.18"/></td>
+		<td style="border:1px solid #333333;">Run ID</td>
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.20"/></td>
+		<td style="border:1px solid #333333;"><spring:message code="teacher.run.setup.21"/></td>
+	</tr>
+    <c:forEach var="run" items="${existingRunList}">
+	    <tr id="setupProjectTableR2">
+	     <td class="center" style="border:1px solid #333333;">
+	     
+	     <!-- CHECKBOXES -->
+		    <div id="runcheckboxes">
+		       <form:checkbox path="runIdsToArchive" value="${run.id}" /><br/> 
+		    </div>
+		 <!-- END CHECKBOXES -->
+    <!--end of SetUpRunBox -->
+	     </td>
+		        <td style="border:1px solid #333333;"><strong>${run.project.name}</strong></td>
+		        <td style="border:1px solid #333333;">${run.id}</td>
+		        <td style="border:1px solid #333333;">${run.starttime.month + 1}/${run.starttime.date}/${run.starttime.year + 1900}</td>
+		        <td style="border:1px solid #333333;">${run.endtime}</td>
+	     </tr>
+	</c:forEach>
+	</table>
+	</div>
+	<h5 class="followup1"><spring:message code="teacher.run.setup.22"/>&nbsp;<em><spring:message code="teacher.run.setup.23"/></em>&nbsp;<spring:message code="teacher.run.setup.24"/></h5>
+	</c:otherwise>
+	
+</c:choose>
+</div> <!-- /* End setUpRunBox */-->
+<div class="center">
+<input type="submit" name="_target0" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_target7" value="<spring:message code="navigate.next" />" />
-</form>
+<input type="submit" name="_target2" value="<spring:message code="navigate.next" />" />
+</div>  
+</form:form>
+</div>  <!-- /* End of the CenteredDiv */-->
 
-</div>
 </body>
 </html>
