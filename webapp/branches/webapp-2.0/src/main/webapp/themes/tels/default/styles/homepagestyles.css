@@ -426,15 +426,7 @@
 	border-collapse:collapse;
 	width:960px;
 	padding:0px;
-	border-top-width: 3px;
-	border-bottom-width: 3px;
-	border-top-style: double;
-	border-bottom-style:double;
-	border-color:#009900;
-	margin-top: 15px;
-	margin-right: 0;
-	margin-bottom: 0;
-	margin-left: 0;
+	margin:10px 0;
 	vertical-align: text-top;
 	}
 
@@ -449,7 +441,7 @@
 }
 
 #footerText {
-	width:460;
+	width:460px;
 	font-size:.7em;
 	padding-bottom: 10px;
 }
