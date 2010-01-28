@@ -793,19 +793,6 @@
         <property name="projectService" ref="projectService" />
     </bean>
     
-    <bean id="publishProjectMetadataController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.PublishProjectMetadataController">
-    	<property name="projectService" ref="projectService"/>
-    	<property name="commandName" value="publishProjectMetadataParameters"/>
-    	<property name="sessionForm" value="true"/>
-    	<property name="successView" value="author/createprojectsuccess"/>
-    	<property name="formView" value="author/publishprojectmetadata"/>
-    </bean>
-    
-    <bean id="publishProjectMetadataParameters"
-    	class="org.telscenter.sail.webapp.domain.impl.PublishProjectMetadataParameters">
-    </bean>
-    
     <bean id="createRooloProjectController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.author.project.CreateRooloProjectController">
     	<property name="commandName" value="rooloProjectParameters"/>

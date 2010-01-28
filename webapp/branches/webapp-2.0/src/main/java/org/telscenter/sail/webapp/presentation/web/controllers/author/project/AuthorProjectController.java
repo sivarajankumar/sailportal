@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
@@ -46,9 +48,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.Util;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -106,6 +112,8 @@ public class AuthorProjectController extends AbstractController {
 				return handleNotifyProjectOpen(request, response);
 			} else if (command.equals("notifyProjectClose")){
 				return handleNotifyProjectClose(request, response);
+			} else if(command.equals("publishMetadata")){
+				return this.handlePublishMetadata(request, response);
 			}
 		}
 		
@@ -228,6 +236,115 @@ public class AuthorProjectController extends AbstractController {
 		
 		response.getWriter().write(xmlList);
 		return null;
+	}
+	
+	/**
+	 * Handles the publish metadata request from the authoring tool
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ObjectNotFoundException 
+	 * @throws IOException 
+	 */
+	private ModelAndView handlePublishMetadata(HttpServletRequest request, HttpServletResponse response) throws ObjectNotFoundException, IOException{
+		Long projectId = Long.parseLong(request.getParameter("projectId"));
+		Project project = this.projectService.getById(projectId);
+		
+		/* retrieve the metadata from the file */
+		JSONObject metadata = this.projectService.getProjectMetadataFile(project);
+		
+		/* set the fields in the ProjectMetadata where appropriate */
+		if(metadata != null){
+			ProjectMetadata pMeta = project.getMetadata();
+			
+			/* if no previous metadata exists for this project, then we want to create one
+			 * and set it in the project */
+			if(pMeta == null){
+				pMeta = new ProjectMetadataImpl();
+				project.setMetadata(pMeta);
+			}
+			
+			Object title = this.getJSONFieldValue(metadata, "title");
+			if(title != null){
+				pMeta.setTitle((String) title);
+			}
+			
+			Object author = this.getJSONFieldValue(metadata, "author");
+			if(author != null){
+				pMeta.setAuthor((String) author);
+			}
+			
+			Object subject = this.getJSONFieldValue(metadata, "subject");
+			if(subject != null){
+				pMeta.setSubject((String) subject);
+			}
+			
+			Object summary = this.getJSONFieldValue(metadata, "summary");
+			if(summary != null){
+				pMeta.setSummary((String) summary);
+			}
+			
+			Object graderange = this.getJSONFieldValue(metadata, "graderange");
+			if(graderange != null){
+				pMeta.setGradeRange((String) graderange);
+			}
+			
+			Object contact = this.getJSONFieldValue(metadata, "contact");
+			if(contact != null){
+				pMeta.setContact((String) contact);
+			}
+			
+			Object techreqs = this.getJSONFieldValue(metadata, "techreqs");
+			if(techreqs != null){
+				pMeta.setTechReqs((String) techreqs);
+			}
+			
+			Object lessonplan = this.getJSONFieldValue(metadata, "lessonplan");
+			if(lessonplan != null){
+				pMeta.setLessonPlan((String) lessonplan);
+			}
+			
+			Object totaltime = this.getJSONFieldValue(metadata, "totaltime");
+			if(totaltime != null && !((String) totaltime).equals("")){
+				pMeta.setTotalTime(Long.parseLong((String) totaltime));
+			} 
+			
+			Object comptime = this.getJSONFieldValue(metadata, "comptime");
+			if(comptime != null && !((String) comptime).equals("")){
+				pMeta.setCompTime(Long.parseLong((String) comptime));
+			}
+			
+			/* save the project */
+			this.projectService.updateProject(project);
+			
+			/* write success message */
+			response.getWriter().write("Project metadata was successfully published to the portal.");
+		} else {
+			/* write error message that portal could not access metadata file */
+			response.getWriter().write("The portal was unable to access the data in the metadata file. The metadata may be out of sync.");
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Returns the value of the given <code>String</code> field name in the given
+	 * <code>JSONObject</code> if it exists, returns null otherwise. This function
+	 * is provided as a means to catch the JSON error that is associated with retrieving
+	 * fields in JSONObjects without the caller having to catch it.
+	 * 
+	 * @param obj
+	 * @param fieldName
+	 * @return
+	 */
+	private Object getJSONFieldValue(JSONObject obj, String fieldName){
+		try{
+			return obj.get(fieldName);
+		} catch(JSONException e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	/**
