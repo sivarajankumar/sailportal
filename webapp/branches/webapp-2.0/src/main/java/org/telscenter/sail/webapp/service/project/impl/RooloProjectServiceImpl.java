@@ -61,6 +61,7 @@ import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -377,6 +378,11 @@ public class RooloProjectServiceImpl implements ProjectService{
 	}
 
 	public String minifyProject(Project project) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JSONObject getProjectMetadataFile(Project project) {
 		// TODO Auto-generated method stub
 		return null;
 	}

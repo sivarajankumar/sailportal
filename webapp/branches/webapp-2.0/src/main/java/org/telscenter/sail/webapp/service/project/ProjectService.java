@@ -40,6 +40,7 @@ import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 
 /**
  * A Service for Projects
@@ -242,4 +243,13 @@ public interface ProjectService {
 	 * @return
 	 */
 	public String minifyProject(Project project);
+	
+	/**
+	 * Give a <code>Project</code>, returns <code>JSONObject</code> the project metadata
+	 * from the file, if it exists, returns null otherwise.
+	 * 
+	 * @param project
+	 * @return
+	 */
+	public JSONObject getProjectMetadataFile(Project project);
 }

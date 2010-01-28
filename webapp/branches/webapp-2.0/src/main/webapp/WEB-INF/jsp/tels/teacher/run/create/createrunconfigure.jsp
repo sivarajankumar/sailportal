@@ -95,8 +95,20 @@
 	<br/>
 	<div>
 		Select the Post Level for this run.<br/>
-		<form:radiobutton path='postLevel' value='5'/>High (All Steps)<br/>
-		<form:radiobutton path='postLevel' value='1'/>Low (Steps With Student Work Only)<br/>
+		<c:choose>
+			<c:when test="${minPostLevel==5}">
+				<br/>
+				The author of this project requires that this run log students' data at the highest level. If you would<br/>
+				like to override this setting, please contact WISE.<br/>
+			</c:when>
+			<c:otherwise>	
+				<c:forEach var='postLevel' items='${implementedPostLevels}'>
+					<c:if test="${postLevel >= minPostLevel}">
+						<form:radiobutton path='postLevel' value='${postLevel}'/>${postLevelTextMap[postLevel]}<br/>
+					</c:if>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>     
 

@@ -22,15 +22,9 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -71,6 +65,9 @@ import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.presentation.util.http.Connector;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -457,24 +454,9 @@ public class LdProjectServiceImpl implements ProjectService {
 		
 		if(projectUrl != null && projectUrl != ""){
 			try{
-				URL url = new URL(minifyUrl);
-				URLConnection conn = url.openConnection();
-				conn.setDoOutput(true);
-				OutputStreamWriter paramWriter = new OutputStreamWriter(conn.getOutputStream());
-				paramWriter.write(params);
-				paramWriter.flush();
+				String response = Connector.request(minifyUrl, params);
 				
-				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				String line;
-				String response = "";
-				
-				while((line = br.readLine()) != null){
-					response += line;
-				}
-				
-				paramWriter.close();
-				br.close();
-				
+				/* process the response text */
 				if(response.equals("success")){
 					return "Project has been successfully minified!";
 				} else if(response.equals("current")){
@@ -491,6 +473,36 @@ public class LdProjectServiceImpl implements ProjectService {
 			}
 		} else {
 			return "Unable to retrieve the url of the project, cannot minify the project.";
+		}
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectMetadataFile(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public JSONObject getProjectMetadataFile(Project project) {
+		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
+		String filemanagerUrl = this.portalProperties.getProperty("vlewrapper_baseurl") + "/vle/filemanager.html";
+		String rawURL = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		
+		if(rawURL == null || rawURL == ""){
+			return null;
+		}
+		
+		String projectMetaUrl = rawURL.replace(".project.json", ".project-meta.json");
+		String params = "command=retrieveFile&param1=" + curriculumBaseDir + "/" + projectMetaUrl;
+		
+		try{
+			String response = Connector.request(filemanagerUrl, params);
+			return new JSONObject(response);
+		} catch(MalformedURLException e){
+			e.printStackTrace();
+			return null;
+		} catch(IOException e){
+			e.printStackTrace();
+			return null;
+		} catch(JSONException e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

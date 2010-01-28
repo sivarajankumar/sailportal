@@ -39,6 +39,7 @@ import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectServiceFactory;
 
@@ -238,5 +239,13 @@ public class ProjectServiceImpl implements ProjectService {
 	public String minifyProject(Project project){
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		return projectService.minifyProject(project);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectMetadataFile(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public JSONObject getProjectMetadataFile(Project project){
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.getProjectMetadataFile(project);
 	}
 }

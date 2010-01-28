@@ -66,6 +66,8 @@ import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -124,6 +126,14 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	//set this to your email
 	private static final String DEBUG_EMAIL = "youremail@email.com";
+	
+	private static final Long[] IMPLEMENTED_POST_LEVELS = {5l,1l};
+	
+	private final static Map<Long,String> POST_LEVEL_TEXT_MAP = new HashMap<Long,String>();
+	static {
+		POST_LEVEL_TEXT_MAP.put(5l, "High - All Steps");
+		POST_LEVEL_TEXT_MAP.put(1l, "Low - Steps With Student Work Only");
+	}
 	
 	/**
 	 * Constructor
@@ -281,6 +291,15 @@ public class CreateRunController extends AbstractWizardFormController {
 			model.put("periodNames", DefaultPeriodNames.values());
 			break;
 		case 3:
+			try {
+				project = (Project) this.projectService.getById(projectId);
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
+			model.put("implementedPostLevels", IMPLEMENTED_POST_LEVELS);
+			model.put("postLevelTextMap", POST_LEVEL_TEXT_MAP);
+			model.put("minPostLevel", this.getMinPostLevel(project));
+			break;
 		case 4:
 			model.put("projectId", projectId);
 			break;
@@ -288,6 +307,30 @@ public class CreateRunController extends AbstractWizardFormController {
 			break;
 		}
 		return model;
+	}
+	
+	
+	/**
+	 * Retrieves the post level from the project metadata if it exists and determines
+	 * the minimum post level that the user can set for the run.
+	 * 
+	 * @param project
+	 * @return
+	 */
+	private Long getMinPostLevel(Project project){
+		JSONObject meta = this.projectService.getProjectMetadataFile(project);
+		
+		if(meta == null){//metadata does not exist, so must not have been set by author
+			return 1l;
+		} else {
+			try{
+				Long level = meta.getLong("postLevel");
+				return level;
+			} catch (JSONException e){//postLevel must not exist in metadata so was not set by author
+				e.printStackTrace();
+				return 1l;
+			}
+		}
 	}
 	
 	/**
