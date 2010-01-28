@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<form:form method="post" action="uploadxml.html?projectId=${projectId}" commandName="xmlFileUpload" id="uploadProject" enctype="multipart/form-data">
+<form:form method="post" action="uploadxml.html?projectId=${projectId}" commandName="xmlFileUpload" id="uploadProject" enctype="multipart/form-data" autocomplete='off'>
 	<label for="xmlFile">xml file</label><br/>
 	<input type="file" name="file" id="xmlFile"/>
     <br/><br/>

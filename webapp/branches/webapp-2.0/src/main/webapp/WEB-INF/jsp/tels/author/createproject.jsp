@@ -130,7 +130,7 @@ YUI download for details on each of the aggregate files and their contents):-->
 </spring:bind>
 </div>
 
-<form:form commandName="projectParameters" method="post" action="createproject.html" id="createprojectform"  >  
+<form:form commandName="projectParameters" method="post" action="createproject.html" id="createprojectform" autocomplete='off'>  
   <dl>
     <dt><label for="projectname" id="projectnameLabel"><span class="asterix">* </span>Enter Project Name:</label> </dt>
 	<dd>

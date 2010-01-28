@@ -30,7 +30,7 @@ If you see this, you have admin privileges.<br>
 
 <c:out value="${message}" />
 
-<form:form method="post" commandName="lookupUserParameters">
+<form:form method="post" commandName="lookupUserParameters" autocomplete='off'>
 	Please Type in Username: 
 	<input type="text" name="usernameToLookup"/>
 	<input type="image" id="save" src="../../<spring:theme code="register_save" />" 

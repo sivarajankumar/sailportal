@@ -53,8 +53,7 @@ addEvent(window, 'load', onLoadHandler);
 <h2>Register JNLP</h2>
 </div>
 
-<div id="right"><form:form method="post" action="registerjnlp.html"
-  commandName="jnlpParameters">
+<div id="right"><form:form method="post" action="registerjnlp.html" commandName="jnlpParameters" autocomplete='off'>
 
   <p>
     <label for="name">JNLP name:</label>

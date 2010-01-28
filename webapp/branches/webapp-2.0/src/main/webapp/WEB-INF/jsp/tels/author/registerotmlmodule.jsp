@@ -20,7 +20,7 @@
    Please make sure you know what you're doing.  If you're unsure, ask a WISE staff.
 </p>
 <form:form method="post" action="registerotmlmodule.html" 
-	commandName="otmlFile" id="registerotmlmoduleform" enctype="multipart/form-data">
+	commandName="otmlFile" id="registerotmlmoduleform" enctype="multipart/form-data" autocomplete='off'>
 
     <p>
     <label for="name">Module name:</label>

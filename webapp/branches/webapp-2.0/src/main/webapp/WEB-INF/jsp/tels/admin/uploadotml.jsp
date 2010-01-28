@@ -20,7 +20,7 @@
 
 
 <form:form method="post" action="uploadotml.html?projectId=${project.id}" 
-	commandName="project" id="editproject" enctype="multipart/form-data">
+	commandName="project" id="editproject" enctype="multipart/form-data" autocomplete='off'>
 
 	<label for="otmlFile">otml</label><br/>
 	<input type="file" name="file" id="otmlFile"/>

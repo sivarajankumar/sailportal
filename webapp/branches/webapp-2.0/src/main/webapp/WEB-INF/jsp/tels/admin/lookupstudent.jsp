@@ -40,7 +40,7 @@
 	</spring:bind>
 </div>
 
-<form:form method="post" action="lookupstudent.html" commandName="lookupParameters" id="lookupStudent">
+<form:form method="post" action="lookupstudent.html" commandName="lookupParameters" id="lookupStudent" autocomplete='off'>
 	<form:label path="lookupField">Search for all students by  </form:label>
 	<form:select path="lookupField" id="lookupField">
 		<c:forEach var="field" items="${fields }">

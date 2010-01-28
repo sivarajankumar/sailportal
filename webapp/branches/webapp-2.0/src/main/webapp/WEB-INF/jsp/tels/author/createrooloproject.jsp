@@ -7,7 +7,7 @@
 
 <body>
 <div>
-	<form:form commandName="rooloProjectParameters" method="post" action="createrooloproject.html" id="createrooloprojectform">
+	<form:form commandName="rooloProjectParameters" method="post" action="createrooloproject.html" id="createrooloprojectform" autocomplete='off'>
 		Enter project name: <form:input path="projectname" id="projectname" size="30" maxlength="50"/>
 		Enter xml for project content: <form:input path="xml" id="xml" size="50"/><br>
 		<input type="submit" value="Create Project"/>

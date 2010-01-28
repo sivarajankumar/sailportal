@@ -53,8 +53,7 @@ addEvent(window, 'load', onLoadHandler);
 <h2>Register Module</h2>
 </div>
 
-<div id="right"><form:form method="post" action="registermodule.html"
-  commandName="curnitParameters">
+<div id="right"><form:form method="post" action="registermodule.html" commandName="curnitParameters" autocomplete='off'>
 
   <p>
     <label for="name">Module name:</label>

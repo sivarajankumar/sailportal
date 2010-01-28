@@ -272,7 +272,7 @@ You're moving into a land of both shadow and substance, of things and ideas. You
 
 </c:if>
 
-<form:form method="post" action="authorbrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" onsubmit="return Validate()" id="brainstormform" >
+<form:form method="post" action="authorbrainstorm.html?brainstormId=${brainstorm.id}" commandName="brainstorm" onsubmit="return Validate()" id="brainstormform" autocomplete='off'>
 
 <div class="authorSectionHeader">Gating Options for Q&amp;A Step</div>
 

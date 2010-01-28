@@ -54,7 +54,7 @@ addEvent(window, 'load', onLoadHandler);
 </div>
 
 <div id="right"><form:form method="post" action="registerroolootmlmodule.html"
-  commandName="curnitParameters">
+  commandName="curnitParameters" autocomplete='off'>
 
   <p>
     <label for="name">Module name:</label>

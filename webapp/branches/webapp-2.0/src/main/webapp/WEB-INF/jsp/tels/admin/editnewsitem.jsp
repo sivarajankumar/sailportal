@@ -38,7 +38,7 @@
 <br>
 <h5>Edit News Item</h5>
 
-	<form:form method="post" action="editnewsitem.html" commandName="newsItemParameters" id="editnewsitem">
+	<form:form method="post" action="editnewsitem.html" commandName="newsItemParameters" id="editnewsitem" autocomplete='off'>
 		<dl>
 		<dt><label for="titleField"><spring:message code="newsitem.title" /></label></dt>
 		<dd><form:input path="title" id="titleField"/> </dd>

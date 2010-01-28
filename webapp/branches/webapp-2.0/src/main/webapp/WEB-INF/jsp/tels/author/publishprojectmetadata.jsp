@@ -43,7 +43,7 @@
 						<div id='lessonplan'>Lesson Plan: ${currentLessonplan}</div>
 					</td>
 					<td id='replacementMetaTd'>
-						<form:form method='post' action='publishprojectmetadata.html' id='publishMetadataForm'  commandName='publishProjectMetadataParameters'>
+						<form:form method='post' action='publishprojectmetadata.html' id='publishMetadataForm'  commandName='publishProjectMetadataParameters' autocomplete='off'>
 							<label for='replacementTitle'>Title: </label>
 							<form:input path='title' id='replacementTitle' disabled="true"/><br/>
 							<label for='replacementAuthor'>Author: </label>

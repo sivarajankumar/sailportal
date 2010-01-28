@@ -45,7 +45,7 @@
 
 
 
-<form:form method="post" action="findprojectrunsbyteacher.html" commandName="findProjectRunsByTeacherParameters" id="search">
+<form:form method="post" action="findprojectrunsbyteacher.html" commandName="findProjectRunsByTeacherParameters" id="search" autocomplete='off'>
 	<form:label path="username">Enter the username of the Teacher: </form:label>
 	<form:input path="username" id="username"/>
 	

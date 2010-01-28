@@ -44,7 +44,7 @@
 </div>
 
 	<br><h5>Enter the Id of the project you wish to manage</h5>
-	<form:form method="post" commandName="findProjectParameters">
+	<form:form method="post" commandName="findProjectParameters" autocomplete='off'>
 		<input type="text" name="projectId"/>
 		<input type="image" id="teachersave" src="../../<spring:theme code="register_save" />" 
 	    	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"/>	

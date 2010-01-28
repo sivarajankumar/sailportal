@@ -20,7 +20,7 @@
 
 
 <form:form method="post" action="editproject.html?projectId=${project.id}" 
-	commandName="project" id="editproject">
+	commandName="project" id="editproject" autocomplete='off'>
     <br/><br/>
 	<b>Projecd Id:</b><form:label path="id"></form:label> ${project.id}<br/><br/>
 	<label for="nameLabel">Project Name:</label><br/>
