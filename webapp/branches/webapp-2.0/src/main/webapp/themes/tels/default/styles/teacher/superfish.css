@@ -17,7 +17,7 @@
 .sf-menu ul {
 	position:		absolute;
 	top:			-999em;
-	width:		    15em; /* left offset of submenus need to match (see below) */
+	width:		    20em; /* left offset of submenus need to match (see below) */
 }
 .sf-menu ul li {
 	width:			100%;
@@ -45,7 +45,7 @@ ul.sf-menu li.sfHover li ul {
 }
 ul.sf-menu li li:hover ul,
 ul.sf-menu li li.sfHover ul {
-	left:			15em; /* match ul width */
+	left:			20em; /* match ul width */
 	top:			0;
 }
 ul.sf-menu li li:hover li ul,
@@ -54,7 +54,7 @@ ul.sf-menu li li.sfHover li ul {
 }
 ul.sf-menu li li li:hover ul,
 ul.sf-menu li li li.sfHover ul {
-	left:			15em; /* match ul width */
+	left:			20em; /* match ul width */
 	top:			0;
 }
 

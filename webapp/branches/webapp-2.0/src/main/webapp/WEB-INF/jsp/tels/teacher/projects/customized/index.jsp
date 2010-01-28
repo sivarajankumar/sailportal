@@ -418,7 +418,7 @@
         						var portalPath = fullPath.substring(base.length, fullPath.length) + '/' + filename;
         						var callback = {
         							success:function(o){
-        								alert('The LD project has been successfully copied with the name Copy of ' + name + '. The project can be found in the My Customized Projects section.');
+        								alert('The LD project has been successfully copied with the name Copy of ' + name + '. The project can be found in the My Projects section.');
         							},
         							failure:function(o){alert('Project files were copied but the project was not successfully registered in the portal.');},
         							scope:this
@@ -533,10 +533,9 @@ function minifyProject(id){
 
 <table id="customProjectsButtons">
 	<tr>
-		<td><a href='/webapp/author/authorproject.html?command=launchAuthoring'>Launch Authoring Tool</a></td>
-		<td><a href="/webapp/author/authorproject.html?command=launchAuthoring&param1=createProject">Create New Custom Project</a></td>
+		<td><a href="/webapp/author/authorproject.html?command=launchAuthoring&param1=createProject">Create New Project<br/>using Author Tool</a></td>
 		<c:if test="${fn:length(currentOwnedProjectsList) > 0}">
-			<td><a href="#" onclick="toggleProjectSummaryAll()">Hide/Show All Project Details</a></td>
+			<td><a href="#" onclick="toggleProjectSummaryAll()">Hide/Show All<br/> Project Details Below</a></td>
 		</c:if>
 		
 	</tr>
@@ -547,7 +546,7 @@ function minifyProject(id){
 		   <h5>You currently do not own any projects.</h5>
 		</c:when>
 		<c:otherwise>
-		    <div id="customProjectInstructions">You own the customized projects listed below.</div>
+		    <div id="customProjectInstructions">You own the Custom projects listed below.</div>
 			<c:forEach var="project" items="${currentOwnedProjectsList}">
 
 					<table id="projectOverviewTable">
@@ -575,7 +574,9 @@ function minifyProject(id){
 										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
 										<li><a href="shareproject.html?projectId=${project.id}">Share</a>
 										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
-										<li><a onclick="minifyProject('${project.id}')">Minify Project (faster loading)</a></li>
+									</ul>
+									<ul>
+										<li><a onclick="minifyProject('${project.id}')">Compress Project</a></li>
 										<li><a href="#" style="color:#666;">Archive</a>
 										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>
