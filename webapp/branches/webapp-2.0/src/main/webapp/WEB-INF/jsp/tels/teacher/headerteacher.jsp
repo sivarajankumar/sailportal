@@ -52,6 +52,7 @@
 				<li><a href="" style="color:#999;">Browse VISUAL Projects</a></li>
 				<li><a href="/webapp/teacher/projects/projectlibrary.html">Search the Project Library</a></li>
 				<li><a href="/webapp/teacher/projects/customized/index.html">View My Projects<br/><span style="font-size:90%;">(Custom, Shared, & Bookmarked)</span></a></li>
+								<li><a href="/webapp/author/authorproject.html">Launch Authoring Tool</a></li>
 
 		</ul>
 		</li>
