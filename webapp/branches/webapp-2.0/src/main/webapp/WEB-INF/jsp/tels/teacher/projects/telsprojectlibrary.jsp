@@ -163,7 +163,7 @@
 				<ul>
 					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
 					<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
-					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
+					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">SET UP PROJECT RUN</a></li>
 					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
 					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
 				</ul>

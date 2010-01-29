@@ -281,11 +281,11 @@
 						<td class="dataCell">
 							<select name="searchLanguage">
 							<option id='language1' path='language' value='language1'>English</option>
-							<option id='language2' path='language' value='language2'>Spanish</option>
-							<option id='language3' path='language' value='language3'>Hebrew</option>
-							<option id='language4' path='language' value='language4'>German</option>
-							<option id='language5' path='language' value='language5'>U.K. English</option>
 							<option id='language6' path='language' value='language6'>French</option>
+							<option id='language4' path='language' value='language4'>German</option>
+							<option id='language3' path='language' value='language3'>Hebrew</option>
+							<option id='language2' path='language' value='language2'>Spanish</option>
+							<option id='language5' path='language' value='language5'>U.K. English</option>
 							<option selected id='languageAll' path='language' value='languageAll'>All</option>
 							</select>
 						</td>
