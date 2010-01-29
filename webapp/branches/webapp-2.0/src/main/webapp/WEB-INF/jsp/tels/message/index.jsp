@@ -22,6 +22,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
 <head>
+<script type="text/javascript" src="javascript/tels/jquery-1.4.1.min.js" ></script>
 <%@ include file="../teacher/projects/styles.jsp"%>
 
 <style type="text/css">
@@ -32,6 +33,18 @@ a.runArchiveLink, a.messageArchiveLink, a.messageReplyLink {
 
 div.messageDiv {
 	margin-bottom:10px;
+}
+
+div.replyDiv {
+	display:none;
+}
+
+div#composeMessageFeedbackDiv {
+	color:orange;
+}
+
+div.replyFeedbackDiv {
+	color:orange;
 }
 
 </style>
@@ -80,26 +93,38 @@ function archiveMessage(messageId, sender, isRead) {
 	YAHOO.util.Connect.asyncRequest('POST', '/webapp/message.html?action='+action+'&messageId='+messageId, callback, null);
 }
 
-// sends a new or reply message
-function sendMessage() {
-	var originalMessageId = document.getElementById("compose_originalMessageId").value;
-	var recipient = document.getElementById("compose_recipient").value;
-	var subject = document.getElementById("compose_subject").value;
-	var body = document.getElementById("compose_body").value;
-	var postData = "recipient=" + recipient + "&subject=" + subject + "&body=" + body;
-	if (originalMessageId != "-1") {
+// sends a new (if originalMessageId is -1) or reply (if originalMessageId is set) message
+function sendMessage(originalMessageId) {
+	debugger;
+	var recipient = null;
+	var subject = null;
+	var body = null;
+	var postData = null;
+	if (originalMessageId == "-1") {   // new message
+		originalMessageId = document.getElementById("compose_originalMessageId").value;
+		recipient = document.getElementById("compose_recipient").value;
+		subject = document.getElementById("compose_subject").value;
+		body = document.getElementById("compose_body").value;
+		postData = "recipient=" + recipient + "&subject=" + subject + "&body=" + body;
+	} else {
+		recipient = $("#message_from_"+originalMessageId).html();
+		subject = $("#reply_subject_"+originalMessageId).html();
+		body =	$("#reply_body_"+originalMessageId).val();
+		postData = "recipient=" + recipient + "&subject=" + subject + "&body=" + body;
 		postData += "&originalMessageId=" + originalMessageId;
 	}
 
 	var callback = {
 			success:function(o){
 				if (o.responseText != null && o.responseText == "success") {
-					document.getElementById("compose_originalMessageId").value = "-1";
-					document.getElementById("compose_recipient").value = "";
-					document.getElementById("compose_subject").value = "";
-					document.getElementById("compose_body").value = "";
-					document.getElementById("composeMessageFeedbackDiv").innerHTML = 
-						"message to " + recipient + " was sent successfully!";
+					if (originalMessageId == "-1") {
+						clearComposeMessageForm();
+						$("#composeMessageFeedbackDiv").html("message to " + recipient + " was sent successfully!");
+					} else {
+						showReplyForm(originalMessageId, false);
+						$("#replyFeedbackDiv_"+originalMessageId).html("reply to " + recipient + " was sent successfully!");
+												
+					}
 					// add the message to sentMessagesDiv.
 					var dateString = getDateString();
 		
@@ -127,6 +152,13 @@ function sendMessage() {
 	YAHOO.util.Connect.asyncRequest('POST', '/webapp/message.html?action=compose', callback, postData);
 }
 
+function clearComposeMessageForm() {
+	document.getElementById("compose_originalMessageId").value = "-1";
+	document.getElementById("compose_recipient").value = "";
+	document.getElementById("compose_subject").value = "";
+	document.getElementById("compose_body").value = "";
+}
+
 function getDateString() {
 	var currentTime = new Date();
 	var month = currentTime.getMonth() + 1;
@@ -148,8 +180,16 @@ function getDateString() {
 	
 }
 
+function showReplyForm(originalMessageId, doShow) {
+	if (doShow) {
+		$("#replyDiv_"+originalMessageId).css("display", "block");
+	} else {
+		$("#replyDiv_"+originalMessageId).css("display", "none");
+	}
+}
+
 function sendReply(originalMessageId) {
-	alert('sendReply: ' + originalMessageId);
+	sendMessage(originalMessageId);
 }
 
 </script>
@@ -162,17 +202,20 @@ function sendReply(originalMessageId) {
     <div class="messageDiv" id="message_${message.id}">
     	<div id="message_text_div_${message.id}">
   	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-		From: <c:out value="${message.sender.userDetails.username}"/><br/>
+		From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
 		Subject: <span id="message_subject_${message.id}">${message.subject}</span><br/>
 		<c:out value="${message.body}" /><br/></div>
 		<div id="message_action_div_${message.id}">
 			<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'true');">Archive</a> | 
-			<a class="messageReplyLink" onclick="doReply('${message.id}','${message.sender.userDetails.username}');">Reply</a><br/><br/>
+			<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
 		</div>
-		<div id="replyDiv_${message.id}">
+		<div class="replyDiv" id="replyDiv_${message.id}">
+			Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
 			<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
 			<input type="button" value="Send" onclick="sendReply('${message.id}')" />
+			<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
 		</div>
+		<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
 	</div>
 </c:forEach>
 </div>
@@ -184,17 +227,20 @@ function sendReply(originalMessageId) {
     <div class="messageDiv" id="message_${message.id}">
     	<div id="message_text_div_${message.id}">
   	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-		From: <c:out value="${message.sender.userDetails.username}"/><br/>
+		From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
 		Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
 		<c:out value="${message.body}" /><br/></div>
 		<div id="message_action_div_${message.id}">
 			<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'false');">Mark as Unread</a> | 
-			<a class="messageReplyLink" onclick="doReply('${message.id}','${message.sender.userDetails.username}');">Reply</a><br/><br/>
+			<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
 		</div>
-		<div id="replyDiv_${message.id}">
+		<div class="replyDiv" id="replyDiv_${message.id}">
+			Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
 			<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
 			<input type="button" value="Send" onclick="sendReply('${message.id}')" />
+			<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
 		</div>
+		<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
 	</div>
 </c:forEach>
 </div>
@@ -223,7 +269,7 @@ function sendReply(originalMessageId) {
 		<tr><td>Message:</td><td><textarea cols="75" rows="10" id="compose_body" ></textarea></td></tr>
 	</table>
 	<br/>
-	<input type="button" value="Send" onclick="sendMessage()" />
+	<input type="button" value="Send" onclick="sendMessage('-1')" />
 </div>
 </body>
 </html>
