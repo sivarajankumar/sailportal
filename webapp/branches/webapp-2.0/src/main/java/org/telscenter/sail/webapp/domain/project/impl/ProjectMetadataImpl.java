@@ -79,6 +79,9 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	public final static String COLUMN_NAME_LESSON_PLAN = "lesson_plan";
 	
 	@Transient
+	public final static String COLUMN_NAME_KEYWORDS = "keywords";
+	
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name = COLUMN_NAME_TITLE)
@@ -110,6 +113,9 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Column(name = COLUMN_NAME_LESSON_PLAN)
 	private String lessonPlan;
+	
+	@Column(name = COLUMN_NAME_KEYWORDS)
+	private String keywords;
 	
 	public String getGradeRange() {
 		return gradeRange;
@@ -203,5 +209,19 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	 */
 	public void setLessonPlan(String lessonPlan) {
 		this.lessonPlan = lessonPlan;
+	}
+
+	/**
+	 * @return the keywords
+	 */
+	public String getKeywords() {
+		return keywords;
+	}
+
+	/**
+	 * @param keywords the keywords to set
+	 */
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 }

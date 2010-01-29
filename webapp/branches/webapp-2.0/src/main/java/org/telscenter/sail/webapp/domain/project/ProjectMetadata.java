@@ -137,4 +137,14 @@ public interface ProjectMetadata{
 	 * @param <code>String</code> lessonPlan
 	 */
 	public void setLessonPlan(String lessonPlan);
+	
+	/**
+	 * @param <code>String</code> keywords
+	 */
+	public String getKeywords();
+	
+	/**
+	 * @return <code>String</code> keywords
+	 */
+	public void setKeywords(String keywords);
 }

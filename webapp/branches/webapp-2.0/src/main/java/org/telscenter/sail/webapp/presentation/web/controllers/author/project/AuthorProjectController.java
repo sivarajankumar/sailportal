@@ -318,6 +318,11 @@ public class AuthorProjectController extends AbstractController {
 				pMeta.setCompTime(Long.parseLong((String) comptime));
 			}
 			
+			Object keywords = this.getJSONFieldValue(metadata, "keywords");
+			if(keywords != null){
+				pMeta.setKeywords((String) keywords);
+			}
+			
 			/* save the project */
 			this.projectService.updateProject(project);
 			
