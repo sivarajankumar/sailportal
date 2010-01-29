@@ -48,10 +48,10 @@
 		<li class="level1"><a href="#">Projects</a>
 		<ul>
 				<li><a href="/webapp/teacher/projects/index.html">Overview</a></li>
-				<li><a href="/webapp/teacher/projects/telsprojectlibrary.html">TELS Projects</a></li>
-				<li><a href="" style="color:#999;">VISUAL Projects</a></li>
-				<li><a href="/webapp/teacher/projects/projectlibrary.html">Search Project Library</a></li>
-				<li><a href="/webapp/teacher/projects/customized/index.html">My Projects<br/><span style="font-size:90%">(Custom, Shared, Bookmarked)</span></a></li>
+				<li><a href="/webapp/teacher/projects/telsprojectlibrary.html">Browse TELS Projects</a></li>
+				<li><a href="" style="color:#999;">Browse VISUAL Projects</a></li>
+				<li><a href="/webapp/teacher/projects/projectlibrary.html">Search the Project Library</a></li>
+				<li><a href="/webapp/teacher/projects/customized/index.html">View My Projects<br/><span style="font-size:90%;">(Custom, Shared, & Bookmarked)</span></a></li>
 
 		</ul>
 		</li>

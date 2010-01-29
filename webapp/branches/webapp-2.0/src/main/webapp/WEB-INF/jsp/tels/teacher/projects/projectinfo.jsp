@@ -102,8 +102,8 @@
 							<tr id="row2">
 								<th id="title1" style="width:60px;">Project ID</th>
 								<th id="title1" style="width:90px;">Project Family</th>
-								<th id="title2" style="width:292px;" >Subject(s)</th>
-								<th id="title3" style="width:100px;">Grades</th>
+								<th id="title2" style="width:292px;" >Subject</th>
+								<th id="title3" style="width:100px;">Student Grades</th>
 								<th id="title4" style="width:110px;">Total Time (hrs)</th>
 								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
 								<th id="title6" style="width:92px;">Language</th>
