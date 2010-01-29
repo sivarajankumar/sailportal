@@ -73,10 +73,12 @@ public class MessageController extends AbstractController {
 		boolean successful = false;
 		if (action.equals("index")) {
 			List<Message> readMessages = messageService.retrieveReadMessages(user);
-			List<Message> unreadMessages = messageService.retrieveUnreadMessages(user);
+			List<Message> unreadMessages = messageService.retrieveUnreadMessages(user);			
+			List<Message> sentMessages = messageService.retrieveSentMessages(user);
 			ModelAndView mav = new ModelAndView("/message/index");
 			mav.addObject("readMessages", readMessages);
 			mav.addObject("unreadMessages", unreadMessages);
+			mav.addObject("sentMessages", sentMessages);
 			return mav;
 		} 
 
@@ -157,7 +159,7 @@ public class MessageController extends AbstractController {
 	}
 
 	class EmailMessageService implements Runnable {
-		private static final int MAX_BODY_LENGTH = 20;  // maximum number of characters in the body to show in the email.
+		private static final int MAX_BODY_LENGTH = 50;  // maximum number of characters in the body to show in the email.
 		private Message message;
 		
 		public EmailMessageService(Message message) {

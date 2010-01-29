@@ -30,6 +30,10 @@ a.runArchiveLink, a.messageArchiveLink, a.messageReplyLink {
 	cursor:pointer;
 }
 
+div.messageDiv {
+	margin-bottom:10px;
+}
+
 </style>
 <script type="text/javascript">
 // asynchronously archives a message
@@ -96,6 +100,17 @@ function sendMessage() {
 					document.getElementById("compose_body").value = "";
 					document.getElementById("composeMessageFeedbackDiv").innerHTML = 
 						"message to " + recipient + " was sent successfully!";
+					// add the message to sentMessagesDiv.
+					var dateString = getDateString();
+		
+					var sentMessageDiv = document.createElement("div");
+					sentMessageDiv.setAttribute("class", "messageDiv");
+					sentMessageDiv.innerHTML = "<div id=\"message_text_div_10\">" +
+			  	  	"Date: "+dateString+"<br/>" +
+			  	  	"To: "+recipient+"<br/>" +
+					"Subject: <span>"+subject+"</span><br/>"+
+			    	body+"</div>";
+			    	document.getElementById("sentMessageDiv").appendChild(sentMessageDiv);					
 				} else {
 					if (o.responseText != null && o.responseText == "recipient not found") {
 						alert("The recipient could not be found. Please verify that you have entered the recipient's exact username.");
@@ -112,23 +127,31 @@ function sendMessage() {
 	YAHOO.util.Connect.asyncRequest('POST', '/webapp/message.html?action=compose', callback, postData);
 }
 
-// voids any currently-composed message
-function cancelMessage() {
+function getDateString() {
+	var currentTime = new Date();
+	var month = currentTime.getMonth() + 1;
+	var day = currentTime.getDate();
+	var year = currentTime.getFullYear();
+	var hours = currentTime.getHours() % 12;
+	var minutes = currentTime.getMinutes();
+	if (minutes < 10){
+		minutes = "0" + minutes;
+	}
+	var amPm = "";
+	if(hours > 11){
+		amPm = "PM";
+	} else {
+	 	amPm = "AM";
+	}
+	return month + "/" + day + "/" + year + " " +
+		hours + ":" + minutes + " " + amPm;
 	
 }
 
-// pre-populates the compose message form to prepare for the reply.
-	/*
-	document.getElementById("compose_originalMessageId").value = originalMessageId;
-	document.getElementById("compose_recipient").value = to;
-	document.getElementById("compose_recipient").setAttribute("readonly", "readonly");
-	var originalSubject = document.getElementById("message_subject_"+originalMessageId).innerHTML;
-	document.getElementById("compose_subject").value = "Re:" + originalSubject;
-	document.getElementById("compose_subject").setAttribute("readonly", "readonly");
-	*/
-function doReply(originalMessageId, to) {
-	alert('reply is not yet implemented');
+function sendReply(originalMessageId) {
+	alert('sendReply: ' + originalMessageId);
 }
+
 </script>
 </head>
 <body>
@@ -145,6 +168,10 @@ function doReply(originalMessageId, to) {
 		<div id="message_action_div_${message.id}">
 			<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'true');">Archive</a> | 
 			<a class="messageReplyLink" onclick="doReply('${message.id}','${message.sender.userDetails.username}');">Reply</a><br/><br/>
+		</div>
+		<div id="replyDiv_${message.id}">
+			<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
+			<input type="button" value="Send" onclick="sendReply('${message.id}')" />
 		</div>
 	</div>
 </c:forEach>
@@ -164,6 +191,24 @@ function doReply(originalMessageId, to) {
 			<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'false');">Mark as Unread</a> | 
 			<a class="messageReplyLink" onclick="doReply('${message.id}','${message.sender.userDetails.username}');">Reply</a><br/><br/>
 		</div>
+		<div id="replyDiv_${message.id}">
+			<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
+			<input type="button" value="Send" onclick="sendReply('${message.id}')" />
+		</div>
+	</div>
+</c:forEach>
+</div>
+
+<h3>Sent Messages</h3>
+<div id="sentMessageCountDiv"><c:out value="You have ${fn:length(sentMessages)} sent message(s)."></c:out></div>
+<div id="sentMessageDiv">
+<c:forEach var="message" items="${sentMessages}" >
+    <div class="messageDiv" id="message_${message.id}">
+    	<div id="message_text_div_${message.id}">
+  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
+		To: <c:out value="${message.recipient.userDetails.username}"/><br/>
+		Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
+		<c:out value="${message.body}" /><br/></div>
 	</div>
 </c:forEach>
 </div>
