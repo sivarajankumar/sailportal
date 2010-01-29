@@ -131,11 +131,14 @@ public class AuthorProjectController extends AbstractController {
 		cParams.setUrl(path);
 		Curnit curnit = curnitService.createCurnit(cParams);
 		
+		ProjectMetadata metadata = new ProjectMetadataImpl();
 		ProjectParameters pParams = new ProjectParameters();
 		
+		metadata.setTitle(name);
 		pParams.setCurnitId(curnit.getId());
 		pParams.setOwners(owners);
 		pParams.setProjectname(name);
+		pParams.setMetadata(metadata);
 		pParams.setProjectType(ProjectType.LD);
 		
 		Project project = projectService.createProject(pParams);

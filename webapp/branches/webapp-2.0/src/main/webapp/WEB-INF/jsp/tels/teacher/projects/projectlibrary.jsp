@@ -398,6 +398,14 @@
 </div><br/><br/>
 
 <c:forEach var="project" items="${projectList}">
+		<c:choose>
+			<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
+				<c:set var="projectName" value="${project.metadata.title}"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="projectName" value="${project.name}"/>
+			</c:otherwise>
+		</c:choose>
 
 	<table id="libraryProjectTable">
 		<tr>
@@ -412,7 +420,7 @@
 			<th>actions</th>
 		</tr>
 		<tr id="libraryProjectTableR2">
-			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${project.projectInfo.name}</a></td>
+			<td class="titleCell"><a href="projectinfo.html?projectId=${project.id}">${projectName}</a></td>
 			<td class="dataCell">${project.id}</td>   
 			<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
 			<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
@@ -424,7 +432,7 @@
 				<ul>
 					<li class="list1"><span><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/>Bookmark</span></li>
 					<li class="list2"><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
-					<li class="list3"><input type="button" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" value="Make Copy"/></li>
+					<li class="list3"><input type="button" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" value="Make Copy"/></li>
 				</ul>
 			</td>
 		</tr>

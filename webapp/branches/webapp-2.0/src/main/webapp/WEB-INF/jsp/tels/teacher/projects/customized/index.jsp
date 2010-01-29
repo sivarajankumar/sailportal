@@ -548,11 +548,18 @@ function minifyProject(id){
 		<c:otherwise>
 		    <div id="customProjectInstructions">You own the Custom projects listed below.</div>
 			<c:forEach var="project" items="${currentOwnedProjectsList}">
-
+				<c:choose>
+					<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
+						<c:set var="projectName" value="${project.metadata.title}"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="projectName" value="${project.name}"/>
+					</c:otherwise>
+				</c:choose>
 					<table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<a href="../projectinfo.html?projectId=${project.id}">${projectName}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
 										<div id="sharedNamesContainer">
 											This project is shared with:
@@ -573,10 +580,7 @@ function minifyProject(id){
 										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
 										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
 										<li><a href="shareproject.html?projectId=${project.id}">Share</a>
-										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
-									</ul>
-									<ul>
-										<li><a onclick="minifyProject('${project.id}')">Compress Project</a></li>
+										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
 										<li><a href="#" style="color:#666;">Archive</a>
 										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>
@@ -661,9 +665,17 @@ function minifyProject(id){
 
 	<table id="projectOverviewTable">
 							<c:forEach var="project" items="${currentSharedProjectsList}">
+							<c:choose>
+								<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
+									<c:set var="projectName" value="${project.metadata.title}"/>
+								</c:when>
+								<c:otherwise>
+									<c:set var="projectName" value="${project.name}"/>
+								</c:otherwise>
+							</c:choose>
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<a href="../projectinfo.html?projectId=${project.id}">${projectName}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
 										<div id="sharedNamesContainerOwned">
 											Project OWNER is:
@@ -687,7 +699,7 @@ function minifyProject(id){
 										<sec:accesscontrollist domainObject="${project}" hasPermission="2">	
 											<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
 										</sec:accesscontrollist>		
-										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
+										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
 										<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
 											<li><a href="shareproject.html?projectId=${project.id}">Share</a></li>
 										</sec:accesscontrollist>										
@@ -766,17 +778,25 @@ function minifyProject(id){
 		<c:otherwise>
 		    <div id="customProjectInstructions">You have bookmarked the following WISE library projects:</div>
 			<c:forEach var="project" items="${bookmarkedProjectsList}">
+				<c:choose>
+					<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
+						<c:set var="projectName" value="${project.metadata.title}"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="projectName" value="${project.name}"/>
+					</c:otherwise>
+				</c:choose>
 
 			<table id="projectOverviewTable">
 					<tr id="row1">
-					<td id="titleCell" colspan="3"><a href="../projectinfo.html?projectId=${project.id}">${project.name}</a></td>
+					<td id="titleCell" colspan="3"><a href="../projectinfo.html?projectId=${project.id}">${projectName}</a></td>
 					<td class="actions" colspan="6"> 
 							<ul>
 
 								<li><a href="#" onclick="unbookmark(${project.id})">Unbookmark</a></li>
 								<li><a href="<c:url value="../../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 								<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
-								<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
+								<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
 								<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
 							</ul>
 					</tr>
@@ -857,11 +877,19 @@ function minifyProject(id){
 				<h5>None</h5>
 			</c:if>
 			<c:forEach var="project" items="${archivedOwnedProjectsList}">
+				<c:choose>
+					<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
+						<c:set var="projectName" value="${project.metadata.title}"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="projectName" value="${project.name}"/>
+					</c:otherwise>
+				</c:choose>
 
 					<table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<a href="../projectinfo.html?projectId=${project.id}">${projectName}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
 										<div id="sharedNamesContainerArchived">
 											This project is shared with:
@@ -941,11 +969,18 @@ function minifyProject(id){
 				<h5>None.</h5>
 			</c:if>
 			<c:forEach var="project" items="${archivedSharedProjectsList}">
-
+				<c:choose>
+					<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
+						<c:set var="projectName" value="${project.metadata.title}"/>
+					</c:when>
+					<c:otherwise>
+						<c:set var="projectName" value="${project.name}"/>
+					</c:otherwise>
+				</c:choose>
 					<table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<a href="../projectinfo.html?projectId=${project.id}">${projectName}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
 										<div id="sharedNamesContainerArchived">
 											This project is shared with:

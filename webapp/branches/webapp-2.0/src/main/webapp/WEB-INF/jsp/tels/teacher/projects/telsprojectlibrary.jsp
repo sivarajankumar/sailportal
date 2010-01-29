@@ -148,16 +148,23 @@
 <div id="libraryInstructions"><br/>To see lesson plans and additional information for a project, click its Title.</div>
   
 <c:forEach var="project" items="${projectList}">
-
+		<c:choose>
+			<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
+				<c:set var="projectName" value="${project.metadata.title}"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="projectName" value="${project.name}"/>
+			</c:otherwise>
+		</c:choose>
 	<table id="projectOverviewTable">
 		<tr id="row1">
-		<td id="titleCell" colspan="3"><a href="projectinfo.html?projectId=${project.id}">${project.projectInfo.name}</a></td>
+		<td id="titleCell" colspan="3"><a href="projectinfo.html?projectId=${project.id}">${projectName}</a></td>
 		<td class="actions" colspan="6"> 
 				<ul>
 					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
 					<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
-					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${project.name}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
+					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
 					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
 				</ul>
 		</tr>
