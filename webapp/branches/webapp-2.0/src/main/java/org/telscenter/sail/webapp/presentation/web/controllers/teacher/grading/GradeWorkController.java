@@ -148,6 +148,9 @@ public class GradeWorkController extends AbstractController {
 		//get the url for the curriculum base
 		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
 		
+		//get the path for the project
+		String getProjectPath = portalProperties.getProperty("curriculum_base_dir") + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		
 		//get the url for the project content file
 		String getContentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 
@@ -211,6 +214,7 @@ public class GradeWorkController extends AbstractController {
 			config.put("getUserInfoUrl", getUserInfoUrl);
 			config.put("getContentUrl", getContentUrl);
 			config.put("getContentBaseUrl", getContentBaseUrl);
+			config.put("getProjectPath", getProjectPath);
 			config.put("getStudentDataUrl", getStudentDataUrl);
 			config.put("postStudentDataUrl", postStudentDataUrl);
 			config.put("getRunInfoUrl", getRunInfoUrl);
