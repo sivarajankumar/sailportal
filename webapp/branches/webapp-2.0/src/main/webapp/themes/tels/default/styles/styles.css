@@ -1488,6 +1488,7 @@ background-color
 }
 
 /* Q&A Discussion Step: TEACHER MANAGEMENT PAGE */
+
 #discussionSectionTeacher {
 	border: 1px solid #999999;
 	padding: 10px;
@@ -1526,6 +1527,7 @@ background-color
 }
 
 /* Student Annoucements */
+
 #studentAnnouncementHeader {
 	font-weight: bold;
 	font-size: 1.6em;
@@ -1571,3 +1573,84 @@ background-color
 #announcementTable .col3 {
 	width: 55%;
 }
+
+
+/* STYLES FOR MESSAGE CENTER   (presented as part of the Management area)*/
+
+.panelStyleMessage  {
+	margin-top:0px;
+	min-height:72px; 
+	background-position: top;
+	background-repeat:repeat-x;
+	border: 1px solid #999;  
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+.panelStyleMessage.secondPlus  {
+	margin-top:15px;
+}
+
+.panelStyleMessage #messageHeader {
+    position:relative;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-align:left;
+	margin: 0px 0px 12px 0px;
+	padding: 3px 10px;
+	font-size: 1.0em;
+	font-weight:bold;
+	background-image:url(../images/teacher/teacherSubHeader.png);
+	-moz-border-radius-topleft:4px;
+	-moz-border-radius-topright:4px;
+	-webkit-border-radius-topleft:4px;
+	-webkit-border-radius-topright:4px;
+	border-radius-topleft:4px;
+	border-radius-topright:4px;
+	border-bottom:1px solid #999;              
+                            }
+                            
+.panelStyleMessage #messageContent, .panelStyleMessage #messageContentArchived, .panelStyleMessage #messageContentSent  {
+	padding:0 10px 10px 10px;
+	font-size:.8em;
+	}
+
+.panelStyleMessage a {
+	padding:3px 0px;
+	color:blue;
+	text-decoration:none;
+	}
+	
+.panelStyleMessage a:hover {
+	background:#FFFF00;
+	}
+	
+.panelStyleMessage #hideShowLink {
+	position:absolute;
+	right:10px;
+	font-size:.7em;
+	}
+	
+#newMessageCountDiv, #archivedMessageCountDiv, #sentMessageCountDiv {
+	font-weight:bold;
+	margin-bottom:10px;
+}
+
+div.messageDiv {
+	margin-bottom:10px;
+}
+
+div.replyDiv {
+	display:none;
+}
+
+div#composeMessageFeedbackDiv {
+	color:#ff9900;
+	font-weight:bold;
+}
+
+div.replyFeedbackDiv {
+	color:#ff9900;
+	font-weight:bold;
+}
+

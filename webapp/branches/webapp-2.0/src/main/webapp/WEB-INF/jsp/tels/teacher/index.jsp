@@ -41,12 +41,6 @@
     
 </script>
 
-<style type="text/css">
-a.runArchiveLink, a.messageArchiveLink, a.messageReplyLink {
-	color:blue;
-	cursor:pointer;
-}
-
 </style>
 
 <!-- Core + Skin CSS --> 
@@ -606,7 +600,7 @@ window.onload=resizeCaller
 
 <div class="panelStyleMessages">
 
-<div id="headerTeacherHome"><a href="/webapp/message.html?action=index">Messages</a></div>
+<div id="headerTeacherHome">Messages</div>
 
 <table id="teacherMessageTable" cellpadding="2" cellspacing="0">
 		<tr>
@@ -688,6 +682,9 @@ window.onload=resizeCaller
 				</td>
 		</tr>
 </table>
+
+<div id="manageMessageContainer"><a href="/webapp/message.html?action=index">View & Send Messages</a></div>
+
 </div>
 
 		<div class="panelStyleCommunity">

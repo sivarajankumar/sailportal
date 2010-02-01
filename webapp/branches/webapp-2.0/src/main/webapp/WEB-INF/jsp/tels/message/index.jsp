@@ -25,29 +25,32 @@
 <script type="text/javascript" src="javascript/tels/jquery-1.4.1.min.js" ></script>
 <%@ include file="../teacher/projects/styles.jsp"%>
 
-<style type="text/css">
-a.runArchiveLink, a.messageArchiveLink, a.messageReplyLink {
-	color:blue;
-	cursor:pointer;
-}
+<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
-div.messageDiv {
-	margin-bottom:10px;
-}
+<script type="text/javascript" src="../javascript/tels/general.js"></script>
 
-div.replyDiv {
-	display:none;
-}
+<!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src="../../javascript/tels/iefixes.js"></script>
+<![endif]-->
 
-div#composeMessageFeedbackDiv {
-	color:orange;
-}
+<!-- SuperFish drop-down menu from http://www.electrictoolbox.com/jquery-superfish-menus-plugin/  -->
 
-div.replyFeedbackDiv {
-	color:orange;
-}
+<link rel="stylesheet" type="text/css" href="themes/tels/default/styles/teacher/superfish.css" media="screen">
+<script type="text/javascript" src="javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="javascript/tels/superfish.js"></script>
 
-</style>
+<script type="text/javascript">
+    
+            // initialise plugins
+            jQuery(function(){
+                jQuery('ul.sf-menu').superfish();
+            });
+    
+</script>
+
 <script type="text/javascript">
 // asynchronously archives a message
 function archiveMessage(messageId, sender, isRead) {
@@ -193,83 +196,147 @@ function sendReply(originalMessageId) {
 }
 
 </script>
+
+<script type="text/javascript">
+
+	/**
+	 * Toggles the summary div
+	 * projectId: id of project whose summary div to toggle
+	 */
+	function toggleDetails(){
+		var searchDiv = document.getElementById('messageContentArchived');
+		if(searchDiv.style.display=='none'){
+			searchDiv.style.display = 'block';
+		} else {
+			searchDiv.style.display = 'none';
+		};
+	};
+</script>
+
+<script type="text/javascript">
+
+	/**
+	 * Toggles the summary div
+	 * projectId: id of project whose summary div to toggle
+	 */
+	function toggleDetails2(){
+		var searchDiv = document.getElementById('messageContentSent');
+		if(searchDiv.style.display=='none'){
+			searchDiv.style.display = 'block';
+		} else {
+			searchDiv.style.display = 'none';
+		};
+	};
+</script>
+
 </head>
+
 <body>
-<h3>New Messages</h3>
-<div id="newMessageCountDiv"><c:out value="You have ${fn:length(unreadMessages)} new message(s)."></c:out></div>
-<div id="newMessageDiv">
-<c:forEach var="message" items="${unreadMessages}" >
-    <div class="messageDiv" id="message_${message.id}">
-    	<div id="message_text_div_${message.id}">
-  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-		From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
-		Subject: <span id="message_subject_${message.id}">${message.subject}</span><br/>
-		<c:out value="${message.body}" /><br/></div>
-		<div id="message_action_div_${message.id}">
-			<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'true');">Archive</a> | 
-			<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
+
+<div id="centeredDiv">
+
+<%@ include file="../teacher/headerteacher.jsp"%>
+
+<div id="navigationSubHeader2">View & Send Messages<span id="navigationSubHeader1">management</span></div>
+
+<div class="panelStyleMessage">
+	<div id="messageHeader">Incoming Messages</div>
+	<div id="messageContent">
+		<div id="newMessageCountDiv"><c:out value="You have ${fn:length(unreadMessages)} new message(s)."></c:out></div>
+		<div id="newMessageDiv">
+		<c:forEach var="message" items="${unreadMessages}" >
+		    <div class="messageDiv" id="message_${message.id}">
+		    	<div id="message_text_div_${message.id}">
+		  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
+				From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
+				Subject: <span id="message_subject_${message.id}">${message.subject}</span><br/>
+				<c:out value="${message.body}" /><br/></div>
+				<div id="message_action_div_${message.id}">
+					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'true');">Archive</a> | 
+					<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
+				</div>
+				<div class="replyDiv" id="replyDiv_${message.id}">
+					Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
+					<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
+					<input type="button" value="Send" onclick="sendReply('${message.id}')" />
+					<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
+				</div>
+				<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
+			</div>
+		</c:forEach>
 		</div>
-		<div class="replyDiv" id="replyDiv_${message.id}">
-			Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
-			<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
-			<input type="button" value="Send" onclick="sendReply('${message.id}')" />
-			<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
-		</div>
-		<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
 	</div>
-</c:forEach>
 </div>
 
-<h3>Archived Messages</h3>
-<div id="archivedMessageCountDiv"><c:out value="You have ${fn:length(readMessages)} archived message(s)."></c:out></div>
-<div id="archivedMessageDiv">
-<c:forEach var="message" items="${readMessages}" >
-    <div class="messageDiv" id="message_${message.id}">
-    	<div id="message_text_div_${message.id}">
-  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-		From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
-		Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
-		<c:out value="${message.body}" /><br/></div>
-		<div id="message_action_div_${message.id}">
-			<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'false');">Mark as Unread</a> | 
-			<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
+<div class="panelStyleMessage secondPlus">
+	<div id="messageHeader">Send a New Message</div>
+	<div id="messageContent">
+		<div id="composeMessageFeedbackDiv"></div>
+		<div id="composeMessageDiv">
+			<input type="hidden" id="compose_originalMessageId" value="-1" />
+			<table>
+				<tr><td>To:</td><td><input type="text" id="compose_recipient"/></td></tr>
+				<tr><td>Subject:</td><td><input type="text" id="compose_subject" /></td></tr>
+				<tr><td>Message:</td><td><textarea cols="75" rows="10" id="compose_body" ></textarea></td></tr>
+			</table>
+			<br/>
+			<input type="button" value="Send" onclick="sendMessage('-1')" />
 		</div>
-		<div class="replyDiv" id="replyDiv_${message.id}">
-			Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
-			<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
-			<input type="button" value="Send" onclick="sendReply('${message.id}')" />
-			<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
-		</div>
-		<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
 	</div>
-</c:forEach>
 </div>
 
-<h3>Sent Messages</h3>
-<div id="sentMessageCountDiv"><c:out value="You have ${fn:length(sentMessages)} sent message(s)."></c:out></div>
-<div id="sentMessageDiv">
-<c:forEach var="message" items="${sentMessages}" >
-    <div class="messageDiv" id="message_${message.id}">
-    	<div id="message_text_div_${message.id}">
-  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-		To: <c:out value="${message.recipient.userDetails.username}"/><br/>
-		Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
-		<c:out value="${message.body}" /><br/></div>
+<div class="panelStyleMessage secondPlus">
+	<div id="messageHeader">Archive of Incoming Messages
+		<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show Archived Messages</a>
 	</div>
-</c:forEach>
+	<div id="messageContentArchived" style="display:none;">
+		<div id="archivedMessageCountDiv"><c:out value="You have ${fn:length(readMessages)} archived message(s)."></c:out></div>
+		<div id="archivedMessageDiv">
+		<c:forEach var="message" items="${readMessages}" >
+		    <div class="messageDiv" id="message_${message.id}">
+		    	<div id="message_text_div_${message.id}">
+		  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
+				From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
+				Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
+				<c:out value="${message.body}" /><br/></div>
+				<div id="message_action_div_${message.id}">
+					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'false');">Mark as Unread</a> | 
+					<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
+				</div>
+				<div class="replyDiv" id="replyDiv_${message.id}">
+					Subject: <span id="reply_subject_${message.id}">Re: ${message.subject}</span><br/>
+					<textarea cols="75" rows="5" id="reply_body_${message.id}" ></textarea>
+					<input type="button" value="Send" onclick="sendReply('${message.id}')" />
+					<input type="button" value="Cancel" onclick="showReplyForm('${message.id}',false)" />
+				</div>
+				<div class="replyFeedbackDiv" id="replyFeedbackDiv_${message.id}"></div>
+			</div>
+		</c:forEach>
+		</div>
+	</div>
 </div>
 
-<h3>Compose Message</h3>
-<div id="composeMessageFeedbackDiv"></div>
-<div id="composeMessageDiv">
-	<input type="hidden" id="compose_originalMessageId" value="-1" />
-	<table>
-		<tr><td>To:</td><td><input type="text" id="compose_recipient"/></td></tr>
-		<tr><td>Subject:</td><td><input type="text" id="compose_subject" /></td></tr>
-		<tr><td>Message:</td><td><textarea cols="75" rows="10" id="compose_body" ></textarea></td></tr>
-	</table>
-	<br/>
-	<input type="button" value="Send" onclick="sendMessage('-1')" />
+<div class="panelStyleMessage secondPlus">
+	<div id="messageHeader">Archive of Sent Messages
+	<a id="hideShowLink" href="#" onclick="toggleDetails2()">Hide/Show Sent Messages</a>
+	</div>
+	<div id="messageContentSent" style="display:none;">
+		<div id="sentMessageCountDiv"><c:out value="You have ${fn:length(sentMessages)} sent message(s)."></c:out></div>
+		<div id="sentMessageDiv">
+		<c:forEach var="message" items="${sentMessages}" >
+		    <div class="messageDiv" id="message_${message.id}">
+		    	<div id="message_text_div_${message.id}">
+		  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
+				To: <c:out value="${message.recipient.userDetails.username}"/><br/>
+				Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
+				<c:out value="${message.body}" /><br/></div>
+			</div>
+		</c:forEach>
+		</div>
+	</div>
 </div>
+
+</div>   <!-- end of centered div-->
+
 </body>
 </html>

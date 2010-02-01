@@ -42,6 +42,8 @@
 }
 
 .panelStyleMessages {
+	position:relative;
+	padding-bottom:25px;
 	margin-top:15px;
 	/* background-image:url(../../images/teacher/Gradient-Gray-to-White-350px.png);  */
 	background-position: top;
@@ -123,16 +125,48 @@
 	}	
 		
 #teacherMessageTable ul	{  
-	padding:0px;
+	padding:0 12px 0 4px;
 	margin:0;
 	overflow:auto;
 }
 		
 #teacherMessageTable li	{  
-	padding:4px 4px 10px 4px;
+	padding:4px 4px 10px 0px;
 	list-style-type:none;
 			}
-		
+
+#teacherMessageTable a  {
+	color:blue;
+	cursor:pointer;
+	text-decoration:none;
+	}
+
+#teacherMessageTable a:hover  {
+	background:#FFFF00;
+	color:#000;
+}
+
+#manageMessageContainer  {  
+	position:absolute;
+	left:8px;
+	bottom:10px;
+			}
+
+#manageMessageContainer a {  
+	color:blue;
+	font-size:.75em;
+	text-decoration:none;
+	padding:4px;
+			}
+			
+#manageMessageContainer a:hover {  
+	background:#FFFF00;
+			}
+
+#newMessageCountDiv {
+	font-weight:bold;
+	margin-bottom:10px;
+}
 
 /* TOOL TIP STYLES */
 
