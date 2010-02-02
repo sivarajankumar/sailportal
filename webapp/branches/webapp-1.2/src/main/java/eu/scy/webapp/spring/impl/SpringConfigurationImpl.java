@@ -30,25 +30,10 @@ public class SpringConfigurationImpl implements SpringConfiguration {
             "classpath:configurations/applicationContexts/pas/spring.xml",
             
 
-            "classpath:configurations/dispatcherServlet/pas/config.xml",
-            "classpath:configurations/dispatcherServlet/pas/controllers.xml",
-            "classpath:configurations/dispatcherServlet/tels/controllers.xml",
-            "classpath:configurations/dispatcherServlet/tels/extensions.xml",
-            "classpath:configurations/dispatcherServlet/scy/overrides.xml",
-            "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
-            "classpath:eu/scy/core/applicationContext-service.xml",
-            "classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
-            "classpath:configurations/dispatcherServlet/scy/dummy-data.xml",
-            "/WEB-INF/remoting-servlet.xml"
             };
 
     private static final String[] REMOTING_SERVLET_CONTEXT_CONFIG_LOCATIONS = new String[] {
 
-            "classpath:configurations/applicationContexts/pas/acegiSecurity.xml",
-            "classpath:configurations/applicationContexts/pas/datasource.xml",
-            "classpath:configurations/applicationContexts/pas/security.xml",
-            "classpath:configurations/applicationContexts/pas/spring.xml",
-            "classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml",
             "classpath:eu/scy/core/applicationContext-service.xml",
             //"classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml",
             //"/WEB-INF/remoting-servlet.xml"
