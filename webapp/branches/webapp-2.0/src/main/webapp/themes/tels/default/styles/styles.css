@@ -1616,7 +1616,7 @@ background-color
 	}
 
 .panelStyleMessage a {
-	padding:3px 0px;
+	padding:2px 0px;
 	color:blue;
 	text-decoration:none;
 	}
@@ -1653,4 +1653,27 @@ div.replyFeedbackDiv {
 	color:#ff9900;
 	font-weight:bold;
 }
+
+.messageDisplayTable2 {
+	border-collapse:collapse;
+	margin:0;
+}
+
+.messageDisplayTable2 th, .messageDisplayTable2 td {
+	font-size:.8em;
+	padding:0px;
+	text-align:left;
+	vertical-align:top;
+}
+
+.messageDisplayTable2 th {
+	color:#666;
+	font-weight:normal;
+	width:60px;
+	letter-spacing:-.5px;
+}
+
+.messageActionLinks {
+	margin:2px 0 0 0px;
+	}
 

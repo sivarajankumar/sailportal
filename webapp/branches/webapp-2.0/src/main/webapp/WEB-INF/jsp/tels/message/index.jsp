@@ -246,11 +246,14 @@ function sendReply(originalMessageId) {
 		<c:forEach var="message" items="${unreadMessages}" >
 		    <div class="messageDiv" id="message_${message.id}">
 		    	<div id="message_text_div_${message.id}">
-		  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-				From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
-				Subject: <span id="message_subject_${message.id}">${message.subject}</span><br/>
-				<c:out value="${message.body}" /><br/></div>
-				<div id="message_action_div_${message.id}">
+		  	  	<table class='messageDisplayTable2'>
+				<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
+				<tr><th>From:</th><td><span id="message_from_${message.id}">${message.sender.userDetails.username}</span></td></tr>
+				<tr><th>Subject:</th><td><span id="message_subject_${message.id}">${message.subject}</span></td>
+				<tr><th>Msg:</th><td class='messageBody'><c:out value="${message.body}" /></td></tr>
+				</table>
+				</div>
+				<div id="message_action_div_${message.id}" class='messageActionLinks'>
 					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'true');">Archive</a> | 
 					<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
 				</div>
@@ -294,11 +297,14 @@ function sendReply(originalMessageId) {
 		<c:forEach var="message" items="${readMessages}" >
 		    <div class="messageDiv" id="message_${message.id}">
 		    	<div id="message_text_div_${message.id}">
-		  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-				From: <span id="message_from_${message.id}">${message.sender.userDetails.username}</span><br/>
-				Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
-				<c:out value="${message.body}" /><br/></div>
-				<div id="message_action_div_${message.id}">
+		  	  	<table class='messageDisplayTable2'>
+				<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
+				<tr><th>From:</th><td><span id="message_from_${message.id}">${message.sender.userDetails.username}</span></td></tr>
+				<tr><th>Subject:</th><td><span id="message_subject_${message.id}">${message.subject}</span></td></tr>
+				<tr><th>Msg:</th><td class='messageBody'><c:out value="${message.body}" /></td></tr>
+				</table>
+				</div>
+				<div id="message_action_div_${message.id}" class='messageActionLinks'>
 					<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}', 'false');">Mark as Unread</a> | 
 					<a class="messageReplyLink" onclick="showReplyForm('${message.id}', true);">Reply</a><br/><br/>
 				</div>
@@ -325,11 +331,15 @@ function sendReply(originalMessageId) {
 		<c:forEach var="message" items="${sentMessages}" >
 		    <div class="messageDiv" id="message_${message.id}">
 		    	<div id="message_text_div_${message.id}">
-		  	  	Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-				To: <c:out value="${message.recipient.userDetails.username}"/><br/>
-				Subject:  <span id="message_subject_${message.id}">${message.subject}</span><br/>
-				<c:out value="${message.body}" /><br/></div>
+	  	  		<table class='messageDisplayTable2'>
+				<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
+				<tr><th>To:</th><td><c:out value="${message.recipient.userDetails.username}"/></td></tr>
+				<tr><th>Subject:</th><td><span id="message_subject_${message.id}">${message.subject}</span></td></tr>
+				<tr><th>Msg:</th><td><c:out value="${message.body}" /></td></tr>
+				</table>
+				</div>
 			</div>
+			<br/>
 		</c:forEach>
 		</div>
 	</div>

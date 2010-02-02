@@ -670,12 +670,15 @@ window.onload=resizeCaller
 							<div id="newMessageCountDiv"><c:out value="You have ${fn:length(unreadMessages)} new message(s)."/><br/></div>
 							<c:forEach var="message" items="${unreadMessages}">
 							    <div class="messageDiv" id="message_${message.id}">
-							    Date: <fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /><br/>
-								From: <c:out value="${message.sender.userDetails.username}"/><br/>
-								Subject: <c:out value="${message.subject}"/><br/>
-								<c:out value="${message.body}" /><br/>
-								<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}');">Archive</a> | 
-								<a class="messageReplyLink" href="/webapp/message.html?action=index">Reply</a><br/><br/>
+							    <table class='messageDisplayTable'>
+								<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
+								<tr><th>From:</th><td><c:out value="${message.sender.userDetails.username}"/></td></tr>
+								<tr><th>Subject:</th><td><c:out value="${message.subject}"/></td></tr>
+								<tr><td colspan='2' class='messageBody'><c:out value="${message.body}" /></td></tr>
+								<tr><td colspan='2'>
+									<a class="messageArchiveLink" onclick="archiveMessage('${message.id}', '${message.sender.userDetails.username}');">Archive</a> | 
+									<a class="messageReplyLink" href="/webapp/message.html?action=index">Reply</a></td></tr>
+								</table>
 								</div>
 								<div id="message_confirm_div_${message.id}"></div>
 							</c:forEach>

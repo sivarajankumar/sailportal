@@ -114,7 +114,6 @@
 #teacherMessageTable	{  
 	border-collapse:collapse;
 	font-size:.8em;
-	width:99%;
 	margin: -6px 5px 0 5px;
 		}
 	
@@ -167,6 +166,33 @@
 	font-weight:bold;
 	margin-bottom:10px;
 }
+
+.messageDiv {
+}
+
+.messageDisplayTable {
+	border-collapse:collapse;
+	margin:0 0 10px;
+	}
+
+.messageDisplayTable th, .messageDisplayTable td {
+	font-size:.8em;
+	padding:0px;
+	text-align:left;
+	vertical-align:top;
+	max-width:225px;
+}
+
+.messageDisplayTable th {
+	color:#666;
+	font-weight:normal;
+	width:55px;
+	letter-spacing:-1px; 
+}
+
+.messageDisplayTable td.messageBody {
+	padding:2px 1px
+	}
 
 /* TOOL TIP STYLES */
 
