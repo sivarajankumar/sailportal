@@ -41,9 +41,7 @@
 
 <div id="centeredDiv">
 
-<%@ include file="../header.jsp"%>
-
-<div style="text-align:center;">   
+<div style="text-align:center;">
 <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
 <h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudent.1"/></h1>
@@ -63,9 +61,8 @@
   
   <dl>
   	<dt><label for="studentFirstName"><spring:message code="student.registerstudent.4"/></label></dt>	    
-  	  	<dd><form:input path="userDetails.firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
-	    <form:errors path="userDetails.firstname" />
-    	<span class="hint"><spring:message code="student.registerstudent.5"/><span class="hint-pointer"></span></span> 
+  	  	<dd><form:input path="username" id="firstname" size="25" maxlength="25" tabindex="1"/>
+    	<span class="hint"><spring:message code="student.registerstudent.5"/><span class="hint-pointer"></span></span>
    		</dd>
 
 <!--This unusually placed script gets the cursor into the First Name field immediately on page load  (MattFish)-->
@@ -73,82 +70,11 @@
 document.getElementById('firstname').focus();
 </script>
 
-  	<dt><label for="studentLastName">Last Name:</label></dt>
-	<dd><form:input path="userDetails.lastname" id="lastname" size="25" maxlength="25" tabindex="2"/>
-	    <form:errors path="userDetails.lastname" />
-    	<span class="hint"><spring:message code="student.registerstudent.7"/><span class="hint-pointer"></span></span> 
-   		</dd>
-            
-  	<dt><label for="studentGender"><spring:message code="student.registerstudent.8"/></label></dt>
-	<dd><form:select path="userDetails.gender" id="gender" tabindex="3">       
-          <c:forEach items="${genders}" var="genderchoice">
-            <form:option value="${genderchoice}">
-            	<spring:message code="genders.${genderchoice}" />
-            </form:option>
-          </c:forEach>
-      	</form:select> 
-        <span class="hint"><spring:message code="student.registerstudent.9"/><span class="hint-pointer"></span></span> 
-    	</dd>
-            
-    <dt><label for="studentBirthMonth"><spring:message code="student.registerstudent.10"/></label></dt>
-	<dd><form:select path="birthmonth" id="birthmonth" tabindex="4">
-		<form:errors path="birthmonth" />
-		<c:forEach var="month" begin="1" end="12" step="1">
-			<form:option value="${month}">
-				<spring:message code="birthmonths.${month}" />
-			</form:option>
-		</c:forEach>
-	    </form:select>
-        <span class="hint"><spring:message code="student.registerstudent.11"/><span class="hint-pointer"></span></span> 
-    	</dd>
-        
-	  <dt><label for="studentBirthDate"><spring:message code="student.registerstudent.12"/></label></dt>
-	  <dd><form:select path="birthdate" id="birthdate" tabindex="5">
-	      <form:errors path="birthdate" />
-			 <c:forEach var="date" begin="1" end="31" step="1">
-				  <form:option value="${date}">
-				  		<spring:message code="birthdates.${date}" />
-			  	  </form:option>
-		  </c:forEach>
-	    </form:select> 	
-         </dd>
                    
 	  <dt><label for="studentPassword">Type a Password:</label></dt>
-	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="25" tabindex="6"/>
-      		<form:errors path="userDetails.password"/> 
-      		<span class="hint">Your password can contain from 4 to 18 letters or numbers. Try to create a password that you can remember!<span class="hint-pointer"></span></span> 
+	  <dd><form:password path="password" id="password" size="25" maxlength="25" tabindex="6"/>
+      		<span class="hint">Your password can contain from 4 to 18 letters or numbers. Try to create a password that you can remember!<span class="hint-pointer"></span></span>
             </dd>
-
-	  <dt><label for="studentPasswordRepeat">Type Password Again:</label></dt>
-	  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="25" tabindex="7"/> 
-            <form:errors path="repeatedPassword" />      	  
-	        <span class="hint">Type your password in again.<span class="hint-pointer"></span></span>
-            </dd>
-      
-	  <dt><label for="reminderQuestion">My Reminder Question:</label></dt>
-	  <dd><form:select path="userDetails.accountQuestion" id="accountQuestion" tabindex="8" >  
-            <form:errors path="userDetails.accountQuestion" />
-        	<c:forEach items="${accountQuestions}" var="questionchoice">
-            <form:option value="${questionchoice}">
-            	<spring:message code="accountquestions.${questionchoice}"/>
-             </form:option>
-          </c:forEach>
-        </form:select>
-        
-         <span class="hint">If you forget your password, WISE will ask you this Reminder question as an alternative way to sign in.  
-			You can select any question from the list.<span class="hint-pointer"></span></span>
-		</dd>
-
-	  <dt><label for="reminderAnswer" id="reminderAnswer">My Reminder Answer:</label></dt>
-	  <dd><form:input path="userDetails.accountAnswer" id="accountAnswer" size="25" maxlength="25" tabindex="9"/>
-	      <span class="hint">Answer your reminder questions here.<span class="hint-pointer"></span></span>			
-          </dd>
-      
-      <dt><label for="projectCode" id="projectCode1">Access Code:</label></dt>
-	  <dd><form:input path="projectCode" id="projectCode" size="25" maxlength="25" tabindex="10"/>
-       	  <form:errors path="projectCode" />
-          <span class="hint">Ask your teacher for the access code.<span class="hint-pointer"></span></span></dd>
-
     </dl>
                
  	  <div id="regButtons">

@@ -30,6 +30,17 @@
 	http://www.directwebremoting.org/schema/spring-dwr
 	http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
 
+    <bean id="signupController" class="eu.scy.controllers.EmptyController">
+		<!--property name="userService" ref="userService" /-->
+		<!--property name="commandName" value="userDetails" /-->
+		<!--property name="commandClass" value="net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails" /-->
+		<!--property name="validator" ref="userDetailsValidator" /-->
+		<!--property name="formView" value="signup" /-->
+		<!--property name="successView" value="signup.html" /-->
+	</bean>
+
+
+
 	<!-- Custom controllers -->
 
 	<bean id="studentUserDetailsValidator"

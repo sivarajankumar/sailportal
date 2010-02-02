@@ -48,18 +48,17 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
             classpath:configurations/applicationContexts/scy/acegiSecurity.xml,
-            classpath:configurations/applicationContexts/pas/annotation.xml,   
-            classpath:configurations/applicationContexts/scy/hibernate.xml,
-            classpath:configurations/applicationContexts/pas/datasource.xml,
             classpath:configurations/applicationContexts/pas/security.xml,
-            classpath:configurations/applicationContexts/pas/sds.xml,
-            classpath:configurations/applicationContexts/scy/user.xml,
-            classpath:configurations/applicationContexts/scy/extensions.xml,
+            classpath:configurations/applicationContexts/pas/spring.xml
+            classpath:configurations/applicationContexts/pas/annotation.xml,
+            
+            classpath:configurations/applicationContexts/scy/applicationContext-service.xml,
+            classpath:configurations/applicationContexts/scy/applicationContext-dao.xml,
+            classpath:configurations/applicationContexts/scy/hibernate.xml,
+
+
+            classpath:configurations/dispatcherServlet/scy/scycontrollers.xml,
             classpath:configurations/dispatcherServlet/scy/config.xml,
-            classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml,
-            classpath:eu/scy/core/applicationContext-service.xml,
-            classpath:configurations/dispatcherServlet/scy/external-components.xml,
-            classpath:configurations/dispatcherServlet/scy/pedagogical-plan-service.xml,
         </param-value>
 	</context-param>
 
@@ -119,15 +118,11 @@
         - Dispatcher servlet definition for HTTP remoting via Hessian, Burlap, and
         - Spring's HTTP invoker (see remoting-servlet.xml for the controllers).
     -->
-    <servlet>
+    <!--servlet>
         <servlet-name>remoting</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--init-param>
-            <param-name>contextConfigClass</param-name>
-            <param-value>${context.config.class}</param-value>
-        </init-param-->
         <load-on-startup>1</load-on-startup>
-    </servlet>
+    </servlet-->
 
 
     <!--
@@ -135,10 +130,10 @@
         - Dispatcher servlet mapping for HTTP remoting via Hessian, Burlap, and
         - Spring's HTTP invoker (see remoting-servlet.xml for the controllers).
     -->
-    <servlet-mapping>
+    <!--servlet-mapping>
         <servlet-name>remoting</servlet-name>
         <url-pattern>/remoting/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping-->
 
     <!-- Servlet Mappings -->
     <servlet-mapping>

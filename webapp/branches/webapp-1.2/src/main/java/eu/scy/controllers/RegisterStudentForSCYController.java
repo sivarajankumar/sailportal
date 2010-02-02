@@ -3,11 +3,18 @@ package eu.scy.controllers;
 /*import eu.scy.core.ScenarioService;
 import eu.scy.core.model.impl.pedagogicalplan.ScenarioImpl;
 import eu.scy.core.model.pedagogicalplan.Scenario;*/
+import eu.scy.core.ScenarioService;
+import eu.scy.core.UserService;
+import eu.scy.core.model.User;
+import eu.scy.core.model.impl.SCYUserDetails;
+import eu.scy.core.model.impl.pedagogicalplan.ScenarioImpl;
+import eu.scy.core.model.pedagogicalplan.Scenario;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
 import org.telscenter.sail.webapp.presentation.web.controllers.student.RegisterStudentController;
@@ -19,7 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import net.sf.sail.webapp.domain.User;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,12 +34,10 @@ import net.sf.sail.webapp.domain.User;
  * Time: 06:27:23
  * To change this template use File | Settings | File Templates.
  */
-public class RegisterStudentForSCYController extends RegisterStudentController {
+public class RegisterStudentForSCYController extends SimpleFormController {
 
-    private StudentService studentService;
-
-    //private ScenarioService scenarioService;
-
+    private UserService userService;
+    private ScenarioService scenarioService;
 
     public RegisterStudentForSCYController() {
         logger.debug("** **** **** CREATING REGISTER STUDENT FOR SCY CONTROLLER!!");
@@ -51,46 +55,16 @@ public class RegisterStudentForSCYController extends RegisterStudentController {
     @Override
     @Transactional
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
-        System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-        logger.debug("--- ---- ------ --REGISTERING STUDENT!");
-        StudentAccountForm accountForm = (StudentAccountForm) command;
-        StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
-
-        //if (accountForm.isNewAccount()) {
+        SCYUserDetails userDetails  = (SCYUserDetails) command;
             try {
-                User user = userService.createUser(userDetails);
-
-
-           /*     logger.info("Scenarios before: " + getScenarioService().getScenarios().size());
-            Scenario scenario = new ScenarioImpl();
-            scenario.setName("Hillary");
-            logger.info("SCENARIO ID: " + ((ScenarioImpl)scenario).getId());
-            getScenarioService().createScenario(scenario);
-
-            ScenarioImpl impl = (ScenarioImpl) scenario;
-
-            logger.info("SCENARIO ID AFTER SAVE: " + impl.getId() + " " + impl.getTimeCreated());
-            logger.info("Scenarios after: " + getScenarioService().getScenarios().size());
-             */
-                //Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
-                //studentService.addStudentToRun(user, projectcode);
+                User user = userService.createUser(userDetails.getUsername(), userDetails.getPassword());
             } catch (Exception e) {
                 e.printStackTrace();
                 return showForm(request, response, errors);
-            } /*catch (ObjectNotFoundException e) {
-	    		errors.rejectValue("projectCode", "error.illegal-projectcode");
-	    		return showForm(request, response, errors);
-	    	} catch (PeriodNotFoundException e) {
-	    		errors.rejectValue("projectCode", "error.illegal-projectcode");
-	    		return showForm(request, response, errors);
-
-        //} else {
-            //userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
-        //}
-        */
+            }
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
-        modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
+        //modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
         return modelAndView;
 
     }
@@ -100,7 +74,8 @@ public class RegisterStudentForSCYController extends RegisterStudentController {
 	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) {
     System.out.println("******************************************************************************");
         logger.debug("ON BINDE AND VALIDATE STUDENT CONTROLLER!");
-		StudentAccountForm accountForm = (StudentAccountForm) command;
+    SCYUserDetails userDetails = (SCYUserDetails) command;
+	/*	StudentAccountForm accountForm = (StudentAccountForm) command;
 		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
 		if (accountForm.isNewAccount()) {
 			userDetails.setSignupdate(Calendar.getInstance().getTime());
@@ -113,6 +88,7 @@ public class RegisterStudentForSCYController extends RegisterStudentController {
 		}
 
 		//getValidator().validate(accountForm, errors);
+		*/
 	}
 
 	@Override
@@ -127,17 +103,19 @@ public class RegisterStudentForSCYController extends RegisterStudentController {
 	}
 
 
-
-    public void setStudentService(StudentService studentService) {
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        this.studentService = studentService;
+    public UserService getUserService() {
+        return userService;
     }
 
-    /*public ScenarioService getScenarioService() {
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public ScenarioService getScenarioService() {
         return scenarioService;
     }
 
-    public void setScenarioService(ScenarioService senScenarioService) {
-        this.scenarioService = senScenarioService;
-    } */
+    public void setScenarioService(ScenarioService scenarioService) {
+        this.scenarioService = scenarioService;
+    }
 }

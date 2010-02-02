@@ -27,10 +27,10 @@
         <property name="scenarioService" ref="scenarioService"/>
     </bean-->
 
-    <bean id="pedPlanInvoker" name="/pedagogicalPlan-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+    <!--bean id="pedPlanInvoker" name="/pedagogicalPlan-httpinvoker" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
         <property name="service" ref="pedagogicalPlanService"/>
         <property name="serviceInterface" value="eu.scy.server.pedagogicalplan.PedagogicalPlanService"/>
-    </bean>
+    </bean-->
 
 
 

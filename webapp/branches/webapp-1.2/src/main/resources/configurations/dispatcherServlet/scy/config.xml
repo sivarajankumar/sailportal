@@ -70,7 +70,8 @@
             <value>
                 /index.html=urlFilenameViewController
                 /**/index.html=indexController
-                /**/pedagogicalPlan-httpinvoker=pedPlanInvoker
+                /**/signup.html=signupController
+                /student/registerstudent.html=registerstudentController
 
             </value>
         </property>
@@ -88,6 +89,7 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
+                /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/**/*.html=ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
 				/teacher/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
