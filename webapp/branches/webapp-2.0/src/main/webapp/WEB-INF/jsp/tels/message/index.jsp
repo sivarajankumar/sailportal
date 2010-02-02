@@ -52,9 +52,9 @@
 </script>
 
 <script type="text/javascript">
-// asynchronously archives a message
+
+// asynchronously archives (if isRead=true) or unarchives (if isRead=false) a message
 function archiveMessage(messageId, sender, isRead) {
-	debugger;
 	var messageDiv = document.getElementById('message_' + messageId);
 	
 	var callback = {
@@ -98,16 +98,15 @@ function archiveMessage(messageId, sender, isRead) {
 
 // sends a new (if originalMessageId is -1) or reply (if originalMessageId is set) message
 function sendMessage(originalMessageId) {
-	debugger;
 	var recipient = null;
 	var subject = null;
 	var body = null;
 	var postData = null;
 	if (originalMessageId == "-1") {   // new message
 		originalMessageId = document.getElementById("compose_originalMessageId").value;
-		recipient = document.getElementById("compose_recipient").value;
-		subject = document.getElementById("compose_subject").value;
-		body = document.getElementById("compose_body").value;
+		recipient = $("#compose_recipient").val();
+		subject = $("#compose_subject").val();
+		body = $("#compose_body").val();
 		postData = "recipient=" + recipient + "&subject=" + subject + "&body=" + body;
 	} else {
 		recipient = $("#message_from_"+originalMessageId).html();
@@ -156,10 +155,10 @@ function sendMessage(originalMessageId) {
 }
 
 function clearComposeMessageForm() {
-	document.getElementById("compose_originalMessageId").value = "-1";
-	document.getElementById("compose_recipient").value = "";
-	document.getElementById("compose_subject").value = "";
-	document.getElementById("compose_body").value = "";
+	$("#compose_originalMessageId").val("-1");
+	$("#compose_recipient").val("");
+	$("#compose_subject").val("");
+	$("#compose_body").val("");
 }
 
 function getDateString() {

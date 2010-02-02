@@ -94,6 +94,7 @@ public class RegisterTeacherController extends SignupController {
 		if (accountForm.isNewAccount()) {
 			try {
 				userDetails.setDisplayname(userDetails.getFirstname() + " " + userDetails.getLastname());
+				userDetails.setEmailValid(true);
 				this.userService.createUser(userDetails);
 			}
 			catch (DuplicateUsernameException e) {
@@ -113,8 +114,12 @@ public class RegisterTeacherController extends SignupController {
 			teacherUserDetails.setSchoolname(userDetails.getSchoolname());
 			teacherUserDetails.setState(userDetails.getState());
 			teacherUserDetails.setDisplayname(userDetails.getDisplayname());
+			teacherUserDetails.setEmailValid(true);
 
 			userService.updateUser(user);
+			// update user in session
+			request.getSession().setAttribute(
+					User.CURRENT_USER_SESSION_KEY, user);
 		}
 		
 		ModelAndView modelAndView = new ModelAndView(getSuccessView());

@@ -88,6 +88,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	@Transient
 	public static final String COMUN_NAME_DISPLAYNAME = "displayname";
 
+	@Transient
+	private static final String COMUN_NAME_EMAILVALID = "isEmailValid";
+
     @Transient
     private static final long serialVersionUID = 1L;
     
@@ -127,6 +130,9 @@ public class TeacherUserDetails extends PersistentUserDetails implements
     @Column(name = TeacherUserDetails.COMUN_NAME_DISPLAYNAME)
     private String displayname;
 	
+    @Column(name = TeacherUserDetails.COMUN_NAME_EMAILVALID, nullable=false)
+    private boolean emailValid;
+    
 	/**
 	 * @return the firstname
 	 */
@@ -312,5 +318,17 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	 */
 	public void setDisplayname(String displayname) {
 		this.displayname = displayname;
+	}
+	/**
+	 * @return the emailValid
+	 */
+	public boolean isEmailValid() {
+		return emailValid;
+	}
+	/**
+	 * @param emailValid the emailValid to set
+	 */
+	public void setEmailValid(boolean emailValid) {
+		this.emailValid = emailValid;
 	}
 }

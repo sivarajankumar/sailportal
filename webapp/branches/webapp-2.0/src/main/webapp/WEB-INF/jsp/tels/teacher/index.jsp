@@ -653,7 +653,9 @@ window.onload=resizeCaller
 										<spring:message code="teacher.index.9C" />
 								</c:otherwise>
 						</c:choose> </b></li>
-
+						<c:if test="${not user.userDetails.emailValid}">
+						   <div id="invalidEmailDiv" style="color:red">Your email seems to be invalid. Please <a href="management/updatemyaccountinfo.html">EDIT</a> it now.</div>
+						</c:if>
 						<c:forEach var="run" items="${run_list}">
 								<c:if test='${(run.archiveReminderTime.time - current_date.time) < 0}'>
 										<li id='extendReminder_${run.id}'>Your project run <i>${run.name}</i> has been open since
