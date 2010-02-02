@@ -267,7 +267,7 @@
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
                             <directory>
-                                src/main/webapp/WEB-INF
+                                src/main/resources/scy/
                             </directory>
                             <!-- enable filtering -->
                             <filtering>true</filtering>
