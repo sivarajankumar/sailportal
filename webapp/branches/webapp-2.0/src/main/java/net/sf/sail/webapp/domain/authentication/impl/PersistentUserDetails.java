@@ -330,4 +330,11 @@ public class PersistentUserDetails implements MutableUserDetails {
 		}
 		return false;
 	}
+
+	/**
+	 * @see net.sf.sail.webapp.domain.authentication.MutableUserDetails#setEnabled(boolean)
+	 */
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }

@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.student.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -104,6 +105,30 @@ public class StudentServiceImpl implements StudentService {
 		}
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.student.StudentService#getTeachersOfStudent(net.sf.sail.webapp.domain.User)
+	 */
+	public List<User> getTeachersOfStudent(User studentUser) {
+		// get all runs that this student is associated with.
+		List<Run> runList = runService.getRunList(studentUser);
+		List<User> teachers = new ArrayList<User>();
+		for (Run run : runList) {
+			// add all of the owners of the run to the list.
+			teachers.addAll(run.getOwners());
+		}
+		return teachers;
+	}
+	
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.student.StudentService#isStudentAssociatedWithTeacher(net.sf.sail.webapp.domain.User, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean isStudentAssociatedWithTeacher(User studentUser,
+			User teacherUser) {
+		List<User> teachersOfStudent = getTeachersOfStudent(studentUser);
+		return teachersOfStudent.contains(teacherUser);
+	}
+	
 	/**
 	 * @see org.telscenter.sail.webapp.service.student.StudentService#removeStudentFromRun(net.sf.sail.webapp.domain.User, org.telscenter.sail.webapp.domain.Run)
 	 */

@@ -200,7 +200,7 @@
          
     YAHOO.util.Event.on(btns2, "click", function(e, panel) {
                 	YAHOO.log('RUNG id ' + this.id);                	
-                	document.getElementById('changePasswordFrame').src='changestudentpassword.html?userName=${user.userDetails.username}';
+                	document.getElementById('changePasswordFrame').src='changestudentpassword.html';
                 	changePasswordDialog.show();
     }, changePasswordDialog);
     
@@ -349,7 +349,7 @@ YAHOO.util.Event.onDOMReady(init);
 		style="border: 0px;" /> </a></li>
 		
 	<li><a href="#"
-        onclick="javascript:popup640('changestudentpassword.html?userName=${user.userDetails.username}');"	
+        onclick="javascript:popup640('changestudentpassword.html');"	
 		onmouseover="swapImage('studentchangepwd','../<spring:theme code="student_change_password_roll" />');"
 		onmouseout="swapImage('studentchangepwd','../<spring:theme code="student_change_password" />');"
 		> <img

@@ -707,6 +707,7 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.management.ChangeUserPasswordController">
 		<property name="successView" value="changepasswordsuccess"/>
 		<property name="userService" ref="userService"/>
+		<property name="studentService" ref="studentService"/>
 		<property name="sessionForm" value="true"/>
 		<property name="commandName" value="changeStudentPasswordParameters"/>
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.ChangeStudentPasswordParameters"/>
@@ -907,6 +908,19 @@
 	
 	<bean id="removeNewsConfirmController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.RemoveNewsConfirmController">
+	</bean>
+	
+	<bean id="enableAccountParameters"
+    	class="org.telscenter.sail.webapp.domain.impl.EnableAccountParameters"> 
+    </bean>
+	
+	<bean id="enableAccountController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.EnableAccountController">
+		<property name="userService" ref="userService"/>
+		<property name="commandName" value="enableAccountParameters" />
+		<property name="commandClass"
+			value="org.telscenter.sail.webapp.domain.impl.EnableAccountParameters" />
+		<property name="successView" value="enableaccountsuccess.html" />
 	</bean>
 
     <bean id="shareProjectRunController"

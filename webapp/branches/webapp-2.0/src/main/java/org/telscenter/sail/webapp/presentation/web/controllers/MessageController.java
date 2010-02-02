@@ -183,6 +183,7 @@ public class MessageController extends AbstractController {
     		String subject = senderName + " sent you a message on WISE4";	
     		String messageString = senderName + " sent you a message on WISE4:\n\n" +
     		"Subject: " + message.getSubject() + "\n" +
+    		"Recipient:" + message.getRecipient().getUserDetails().getUsername() + "\n" +
     		"Message: " + messageBody + "\n\n" +
     		"To reply to this message, please log into WISE.\n\n" +
     		"Thanks,\n" +

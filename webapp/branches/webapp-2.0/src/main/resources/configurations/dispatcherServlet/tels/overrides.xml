@@ -221,10 +221,10 @@
 				/forgotaccount/student/password.html=forgotAccountStudentPasswordController
 	  			/forgotaccount/student/passwordreminder*.html=forgotAccountStudentPasswordReminderWizardController
 				/forgotaccount/student/enterprojectcode.html=forgotAccountStudentCheckProjectCodeController
-				/**/changepassword.html=changePasswordController
+				/**/changepassword.html=changeUserPasswordController
 				/teacher/management/viewmystudents.html=viewMyStudentsController
 				/teacher/management/batchstudentchangepassword.html=batchStudentChangePasswordController
-				/teacher/management/changeteacherpassword.html=changeUserPasswordController
+				/teacher/management/changepassword.html=changeUserPasswordController
 				/teacher/management/changestudentpassword.html=changeUserPasswordController
 				/teacher/management/changeworkgroup.html=changeWorkgroupController
 				/teacher/management/removestudentfromrun.html=removeStudentFromRunController
@@ -267,6 +267,7 @@
 				/admin/project/viewprojectcommunicators.html=projectCommunicatorController
 				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
 				/admin/portal/manageportal.html=managePortalController
+				/admin/enableaccount.html=enableAccountController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				<!-- /repository/retrieveotml.html=retrieveOtmlController  -->

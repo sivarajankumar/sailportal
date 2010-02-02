@@ -98,5 +98,12 @@ public interface MutableUserDetails extends UserDetails, Persistable {
 	 * @return The id of this user details object
 	 */
 	public Long getId();
+	
+	
+	/**
+	 * Enables/Disables account.
+	 * This does not update the row in the database; only this object.
+	 */
+	public void setEnabled(boolean enabled);
 
 }

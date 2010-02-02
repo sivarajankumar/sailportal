@@ -35,7 +35,7 @@
 		<tr>
 			<td>${username}</td>
 			<td><a href="#"
-				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change
 			Password</a></td>
 			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
 			in as this user</a></td>
@@ -58,7 +58,7 @@ Teachers who logged in today (${fn:length(teachersWhoLoggedInSinceYesterday)}):
 		<tr>
 			<td>${username}</td>
 			<td><a href="#"
-				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change
 			Password</a></td>
 			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
 			in as this user</a></td>
@@ -76,7 +76,7 @@ Students who logged in today (${fn:length(studentsWhoLoggedInSinceYesterday)}):
 		<tr>
 			<td>${username}</td>
 			<td><a href="#"
-				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change
 			Password</a></td>
 			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
 			in as this user</a></td>
@@ -97,12 +97,14 @@ Students who logged in today (${fn:length(studentsWhoLoggedInSinceYesterday)}):
 		<tr>
 			<td>${username}</td>
 			<td><a href="#"
-				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change
 			Password</a></td>
 			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
 			in as this user</a></td>
 			<td><a href="#"
 				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
+			<td><a href="#"
+				onclick="javascript:popup640('enableaccount.html?username=${username}');">enable/disable</a></td>
 		</tr>
 	</c:forEach>
 </table>
@@ -114,7 +116,7 @@ Students who logged in today (${fn:length(studentsWhoLoggedInSinceYesterday)}):
 		<tr>
 			<td>${username}</td>
 			<td><a href="#"
-				onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${username}');">Change
+				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change
 			Password</a></td>
 			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
 			in as this user</a></td>

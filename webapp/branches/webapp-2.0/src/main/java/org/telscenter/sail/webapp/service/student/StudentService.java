@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.service.student;
 
+import java.util.List;
+
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
@@ -62,6 +64,24 @@ public interface StudentService {
 	 */
 	public void addStudentToRun(User studentUser, Projectcode projectcode) 
 	     throws ObjectNotFoundException, PeriodNotFoundException, StudentUserAlreadyAssociatedWithRunException;
+	
+	/**
+	 * Returns a list of teachers that this student is associated with through
+	 * runs.
+	 * 
+	 * @param studentUser
+	 * @return
+	 */
+	public List<User> getTeachersOfStudent(User studentUser);
+	
+	/**
+	 * Returns true iff the specified student is associated with the specified
+	 * teacher through the run that the teacher has set up.
+	 * @param studentUser
+	 * @param teacherUser
+	 * @return
+	 */
+	public boolean isStudentAssociatedWithTeacher(User studentUser, User teacherUser);
 	
 	/**
 	 * Removes the student from association with the run.  If the specified
