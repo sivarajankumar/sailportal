@@ -134,7 +134,11 @@
 
     <bean id="sessionRegistry" class="org.springframework.security.concurrent.SessionRegistryImpl"/>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" class="eu.scy.server.datasource.ConfigurableDataSource">
+
+    </bean>
+
+    <!--bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName">
             <value>com.mysql.jdbc.Driver</value>
         </property>
@@ -147,7 +151,7 @@
         <property name="password">
             <value>${sail.db.password}</value>
         </property>
-    </bean>
+    </bean-->
 
     <bean id="scenarioDAO" class="eu.scy.core.persistence.hibernate.ScenarioDAOHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
