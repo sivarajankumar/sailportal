@@ -278,6 +278,19 @@
                             <!-- override the destination directory for this resource -->
                             <targetPath>WEB-INF</targetPath>
                         </resource>
+                        <resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>
+                                src/main/resources/configurations/applicationContexts/scy
+                            </directory>
+                            <!-- enable filtering -->
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>hibernate.xml</include>
+                            </includes>
+                            <!-- override the destination directory for this resource -->
+                            <targetPath>WEB-INF/classes/configurations/applicationContexts/scy</targetPath>
+                        </resource>
                         <!--resource>
                             <directory>target/webapp/webstart/scyplanner/</directory>
                             <includes>
@@ -792,8 +805,15 @@
     <profiles>
         <profile>
             <id>scy</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <context.config.class>eu.scy.webapp.spring.impl.SpringConfigurationImpl</context.config.class>
+                <sail.db.username>root</sail.db.username>
+                <sail.db.password></sail.db.password>
+                <sail.db.name>sail_database</sail.db.name>
+                <sail.db.host>localhost</sail.db.host>
             </properties>
         </profile>
         <profile>
