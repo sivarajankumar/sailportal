@@ -150,7 +150,14 @@
 				      			</tr>
 				      			<tr>
 				      				<th><spring:message code="teacher.run.myprojectruns.12"/></th>
-				      				<td>UC Berkeley library project</td>
+				      				<c:choose>
+				      				<c:when test="${run.project.familytag == 'TELS'}">
+					      				<td>TELS Library Project</td>
+				      				</c:when>
+				      				<c:otherwise>
+					      				<td>Custom Project</td>
+				      				</c:otherwise>
+				      				</c:choose>
 				      			</tr>
 								<tr>
 				      				<th><spring:message code="teacher.run.myprojectruns.11"/></th>
