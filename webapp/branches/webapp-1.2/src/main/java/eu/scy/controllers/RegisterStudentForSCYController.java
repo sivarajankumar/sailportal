@@ -57,7 +57,7 @@ public class RegisterStudentForSCYController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
         SCYUserDetails userDetails  = (SCYUserDetails) command;
             try {
-                User user = userService.createUser(userDetails.getUsername(), userDetails.getPassword());
+                User user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "STUDENT_ROLE");
             } catch (Exception e) {
                 e.printStackTrace();
                 return showForm(request, response, errors);
