@@ -124,7 +124,7 @@
 	}	
 		
 #teacherMessageTable ul	{  
-	padding:0 12px 0 4px;
+	padding:0 4px;
 	margin:0;
 	overflow:auto;
 }
@@ -177,7 +177,9 @@
 
 .messageDisplayTable th, .messageDisplayTable td {
 	font-size:.8em;
+	line-height:120%;
 	padding:0px;
+	border:0;
 	text-align:left;
 	vertical-align:top;
 	max-width:225px;
