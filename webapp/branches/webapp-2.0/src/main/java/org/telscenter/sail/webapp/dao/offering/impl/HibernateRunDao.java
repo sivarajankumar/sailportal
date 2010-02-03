@@ -133,7 +133,7 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
     @SuppressWarnings("unchecked")
 	public List<Run> getRunListByUserInPeriod(User user){
     	String q = "select run from RunImpl run inner join run.periods period inner " +
-    			"join period.members user where user.id='" + user.getId() + "'";
+    			"join period.members user where user.id='" + user.getId() + "' order by run.id desc";
     	return this.getHibernateTemplate().find(q);
     }
     
@@ -148,12 +148,12 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 
 	@SuppressWarnings("unchecked")
 	public List<Run> getRunListByOwner(User owner) {
-    	String q = "select run from RunImpl run inner join run.owners owner where owner.id='" + owner.getId() + "'";
+    	String q = "select run from RunImpl run inner join run.owners owner where owner.id='" + owner.getId() + "' order by run.id desc";
     	return this.getHibernateTemplate().find(q);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Run> getRunListBySharedOwner(User owner) {
-    	String q = "select run from RunImpl run inner join run.sharedowners owner where owner.id='" + owner.getId() + "'";
+    	String q = "select run from RunImpl run inner join run.sharedowners owner where owner.id='" + owner.getId() + "' order by run.id desc";
     	return this.getHibernateTemplate().find(q);
 	}}

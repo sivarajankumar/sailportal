@@ -172,8 +172,8 @@ public class StudentIndexController extends AbstractController {
 	        return modelAndView;
 		}
 		
-		Collections.sort(current_run_list);
-		Collections.sort(ended_run_list);
+		//Collections.sort(current_run_list);
+		//Collections.sort(ended_run_list);
 		
 		modelAndView.addObject(CURRENT_STUDENTRUNINFO_LIST_KEY, current_run_list);
 		modelAndView.addObject(ENDED_STUDENTRUNINFO_LIST_KEY, ended_run_list);
