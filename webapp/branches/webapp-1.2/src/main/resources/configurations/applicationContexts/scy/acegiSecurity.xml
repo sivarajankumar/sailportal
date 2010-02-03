@@ -80,11 +80,75 @@
         <property name="providers">
             <list>
                 <ref local="daoAuthenticationProvider"/>
+                <ref local="daoLocalAuthenticationProvider"/>
                 <ref local="anonymousAuthenticationProvider"/>
                 <ref local="runAsAuthenticationProvider"/>
             </list>
         </property>
     </bean>
+                                                     
+    <bean id="daoLocalAuthenticationProvider" class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService">
+			<ref local="jdbcAuthenticationDao"/>
+		</property>
+		<property name="userCache">
+			<ref local="userCache"/>
+		</property>
+		<property name="hideUserNotFoundExceptions"  value="false"/>
+	</bean>
+
+    <bean id="jdbcAuthenticationDao" class="org.springframework.security.userdetails.jdbc.JdbcDaoImpl">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+		<property name="usersByUsernameQuery">
+			<value>SELECT username,password,enabled FROM user_details WHERE username = ?</value>
+		</property>
+		<property name="authoritiesByUsernameQuery">
+            <value>
+                SELECT ud.username, 'ROLE_ADMINISTRATOR' from user_details ud where ud.username = ?
+            </value>
+			<!--value>
+                SELECT user0_.username, role.role_name
+                FROM UserEJB user0_, user_role role
+                WHERE user0_.username = ? AND user0_.primKey = role.user_id
+            </value-->
+		</property>
+	</bean>
+
+    <bean id="userCache" class="org.springframework.security.providers.dao.cache.EhCacheBasedUserCache" lazy-init="false">
+		<property name="cache">
+			<bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+<!--
+				<property name="cacheManager">
+					<bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+						<property name="configLocation"
+						          value="classpath:/no/imb/bite/security/config/ehcache-remote_users.xml"/>
+					</bean>
+				</property>
+-->
+
+				<!--<property name="cacheName" value="remoteUserCache"/>-->
+				<!--This is how long between each request to the cache an entry can live-->
+				<!--60sec*10 min :-->
+				<!--property name="timeToIdle" value="600"/-->
+				<property name="timeToIdle" value="1"/>
+
+				<!--This is how long the an entry-->
+				<!--60sec*60 min :-->
+				<!--property name="timeToLive" value="5400"/-->
+				<property name="timeToLive" value="1"/>
+
+				<!--<property name="overflowToDisk" value="false"/>-->
+				<!--Should hold most users in memory: (10.000 should be enough per cluster node  - the default) -->
+				<!--<property name="maxElementsInMemory" value="20000"/>-->
+
+				<!--To prevent massive requests to login web-service upon restart-->
+				<!--<property name="diskPersistent" value="true"/>-->
+
+			</bean>
+		</property>
+	</bean>
 
     <bean id="daoAuthenticationProvider"
           class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
