@@ -131,7 +131,6 @@ form {margin:0px; padding:0px;}
 
 /* STYLES FOR PROJECT OVERVIEW PANEL, ACCESSED FROM MANY SECTIONS OF THE SITE   */	
 
-
 #projectOverviewTable {
 	border-collapse:collapse;
 	border-top:1px solid #333;
@@ -303,4 +302,5 @@ form {margin:0px; padding:0px;}
 			
 #projectOverviewTable #row4 #detailsTable .keywords {
 	font-style:normal;
-			}				
+			}
+			

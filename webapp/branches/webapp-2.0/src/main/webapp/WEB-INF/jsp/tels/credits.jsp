@@ -117,16 +117,17 @@ Jinna Lei, Noah Paessel, Greg Pitter, Rokham Sadeghnezhadfard, Jeff Schoner, Nat
 		</td>  
 	</tr>
 	<tr>
-		<td class="creditCategory"><spring:message code="credits.11"/></td> 
+		<td class="creditCategory">Project & Grant Support</td> 
 		<td>
 		<dl>
-
+		<dt>David Crowell</dt>
+				<dd>Univerity of California, Berkeley <span class="email">email: dcrowell at berkeley dot edu</span></dd>
 
 		<dt>Suparna Kudesia  </dt>
 				<dd>Univerity of California, Berkeley <span class="email">email: skudesia at berkeley dot edu</span></dd>
-		<div class="alumnaeHeader">alumnae</div>
-		<div class="alumnaeNames">David Crowell, Earlene Somera</dt>
-		</td>  
+		</dl> 
+		</td> 
+		
 	</tr>
 	<tr>
 	<td class="creditCategory"><spring:message code="credits.12"/></td>  
