@@ -12,7 +12,24 @@
 
 <div id="centeredDiv">
 
-    Your username: ${username}
+    <table>
+        <tr>
+            <td>First name</td>
+            <td>${firstname}</td>
+        </tr>
+        <tr>
+            <td>Last name</td>
+            <td>${lastname}</td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td>${username}</td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>${password}</td>
+        </tr>
+    </table>
 
 
 </body>

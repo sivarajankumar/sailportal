@@ -43,7 +43,7 @@
 
 <h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudentconfirm.1"/></h1>
 
-<div id="subtitleConfirm">
+<!--div id="subtitleConfirm">
 			<h4><spring:message code="student.registerstudentconfirm.2"/></h4>
 			<h4><spring:message code="student.registerstudentconfirm.3"/> <span id="usernameConfirm">${username}</span></h4>
 			<ul>
@@ -51,7 +51,26 @@
 		    <li><spring:message code="student.registerstudentconfirm.5"/>&nbsp;<span style="color:#6666FF;font-weight:bold;text-decoration:underline;">John</span> <span style="color:#6666FF;font-weight:bold;text-decoration:underline;">S</span>mith with a birthday on <span style="color:#6666FF;font-weight:bold;text-decoration:underline;">3/24</span> would have the Username "<span style="color:#CC3333;font-weight:bold;text-decoration:underline;">JohnS324</span>" <br />
 			    <span class="smallText"><spring:message code="student.registerstudentconfirm.7"/></span> </li>
 			</ul>
-</div>
+</div-->
+
+    <table>
+        <tr>
+            <td>First name</td>
+            <td>${firstname}</td>
+        </tr>
+        <tr>
+            <td>Last name</td>
+            <td>${lastname}</td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td>${username}</td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>${password}</td>
+        </tr>
+    </table>
 
 <table id="confirmationButtons" border="0" cellpadding="5" cellspacing="5">
   <tr>

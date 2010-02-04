@@ -6,6 +6,7 @@ import eu.scy.core.model.pedagogicalplan.Scenario;*/
 import eu.scy.core.ScenarioService;
 import eu.scy.core.UserService;
 import eu.scy.core.model.User;
+import eu.scy.core.model.impl.SCYStudentUserDetails;
 import eu.scy.core.model.impl.SCYUserDetails;
 import eu.scy.core.model.impl.pedagogicalplan.ScenarioImpl;
 import eu.scy.core.model.pedagogicalplan.Scenario;
@@ -32,7 +33,6 @@ import java.util.Date;
  * User: Henrik
  * Date: 16.sep.2009
  * Time: 06:27:23
- * To change this template use File | Settings | File Templates.
  */
 public class RegisterStudentForSCYController extends SimpleFormController {
 
@@ -55,16 +55,26 @@ public class RegisterStudentForSCYController extends SimpleFormController {
     @Override
     @Transactional
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
-        SCYUserDetails userDetails  = (SCYUserDetails) command;
+        SCYStudentUserDetails userDetails  = (SCYStudentUserDetails) command;
+        User user = null;
+        SCYStudentUserDetails studentUserDetails=null;
             try {
-                User user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "STUDENT_ROLE");
+                user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "STUDENT_ROLE");
+                studentUserDetails = (SCYStudentUserDetails) user.getUserDetails();
+                if(userDetails.getFirstname() != null) studentUserDetails.setFirstname(userDetails.getFirstname());
+                if(userDetails.getLastname() != null) studentUserDetails.setLastname(userDetails.getLastname());
+                userService.save(user);
             } catch (Exception e) {
                 e.printStackTrace();
                 return showForm(request, response, errors);
             }
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
-        //modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
+        modelAndView.addObject("username", studentUserDetails.getUsername());
+        modelAndView.addObject("password", studentUserDetails.getPassword());
+        modelAndView.addObject("firstname", studentUserDetails.getFirstname());
+        modelAndView.addObject("lastname", studentUserDetails.getLastname());
+
         return modelAndView;
 
     }
@@ -74,21 +84,7 @@ public class RegisterStudentForSCYController extends SimpleFormController {
 	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) {
     System.out.println("******************************************************************************");
         logger.debug("ON BINDE AND VALIDATE STUDENT CONTROLLER!");
-    SCYUserDetails userDetails = (SCYUserDetails) command;
-	/*	StudentAccountForm accountForm = (StudentAccountForm) command;
-		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
-		if (accountForm.isNewAccount()) {
-			userDetails.setSignupdate(Calendar.getInstance().getTime());
-			Calendar birthday       = Calendar.getInstance();
-			int birthmonth = Integer.parseInt(accountForm.getBirthmonth());
-			int birthdate = Integer.parseInt(accountForm.getBirthdate());
-			birthday.set(Calendar.MONTH, birthmonth-1);  // month is 0-based
-			birthday.set(Calendar.DATE, birthdate);
-			userDetails.setBirthday(birthday.getTime());
-		}
-
-		//getValidator().validate(accountForm, errors);
-		*/
+    SCYStudentUserDetails userDetails = (SCYStudentUserDetails) command;
 	}
 
 	@Override
@@ -96,7 +92,6 @@ public class RegisterStudentForSCYController extends SimpleFormController {
 	{
         System.out.println("________________________________________________________________________________________");
         logger.debug("INIT BINDER IN STUDENT CONTROLLER");
-	  //super.initBinder(request, binder);
 	  binder.registerCustomEditor(Date.class,
 	    new CustomDateEditor(new SimpleDateFormat("MM/dd"), false)
 	  );

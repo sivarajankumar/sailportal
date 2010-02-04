@@ -106,7 +106,7 @@
 		</property>
 		<property name="authoritiesByUsernameQuery">
             <value>
-                SELECT ud.username, 'ROLE_ADMINISTRATOR' from user_details ud where ud.username = ?
+                SELECT ud.username, ga.authority from user_details ud, granted_authorities as ga, user_details_related_to_roles as relate where ud.username = ? and relate.user_details_fk=ud.id and ga.id=relate.granted_authorities_fk 
             </value>
 			<!--value>
                 SELECT user0_.username, role.role_name

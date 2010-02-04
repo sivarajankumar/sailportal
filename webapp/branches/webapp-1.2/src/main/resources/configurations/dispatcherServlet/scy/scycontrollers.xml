@@ -44,7 +44,7 @@
         <property name="scenarioService" ref="scenarioService"/>
     	<!--property name="studentService" ref="studentService" /-->
     	<property name="commandName" value="studentAccountForm" />
-        <property name="commandClass" value="eu.scy.core.model.impl.SCYUserDetails"/>
+        <property name="commandClass" value="eu.scy.core.model.impl.SCYStudentUserDetails"/>
     	<!--property name="validator" ref="studentAccountFormValidator" /-->
     	<property name="formView" value="student/registerstudent" />
     	<property name="successView" value="student/registerSCYStudentConfirm" />
