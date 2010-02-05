@@ -110,7 +110,7 @@ function MM_swapImage() { //v3.0
        
   	<dt><label for="lastname" id="lastname1"><spring:message code="signup.lastname"/></label></dt>
 	<dd><form:input path="userDetails.lastname" id="teacherLastName" size="25" maxlength="25" tabindex="2"/> <span class="hint"><spring:message code="teacher.registerteacher.4"/><span class="hint-pointer"></span></span> </dd>
-            
+
     <dt><label for="emailAddress" id="emailAddress1"><spring:message code="signup.emailAddress" /></label></dt>
 	<dd><form:input path="userDetails.emailAddress" id="teacherEmail" size="25" maxlength="40" tabindex="3"/> <span class="hint"><spring:message code="teacher.registerteacher.5"/> <span class="hint-pointer"></span></span></dd>
             

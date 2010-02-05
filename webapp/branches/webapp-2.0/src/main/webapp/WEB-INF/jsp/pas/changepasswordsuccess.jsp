@@ -18,7 +18,9 @@
 </div>
 </div>
 
-<h2>Password successfully changed!</h2>
+<h2>Password successfully changed! test test</h2>
+
+<div><a href="/webapp/teacher/index.html">Return to Teacher Dashboard</a></div>
 
 </body>
 </html>

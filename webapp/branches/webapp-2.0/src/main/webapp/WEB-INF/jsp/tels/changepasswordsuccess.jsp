@@ -15,7 +15,7 @@
 
 <h2><spring:message code="changepassword.passwordchanged" /></h2>
 
-<div><a href="#" onclick="javascript:window.close()"><spring:message code="changepassword.closethiswindow" /></a></div>
+<div><a href="/webapp/teacher/index.html" >Return to Teacher Dashboard</a></div>
 
 </body>
 </html>
