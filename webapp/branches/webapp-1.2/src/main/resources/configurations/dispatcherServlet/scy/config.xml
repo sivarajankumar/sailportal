@@ -72,6 +72,9 @@
                 /**/index.html=indexController
                 /**/signup.html=signupController
                 /student/registerstudent.html=registerstudentController
+                /app/AppIndex.html=appIndexController
+                /app/useradmin/UserAdminIndex.html=userAdminIndexController
+                /app/useradmin/EditStudent.html=editUserStudentController
 
             </value>
         </property>
@@ -94,9 +97,11 @@
                 /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
 				/teacher/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /admin/**/*.html=ROLE_ADMINISTRATOR
+                /app/**/*.html=ROLE_ADMINISTRATOR,ROLE_STUDENT,ROLE_TEACHER
                 /j_acegi_switch_user*=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
+
             </value>
         </property>
     </bean>

@@ -50,4 +50,15 @@
     	<property name="successView" value="student/registerSCYStudentConfirm" />
     </bean>
 
+    <bean id="appIndexController" class="eu.scy.controllers.app.AppIndexController">
+    </bean>
+    
+    <bean id="userAdminIndexController" class="eu.scy.controllers.app.useradmin.UserAdminIndexController">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="editUserStudentController" class="eu.scy.controllers.app.useradmin.EditStudentController">
+        <property name="userService" ref="userService"/>
+    </bean>
+
 </beans>

@@ -7,7 +7,7 @@
     <div id="hd" class="border top header">
         <div class="logo">
             <div class="title">
-                SCY - Science Created by YOU
+                SCY - Science Created by YOU   
             </div>
         </div>
         <div class="menubar">
@@ -38,7 +38,7 @@
                     </sec:authorize>
                     <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
                             <span id="signOugBannerHome">
-                                <a href="manageusers.html">Manage users </a>
+                                <a href="/webapp/app/useradmin/UserAdminIndex.html">Manage users </a>
                             </span>
                     </sec:authorize>
 

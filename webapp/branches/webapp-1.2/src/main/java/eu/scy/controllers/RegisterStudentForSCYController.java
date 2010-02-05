@@ -59,7 +59,7 @@ public class RegisterStudentForSCYController extends SimpleFormController {
         User user = null;
         SCYStudentUserDetails studentUserDetails=null;
             try {
-                user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "STUDENT_ROLE");
+                user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "ROLE_STUDENT");
                 studentUserDetails = (SCYStudentUserDetails) user.getUserDetails();
                 if(userDetails.getFirstname() != null) studentUserDetails.setFirstname(userDetails.getFirstname());
                 if(userDetails.getLastname() != null) studentUserDetails.setLastname(userDetails.getLastname());
