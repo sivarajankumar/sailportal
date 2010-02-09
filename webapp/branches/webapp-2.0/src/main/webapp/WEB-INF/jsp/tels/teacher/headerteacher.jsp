@@ -60,7 +60,8 @@
 		<li class="level1"><a href="#">Management</a>
 	    <ul>
             <li><a href="/webapp/teacher/management/overview.html">Overview</a></li>
-            <li><a href="/webapp/teacher/management/projectPickerManagement.html">Manage Students</a></li>
+            <li><a href="/webapp/teacher/run/myprojectruns.html">My Project Runs & Access Codes</a></li>
+			<li><a href="/webapp/teacher/management/projectPickerManagement.html">Manage Students</a></li>
             <li><a href="/webapp/message.html?action=index">View & Send Messages</a></li>
 			<li><a href="" style="color:#999;">View Student RealTime Progress Monitor</a></li>
             <li><a href="" style="color:#999;">Print/Export Student Work</a></li>

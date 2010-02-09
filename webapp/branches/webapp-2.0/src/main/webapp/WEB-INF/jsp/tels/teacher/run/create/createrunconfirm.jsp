@@ -51,9 +51,12 @@
 
 <!--USED TO SHOW/HIDE A DIV ELEMENT-->
 <script type="text/javascript">
-
-	function toggleProjectSummaryCurrent(){
-		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
+	/**
+	 * Toggles the summary div
+	 * projectId: id of project whose summary div to toggle
+	 */
+	function toggleDetails(projectId){
+		var searchDiv = document.getElementById('details_'+projectId);
 		if(searchDiv.style.display=='none'){
 			searchDiv.style.display = 'block';
 		} else {
@@ -80,10 +83,9 @@
 
 <div id="stepNumber"><spring:message code="teacher.run.setup.1"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.2"/></span></div>
 
-<h5><spring:message code="teacher.run.setup.3"/>&nbsp;<em><spring:message code="teacher.run.setup.4"/></em>&nbsp;<spring:message code="teacher.run.setup.5"/><br/><spring:message code="teacher.run.setup.6"/></h5>
-
-<h5><spring:message code="teacher.run.setup.7"/>&nbsp;<em>[Library/Customized]</em>&nbsp;<spring:message code="teacher.run.setup.8"/></h5>
-
+<h5>This process will help you set up a <em>Project Run</em> for your students to explore. You can cancel this process at any time.<br/>
+You have selected:</h5>
+ 
 <table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
@@ -105,15 +107,16 @@
 									<ul>
 									</ul>
 							</tr>
-							<tr id="row2">
+					<tr id="row2">
 								<th id="title1" style="width:60px;">Project ID</th>
-								<th id="title1" style="width:90px;">Project Family</th>
-								<th id="title2" style="width:292px;" >Subject(s)</th>
-								<th id="title3" style="width:100px;">Grades</th>
-								<th id="title4" style="width:110px;">Total Time (hrs)</th>
-								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
-								<th id="title6" style="width:92px;">Language</th>
-								<th id="title7" style="width:90px;">Usage</th>
+								<th id="title2" style="width:90px;">Project Family</th>
+								<th id="title3" style="width:280px;" >Subject</th>
+								<th id="title4" style="width:70px;">Grade Level</th>
+								<th id="title5" style="width:105px;">Total Hours</th>
+								<th id="title6" style="width:110px;">Computer Hours</th>
+								<th id="title7" style="width:72px;">Language</th>
+								<th id="title8" style="width:82px;">Tech Needs</th>
+								<th id="title9" style="width:60px;">Usage</th>
 							</tr>
 							<tr id="row3">
 								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
@@ -123,19 +126,14 @@
 								<td class="dataCell">${project.metadata.totalTime}</td>              
 								<td class="dataCell">${project.metadata.compTime}</td> 
 								<td class="dataCell">[English]</td> 
-								<td class="dataCell">${usageMap[project.id]} runs</td>
-					
+								<td class="dataCell">[Flash, Java]</td> 
+								<td class="dataCell">${usageMap[project.id]}</td>
 							</tr>
 							<tr id="row4">  
-								<td colspan="8">
-									<a id="hideShowLink" href="#" onclick="toggleProjectSummaryCurrent()">Hide/Show project details</a>
-									<div id="toggleAllCurrent">
-									<div id="toggleProjectSummaryCurrent" style="display:none;">
+								<td colspan="9">
+									<a id="hideShowLink" href="#" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
+									<div id="details_${project.id}" style="display:none;">
 										<table id="detailsTable">
-											<tr>
-												<th>Created On:</th>
-												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
-											</tr>
 											<tr>
 												<th>Summary:</th>
 												<td class="summary">${project.metadata.summary}</td>
@@ -144,17 +142,25 @@
 												<th>Keywords:</th>
 												<td class="keywords">[List of comma-separated keywords go here]</td>
 											</tr>
-					<tr>
+
+											<tr>
+												<th>Tech Details:</th>
+												<td>[This project requires Flash for Steps x,y,z and requires Java for steps a,b,c.]</td>
+											</tr>
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
+											</tr>
+											<tr> 
 												<th>Original Author:</th>
 												<td>[Name goes here]</td>
 											</tr>
 											<tr>
-												<th>Tech Needs:</th>
-												<td>[Tech Requirements go here]</td>
+												<th>Contact Info:</th>
+												<td>[Name and Email goes here]</td>
 											</tr>
 										</table>
-									</div>
-									</div>
+									</div>									
 								</td>
 							</tr>
 						</table>

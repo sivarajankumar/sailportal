@@ -148,6 +148,7 @@
 }
 
 /* SETTING UP A RUN */
+
 #setUpRunBox {
 	height: 360px;
 	border: 1px solid #666666;
@@ -155,9 +156,8 @@
 	padding: 15px;
 }
 
-/* the last box when setting up a run needs to be bigger */
 #reviewRunBox {
-	height: 475px;
+	height: 360px;
 	border: 1px solid #666666;
 	margin: 15px auto 15px auto;
 	padding: 15px;

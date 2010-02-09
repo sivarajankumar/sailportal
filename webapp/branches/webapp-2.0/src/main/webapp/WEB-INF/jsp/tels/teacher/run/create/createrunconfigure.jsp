@@ -87,19 +87,19 @@
 
 
 	<div>
-		How many students per computer during the project?<br/>
-		<form:radiobutton path="maxWorkgroupSize" value='1'/>1 student per computer.<br/>
+		<b>How many students per computer during the project?</b><br/>
+		<form:radiobutton path="maxWorkgroupSize" value='1'/>Always 1 student per computer.<br/>
 		<form:radiobutton path="maxWorkgroupSize" value='3'/>1, 2, or 3 students per computer.</br>
 	</div>
 	<br/>
 	<br/>
 	<div>
-		Select the Post Level for this run.<br/>
+		<b>Select the Post Level for this run.</b><br/>
 		<c:choose>
 			<c:when test="${minPostLevel==5}">
 				<br/>
 				The author of this project requires that this run log students' data at the highest level. If you would<br/>
-				like to override this setting, please contact WISE.<br/>
+				like to override this setting, please <a href="webapp/contactwisegeneral.html">contact WISE.</a><br/>
 			</c:when>
 			<c:otherwise>	
 				<c:forEach var='postLevel' items='${implementedPostLevels}'>

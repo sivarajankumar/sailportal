@@ -120,54 +120,33 @@
 
 <div id="reviewRunBox">
 
-	<div id='lessonPlanDiv'>
-	<div id="stepNumber"><spring:message code="teacher.run.setup.32"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.33"/></span></div>
+	<div id="stepNumber"><spring:message code="teacher.run.setup.32"/><span class="blueText">&nbsp;&nbsp;Review the Project Content and Learning Goals</span></div>
 
-	<h5><spring:message code="teacher.run.setup.34"/>&nbsp;<a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.run.setup.35"/></a>
-	&nbsp;<spring:message code="teacher.run.setup.36"/></h5>
+	<h6 style="color:red;font-size:90%;margin:15px 0"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h6>
 
-	<h6 class="indent15px"><spring:message code="teacher.view-lesson-plan" htmlEscape="true" /></h6>
-	</div>
-	
-	<br/>
-	
-	<div id='previewProjectDiv'>
-		<div id="stepNumber"><span class="blueText"> Preview the Project</span></div>
+	<ol>
+	<li><h5>Please <a href="#" onclick="javascript:alert('Lesson Plan not available yet')"><spring:message code="teacher.run.setup.35"/></a>
+	&nbsp;<spring:message code="teacher.run.setup.36"/></h5></li>
 
-		<h5>We also recommend that you 
+	<li><h5>We highly recommend that you 
 			<a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${projectId}"/></c:url>">
-			preview the project</a> before running it.</h5>
-			
-		<h6 class="indent15px">Previewing a project allows you to walk through the learning experience from a student's perspective. </h6>
-	</div>
-	
-	<br/>
-	
-	<div id='helpDocumentationDiv'>
-		<div id="stepNumber"><span class="blueText"> Help Documentation</span></div>
-
-		<h5>First time running a classroom project?  If so check out the 
-			<a href="#" onclick="javascript:alert('Project Preview Not Available Yet')">Guide to Using WISE 4.0 in the Classroom</a>.</h5>
+			preview the project</a> before running it. 
+			Previewing a project allows you to walk through the learning experience from a student's perspective. </h5></li>
 		
-	   	<h6 class="indent15px">
-	   		<ul>
-	   		<li>This guide contains everything you need to know about setting up your classroom computers and having your students register, form groups, and load projects.    				It also offers tips if you encounter difficulty during a project run (for instance, if a student loses a password).</li>
-			<li>These help documents are accessible at any time by clicking the HELP button at the top of the screen.</li>
-	   		</ul>
-	   	</h6>
-	
-		<h5>To complete the creation of your Project Run click <em>Done</em> below.</h5>
-	</div>
- </div>
- 
+	<li><h5>First time carrying out a WISE4 Project Run?  Click the <em>HELP</em> button above for more information about running projects and using the WISE4 tools. 
+This help area includes tips on setting up your classroom computers, having students register, managing student groups, grading student work, and more.</h5></li>
+	</ol>
+
+	<h5>To complete the creation of your Project Run click <em>DONE</em> below.</h5>
+</div>
+
 <form method="post" class="center">
 <input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
 </form>
-</div>
 
-<div align="centeredDiv">
+<div>
 
 </body>
 </html>

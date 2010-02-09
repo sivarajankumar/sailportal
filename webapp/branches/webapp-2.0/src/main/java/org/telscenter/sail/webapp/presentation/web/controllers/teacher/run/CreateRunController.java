@@ -131,8 +131,9 @@ public class CreateRunController extends AbstractWizardFormController {
 	
 	private final static Map<Long,String> POST_LEVEL_TEXT_MAP = new HashMap<Long,String>();
 	static {
-		POST_LEVEL_TEXT_MAP.put(5l, "High - All Steps");
-		POST_LEVEL_TEXT_MAP.put(1l, "Low - Steps With Student Work Only");
+		POST_LEVEL_TEXT_MAP.put(5l, "High (more storage intensive; student activity in every step is recorded)");
+		POST_LEVEL_TEXT_MAP.put(1l, "Low  (less storage intensive; only work directly submitted by student is recorded)");
+			
 	}
 	
 	/**
