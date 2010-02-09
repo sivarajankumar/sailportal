@@ -43,6 +43,7 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -93,6 +94,7 @@ public class BridgeController extends AbstractController {
 		String method = request.getMethod();
 		User signedInUser = ControllerUtil.getSignedInUser(request);
 		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
+		Long signedInUserId = null;
 		for (GrantedAuthority authority : authorities) {
 			if (authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)
 					|| authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
@@ -101,6 +103,10 @@ public class BridgeController extends AbstractController {
 		}
 		if (method.equals("GET")) {
 			String workgroupIdStr = "";
+			
+			//only used for annotations
+			String fromWorkgroupIdStr = "";
+			
 			String type = request.getParameter("type");
 			
 			String runIdString = request.getParameter("runId");
@@ -116,6 +122,25 @@ public class BridgeController extends AbstractController {
 				period = Long.parseLong(periodString);	
 			}
 			
+			
+			if(runId != null) {
+				try {
+					//get the run
+					Run offering = runService.retrieveById(runId);
+					
+					//get the workgroup for the signed in user
+					List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(offering, signedInUser);
+					
+					//get the workgroup
+					Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+					
+					//get the workgroup id
+					signedInUserId = workgroup.getId();
+				} catch (ObjectNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
 			//whether this GET request can access other workgroup's data
 			boolean canAccessOtherWorkgroups = false;
 			
@@ -126,6 +151,9 @@ public class BridgeController extends AbstractController {
 				canAccessOtherWorkgroups = true;
 			} else if (type.equals("annotation")) {
 				workgroupIdStr = request.getParameter("toWorkgroup");
+				
+				//get the fromWorkgroup id
+				fromWorkgroupIdStr = request.getParameter("fromWorkgroup");
 				canAccessOtherWorkgroups = true;
 			} else if(type.equals("brainstorm")) {
 				workgroupIdStr = request.getParameter("userId");
@@ -146,17 +174,27 @@ public class BridgeController extends AbstractController {
 			if(canAccessOtherWorkgroups) {
 				//this GET request is allowed to access other workgroup work
 				try {
-					//obtain all the workgroups of the classmates of the current user
-					Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(runId, period);
+					if(fromWorkgroupIdStr != null && !fromWorkgroupIdStr.equals("") &&
+							fromWorkgroupIdStr.equals(signedInUserId)) {
+						/*
+						 * the signed in user id is the same as the from workgroup id so 
+						 * we will allow it. this basically means the current user is
+						 * requesting the annotations that he/she wrote.
+						 */
+						return true;
+					} else {
+						//obtain all the workgroups of the classmates of the current user
+						Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(runId, period);
 
-					/*
-					 * see if the workgroupIds the user is trying to access is
-					 * in the above set of classmate workgroups, if all the 
-					 * workgroupIds beingaccessed are allowed, it will return 
-					 * true and allow it, otherwise it will return false and 
-					 * deny access
-					 */
-					return elementsInCollection(workgroupIds, classmateWorkgroups);
+						/*
+						 * see if the workgroupIds the user is trying to access is
+						 * in the above set of classmate workgroups, if all the 
+						 * workgroupIds beingaccessed are allowed, it will return 
+						 * true and allow it, otherwise it will return false and 
+						 * deny access
+						 */
+						return elementsInCollection(workgroupIds, classmateWorkgroups);
+					}
 				} catch (ObjectNotFoundException e) {
 					e.printStackTrace();
 				}
