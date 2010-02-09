@@ -35,10 +35,10 @@
 <body>
 
 <div id="overviewContent">
-<h3>New Users </h3>
+<h3>WISE 4 BETA</h3>
 <table>
 <tr> 
-<td> Getting Started Guide </td>
+<td>Teacher's Guide for WISE 4 Beta</td>
 <td> This guide covers everything you need to know about using WISE in a classroom, including setting up
 class computers, registering students, and running projects. </td>
 </tr>

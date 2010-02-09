@@ -37,7 +37,7 @@
 	border-right: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px solid #666666;
-	margin: 15px 80px 0px 80px;
+	margin: 15px 80px;
 	padding:5px;
 	}
 	
@@ -45,23 +45,25 @@
 	list-style-type:none;
 	font-size:1.0em;
 	width:90%;
+	margin-left:0;
 	}
 	
 .helpSection li a:link, .helpSection li a:visited {
 	display:block;
 	text-decoration:none;
-	padding:0px 0 2px 2px;
-	color:#000066;
+	padding:3px 6px;
+	color:blue;
 	font-weight:bold;
-	margin:0px;
+	border:1px solid transparent;
 	}
 	
 .helpSection li a:hover {
-	display:block;
-	padding:0px 0 2px 2px;
-	text-decoration:none;
-	background-color:#000066;
-	color:#CCCCFF;
+	background-color:#FFFF00; 
+	border:1px solid #999;
+	}
+	
+.helpSection p {
+	margin: 15px 0 15px 45px; 
 	font-weight:bold;
-	margin:0px;
+	color:#333;
 	}

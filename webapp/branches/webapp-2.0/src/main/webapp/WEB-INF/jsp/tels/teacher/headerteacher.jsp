@@ -71,7 +71,8 @@
 
 		<li class="level1"><a href="#">Help</a> 
 		<ul>	
-            <li><a href="#" style="color:#999;">Frequently Asked Questions</a></li>
+            <li><a href="/webapp/teacher/help/overview.html">Overview</a></li>
+			<li><a href="#" style="color:#999;">Frequently Asked Questions</a></li>
             <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
             <li><a href="/webapp/contactwisegeneral.html">Contact WISE Staff</a></li>
 		</ul>

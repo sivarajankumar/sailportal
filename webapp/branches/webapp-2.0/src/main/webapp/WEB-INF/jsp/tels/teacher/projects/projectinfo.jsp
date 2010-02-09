@@ -90,7 +90,7 @@
             <table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCellUnlinked" colspan="3">${project.name}</td>
-							<td class="actions" colspan="6"> 
+							<td class="actions" colspan="7"> 
 									<ul>
 										<li><a href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 										<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
@@ -101,13 +101,14 @@
 							</tr>
 							<tr id="row2">
 								<th id="title1" style="width:60px;">Project ID</th>
-								<th id="title1" style="width:90px;">Project Family</th>
-								<th id="title2" style="width:292px;" >Subject</th>
-								<th id="title3" style="width:100px;">Student Grades</th>
-								<th id="title4" style="width:110px;">Total Time (hrs)</th>
-								<th id="title5" style="width:110px;">Computer Time (hrs)</th>
-								<th id="title6" style="width:92px;">Language</th>
-								<th id="title7" style="width:90px;">Usage</th>
+								<th id="title2" style="width:90px;">Project Family</th>
+								<th id="title3" style="width:280px;" >Subject</th>
+								<th id="title4" style="width:70px;">Grade Level</th>
+								<th id="title5" style="width:105px;">Total Hours</th>
+								<th id="title6" style="width:110px;">Computer Hours</th>
+								<th id="title7" style="width:72px;">Language</th>
+								<th id="title8" style="width:82px;">Tech Needs</th>
+								<th id="title9" style="width:60px;">Usage</th>
 							</tr>
 							<tr id="row3">
 								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
@@ -117,19 +118,15 @@
 								<td class="dataCell">${project.metadata.totalTime}</td>              
 								<td class="dataCell">${project.metadata.compTime}</td> 
 								<td class="dataCell">[English]</td> 
-								<td class="dataCell">${usageMap[project.id]} runs</td>
-					
+								<td class="dataCell">[Flash, Java]</td> 
+								<td class="dataCell">${usageMap[project.id]}</td>
 							</tr>
 							<tr id="row4">  
-								<td colspan="8">
+								<td colspan="9">
 									<a id="hideShowLink" href="#" onclick="toggleDetails()">Hide/Show project details</a>
 									<div id="toggleAllCurrent">
 									<div id="toggleProjectSummaryCurrent">
 										<table id="detailsTable">
-											<tr>
-												<th>Created On:</th>
-												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
-											</tr>
 											<tr>
 												<th>Summary:</th>
 												<td class="summary">${project.metadata.summary}</td>
@@ -138,13 +135,22 @@
 												<th>Keywords:</th>
 												<td class="keywords">[List of comma-separated keywords go here]</td>
 											</tr>
-					<tr>
+
+											<tr>
+												<th>Tech Details:</th>
+												<td>[This project requires Flash for Steps x,y,z and requires Java for steps a,b,c.]</td>
+											</tr>
+											<tr>
+												<th>Created On:</th>
+												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
+											</tr>
+											<tr> 
 												<th>Original Author:</th>
 												<td>[Name goes here]</td>
 											</tr>
 											<tr>
-												<th>Tech Needs:</th>
-												<td>[Tech Requirements go here]</td>
+												<th>Contact Info:</th>
+												<td>[Name and Email goes here]</td>
 											</tr>
 										</table>
 									</div>
