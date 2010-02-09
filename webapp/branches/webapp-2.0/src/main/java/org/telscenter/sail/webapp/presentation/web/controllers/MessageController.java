@@ -185,7 +185,7 @@ public class MessageController extends AbstractController {
     		"Subject: " + message.getSubject() + "\n" +
     		"Recipient:" + message.getRecipient().getUserDetails().getUsername() + "\n" +
     		"Message: " + messageBody + "\n\n" +
-    		"To reply to this message, please log into WISE.\n\n" +
+    		"To view the entire message and reply to this message, please log into WISE.\n\n" +
     		"Thanks,\n" +
     		"WISE4 Team";
     		
