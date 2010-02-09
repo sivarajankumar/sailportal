@@ -42,6 +42,18 @@
                             </span>
                     </sec:authorize>
 
+                    <sec:authorize ifAllGranted="ROLE_USER">
+                            <span id="signOugBannerHome">
+                                <a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor </a>
+                            </span>
+                    </sec:authorize>
+
+                    <sec:authorize ifAllGranted="ROLE_USER">
+                            <span id="signOugBannerHome">
+                                <a href="/webapp/student/profile.html">Profile </a>
+                            </span>
+                    </sec:authorize>
+
                 </sec:authorize>
             </div>
         </div>

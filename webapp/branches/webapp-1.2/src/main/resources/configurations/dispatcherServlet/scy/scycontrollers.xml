@@ -50,6 +50,14 @@
     	<property name="successView" value="student/registerSCYStudentConfirm" />
     </bean>
 
+    <bean id="registerTeacherController" class="eu.scy.controllers.teacher.RegisterTeacherController">
+        <property name="commandName" value="teacherAccountForm"/>
+        <property name="commandClass" value="eu.scy.core.model.impl.SCYTeacherUserDetails"/>
+        <property name="formView" value="teacher/registerteacher"/>
+        <property name="successView" value="teacher/registerSCYTeacherConfirm"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+
     <bean id="appIndexController" class="eu.scy.controllers.app.AppIndexController">
     </bean>
     
@@ -60,5 +68,19 @@
     <bean id="editUserStudentController" class="eu.scy.controllers.app.useradmin.EditStudentController">
         <property name="userService" ref="userService"/>
     </bean>
+
+    <bean id="studentProfileController" class="eu.scy.controllers.student.StudentProfileController">
+
+    </bean>
+
+
+
+    <bean id="fileUploadController" class="eu.scy.controllers.fileupload.FileUploadController">
+        <property name="commandClass" value="eu.scy.controllers.fileupload.FileUploadBean"/>
+        <property name="formView" value="fileuploadform"/>
+        <property name="successView" value="student/profile"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+    
 
 </beans>

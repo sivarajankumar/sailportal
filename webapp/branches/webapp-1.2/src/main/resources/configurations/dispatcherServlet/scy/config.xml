@@ -63,8 +63,7 @@
         class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
 
     <!-- no 'id' required, HandlerMapping beans are automatically detected by the DispatcherServlet -->
-    <bean
-        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <bean name="urlmapperhandler" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="order" value="2"></property>
         <property name="mappings">
             <value>
@@ -75,7 +74,9 @@
                 /app/AppIndex.html=appIndexController
                 /app/useradmin/UserAdminIndex.html=userAdminIndexController
                 /app/useradmin/EditStudent.html=editUserStudentController
-
+                /student/profile.html=studentProfileController
+                /student/upload.html=fileUploadController
+                /teacher/registerteacher.html=registerTeacherController
             </value>
         </property>
     </bean>
@@ -97,6 +98,7 @@
                 /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER
 				/teacher/**/*.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /admin/**/*.html=ROLE_ADMINISTRATOR
+                /app/scyauthor/**/*.html=ROLE_ADMINISTRATOR,ROLE_AUTHOR,ROLE_TEACHER,ROLE_STUDENT
                 /app/**/*.html=ROLE_ADMINISTRATOR,ROLE_STUDENT,ROLE_TEACHER
                 /j_acegi_switch_user*=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER

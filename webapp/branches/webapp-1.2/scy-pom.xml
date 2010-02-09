@@ -200,6 +200,34 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>eu.scy.server</groupId>
+                                    <artifactId>scy-author</artifactId>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>target</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
             <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -781,6 +809,12 @@
         <dependency>
             <groupId>eu.scy.server</groupId>
             <artifactId>pedagogical-plan-service-impl</artifactId>
+            <version>9.8.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.scy.server</groupId>
+            <artifactId>scy-author</artifactId>
             <version>9.8.0-SNAPSHOT</version>
         </dependency>
 

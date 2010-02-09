@@ -59,6 +59,7 @@
 
             classpath:configurations/dispatcherServlet/scy/scycontrollers.xml,
             classpath:configurations/dispatcherServlet/scy/config.xml,
+            classpath:scyAuthorControllers.xml
         </param-value>
 	</context-param>
 

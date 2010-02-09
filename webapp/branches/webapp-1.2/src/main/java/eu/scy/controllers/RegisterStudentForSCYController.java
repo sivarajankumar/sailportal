@@ -3,28 +3,21 @@ package eu.scy.controllers;
 /*import eu.scy.core.ScenarioService;
 import eu.scy.core.model.impl.pedagogicalplan.ScenarioImpl;
 import eu.scy.core.model.pedagogicalplan.Scenario;*/
+
 import eu.scy.core.ScenarioService;
 import eu.scy.core.UserService;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
-import eu.scy.core.model.impl.SCYUserDetails;
-import eu.scy.core.model.impl.pedagogicalplan.ScenarioImpl;
-import eu.scy.core.model.pedagogicalplan.Scenario;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
-import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
-import org.telscenter.sail.webapp.presentation.web.controllers.student.RegisterStudentController;
-import org.telscenter.sail.webapp.service.student.StudentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 
