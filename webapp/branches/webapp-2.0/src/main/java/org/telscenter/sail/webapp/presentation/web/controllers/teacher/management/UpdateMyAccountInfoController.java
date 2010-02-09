@@ -26,6 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.sail.webapp.domain.User;
 
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.web.TeacherAccountForm;
@@ -49,8 +52,9 @@ public class UpdateMyAccountInfoController extends RegisterTeacherController {
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
  
 		return new TeacherAccountForm((TeacherUserDetails) user.getUserDetails());
 	}
