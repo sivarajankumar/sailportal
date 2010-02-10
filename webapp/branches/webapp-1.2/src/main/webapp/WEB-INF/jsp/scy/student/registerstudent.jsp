@@ -56,14 +56,14 @@
 
         <!-- Support for Spring errors object -->
         <div id="regErrorMessages">
-            <spring:bind path="studentAccountForm.*">
+            <spring:bind path="userDetails.*">
                 <c:forEach var="error" items="${status.errorMessages}">
                     <br/><c:out value="${error}"/>
                 </c:forEach>
             </spring:bind>
         </div>
 
-        <form:form id="studentRegForm" commandName="studentAccountForm" method="post" action="registerstudent.html">
+        <form:form id="studentRegForm" commandName="userDetails" method="post" action="registerstudent.html">
             <table>
                 <tr>
                     <td>

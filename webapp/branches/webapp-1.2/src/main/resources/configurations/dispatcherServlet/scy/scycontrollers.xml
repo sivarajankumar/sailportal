@@ -42,16 +42,14 @@
     <bean id="registerstudentController" class="eu.scy.controllers.RegisterStudentForSCYController">
     	<property name="userService" ref="userService" />
         <property name="scenarioService" ref="scenarioService"/>
-    	<!--property name="studentService" ref="studentService" /-->
-    	<property name="commandName" value="studentAccountForm" />
+    	<property name="commandName" value="userDetails" />
         <property name="commandClass" value="eu.scy.core.model.impl.SCYStudentUserDetails"/>
-    	<!--property name="validator" ref="studentAccountFormValidator" /-->
     	<property name="formView" value="student/registerstudent" />
     	<property name="successView" value="student/registerSCYStudentConfirm" />
     </bean>
 
     <bean id="registerTeacherController" class="eu.scy.controllers.teacher.RegisterTeacherController">
-        <property name="commandName" value="teacherAccountForm"/>
+        <property name="commandName" value="userDetails"/>
         <property name="commandClass" value="eu.scy.core.model.impl.SCYTeacherUserDetails"/>
         <property name="formView" value="teacher/registerteacher"/>
         <property name="successView" value="teacher/registerSCYTeacherConfirm"/>

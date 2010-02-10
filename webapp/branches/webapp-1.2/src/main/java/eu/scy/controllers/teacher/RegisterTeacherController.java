@@ -1,5 +1,6 @@
 package eu.scy.controllers.teacher;
 
+import eu.scy.core.ScenarioService;
 import eu.scy.core.UserService;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
@@ -23,13 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterTeacherController extends SimpleFormController {
 
     private UserService userService;
+    private ScenarioService scenarioService;
 
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        ModelAndView modelAndView = new ModelAndView();
-        return modelAndView;
-    }
-
+    public RegisterTeacherController() {
+        logger.debug("** **** **** CREATING REGISTER STUDENT FOR SCY CONTROLLER!!");
+		setValidateOnBinding(false);
+	}
 
     /**
      * On submission of the signup form, a user is created and saved to the data
@@ -42,19 +42,19 @@ public class RegisterTeacherController extends SimpleFormController {
     @Override
     @Transactional
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
-        SCYStudentUserDetails userDetails = (SCYStudentUserDetails) command;
+        SCYTeacherUserDetails userDetails  = (SCYTeacherUserDetails) command;
         User user = null;
-        SCYTeacherUserDetails studentUserDetails = null;
-        try {
-            user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "ROLE_TEACHER");
-            studentUserDetails = (SCYTeacherUserDetails) user.getUserDetails();
-            if (userDetails.getFirstname() != null) studentUserDetails.setFirstName(userDetails.getFirstname());
-            if (userDetails.getLastname() != null) studentUserDetails.setLastName(userDetails.getLastname());
-            userService.save(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return showForm(request, response, errors);
-        }
+        SCYTeacherUserDetails studentUserDetails=null;
+            try {
+                user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "ROLE_TEACHER");
+                studentUserDetails = (SCYTeacherUserDetails) user.getUserDetails();
+                if(userDetails.getFirstName() != null) studentUserDetails.setFirstName(userDetails.getFirstName());
+                if(userDetails.getLastName() != null) studentUserDetails.setLastName(userDetails.getLastName());
+                userService.save(user);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return showForm(request, response, errors);
+            }
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
         modelAndView.addObject("username", studentUserDetails.getUsername());
@@ -66,10 +66,24 @@ public class RegisterTeacherController extends SimpleFormController {
 
     }
 
-    @Override
-    protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) {
-        SCYTeacherUserDetails userDetails = (SCYTeacherUserDetails) command;
-    }
+
+@Override
+	protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) {
+    System.out.println("******************************************************************************");
+        logger.debug("ON BINDE AND VALIDATE STUDENT CONTROLLER!");
+    SCYTeacherUserDetails userDetails = (SCYTeacherUserDetails) command;
+	}
+
+	/*@Override
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception
+	{
+        System.out.println("________________________________________________________________________________________");
+        logger.debug("INIT BINDER IN STUDENT CONTROLLER");
+	  binder.registerCustomEditor(Date.class,
+	    new CustomDateEditor(new SimpleDateFormat("MM/dd"), false)
+	  );
+	} */
+
 
     public UserService getUserService() {
         return userService;
@@ -77,5 +91,13 @@ public class RegisterTeacherController extends SimpleFormController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public ScenarioService getScenarioService() {
+        return scenarioService;
+    }
+
+    public void setScenarioService(ScenarioService scenarioService) {
+        this.scenarioService = scenarioService;
     }
 }

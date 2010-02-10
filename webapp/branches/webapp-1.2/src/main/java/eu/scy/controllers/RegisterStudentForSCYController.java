@@ -80,7 +80,7 @@ public class RegisterStudentForSCYController extends SimpleFormController {
     SCYStudentUserDetails userDetails = (SCYStudentUserDetails) command;
 	}
 
-	@Override
+	/*@Override
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception
 	{
         System.out.println("________________________________________________________________________________________");
@@ -88,7 +88,7 @@ public class RegisterStudentForSCYController extends SimpleFormController {
 	  binder.registerCustomEditor(Date.class,
 	    new CustomDateEditor(new SimpleDateFormat("MM/dd"), false)
 	  );
-	}
+	} */
 
 
     public UserService getUserService() {
