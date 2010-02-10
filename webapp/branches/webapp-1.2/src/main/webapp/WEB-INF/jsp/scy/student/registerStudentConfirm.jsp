@@ -56,21 +56,23 @@
     <table>
         <tr>
             <td>First name</td>
-            <td>${firstname}</td>
+            <td align="right">${firstname}</td>
         </tr>
         <tr>
             <td>Last name</td>
-            <td>${lastname}</td>
+            <td align="right">${lastname}</td>
         </tr>
         <tr>
             <td>Username</td>
-            <td>${username}</td>
+            <td align="right">${username}</td>
         </tr>
         <tr>
             <td>Password</td>
-            <td>${password}</td>
+            <td align="right">${password}</td>
         </tr>
     </table>
+
+    
 
 <table id="confirmationButtons" border="0" cellpadding="5" cellspacing="5">
   <tr>

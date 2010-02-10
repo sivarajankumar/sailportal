@@ -1,65 +1,91 @@
-<%@ include file="include.jsp"%>
+<%@ include file="include.jsp" %>
 
-<!-- $Id: signup.jsp 323 2007-04-21 18:08:49Z hiroki $ -->
+<!-- $Id: index.jsp 2450 2009-09-02 00:30:39Z supersciencefish $ -->
+<!--
+  * Copyright (c) 2006 Encore Research Group, University of Toronto
+  *
+  * This library is free software; you can redistribute it and/or
+  * modify it under the terms of the GNU Lesser General Public
+  * License as published by the Free Software Foundation; either
+  * version 2.1 of the License, or (at your option) any later version.
+  *
+  * This library is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  * Lesser General Public License for more details.
+  *
+  * You should have received a copy of the GNU Lesser General Public
+  * License along with this library; if not, write to the Free Software
+  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
-<html xml:lang="en" lang="en">
+<!-- $Id: index.jsp 2450 2009-09-02 00:30:39Z supersciencefish $ -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/reset-fonts-grids/reset-fonts-grids.css"/>
+    <link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico">
+    <title><spring:message code="application.title"/></title>
 </head>
 
 <body>
 
-<div id="centeredDiv">
+<div id="doc3" class="yui-t7" style="">
+    <div style="height:1em"></div>
+    <div id="hd" class="border top header">
+        <div class="logo">
+            <div class="title">
+                SCY - Science Created by YOU
+            </div>
+        </div>
+        <div class="menubar">
+        <div class="topmenu" style="margin: 4px 1em 2px  1em;">
+                <sec:authorize ifAllGranted="ROLE_USER">
+                    <div id="usernameBannerHome"><sec:authentication property="principal.username"/></div>
+                    <div id="signOutBannerHome"><a id="styleOverRideSafari1" href="<c:url value="/j_spring_security_logout"/>">
+                        <spring:message code="log.out"/></a></div>
+                    <sec:authorize ifAllGranted="ROLE_STUDENT">
+                        <div id="signOutBannerHome"><a href="student/index.html">
+                            <spring:message code="header.student"/></a>
+                        </div>
+                    </sec:authorize>
+                    <sec:authorize ifAllGranted="ROLE_TEACHER">
+                        <span id="signOutBannerHome">
+                            <a href="teacher/index.html"><spring:message code="header.teacher"/></a>
+                        </span>
+                    </sec:authorize>
+                    <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+                        <span id="signOutBannerHome">
+                            <a href="admin/index.html"><spring:message code="header.admin"/></a>
+                        </span>
+                    </sec:authorize>
+                </sec:authorize>
+            </div>
+        </div>
+    </div>
+    <div id="bd" class="border bottom">
+        <div id="yui-main">
+            <div class="yui-b body" style="margin:0;padding: 1em;">
 
-<%@ include file="headermain_nousername.jsp"%>
+                <a href="student/registerstudent.html" title="<spring:message code="signup.3"/>">Create new Student account</a>
+                <a href="teacher/registerteacher.html" title="<spring:message code="signup.4"/>">Create new Teacher account</a>
 
-<div style="text-align:center;">   <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
-
-<h1 id="registrationTitle" class="blueText"><spring:message code="signup.1"/></h1>
-
-<div id="boxNewAccountReg">
-
-<div id="questionPromptReg" class="center"><spring:message code="signup.2"/></div>
-
-<div id="newAccountButtons">
-<ul>
-	<li>
-	<a href="student/registerstudent.html" title="<spring:message code="signup.3"/>">
-	<img id="createstudentacct" src="<spring:theme code="create_student_account" />"
-    onmouseover="swapImage('createstudentacct','<spring:theme code="create_student_account_rollover" />')"
-    onmouseout="swapImage('createstudentacct','<spring:theme code="create_student_account" />')"/></a>
-	</li>
-</ul>
-<ul>
-	<li><a href="teacher/registerteacher.html" title="<spring:message code="signup.4"/>">
-	<img id="createteacheracct" src="<spring:theme code="create_teacher_account" />"
-    onmouseover="swapImage('createteacheracct','<spring:theme code="create_teacher_account_rollover" />')"
-    onmouseout="swapImage('createteacheracct','<spring:theme code="create_teacher_account" />')"/></a>
-	</li>
-
-</ul>
+        </div>
+    </div>
 </div>
-
-</div>   <!--  end of boxNewAccountReg -->
-
-<div id="newAccountDetails">
-	<h4><em> <spring:message code="register.which-account" /></em> </h4>
-	<ul>
-		<li><spring:message code="register.student-account-desc" /></li>
-		<li><spring:message code="register.teacher-account-desc" /></li>
-	</ul>
+<div class="yui-b">
+    <!--div id="taskbar"></div-->
 </div>
-
-	<div style="text-align:center;"><a href="index.html" title="<spring:message code="signup.5"/>"> <img id="return"
-	src="<spring:theme code="return_to_homepage" />"
-	onmouseover="swapImage('return', '<spring:theme code="return_to_homepage_roll" />');"
-	onmouseout="swapImage('return', '<spring:theme code="return_to_homepage" />');" /></a></div>
-
-</div>     <!-- end of IE center fix-->
-
-</div>   <!-- end of centered div-->
-
+</div>
+<div id="ft">
+</div>
+</div>
 </body>
-</html>
 
+</html>
 

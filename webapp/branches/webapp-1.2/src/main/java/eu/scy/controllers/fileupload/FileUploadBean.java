@@ -12,15 +12,30 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadBean {
 
     private MultipartFile file;
+    private String firstName;
+    private String lastName;
 
-        public void setFile(MultipartFile file) {
-            this.file = file;
-        }
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
-        public MultipartFile getFile() {
-            return file;
-        }
-    
-    
+    public MultipartFile getFile() {
+        return file;
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

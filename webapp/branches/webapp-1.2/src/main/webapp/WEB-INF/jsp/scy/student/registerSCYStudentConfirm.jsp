@@ -31,6 +31,8 @@
         </tr>
     </table>
 
+    <a href="/webapp/index.html">Click to log in</a>
+
 
 </body>
 </html>

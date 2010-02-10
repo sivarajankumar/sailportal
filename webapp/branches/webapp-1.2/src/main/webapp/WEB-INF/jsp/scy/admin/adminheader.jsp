@@ -16,11 +16,6 @@
                     <div id="usernameBannerHome"><sec:authentication property="principal.username"/></div>
                     <div id="signOutBannerHome"><a id="styleOverRideSafari1" href="<c:url value="/j_spring_security_logout"/>">
                         <spring:message code="log.out"/></a></div>
-                    <sec:authorize ifAllGranted="ROLE_STUDENT">
-                        <div id="signOutBannerHome"><a href="student/index.html">
-                            <spring:message code="header.student"/></a>
-                        </div>
-                    </sec:authorize>
                     <sec:authorize ifAllGranted="ROLE_TEACHER">
                             <span id="signOutBannerHome">
                                 <a href="../teacher/index.html"><spring:message code="header.teacher"/></a>
@@ -42,7 +37,7 @@
                             </span>
                     </sec:authorize>
 
-                    <sec:authorize ifAllGranted="ROLE_USER">
+                    <sec:authorize ifAllGranted="ROLE_AUTHOR">
                             <span id="signOugBannerHome">
                                 <a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor </a>
                             </span>

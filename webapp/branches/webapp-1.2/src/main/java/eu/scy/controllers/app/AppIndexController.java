@@ -24,6 +24,12 @@ public class AppIndexController extends AbstractController {
         User user = getUserService().getUser(getCurrentUserName(httpServletRequest));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("currentUser", user);
+        if(user.getUserDetails().getUsername().contains("armin") || user.getUserDetails().getUsername().contains("Armin")) {
+            modelAndView.addObject("rickRoll", true);
+        } else {
+            modelAndView.addObject("rickRoll", false);
+        }
+
         return modelAndView;
     }
 
