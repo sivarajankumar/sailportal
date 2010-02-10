@@ -110,6 +110,7 @@
 
 
     <bean id="indexController" class="eu.scy.controllers.IndexController">
+        <!--property name="userService" ref="userService"/-->
     </bean>
 
 

@@ -11,6 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="centeredDiv">
+    
 
     SO YOU WANNA STARTUP THE FREAKIN SCYLab eh? HEE WEEE! <a href="../webstart/scyplanner/scyplanner.jnlp">What about the SCY-Planner</a>??   <br/>
 

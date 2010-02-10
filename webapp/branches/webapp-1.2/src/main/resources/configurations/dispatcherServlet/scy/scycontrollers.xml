@@ -57,6 +57,7 @@
     </bean>
 
     <bean id="appIndexController" class="eu.scy.controllers.app.AppIndexController">
+        <property name="userService" ref="userService"/>
     </bean>
     
     <bean id="userAdminIndexController" class="eu.scy.controllers.app.useradmin.UserAdminIndexController">

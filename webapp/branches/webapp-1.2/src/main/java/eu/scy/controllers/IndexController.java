@@ -1,5 +1,7 @@
 package eu.scy.controllers;
 
+import eu.scy.core.UserService;
+import eu.scy.core.model.User;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -15,12 +17,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class IndexController extends AbstractController {
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
+
+    private UserService userService;
+
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse arg1) throws Exception {
 
+        //User user = getUserService().getUser(getCurrentUserName(request));
+
         ModelAndView modelAndView = new ModelAndView();
+        //modelAndView.addObject("currentUser", user);
         return modelAndView;
 	}
 
-    
+   
 }

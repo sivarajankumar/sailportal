@@ -12,6 +12,7 @@
 
 <div id="centeredDiv">
     <h1>Welcome to SCY!</h1>
+    ${currentUser.userDetails.username} <img src="/webapp/${currentUser.userDetails.profilePictureUrl}"/>
 </div>
 
 </body>

@@ -23,7 +23,7 @@ import java.util.Iterator;
 public class ImageConverter {
     protected static transient Logger log = Logger.getLogger(ImageConverter.class);
 
-       public static final String ICON_POSTFIX = ".icon";
+       public static final String ICON_POSTFIX = ".jpg";
        public static final int DEFAULT_ICON_SIZE = 70;
 //	public MediaTracker mediaTracker;        mave
 

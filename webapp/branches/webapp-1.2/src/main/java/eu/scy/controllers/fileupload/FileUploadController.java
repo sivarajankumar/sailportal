@@ -42,34 +42,6 @@ public class FileUploadController extends SimpleFormController {
     private UserService userService;
 
 
-    @Override
-    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException errors) throws Exception {
-        log.info("********************************************************??????????*************************************************************************************************");
-        User user = getUserService().getUser(getCurrentUserName(request));
-        StudentUserDetails details = (StudentUserDetails) user.getUserDetails();
-        return new ModelAndView(getSuccessView(), "userDetails", details);
-
-    }
-
-    
-
-    @Override
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        log.info("*********************************************************************************************************************************************************");
-        User user = getUserService().getUser(getCurrentUserName(request));
-        StudentUserDetails details = (StudentUserDetails) user.getUserDetails();
-        return new ModelAndView(getSuccessView(), "userDetails", details);
-    }
-
-    @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        log.info("*********************************************************************************************************************************************************");
-        User user = getUserService().getUser(getCurrentUserName(request));
-        StudentUserDetails details = (StudentUserDetails) user.getUserDetails();
-        return new ModelAndView(getSuccessView(), "userDetails", details);
-    }
-
-
 
 
     @Override
@@ -91,6 +63,7 @@ public class FileUploadController extends SimpleFormController {
             HttpServletResponse response,
             Object command,
             BindException errors) throws Exception {
+        log.info("========================SUBMITTED FILE!");
 
 
         // cast the bean
@@ -110,9 +83,10 @@ public class FileUploadController extends SimpleFormController {
 
         String postFix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."), file.getOriginalFilename().length());
 
+        String newFileName = getCurrentUserName(request) + Math.random() + postFix;
 
         File fileDirectory = getFileDirectory(request);
-        String fileName = fileDirectory + File.separator + getCurrentUserName(request) + postFix;
+        String fileName = fileDirectory + File.separator + newFileName ;
 
 
 
@@ -123,13 +97,14 @@ public class FileUploadController extends SimpleFormController {
         }
         profilePicture = new File(fileName);
         file.transferTo(profilePicture);
+        log.info("Added image: " + profilePicture.getAbsolutePath());
 
         ImageConverter converter = new ImageConverter();
         converter.handleImageConversion(profilePicture);
 
         User user = getUserService().getUser(getCurrentUserName(request));
         StudentUserDetails details = (StudentUserDetails) user.getUserDetails();
-        details.setProfilePictureUrl(getCurrentUserName(request) + postFix);
+        details.setProfilePictureUrl(newFileName);
         getUserService().save(user);
 
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
