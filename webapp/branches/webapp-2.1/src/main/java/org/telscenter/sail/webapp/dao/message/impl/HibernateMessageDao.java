@@ -50,17 +50,19 @@ public class HibernateMessageDao
 		return FIND_ALL_QUERY;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Message> getListByRecipient(User recipient) {
-		return this.retrieveByField("recipient", "=", recipient);
+		String q = "select message from MessageImpl message inner join message.recipients mrecipient " +
+				"inner join mrecipient.recipient user where user.id='" + recipient.getId() + "'";
+		return this.getHibernateTemplate().find(q);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Message> getListByRecipient(User recipient, boolean isRead) {
-    	return this.getHibernateTemplate().findByNamedParam(
-    			"select message from MessageImpl message where message.recipient = :recipient " +
-    			"and message.isRead = :isRead", 
-    			new String[]{"recipient", "isRead"},
-    			new Object[]{recipient, isRead});
+		String q = "select message from MessageImpl message inner join message.recipients mrecipient " +
+				"inner join mrecipient.recipient user where user.id='" + recipient.getId() + "' and " +
+				"mrecipient.isRead=" + isRead;
+		return this.getHibernateTemplate().find(q);
 	}
 
 	public List<Message> getListBySender(User sender) {

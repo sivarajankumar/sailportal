@@ -269,6 +269,17 @@ public class CreateRunController extends AbstractWizardFormController {
 			runParameters.setProject(project);
 			runParameters.setName(project.getProjectInfo().getName());
 			
+			/* get the owners and add their usernames to the model */
+			String ownerUsernames = "";
+			Set<User> allOwners = project.getOwners();
+			allOwners.addAll(project.getSharedowners());
+			
+			for(User currentOwner : allOwners){
+				ownerUsernames += currentOwner.getUserDetails().getUsername() + ",";
+			}
+			
+			model.put("projectOwners", ownerUsernames.substring(0, ownerUsernames.length() - 1));
+			
 			/* determine if the project has been cleaned since last edited
 			 * and that the results indicate that all critical problems
 			 * have been resolved. Add relevant data to the model. */
@@ -286,19 +297,6 @@ public class CreateRunController extends AbstractWizardFormController {
 						/* if it has been edited since it was last cleaned, we need to force cleaning */
 						if(lcTime < lastEdited){
 							forceCleaning = true;
-							
-							/* put any cleaning results into a map accessable to the page */
-							Map<String, Integer> results = new TreeMap<String, Integer>();
-							Integer severeDetected = ((JSONObject)lastCleaned.get("severe")).getInt("detected");
-							Integer severeResolved = ((JSONObject)lastCleaned.get("severe")).getInt("resolved");
-							results.put("severeDetected", severeDetected);
-							results.put("severeResolved", severeResolved);
-							results.put("warningDetected", ((JSONObject)lastCleaned.get("warning")).getInt("detected"));
-							results.put("warningResolved", ((JSONObject)lastCleaned.get("warning")).getInt("resolved"));
-							results.put("notifyDetected", ((JSONObject)lastCleaned.get("notification")).getInt("detected"));
-							results.put("notifyResolved", ((JSONObject)lastCleaned.get("notification")).getInt("resolved"));
-							
-							model.put("cleaningResults", results);
 						}
 					} catch (JSONException e){
 						/* something is wrong with lastCleaned data, since we cannot verify it - force cleaning */
@@ -312,6 +310,7 @@ public class CreateRunController extends AbstractWizardFormController {
 				}
 			}
 			
+			model.put("currentUsername", user.getUserDetails().getUsername());
 			model.put("forceCleaning", forceCleaning);
 			model.put("isAllowedToClean", isAllowedToClean);
 			break;

@@ -22,17 +22,15 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
-import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
+import java.util.Set;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.security.context.SecurityContext;
@@ -40,9 +38,9 @@ import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.message.Message;
-import org.telscenter.sail.webapp.domain.message.impl.MessageImpl;
+import org.telscenter.sail.webapp.domain.message.MessageRecipient;
+import org.telscenter.sail.webapp.domain.message.impl.MessageRecipientImpl;
 import org.telscenter.sail.webapp.service.message.MessageService;
 
 /**
@@ -54,11 +52,6 @@ public class MessageController extends AbstractController {
 	private MessageService messageService;
 	
 	private UserService userService;
-	
-	private IMailFacade javaMail = null;
-	
-	private Properties emaillisteners = null;
-
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -91,15 +84,26 @@ public class MessageController extends AbstractController {
 		}
 
 		if (action.equals("archive")) {
-			successful = archiveMessage(message,true,user);
+			successful = this.messageService.markMessageRead(message,true,user);
 		} else if (action.equals("unarchive")) {
-			successful = archiveMessage(message, false, user);
+			successful = this.messageService.markMessageRead(message,false,user);
 		} else if (action.equals("compose") || action.equals("reply")){
-			String recipientUsername = request.getParameter("recipient");
-			User recipient = userService.retrieveUserByUsername(recipientUsername);
-			if (recipient == null) {  // recipient not found
+			Set<MessageRecipient> messageRecipients = new HashSet<MessageRecipient>();
+			String[] recipientUsernames = request.getParameter("recipient").split(",");
+			
+			for(String recipientUsername : recipientUsernames){
+				User recipient = this.userService.retrieveUserByUsername(recipientUsername.trim());
+				//TODO - What to do if one of the recipients does not exist
+				if(recipient != null){
+					MessageRecipient messageRecipient = new MessageRecipientImpl();
+					messageRecipient.setRecipient(recipient);
+					messageRecipients.add(messageRecipient);
+				}
+			}
+			
+			if (messageRecipients.size()<1) {  //no recipients found
 				successful = false;
-				failureMessage = "recipient not found";
+				failureMessage = "no recipients found";
 			} else {
 				// we can try sending message
 				try {
@@ -108,7 +112,8 @@ public class MessageController extends AbstractController {
 					if (originalMessageId != null) {
 						originalMessage = messageService.retrieveById(new Long(originalMessageId));
 					}
-					successful = sendMessage(request, user, recipient, originalMessage);
+					
+					successful = this.messageService.sendMessage(request, user, messageRecipients, originalMessage);
 				} catch (ObjectNotFoundException e) {
 					e.printStackTrace();
 					successful = false;
@@ -126,98 +131,6 @@ public class MessageController extends AbstractController {
 		}
 		return null;
 	}
-	
-	/**
-	 * Handles composing a message from the specified user to another.
-	 * all of the parameters needed to compose a request are in the request object.
-	 * Sends an email to the recipient
-	 * @param request
-	 * @param user
-	 * @param originalMessage if not null, this is a reply
-	 * @return true iff message was successfully composed and sent.
-	 */
-	private boolean sendMessage(HttpServletRequest request, User sender, User recipient, Message originalMessage) {
-		String subject = request.getParameter("subject");
-		String body = request.getParameter("body");
-		Message message = new MessageImpl();
-		message.setOriginalMessage(originalMessage);
-		message.setDate(Calendar.getInstance().getTime());
-		message.setSender(sender);
-		message.setRecipient(recipient);
-		message.setSubject(subject);
-		message.setBody(body);
-		messageService.saveMessage(message);
-		emailMessage(message);
-		return true;
-	}
-
-	private void emailMessage(Message message) {
-		EmailMessageService emailMessageService =
-			new EmailMessageService(message);
-		Thread thread = new Thread(emailMessageService);
-		thread.start();
-	}
-
-	class EmailMessageService implements Runnable {
-		private static final int MAX_BODY_LENGTH = 50;  // maximum number of characters in the body to show in the email.
-		private Message message;
-		
-		public EmailMessageService(Message message) {
-			this.message = message;
-		}
-
-		public void run() {
-			// sends email to the recipient
-    		MutableUserDetails senderUserDetails = (MutableUserDetails) message.getSender().getUserDetails();
-    		String senderName = senderUserDetails.getFirstname() + " " + senderUserDetails.getLastname();
-    		MutableUserDetails recipientUserDetails = (MutableUserDetails) message.getRecipient().getUserDetails();
-    		String recipientEmailAddress = recipientUserDetails.getEmailAddress();
-    		
-    		String[] recipients = {recipientEmailAddress, emaillisteners.getProperty("uber_admin")};
-    		String messageBody = message.getBody();
-    		if (messageBody.length() > MAX_BODY_LENGTH) {
-    			// trim body if it's large, and add ...
-    			messageBody = messageBody.substring(0, MAX_BODY_LENGTH) + "...";
-    		}
-
-    		String subject = senderName + " sent you a message on WISE4";	
-    		String messageString = senderName + " sent you a message on WISE4:\n\n" +
-    		"Subject: " + message.getSubject() + "\n" +
-    		"Recipient:" + message.getRecipient().getUserDetails().getUsername() + "\n" +
-    		"Message: " + messageBody + "\n\n" +
-    		"To reply to this message, please log into WISE.\n\n" +
-    		"Thanks,\n" +
-    		"WISE4 Team";
-    		
-    		String fromEmail = "noreply@telscenter.org";
-    		
-    		//sends the email to the recipients
-    		try {
-    			javaMail.postMail(recipients, subject, messageString, fromEmail);
-    		} catch (MessagingException e) {
-    			// do nothing, no notification to uber_admin required.
-    			e.printStackTrace();
-    		}    	
-		}
-		
-	}
-	
-	
-	/**
-	 * archives a message iff isRead is true. Will not archive
-	 * if specified user is not the recipient of the message.
-	 * @param message
-	 * @param isRead
-	 * @param user
-	 * @return true iff successfully updated message.
-	 */
-	public boolean archiveMessage(Message message, boolean isRead, User user) {
-		if (message.getRecipient().equals(user)) {
-			messageService.markMessageRead(message, isRead);
-			return true;
-		} 
-		return false;
-	}
 
 	/**
 	 * @param messageService the messageService to set
@@ -231,20 +144,6 @@ public class MessageController extends AbstractController {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-
-	/**
-	 * @param javaMail the javaMail to set
-	 */
-	public void setJavaMail(IMailFacade javaMail) {
-		this.javaMail = javaMail;
-	}
-
-	/**
-	 * @param emaillisteners the emaillisteners to set
-	 */
-	public void setEmaillisteners(Properties emaillisteners) {
-		this.emaillisteners = emaillisteners;
 	}
 
 }

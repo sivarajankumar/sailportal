@@ -24,6 +24,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
+<%@ include file="../../projects/styles.jsp"%>
+
 <link href="../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
@@ -131,9 +133,10 @@
 			};
 		/* non-owner but severe detected, needs to contact run owner */
 		} else if(results.severe.detected>0){
-			displayHtml += 'Severe problems were detected. Run set up cannot continue. Please contact the owner(s) of the project to resolve the ' +
-				'problems before setting up a run.';
-			alert('contact run owner');
+			displayHtml += 'Severe problems were detected. Run set up cannot continue. <a onclick="sendCleanMessage()"><font color="blue">' +
+					'Send a message</font></a> to the owner(s) of the project and system administrator requesting cleaning of the project. ' +
+					'NOTE: The owner(s) will be made aware of your username so that they may respond when the project is cleaned. If your ' +
+					'email address for this account is valid, an email will be generated and sent to that address as well.';
 		/* non-owner but no severe detected, can continue to set up run */
 		} else {
 			displayHtml += 'No severe problems detected, continue to <a onclick="enableRunCreation()"><font color="blue">Set up a Run</font></a>.';
@@ -141,6 +144,38 @@
 
 		/* display the html */
 		document.getElementById('cleaningDisplayDiv').innerHTML = displayHtml;
+	};
+
+	/**
+	 * Sends a cleaning message to the owners of the project
+	 */
+	function sendCleanMessage(){
+		if('${project.metadata}' && '${project.metadata.title}'){
+			var projectName = '${project.metadata.title}';
+		} else {
+			var projectName = '${project.name}';
+		};
+		
+		var body = 'Hello, I am ${currentUsername} and would like to request a cleaning for the project ' + projectName +
+				' with project ID ${project.id} so that I may set up a run with this project. Thank you.';
+		var postData = 'recipient=${projectOwners}&subject=Request for project cleaning&body=' + body;
+		var callback = {
+				success:function(o){
+					if(o.responseText != null && o.responseText == 'success'){
+						var msg = '<font color="green">Message was sent to the project owner(s).</font>';
+					} else {
+						var msg = '<font color="red">Error sending message to the owner(s)! Please contact a wise administrator.</font>';
+					};
+					
+					document.getElementById('cleaningDisplayDiv').innerHTML = msg;
+				},
+				failure:function(o){
+					document.getElementById('cleaningDisplayDiv').innerHTML = '<font color="red">Error sending message to the owner(s)! Please contact a wise administrator.</font>';
+				},
+				scope:this
+		};
+
+		YAHOO.util.Connect.asyncRequest('POST', '/webapp/message.html?action=compose', callback, postData);
 	};
 </script>
 

@@ -499,9 +499,15 @@
     	class="org.telscenter.sail.webapp.domain.message.impl.MessageImpl">
     </bean>
 	
+	<bean id="recipients" scope="prototype"
+		class="org.telscenter.sail.webapp.domain.message.impl.MessageRecipientImpl">
+	</bean>
+	
 	<bean id="messageService"
 		class="org.telscenter.sail.webapp.service.message.impl.MessageServiceImpl">
 		<property name="messageDao" ref="messageDao" />
+        <property name="javaMail" ref="javaMail"/>
+		<property name="emaillisteners" ref="emaillisteners" />		
 	</bean>
 	    <!--      
     <bean id="rooloLORProject"

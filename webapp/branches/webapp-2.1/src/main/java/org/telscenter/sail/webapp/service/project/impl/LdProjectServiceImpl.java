@@ -154,10 +154,9 @@ public class LdProjectServiceImpl implements ProjectService {
 		
 		Project project = params.getProject();
 		if(project != null){
-			if(!command.equals("cleanProject")){
+			if(command == null){
 				mav.addObject("command", "editProject");
-			};
-			
+			}
 			mav.addObject("projectId", (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId());
 		}
 		return mav;

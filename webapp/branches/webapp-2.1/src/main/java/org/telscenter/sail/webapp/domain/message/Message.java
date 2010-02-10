@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.message;
 
 import java.util.Date;
+import java.util.Set;
 
 import net.sf.sail.webapp.domain.User;
 
@@ -31,7 +32,6 @@ import net.sf.sail.webapp.domain.User;
  * 
  * id
  * originalMessage; used to denote if this message is a reply to a previous message
- * isRead (true|false)
  * dateSent
  * fromUser
  * toUserId
@@ -65,18 +65,6 @@ public interface Message {
 	public void setOriginalMessage(Message message);
 
 	/**
-	 * @return true iff this message has been read
-	 * by the recipient
-	 */
-	public boolean isRead();
-	
-	/**
-	 * @param isRead whether this message has been read
-	 * by the recipient
-	 */
-	public void setRead(boolean isRead);
-
-	/**
 	 * @return the Date the Message was sent
 	 */
 	public Date getDate();
@@ -97,14 +85,14 @@ public interface Message {
 	public void setSender(User sender);
 	
 	/**
-	 * @return User - the Recipient of the Message
+	 * @return MessageRecipient - the Recipient of the Message
 	 */
-	public User getRecipient();
+	public Set<MessageRecipient> getRecipients();
 	
 	/**
-	 * @param User - the Recipient of the Message
+	 * @param MessageRecipient - the Recipient of the Message
 	 */
-	public void setRecipient(User recipient);
+	public void setRecipients(Set<MessageRecipient> recipient);
 	
 	/**
 	 * @return String - the Subject of the Message

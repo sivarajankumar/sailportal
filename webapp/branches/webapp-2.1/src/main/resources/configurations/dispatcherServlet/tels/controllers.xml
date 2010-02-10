@@ -1442,9 +1442,7 @@
     <bean id="messageController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.MessageController">
     	<property name="messageService" ref="messageService"/>
-    	<property name="userService" ref="userService" />
-        <property name="javaMail" ref="javaMail"/>
-		<property name="emaillisteners" ref="emaillisteners" />			
+    	<property name="userService" ref="userService" />	
     </bean>
     
     <bean id="bridgeController"

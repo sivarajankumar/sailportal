@@ -23,6 +23,8 @@
 package org.telscenter.sail.webapp.domain.message.impl;
 
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,14 +33,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
+import org.hibernate.annotations.Cascade;
 import org.telscenter.sail.webapp.domain.message.Message;
+import org.telscenter.sail.webapp.domain.message.MessageRecipient;
 
 /**
  * Message from one WISE4 user to another.
@@ -68,16 +74,24 @@ public class MessageImpl implements Message {
 	private static final String JOIN_COLUMN_NAME_ORIGINAL_MESSAGE = "originalMessage";
 
     @Transient
-	private static final String COLUMN_NAME_ISREAD = "isRead";
-
-    @Transient
 	private static final String COLUMN_NAME_DATE = "date";
 
     @Transient
 	private static final String JOIN_COLUMN_NAME_SENDER = "sender";
-
+    
     @Transient
-	private static final String JOIN_COLUMN_NAME_RECIPIENT = "recipient";
+    private static final String JOIN_TABLE_NAME_MESSAGES_TO_RECIPIENTS = "messages_related_to_message_recipients";
+    
+    @Transient
+    private static final String JOIN_COLUMN_NAME_MESSAGE_FK = "messages_fk";
+    
+    @Transient
+    private static final String JOIN_COLUMN_NAME_RECIPIENT_FK = "recipients_fk";
+
+    @OneToMany(targetEntity = MessageRecipientImpl.class)
+    @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+    @JoinTable(name = JOIN_TABLE_NAME_MESSAGES_TO_RECIPIENTS, joinColumns = { @JoinColumn(name = JOIN_COLUMN_NAME_MESSAGE_FK, nullable = false)}, inverseJoinColumns = @JoinColumn(name = JOIN_COLUMN_NAME_RECIPIENT_FK, nullable = false))
+    private Set<MessageRecipient> recipients = new TreeSet<MessageRecipient>();
 
     @Transient
 	private static final String COLUMN_NAME_BODY = "body";
@@ -90,19 +104,12 @@ public class MessageImpl implements Message {
 	@JoinColumn(name = MessageImpl.JOIN_COLUMN_NAME_ORIGINAL_MESSAGE, nullable=true, unique=false)
 	private Message originalMessage;
 	
-	@Column(name = MessageImpl.COLUMN_NAME_ISREAD)
-	private boolean isRead;
-	
 	@Column(name = MessageImpl.COLUMN_NAME_DATE, nullable=false)
 	private Date date;
 	    
     @ManyToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = MessageImpl.JOIN_COLUMN_NAME_SENDER, nullable=false)
 	private User sender;
-
-    @ManyToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = MessageImpl.JOIN_COLUMN_NAME_RECIPIENT, nullable=false)
-	private User recipient;
 
     @Column(name=MessageImpl.COLUMN_NAME_SUBJECT, nullable=false)
     private String subject;
@@ -139,20 +146,6 @@ public class MessageImpl implements Message {
 	}
 
 	/**
-	 * @return the isRead
-	 */
-	public boolean isRead() {
-		return isRead;
-	}
-
-	/**
-	 * @param isRead the isRead to set
-	 */
-	public void setRead(boolean isRead) {
-		this.isRead = isRead;
-	}
-
-	/**
 	 * @return the date
 	 */
 	public Date getDate() {
@@ -181,20 +174,6 @@ public class MessageImpl implements Message {
 	}
 
 	/**
-	 * @return the recipient
-	 */
-	public User getRecipient() {
-		return recipient;
-	}
-
-	/**
-	 * @param recipient the recipient to set
-	 */
-	public void setRecipient(User recipient) {
-		this.recipient = recipient;
-	}
-
-	/**
 	 * @return the subject
 	 */
 	public String getSubject() {
@@ -220,6 +199,20 @@ public class MessageImpl implements Message {
 	 */
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	/**
+	 * @return the recipients
+	 */
+	public Set<MessageRecipient> getRecipients() {
+		return recipients;
+	}
+
+	/**
+	 * @param recipients the recipients to set
+	 */
+	public void setRecipients(Set<MessageRecipient> recipients) {
+		this.recipients = recipients;
 	}
 }
 
