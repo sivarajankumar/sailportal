@@ -114,12 +114,22 @@ public class AuthorProjectController extends AbstractController {
 				return handleNotifyProjectClose(request, response);
 			} else if(command.equals("publishMetadata")){
 				return this.handlePublishMetadata(request, response);
+			} else if(command.equals("getEditors")){
+				return this.handleGetEditors(request, response);
 			}
 		}
 		
 		return (ModelAndView) projectService.authorProject(params);
 	}
 
+	/**
+	 * Handles creating a project.
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	private ModelAndView handleCreateProject(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String path = request.getParameter("param1");
 		String name = request.getParameter("param2");
@@ -181,10 +191,16 @@ public class AuthorProjectController extends AbstractController {
 			if (sessionId != currentUserSession.getId()) {
 				User user = allLoggedInUsers.get(sessionId);
 				if (user != null) {
-					otherUsersAlsoEditingProject += user.getUserDetails().getUsername();
+					otherUsersAlsoEditingProject += user.getUserDetails().getUsername() + ",";
 				}
 			}
 		}
+		
+		/* strip off trailing comma */
+		if(otherUsersAlsoEditingProject.contains(",")){
+			otherUsersAlsoEditingProject = otherUsersAlsoEditingProject.substring(0, otherUsersAlsoEditingProject.length() - 1);
+		}
+		
 		response.getWriter().write(otherUsersAlsoEditingProject);
 		return null;
 	}
@@ -216,6 +232,43 @@ public class AuthorProjectController extends AbstractController {
 				return null;
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private ModelAndView handleGetEditors(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String projectPath = request.getParameter("param1");
+		
+		HttpSession currentUserSession = request.getSession();
+		HashMap<String, ArrayList<String>> openedProjectsToSessions = 
+			(HashMap<String, ArrayList<String>>) currentUserSession.getServletContext().getAttribute("openedProjectsToSessions");
+		
+		if(openedProjectsToSessions != null){
+			ArrayList<String> sessions = openedProjectsToSessions.get(projectPath);
+			HashMap<String, User> allLoggedInUsers = (HashMap<String, User>) currentUserSession.getServletContext()
+				.getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
+			
+			String otherUsersAlsoEditingProject = "";
+			for (String sessionId : sessions) {
+				if (sessionId != currentUserSession.getId()) {
+					User user = allLoggedInUsers.get(sessionId);
+					if (user != null) {
+						otherUsersAlsoEditingProject += user.getUserDetails().getUsername() + ",";
+					}
+				}
+			}
+			
+			/* strip off trailing comma */
+			if(otherUsersAlsoEditingProject.contains(",")){
+				otherUsersAlsoEditingProject = otherUsersAlsoEditingProject.substring(0, otherUsersAlsoEditingProject.length() - 1);
+			}
+			
+			response.getWriter().write(otherUsersAlsoEditingProject);
+		} else {
+			response.getWriter().write("");
+		}
+		
+		
+		return null;
 	}
 	
 	private ModelAndView handleProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
