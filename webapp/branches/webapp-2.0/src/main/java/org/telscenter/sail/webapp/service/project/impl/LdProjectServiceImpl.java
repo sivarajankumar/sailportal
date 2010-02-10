@@ -154,8 +154,15 @@ public class LdProjectServiceImpl implements ProjectService {
 		
 		Project project = params.getProject();
 		if(project != null){
+			String title = null;
+			if(project.getMetadata() != null && project.getMetadata().getTitle() != null && !project.getMetadata().getTitle().equals("")){
+				title = project.getMetadata().getTitle();
+			} else {
+				title = project.getName();
+			}
+			
 			mav.addObject("command", "editProject");
-			mav.addObject("projectId", (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId());
+			mav.addObject("projectId", (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "~" + title);
 		}
 		return mav;
 	}

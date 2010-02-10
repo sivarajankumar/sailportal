@@ -232,7 +232,13 @@ public class AuthorProjectController extends AbstractController {
 		String xmlList = "";
 		for(Project project : allAuthorableProjects){
 			if(project.getProjectType()==ProjectType.LD){
-				xmlList += curriculumBaseDir + project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "|";
+				String title = null;
+				if(project.getMetadata() != null && project.getMetadata().getTitle() != null && !project.getMetadata().getTitle().equals("")){
+					title = project.getMetadata().getTitle();
+				} else {
+					title = project.getName();
+				}
+				xmlList += curriculumBaseDir + project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "~" + title + "|";
 			}
 		}
 		xmlList += "";
