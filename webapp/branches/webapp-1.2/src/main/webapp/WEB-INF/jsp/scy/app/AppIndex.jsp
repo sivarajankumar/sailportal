@@ -18,7 +18,7 @@
     </c:if>
 
     <c:if test="${showProfilePicture}">
-        <img src="${profilePictureUrl}" />
+        <img src="/webapp/common/filestreamer.html?username=${currentUser.userDetails.username}&showIcon"/>
     </c:if>
 
     <p>

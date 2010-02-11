@@ -82,6 +82,10 @@
     <bean id="fileStreamerController" class="eu.scy.controllers.common.FileStreamerController">
         <property name="userService" ref="userService"/>
     </bean>
+
+    <bean id="studentListController" class="eu.scy.controllers.teacher.StudentListController">
+        <property name="userService" ref="userService"/>
+    </bean>
     
 
 </beans>
