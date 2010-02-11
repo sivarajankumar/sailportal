@@ -35,7 +35,7 @@ public class FileStreamerView extends AbstractView {
 
         String userName = httpServletRequest.getParameter("username");
         Boolean showIcon = false;
-        if(httpServletRequest.getParameter("showIcon") != null) showIcon = true;
+        if (httpServletRequest.getParameter("showIcon") != null) showIcon = true;
         logger.info("Getting profilePicture for " + userName);
 
 
@@ -44,10 +44,10 @@ public class FileStreamerView extends AbstractView {
         try {
 
             User user = getUserService().getUser(userName);
-            if (user.getUserDetails() instanceof SCYStudentUserDetails) {
+            if (user != null && user.getUserDetails() instanceof SCYStudentUserDetails) {
                 SCYStudentUserDetails userDetails = (SCYStudentUserDetails) user.getUserDetails();
                 String pictureName = userDetails.getProfilePictureUrl();
-                if(showIcon) {
+                if (showIcon) {
                     pictureName = pictureName + ".jpg";
                 }
 
@@ -63,8 +63,33 @@ public class FileStreamerView extends AbstractView {
                     httpServletResponse.setContentLength(bytes.length);
                     out.write(bytes);
                     out.flush();
+                } else {
+                    InputStream is = null;
+                    if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
+                    else is = this.getClass().getResourceAsStream("buddyicon_online.png");
+
+                    byte[] bytes = new byte[is.available()];
+                    is.read(bytes);
+                    out = httpServletResponse.getOutputStream();
+                    httpServletResponse.setContentType(getContentType());
+                    httpServletResponse.setContentLength(bytes.length);
+                    out.write(bytes);
+                    out.flush();
                 }
 
+            } else {
+                InputStream is = null;
+                if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
+                else is = this.getClass().getResourceAsStream("buddyicon_online.png");
+
+
+                byte[] bytes = new byte[is.available()];
+                is.read(bytes);
+                out = httpServletResponse.getOutputStream();
+                httpServletResponse.setContentType(getContentType());
+                httpServletResponse.setContentLength(bytes.length);
+                out.write(bytes);
+                out.flush();
             }
 
 
