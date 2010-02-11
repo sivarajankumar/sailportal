@@ -77,6 +77,7 @@
                 /student/profile.html=studentProfileController
                 /student/upload.html=fileUploadController
                 /teacher/registerteacher.html=registerTeacherController
+                /common/filestreamer.html=fileStreamerController
             </value>
         </property>
     </bean>
@@ -100,6 +101,7 @@
                 /admin/**/*.html=ROLE_ADMINISTRATOR
                 /app/scyauthor/**/*.html=ROLE_ADMINISTRATOR,ROLE_AUTHOR,ROLE_TEACHER,ROLE_STUDENT
                 /app/**/*.html=ROLE_ADMINISTRATOR,ROLE_STUDENT,ROLE_TEACHER
+                /common/**/*=ROLE_ANONYMOUS,ROLE_USER
                 /j_acegi_switch_user*=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER

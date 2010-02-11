@@ -2,6 +2,8 @@ package eu.scy.controllers.app;
 
 import eu.scy.core.UserService;
 import eu.scy.core.model.User;
+import eu.scy.core.model.impl.SCYStudentUserDetails;
+import eu.scy.core.model.impl.SCYUserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -28,6 +30,18 @@ public class AppIndexController extends AbstractController {
             modelAndView.addObject("rickRoll", true);
         } else {
             modelAndView.addObject("rickRoll", false);
+        }
+
+        if(user.getUserDetails() instanceof SCYStudentUserDetails) {
+            SCYStudentUserDetails details = (SCYStudentUserDetails) user.getUserDetails();
+            if(details.getProfilePictureUrl() != null) {
+                modelAndView.addObject("profilePictureUrl", "/webapp/" + details.getProfilePictureUrl());
+                modelAndView.addObject("showProfilePicture", true);
+            } else {
+                modelAndView.addObject("showProfilePicture", false);
+            }
+        } else {
+            modelAndView.addObject("showProfilePicture", false);
         }
 
         return modelAndView;
