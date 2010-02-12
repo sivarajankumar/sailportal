@@ -30,6 +30,11 @@
                         <td>${student.userDetails.lastname}</td>
                     </tr>
                 </c:forEach>
+                <tr>
+                    <td colspan="4">
+                        <a href="addNewStudent.html">Add new Student</a>
+                    </td>
+                </tr>
             </table>
             <br>
         </c:when>

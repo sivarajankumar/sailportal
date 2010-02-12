@@ -69,6 +69,7 @@
             <value>
                 /index.html=urlFilenameViewController
                 /**/index.html=indexController
+                /**/login.html=indexController
                 /**/signup.html=signupController
                 /student/registerstudent.html=registerstudentController
                 /app/AppIndex.html=appIndexController
@@ -78,6 +79,7 @@
                 /student/upload.html=fileUploadController
                 /teacher/registerteacher.html=registerTeacherController
                 /teacher/studentList.html=studentListController
+                /teacher/addNewStudent.html=addNewStudentController
                 /common/filestreamer.html=fileStreamerController
             </value>
         </property>
@@ -94,6 +96,7 @@
                 /index.html=ROLE_ANONYMOUS,ROLE_USER
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
+                /login.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/**/*.html=ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMINISTRATOR

@@ -93,7 +93,7 @@ public class FileUploadController extends SimpleFormController {
         File profilePicture = new File(fileName);
         if(profilePicture.exists()) {
             profilePicture.renameTo(new File(fileName + "" + Math.random()));
-            profilePicture.deleteOnExit();
+            //profilePicture.deleteOnExit();
         }
         profilePicture = new File(fileName);
         file.transferTo(profilePicture);

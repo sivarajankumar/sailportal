@@ -49,10 +49,9 @@
     <div style="text-align:center;">
         <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-        <h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudent.1"/></h1>
+        <h1 id="registrationTitle" class="blueText">Teacher registration</h1>
 
-        <div id="subtitleStudentReg"><spring:message code="student.registerstudent.2"/> <br/><spring:message
-                code="student.registerstudent.3"/></div>
+        <div id="subtitleStudentReg">To create a teacher account, please fill in the following fields</div>
 
         <!-- Support for Spring errors object -->
         <div id="regErrorMessages">
