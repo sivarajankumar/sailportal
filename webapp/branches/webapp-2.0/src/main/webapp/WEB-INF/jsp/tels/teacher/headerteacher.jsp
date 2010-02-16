@@ -73,7 +73,8 @@
 		<li class="level1"><a href="#">Help</a> 
 		<ul>	
             <li><a href="/webapp/teacher/help/overview.html">Overview</a></li>
-			<li><a href="#" style="color:#999;">Frequently Asked Questions</a></li>
+			<li><a href="http://tels-group.soe.berkeley.edu:9006/confluence/display/W3Help/Quickstart+Guide+for+Teachers" target="_blank">Quickstart Guide for Teachers</a></li>
+			<li><a href="http://tels-group.soe.berkeley.edu:9006/confluence/display/W3Help/Frequently+Asked+Questions+(FAQ)" target="_blank">Frequently Asked Questions</a></li>
             <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
             <li><a href="/webapp/contactwisegeneral.html">Contact WISE Staff</a></li>
 		</ul>
