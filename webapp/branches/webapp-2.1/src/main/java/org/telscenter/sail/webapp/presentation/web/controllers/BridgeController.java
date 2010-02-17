@@ -160,6 +160,16 @@ public class BridgeController extends AbstractController {
 				canAccessOtherWorkgroups = true;
 			} else if (type.equals("journal")) {
 				workgroupIdStr = request.getParameter("workgroupId");
+			} else if(type.equals("peerreview")) {
+				//return true for now until logic is implemented
+				try {
+					Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(runId, period);
+					request.setAttribute("numWorkgroups", classmateWorkgroups.size());
+				} catch (ObjectNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return true;
 			} else {
 				// this should never happen
 			}
@@ -274,7 +284,10 @@ public class BridgeController extends AbstractController {
 		} else if (type.equals("journal")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/journaldata.html");
 			requestDispatcher.forward(request, response);
-		} 
+		} else if (type.equals("peerreview")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
+			requestDispatcher.forward(request, response);
+		}
 		return null;
 	}
 
@@ -293,6 +306,9 @@ public class BridgeController extends AbstractController {
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("journal")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/journaldata.html");
+			requestDispatcher.forward(request, response);
+		} else if (type.equals("peerreview")) {
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
 		}
 		return null;
