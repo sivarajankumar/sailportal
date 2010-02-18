@@ -348,6 +348,9 @@ public class StudentVLEController extends AbstractController {
     	
     	//get the url to get journal data
 		String getJournalDataUrl = portalurl + "/webapp/bridge/getdata.html?type=journal";
+
+		//get the url to get peer review work
+		String getPeerReviewUrl = portalurl + "/webapp/bridge/getdata.html?type=peerreview";
 		
 		/* Set the post level if specified in the run */
 		Integer postLevel = run.getPostLevel();
@@ -380,6 +383,7 @@ public class StudentVLEController extends AbstractController {
 			config.put("postJournalDataUrl", postJournalDataUrl);
 			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
 			config.put("getRunExtrasUrl", getRunExtrasUrl);
+			config.put("getPeerReviewUrl", getPeerReviewUrl);
 			if(postLevel!=null){
 				config.put("postLevel", postLevel);
 			};
