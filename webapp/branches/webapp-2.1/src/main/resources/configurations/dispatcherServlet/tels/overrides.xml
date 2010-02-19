@@ -95,6 +95,7 @@
     	<property name="order" value="2"></property>
     	<property name="mappings">
     		<value>
+    			/request/info.html=informationController
     		    /index.html=urlFilenameViewController
     		    /smartroom/smartroom.html=smartRoomController
     		    /vle/preview.html=previewLDProjectController

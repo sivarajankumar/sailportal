@@ -1,0 +1,629 @@
+/**
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
+ * by TELS, Graduate School of Education, University of California at Berkeley.
+ *
+ * This software is distributed under the GNU Lesser General Public License, v2.
+ *
+ * Permission is hereby granted, without written agreement and without license
+ * or royalty fees, to use, copy, modify, and distribute this software and its
+ * documentation for any purpose, provided that the above copyright notice and
+ * the following two paragraphs appear in all copies of this software.
+ *
+ * REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE. THE SOFTWAREAND ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED
+ * HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
+ * MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+ *
+ * IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+ * SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+ * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+ * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package org.telscenter.sail.webapp.presentation.web.controllers;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.UserService;
+import net.sf.sail.webapp.service.workgroup.WorkgroupService;
+
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
+
+/**
+ * @author patrick lawler
+ * @version $Id:$
+ */
+public class InformationController extends AbstractController{
+
+	Properties portalProperties;
+	
+	ProjectService projectService;
+	
+	RunService runService;
+	
+	UserService userService;
+	
+	WorkgroupService workgroupService;
+	
+	/* how long the VLE should wait between each getRunInfo request, 
+	 * in milliseconds 10000=10 seconds, -1=never */
+	private static final String GET_RUNINFO_REQUEST_INTERVAL = "-1";
+	
+	private static final String WORKGROUP_ID_PARAM = "workgroupId";
+	
+	private static final String PREVIEW = "preview";
+	
+	/**
+	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String action = request.getParameter("action");
+		
+		if(action.equals("getVLEConfig")){
+			this.handleGetConfig(request, response);
+		} else if(action.equals("getUserInfo")){
+			this.handleGetUserInfo(request, response);
+		} else {
+			throw new Exception("I do not understand the request.");
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * If the workgroupId is specified in the request, then look up userInfo for that specified workgroup.
+	 * Otherwise, lookup userInfo for the currently-logged-in user.
+	 * @param request
+	 * @param response
+	 * @param user Currently-logged in user
+	 * @param workgroup workgroup that the currently-logged in user is in for the run
+	 * @return
+	 * @throws IOException
+	 * @throws ObjectNotFoundException 
+	 * @throws NumberFormatException 
+	 */
+	private void handleGetUserInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, NumberFormatException, ObjectNotFoundException{
+		JSONObject userInfo = new JSONObject();
+		
+		/* check if this is preview an write response now if it is */
+		String preview = request.getParameter("preview");
+		if(preview != null && preview.equals("true")){
+			response.getWriter().write(userInfo.toString());
+			return;
+		}
+		
+		String runId = request.getParameter("runId");
+		Run run = this.runService.retrieveById(Long.parseLong(runId));
+		
+		Workgroup workgroup = getWorkgroup(request, run);
+		String workgroupIdStr = request.getParameter(WORKGROUP_ID_PARAM);
+		if (workgroupIdStr != null && workgroupIdStr != "") {
+			workgroup = workgroupService.retrieveById(new Long(workgroupIdStr));
+			// if a workgroup was specified that was not for this run, return BAD_REQUEST
+			if (workgroup.getOffering().getId() != run.getId()) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				return;
+			}
+		} else { }
+		
+		/*
+		 * the group id of the period, this is the id in the db which is not
+		 * the same as the period number
+		 */
+		String periodId = "";
+		
+		//the period number that you would regularly think of as a period
+		String periodName = "";
+		
+		//get the period
+		if(workgroup instanceof WISEWorkgroup && !((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+			//the logged in user is a student
+			Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
+			periodName = periodGroup.getName();
+			periodId = periodGroup.getId().toString();
+		} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+			//the logged in user is a teacher
+			
+			//string buffers to maintain : delimited values
+			StringBuffer periodIds = new StringBuffer();
+			StringBuffer periodNames = new StringBuffer();
+			
+			//get the periods
+			Set<Group> periods = run.getPeriods();
+			Iterator<Group> periodIter = periods.iterator();
+			
+			//loop through all the periods
+			while(periodIter.hasNext()) {
+				Group next = periodIter.next();
+				
+				//if this is not the first period add a :
+				if(periodIds.length() != 0) {
+					periodIds.append(":");
+				}
+				
+				//if this is not the first period add a :
+				if(periodNames.length() != 0) {
+					periodNames.append(":");
+				}
+				
+				//append the values
+				periodIds.append(next.getId());	
+				periodNames.append(next.getName());
+			}
+			
+			//get the string values
+			periodId = periodIds.toString();
+			periodName = periodNames.toString();
+		}
+		
+		//obtain the user name in the format like "Geoffrey Kwan (GeoffreyKwan)"
+		String userNames = getUserNamesFromWorkgroup(workgroup);
+		
+		// add this user's info:
+		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + userNames + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
+		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
+		
+		JSONObject myUserInfo = new JSONObject();
+		try {
+			myUserInfo.put("workgroupId", workgroup.getId());
+			myUserInfo.put("userName", userNames);
+			myUserInfo.put("periodId", periodId);
+			myUserInfo.put("periodName", periodName);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		// add the class info:
+		//userInfoString.append("<myClassInfo>");
+		
+		JSONObject myClassInfo = new JSONObject();
+		
+		JSONArray classmateUserInfos = new JSONArray();
+		
+		// now add classmates
+		Set<Workgroup> workgroups = runService.getWorkgroups(run.getId());
+			
+		String requestedWorkgroupIdsStr = request.getParameter("workgroupIds");
+		if (requestedWorkgroupIdsStr != null) {
+			// specific workgroups are requested
+			String[] requestedWorkgroupIds = requestedWorkgroupIdsStr.split(",");
+			for (Workgroup classmateWorkgroup : workgroups) {
+				if (classmateWorkgroup.getMembers().size() > 0 && 
+						classmateWorkgroup.getId() != workgroup.getId() 
+						&& !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()
+						&& ((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {
+					// only include non-teacher, non-detached classmates, excluding yourself.
+					for (String requestedWorkgroupId : requestedWorkgroupIds) {
+						if (requestedWorkgroupId.equals(classmateWorkgroup.getId().toString())) {
+							//get the xml for the classmate and append it
+							//userInfoString.append(getClassmateUserInfoXML(classmateWorkgroup));
+							
+							classmateUserInfos.put(getClassmateUserInfoJSON(classmateWorkgroup));
+						}
+					}
+				}
+			}
+		} else {
+			// otherwise get all classmates (excluding teacher)
+			for (Workgroup classmateWorkgroup : workgroups) {
+				if (classmateWorkgroup.getMembers().size() > 0 
+						&& classmateWorkgroup.getId() != workgroup.getId() 
+						&& !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()
+						&& ((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {   // only include classmates, not yourself.
+					//get the xml for the classmate and append it
+					//userInfoString.append(getClassmateUserInfoXML(classmateWorkgroup));
+					
+					classmateUserInfos.put(getClassmateUserInfoJSON(classmateWorkgroup));
+				}
+			}
+
+		}
+		
+		JSONObject teacherUserInfo = new JSONObject();
+		
+		// add teacher info
+		for (Workgroup classmateWorkgroup : workgroups) {
+			if (((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
+				// inside, add teacher info
+				Set<User> owners = run.getOwners();
+				User teacher = null;
+				
+				try {
+					if (owners.size() > 0) {
+						teacher = owners.iterator().next();
+						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>");
+						
+						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
+						teacherUserInfo.put("userName", teacher.getUserDetails().getUsername());
+					} else {
+						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>");
+						
+						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
+						teacherUserInfo.put("userName", classmateWorkgroup.generateWorkgroupName());
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+
+			}
+		}
+		
+		try {
+			userInfo.put("myUserInfo", myUserInfo);
+			myUserInfo.put("myClassInfo", myClassInfo);
+			myClassInfo.put("classmateUserInfos", classmateUserInfos);
+			myClassInfo.put("teacherUserInfo", teacherUserInfo);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
+		
+		response.setContentType("text/xml");
+		response.getWriter().write(userInfo.toString());
+	}
+	
+	/**
+	 * Handles the get config request from three possible requesters: grading, preview and run.
+	 * The run and grading requests are almost identical, the preview request is largely handled
+	 * when the projectId is found.
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ObjectNotFoundException
+	 * @throws IOException
+	 */
+	private void handleGetConfig(HttpServletRequest request, HttpServletResponse response) throws ObjectNotFoundException, IOException{
+		JSONObject config = new JSONObject();
+		String projectIdStr = request.getParameter("projectId");
+		String runId = request.getParameter("runId");
+		String requester = request.getParameter("requester");
+		
+		String portalurl = ControllerUtil.getBaseUrlString(request);
+		String infourl = portalurl + "/webapp/request/info.html";
+		
+		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+		
+		String polishedProjectUrl = null;
+		String versionId = null;
+		String rawProjectUrl = null;
+		String portalVLEControllerUrl = null;
+		
+		/* if projectId provided, get project url from project */
+		if(projectIdStr != null){
+			Project project = projectService.getById(projectIdStr);
+			
+			/* get the url for the project content file */
+			versionId = this.projectService.getActiveVersion(project);
+			rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			
+			portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
+		}
+		
+		/* if no projectId String provided, try getting project url from run also add gradework
+		 * specific config to the config */
+		if(runId != null){
+			Run run = this.runService.retrieveById(Long.parseLong(runId));
+			rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+			versionId = run.getVersionId();
+			
+			portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
+			
+			//get the grading type (step or team)
+			String gradingType = request.getParameter("gradingType");
+			
+			//get the url for the run info
+			String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
+			
+			//get the url for the run extras
+			String getRunExtrasUrl = portalVLEControllerUrl + "&action=getRunExtras";
+			
+			//get the url to get student data
+			String getStudentDataUrl = portalurl + "/webapp/bridge/getdata.html";
+			
+			//get the url to post student data
+			String postStudentDataUrl = portalurl + "/webapp/bridge/postdata.html";
+			
+			//get the url to get flags
+			String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+			
+			//get the url to post flags
+			String postFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
+			
+			//get the url to get annotations
+	    	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
+	    	
+	    	//get the url to post annotations
+	    	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
+			
+	    	//get the url to post max scores
+	    	String postMaxScoreUrl = portalurl + "/webapp/teacher/grading/gradebystep.html?action=postMaxScore&runId=" + run.getId().toString();
+	    	
+	    	//get the url to post journal data
+	    	String postJournalDataUrl = portalurl + "/webapp/bridge/postdata.html?type=journal";
+	    	
+	    	//get the url to get journal data
+			String getJournalDataUrl = portalurl + "/webapp/bridge/getdata.html?type=journal";
+			
+			//get the url to get peer review work
+			String getPeerReviewUrl = portalurl + "/webapp/bridge/getdata.html?type=peerreview";
+			
+			/* Set the post level if specified in the run */
+			Integer postLevel = run.getPostLevel();
+	    	
+	    	//put all the config params into the json object
+			try {
+				config.put("getFlagsUrl", getFlagsUrl);
+				config.put("postFlagsUrl", postFlagsUrl);
+				config.put("getAnnotationsUrl", getAnnotationsUrl);
+				config.put("postAnnotationsUrl", postAnnotationsUrl);
+				config.put("getStudentDataUrl", getStudentDataUrl);
+				config.put("postStudentDataUrl", postStudentDataUrl);
+				config.put("getRunInfoUrl", getRunInfoUrl);
+				config.put("getRunExtrasUrl", getRunExtrasUrl);
+				config.put("postMaxScoreUrl", postMaxScoreUrl);
+				config.put("gradingType", gradingType);
+				config.put("getPeerReviewUrl", getPeerReviewUrl);
+				config.put("getJournalDataUrl", getJournalDataUrl);
+				config.put("postJournalDataUrl", postJournalDataUrl);
+				if(postLevel!=null){
+					config.put("postLevel", postLevel);
+				};
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		/* The polishedProjectUrl is the project url with the version id inserted into the project filename
+		 * If null or empty string is returned, we want to use the rawUrl */
+		if(versionId==null || versionId.equals("")){
+			polishedProjectUrl = rawProjectUrl;
+		} else {
+			polishedProjectUrl = rawProjectUrl.replace(".project.json", ".project." + versionId + ".json");
+		}
+		
+		/* set the content url */
+		String getContentUrl = curriculumBaseWWW + polishedProjectUrl;
+		
+		/* get location of last separator in url */
+		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
+		if(lastIndexOfSlash==-1){
+			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
+		}
+		
+		/* get the url for the *.project.meta.json file */
+		String getProjectMetadataUrl = getContentUrl.substring(0, getContentUrl.lastIndexOf(".")) + "-meta.json";
+		
+		/* set the contentbase based on the contenturl */
+		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
+		
+		String getUserInfoUrl = infourl + "?action=getUserInfo";
+		if(requester.equals("preview")){
+			getUserInfoUrl += "&preview=true";
+		} else {
+			getUserInfoUrl += "&runId=" + runId;
+		}
+		
+		try {
+			config.put("mode", requester);
+			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
+			config.put("getUserInfoUrl", getUserInfoUrl);
+			config.put("getContentUrl", getContentUrl);
+			config.put("getProjectPath", getContentUrl);
+			config.put("getContentBaseUrl", getContentBaseUrl);
+			config.put("theme", "WISE");
+			config.put("enableAudio", false);
+			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
+			
+			if(runId==null){
+				config.put("runId", "");
+			} else {
+				config.put("runId", runId);
+			}
+		} catch (JSONException e){
+			e.printStackTrace();
+		}
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader ("Expires", 0);
+		
+		response.setContentType("text/xml");
+		response.getWriter().write(config.toString());
+	}
+
+	/**
+	 * Gets the workgroup for the currently-logged in user so that she may
+	 * view the VLE.
+	 * @param request
+	 * @param run
+	 * @param user
+	 * @return
+	 * @throws ObjectNotFoundException
+	 */
+	private Workgroup getWorkgroup(HttpServletRequest request, Run run)
+	throws ObjectNotFoundException {
+		Workgroup workgroup = null;
+		//User user = (User) request.getSession().getAttribute(
+    	//		User.CURRENT_USER_SESSION_KEY);
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		User user = userService.retrieveUser(userDetails);
+		
+		List<Workgroup> workgroupListByOfferingAndUser 
+		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);
+
+		if (workgroupListByOfferingAndUser.size() > 0) {
+			workgroup = workgroupListByOfferingAndUser.get(0);
+		} else {
+			String previewRequest = request.getParameter(PREVIEW);
+			if (previewRequest != null && Boolean.valueOf(previewRequest)) {
+				// if this is a preview, workgroupId should be specified, so use
+				// that
+				String workgroupIdStr = request
+						.getParameter(WORKGROUP_ID_PARAM);
+				if (workgroupIdStr != null) {
+					workgroup = workgroupService.retrieveById(Long
+							.parseLong(workgroupIdStr));
+				} else {
+					workgroup = workgroupService
+							.getPreviewWorkgroupForRooloOffering(run, user);
+				}
+			}
+		}
+		return workgroup;
+	}
+	
+	/**
+	 * Obtain the user names for this workgroup
+	 * @param workgroup a Workgroup that we want the names from
+	 * @return a string of user names delimited by :
+	 * e.g.
+	 * "Jennifer Chiu (JenniferC829):helen zhang (helenz1115a)"
+	 */
+	private String getUserNamesFromWorkgroup(Workgroup workgroup) {
+		//the string buffer to maintain the user names for the logged in user
+		StringBuffer userNames = new StringBuffer();
+		Set<User> members = workgroup.getMembers();
+		Iterator<User> iterator = members.iterator();
+		while(iterator.hasNext()) {
+			//get a user
+			User user = iterator.next();
+
+			//get the first name last name and login as a string like Geoffrey Kwan (GeoffreyKwan)
+			String firstNameLastNameLogin = getFirstNameLastNameLogin(user);
+			
+			//separate the names with a :
+			if(userNames.length() != 0) {
+				userNames.append(":");
+			}
+			
+			//add the first name last name and login for this user
+			userNames.append(firstNameLastNameLogin);
+		}
+		
+		//return the : delimited user names that are in this workgroup
+		return userNames.toString();
+	}
+	
+	/**
+	 * Obtain the first name, last name, and login for the user
+	 * @param user the User we want to obtain the first, last, login for
+	 * @return the first, last and login in this format below
+	 * Jennifer Chiu (JenniferC829)
+	 */
+	private String getFirstNameLastNameLogin(User user) {
+		String firstName = "";
+		String lastName = "";
+		String userName = "";
+		
+		//get the user details, we need to cast to our own MutableUserDetails class
+		MutableUserDetails userDetails = (org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) user.getUserDetails();
+
+		//get the first name, last name, and login
+		if(userDetails != null) {
+			userName = userDetails.getUsername();
+			firstName = userDetails.getFirstname();
+			lastName = userDetails.getLastname();
+		}
+		
+		//append the user's name and login so it looks like Jennifer Chiu (JenniferC829)
+		return firstName + " " + lastName + " (" + userName + ")";
+	}
+	
+	/**
+	 * Get the xml for the classmate user info
+	 * @param classmateWorkgroup the workgroup of the classmate
+	 * @return an xml string containing the info for the classmate
+	 */
+	private JSONObject getClassmateUserInfoJSON(Workgroup classmateWorkgroup) {
+		//StringBuffer userInfoString = new StringBuffer();
+		JSONObject classmateUserInfo = new JSONObject();
+		
+		try {			
+			classmateUserInfo.put("workgroupId", classmateWorkgroup.getId());
+			String userNames = getUserNamesFromWorkgroup(classmateWorkgroup);
+			
+			classmateUserInfo.put("userName", userNames);
+			
+			//get user name
+			if(classmateWorkgroup instanceof WISEWorkgroup) {
+				//check that there is a period
+				if(((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {
+					classmateUserInfo.put("periodId", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getId());
+					classmateUserInfo.put("periodName", ((WISEWorkgroup) classmateWorkgroup).getPeriod().getName());
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return classmateUserInfo;
+	}
+	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
+
+	/**
+	 * @param userService the userService to set
+	 */
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	/**
+	 * @param workgroupService the workgroupService to set
+	 */
+	public void setWorkgroupService(WorkgroupService workgroupService) {
+		this.workgroupService = workgroupService;
+	}
+
+}

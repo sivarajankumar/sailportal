@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.dao.project.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -29,6 +30,7 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.User;
 
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.dao.project.ProjectMetadataDao;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
@@ -41,6 +43,8 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
  */
 public class HibernateProjectDao extends AbstractHibernateDao<Project> implements
 		ProjectDao<Project> {
+	
+		private ProjectMetadataDao metadataDao;
 
     	private static final String FIND_ALL_QUERY = "from ProjectImpl";
 
@@ -57,7 +61,7 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		if (projects == null)
 			throw new ObjectNotFoundException(familytag, this
 					.getDataObjectClass());
-		return projects;
+		return this.metadataDao.addMetadataToProjects(projects);
 	}
 	
 	/**
@@ -73,7 +77,7 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		if (projects == null)
 			throw new ObjectNotFoundException(projectinfotag, this
 					.getDataObjectClass());
-		return projects;
+		return this.metadataDao.addMetadataToProjects(projects);
 	}
 	
 	/**
@@ -108,13 +112,48 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 	public List<Project> getProjectListByUAR(User user, String role){
 		String q = "select project from ProjectImpl project inner join project." +
 			role + "s " + role + " where " + role + ".id='" + user.getId() + "'";
-		return this.getHibernateTemplate().find(q);
+		return this.metadataDao.addMetadataToProjects(this.getHibernateTemplate().find(q));
 	}
 	
 	/**
 	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#getProjectList(java.lang.String)
 	 */
 	public List<Project> getProjectList(String query){
-		return this.getHibernateTemplate().find(query);
+		return this.metadataDao.addMetadataToProjects(this.getHibernateTemplate().find(query));
+	}
+
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#getList()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Project> getList() {
+		return this.metadataDao.addMetadataToProjects(this.getHibernateTemplate().find(this.getFindAllQuery()));
+	}
+	
+	/**
+	 * @see net.sf.sail.webapp.dao.SimpleDao#getById(java.lang.Integer)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Project getById(Serializable id) throws ObjectNotFoundException {
+		Project object = null;
+		try {
+			object = (Project) this.getHibernateTemplate().get(
+					this.getDataObjectClass(),  Long.valueOf(id.toString()));
+		} catch (NumberFormatException e) {
+			return null;
+		}
+		if (object == null)
+			throw new ObjectNotFoundException((Long) id, this.getDataObjectClass());
+		
+		return this.metadataDao.addMetadataToProject(object);
+	}
+	
+	/**
+	 * @param metadataDao the metadataDao to set
+	 */
+	public void setMetadataDao(ProjectMetadataDao metadataDao) {
+		this.metadataDao = metadataDao;
 	}
 }

@@ -140,6 +140,9 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
     private static final String COLUMN_NAME_POST_LEVEL = "postLevel";
+    
+    @Transient
+    private static final String COLUMN_NAME_VERSION_ID = "versionId";
 
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
@@ -200,6 +203,9 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Column(name = RunImpl.COLUMN_NAME_POST_LEVEL)
     private Integer postLevel;
+    
+    @Column(name = RunImpl.COLUMN_NAME_VERSION_ID)
+    private String versionId;
     
     /**
      * @return the endtime
@@ -511,5 +517,19 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setPostLevel(Integer postLevel) {
 		this.postLevel = postLevel;
+	}
+
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId() {
+		return versionId;
+	}
+
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId) {
+		this.versionId = versionId;
 	}
 }

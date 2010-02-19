@@ -279,4 +279,14 @@ public interface Run extends Offering {
 	 * @param postLevel the postLevel to set
 	 */
 	public void setPostLevel(Integer postLevel);
+	
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId();
+
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId);
 }

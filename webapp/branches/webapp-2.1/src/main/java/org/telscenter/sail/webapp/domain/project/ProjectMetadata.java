@@ -147,4 +147,24 @@ public interface ProjectMetadata{
 	 * @return <code>String</code> keywords
 	 */
 	public void setKeywords(String keywords);
+	
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(Long projectId);
+
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId();
+	
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId);
+
+	/**
+	 * @return the projectId
+	 */
+	public Long getProjectId();
 }

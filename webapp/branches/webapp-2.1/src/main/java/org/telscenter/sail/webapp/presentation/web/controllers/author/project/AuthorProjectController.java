@@ -114,6 +114,8 @@ public class AuthorProjectController extends AbstractController {
 				return handleNotifyProjectClose(request, response);
 			} else if(command.equals("publishMetadata")){
 				return this.handlePublishMetadata(request, response);
+			} else if(command.equals("getUsername")){
+				return this.handleGetUsername(request, response);
 			}
 		}
 		
@@ -232,7 +234,16 @@ public class AuthorProjectController extends AbstractController {
 		String xmlList = "";
 		for(Project project : allAuthorableProjects){
 			if(project.getProjectType()==ProjectType.LD){
-				xmlList += curriculumBaseDir + project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "|";
+				String versionId = this.projectService.getActiveVersion(project);
+				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+				String polishedProjectUrl = null;
+				
+				if(versionId == null || versionId.equals("")){
+					polishedProjectUrl = rawProjectUrl;
+				} else {
+					polishedProjectUrl = rawProjectUrl.replace(".project.json", ".project." + versionId + ".json");
+				}
+				xmlList += curriculumBaseDir + polishedProjectUrl + "~" + project.getId() + "|";
 			}
 		}
 		xmlList += "";
@@ -252,19 +263,23 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	private ModelAndView handlePublishMetadata(HttpServletRequest request, HttpServletResponse response) throws ObjectNotFoundException, IOException{
 		Long projectId = Long.parseLong(request.getParameter("projectId"));
+		String versionId = request.getParameter("versionId");
+		
 		Project project = this.projectService.getById(projectId);
 		
 		/* retrieve the metadata from the file */
-		JSONObject metadata = this.projectService.getProjectMetadataFile(project);
+		JSONObject metadata = this.projectService.getProjectMetadataFile(project, versionId);
 		
 		/* set the fields in the ProjectMetadata where appropriate */
 		if(metadata != null){
-			ProjectMetadata pMeta = project.getMetadata();
+			ProjectMetadata pMeta = this.projectService.getMetadata(projectId, versionId);
 			
 			/* if no previous metadata exists for this project, then we want to create one
 			 * and set it in the project */
 			if(pMeta == null){
 				pMeta = new ProjectMetadataImpl();
+				pMeta.setVersionId(versionId);
+				pMeta.setProjectId(projectId);
 				project.setMetadata(pMeta);
 			}
 			
@@ -323,8 +338,8 @@ public class AuthorProjectController extends AbstractController {
 				pMeta.setKeywords((String) keywords);
 			}
 			
-			/* save the project */
-			this.projectService.updateProject(project);
+			/* save the project metadata */
+			this.projectService.updateMetadata(pMeta);
 			
 			/* write success message */
 			response.getWriter().write("Project metadata was successfully published to the portal.");
@@ -353,6 +368,19 @@ public class AuthorProjectController extends AbstractController {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * Writes the current user's username to the response
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	private ModelAndView handleGetUsername(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		response.getWriter().write(user.getUserDetails().getUsername());
+		return null;
 	}
 	
 	/**

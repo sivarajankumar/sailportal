@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.service.offering.impl;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -38,11 +39,11 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.group.impl.PersistentGroup;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.acls.Permission;
 import org.springframework.security.acls.domain.BasePermission;
@@ -61,6 +62,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Services for WISE's Run Domain Object
@@ -89,6 +91,8 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	private GroupDao<Group> groupDao;
 	
 	private UserDao<User> userDao;
+	
+	private ProjectService projectService;
 
 	/**
 	 * @param groupDao
@@ -216,6 +220,16 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		}
 		run.setPostLevel(runParameters.getPostLevel());
 
+		/* if this is an LD project take snapshot of project for run and set versionId */
+		if(run.getProject().getProjectType()==ProjectType.LD){
+			String requester = run.getOwners().iterator().next().getUserDetails().getUsername();
+			String versionId = this.projectService.takeSnapshot(run.getProject(), requester, "For Run " + run.getName());
+			if(versionId==null || versionId.equals("failed")){
+				throw new ObjectNotFoundException("Snapshot of project failed when creating the run.", RunImpl.class);
+			} else{
+				run.setVersionId(versionId);
+			}
+		}
 		this.runDao.save(run);
 		this.aclService.addPermission(run, BasePermission.ADMINISTRATION);
 		return run;
@@ -492,5 +506,12 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public void setExtras(Run run, String extras) throws Exception {
 		run.setExtras(extras);
 		this.runDao.save(run);
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 }

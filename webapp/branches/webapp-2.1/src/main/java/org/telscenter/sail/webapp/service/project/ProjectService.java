@@ -22,6 +22,7 @@
  */
 package org.telscenter.sail.webapp.service.project;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -30,12 +31,12 @@ import net.sf.sail.webapp.domain.User;
 
 import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
@@ -245,11 +246,65 @@ public interface ProjectService {
 	public String minifyProject(Project project);
 	
 	/**
-	 * Give a <code>Project</code>, returns <code>JSONObject</code> the project metadata
-	 * from the file, if it exists, returns null otherwise.
+	 * Give a <code>Project</code> and a <code>String</code> versionId, returns 
+	 * <code>JSONObject</code> the project metadata from the file, if it exists, 
+	 * returns null otherwise.
 	 * 
 	 * @param project
-	 * @return
+	 * @return JSONObject - project metadata
+	 */
+	public JSONObject getProjectMetadataFile(Project project, String versionId);
+	
+	/**
+	 * Give a <code>Project</code> returns <code>JSONObject</code> the project metadata 
+	 * from the active version of the file, if it exists, returns null otherwise.
+	 * 
+	 * @param project
+	 * @return JSONObject - project metadata
 	 */
 	public JSONObject getProjectMetadataFile(Project project);
+	
+	/**
+	 * Given a <code>Project</code> project, attempts to retrieve and return the
+	 * <code>String</code> currently active version of the project from the version
+	 * master. Returns the active version if successful, null otherwise.
+	 * 
+	 * @param project
+	 * @return String activeVersion
+	 */
+	public String getActiveVersion(Project project);
+	
+	/**
+	 * Given a <code>Project</code> project, a <code>String</code> username, and a
+	 * <code>String</code> snapshotName, attempts to create a snapshot of the given
+	 * version of the project. If successful, returns <code>String</code> the versionId
+	 * of the snapshot, returns "failed" otherwise.
+	 * 
+	 * @param project
+	 * @param username
+	 * @param snapshotName
+	 * @return String versionId
+	 */
+	public String takeSnapshot(Project project, String username, String snapshotName);
+	
+	/**
+	 * Given a <code>Project</code> and the <code>ProjectMetadata</code> metadata updates the
+	 * metadata in the database.
+	 * 
+	 * @param project
+	 * @param metadata
+	 * @return ProjectMetadata
+	 */
+	public ProjectMetadata updateMetadata(ProjectMetadata metadata);
+	
+	/**
+	 * Given a <code>Long</code> projectId and a <code>String</code> versionId, returns the
+	 * <code>ProjectMetadata</code> that is associated with that projectId and versionId, if
+	 * one exists, returns null otherwise.
+	 * 
+	 * @param projectId
+	 * @param versionId
+	 * @return
+	 */
+	public ProjectMetadata getMetadata(Long projectId, String versionId);
 }
