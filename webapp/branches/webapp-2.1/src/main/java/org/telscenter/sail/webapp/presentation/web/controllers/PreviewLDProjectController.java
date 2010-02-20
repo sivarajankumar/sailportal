@@ -47,6 +47,12 @@ public class PreviewLDProjectController extends AbstractController {
 
 		String vleConfigUrl = portalurl + "/webapp/request/info.html" + "?projectId=" + request.getParameter("projectId") + "&action=getVLEConfig&requester=preview";
 
+		/* if preview request is coming from the run, we want to pass along the version id when we make a request to get the config */
+		String versionId = request.getParameter("versionId");
+		if(versionId != null && !versionId.equals("")){
+			vleConfigUrl += "&versionId=" + versionId;
+		}
+		
 		String vleurl = portalurl + "/vlewrapper/vle/vle.html";
 
 		ModelAndView modelAndView = new ModelAndView();

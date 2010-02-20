@@ -307,7 +307,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		Project project = params.getProject();
 
 		ModelAndView mav = new ModelAndView(new RedirectView(generateStudentPreviewProjectUrlString(params.getHttpServletRequest(), 
-				project)));
+				project, params.getVersionId())));
 		return mav;
 	}
 
@@ -319,10 +319,17 @@ public class LdProjectServiceImpl implements ProjectService {
 	 * @return
 	 */
 	public String generateStudentPreviewProjectUrlString(HttpServletRequest request,
-			Project project) {
+			Project project, String versionId) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
 			request.getContextPath();
-		String launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();
+		
+		String launchVLEUrl;
+		if(versionId != null){
+			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId() + "&versionId=" + versionId;
+		} else {
+			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();
+		}
+		
 		return portalUrl + launchVLEUrl;
 	}
 	

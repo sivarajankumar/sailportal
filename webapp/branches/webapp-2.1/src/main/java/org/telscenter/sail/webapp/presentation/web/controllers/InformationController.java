@@ -308,6 +308,7 @@ public class InformationController extends AbstractController{
 		String projectIdStr = request.getParameter("projectId");
 		String runId = request.getParameter("runId");
 		String requester = request.getParameter("requester");
+		String versionId = request.getParameter("versionId");
 		
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		String infourl = portalurl + "/webapp/request/info.html";
@@ -316,7 +317,6 @@ public class InformationController extends AbstractController{
 		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 		
 		String polishedProjectUrl = null;
-		String versionId = null;
 		String rawProjectUrl = null;
 		String portalVLEControllerUrl = null;
 		
@@ -325,7 +325,10 @@ public class InformationController extends AbstractController{
 			Project project = projectService.getById(projectIdStr);
 			
 			/* get the url for the project content file */
-			versionId = this.projectService.getActiveVersion(project);
+			if(versionId == null || versionId.equals("")){
+				versionId = this.projectService.getActiveVersion(project);
+			}
+			
 			rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 			
 			portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";

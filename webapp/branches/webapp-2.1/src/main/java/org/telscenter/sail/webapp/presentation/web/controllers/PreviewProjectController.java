@@ -34,6 +34,8 @@ public class PreviewProjectController extends AbstractController {
 
 	private static final String EXTERNAL_ID_PARAM_NAME = "externalId";
 	
+	private static final String VERSION_ID = "versionId";
+	
 	private ProjectService projectService;
 	
 	private ProjectCommunicatorDao<ProjectCommunicator> diyProjectCommunicator;
@@ -67,6 +69,7 @@ public class PreviewProjectController extends AbstractController {
 		params.setHttpServletRequest(request);
 		params.setHttpRestTransport(httpRestTransport);
 		params.setPortalUrl(Util.getPortalUrl(request));
+		params.setVersionId(request.getParameter(VERSION_ID));
 		return (ModelAndView) projectService.previewProject(params);
     }
 	
