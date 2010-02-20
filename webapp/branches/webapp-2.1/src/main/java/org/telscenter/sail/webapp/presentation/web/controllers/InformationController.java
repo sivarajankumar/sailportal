@@ -313,6 +313,7 @@ public class InformationController extends AbstractController{
 		String infourl = portalurl + "/webapp/request/info.html";
 		
 		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
+		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 		
 		String polishedProjectUrl = null;
 		String versionId = null;
@@ -415,6 +416,9 @@ public class InformationController extends AbstractController{
 		/* set the content url */
 		String getContentUrl = curriculumBaseWWW + polishedProjectUrl;
 		
+		/* set project path */
+		String getProjectPath = curriculumBaseDir + polishedProjectUrl;
+		
 		/* get location of last separator in url */
 		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
 		if(lastIndexOfSlash==-1){
@@ -422,7 +426,7 @@ public class InformationController extends AbstractController{
 		}
 		
 		/* get the url for the *.project.meta.json file */
-		String getProjectMetadataUrl = getContentUrl.substring(0, getContentUrl.lastIndexOf(".")) + "-meta.json";
+		String getProjectMetadataUrl = this.resolveMetadataFilename(getContentUrl);
 		
 		/* set the contentbase based on the contenturl */
 		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
@@ -439,7 +443,7 @@ public class InformationController extends AbstractController{
 			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
 			config.put("getUserInfoUrl", getUserInfoUrl);
 			config.put("getContentUrl", getContentUrl);
-			config.put("getProjectPath", getContentUrl);
+			config.put("getProjectPath", getProjectPath);
 			config.put("getContentBaseUrl", getContentBaseUrl);
 			config.put("theme", "WISE");
 			config.put("enableAudio", false);
@@ -460,6 +464,21 @@ public class InformationController extends AbstractController{
 		
 		response.setContentType("text/xml");
 		response.getWriter().write(config.toString());
+	}
+	
+	/**
+	 * Given a <code>String</code> projectFilename, returns the <code>String</code.
+	 * associated project metadata filename.
+	 * 
+	 * @param projectFilename
+	 * @return String - project metadata filename
+	 */
+	private String resolveMetadataFilename(String projectFilename){
+		if(projectFilename.contains(".project.json")){
+			return projectFilename.replace(".project.json", ".project-meta.json");
+		} else {
+			return projectFilename.replaceFirst(".project(.v[0-9]+.json)", ".project-meta$1");
+		}
 	}
 
 	/**
