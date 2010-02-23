@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+		"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition name="default-page" template="/WEB-INF/jsp/scy/layouts/default-layout.jsp">
+		<put-attribute name="title" value="SCY - Science Created by YOU"/>
+		<put-attribute name="options" value="/WEB-INF/jsp/scy/tiles/default-options.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/jsp/scy/tiles/default-menu.jsp"/>
+		<put-attribute name="main" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/jsp/scy/tiles/default-footer.jsp"/>
+	</definition>
+</tiles-definitions>

@@ -1,4 +1,4 @@
-<%@ include file="../include.jsp" %>
+<%@ include file="../common-taglibs.jsp" %>
 
 <!--
 * Copyright (c) 2006 Encore Research Group, University of Toronto
@@ -24,17 +24,17 @@
 <html xml:lang="en" lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 
-    <link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet" type="text/css"/>
-    <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css"/>
 
-    <script src=".././javascript/tels/general.js" type="text/javascript"></script>
-    <script src=".././javascript/tels/effects.js" type="text/javascript"></script>
-    <script src=".././javascript/tels/scriptaculous.js" type="text/javascript"></script>
+	<script src=".././javascript/tels/general.js" type="text/javascript"></script>
+	<script src=".././javascript/tels/effects.js" type="text/javascript"></script>
+	<script src=".././javascript/tels/scriptaculous.js" type="text/javascript"></script>
 
-    <title><spring:message code="student.signup.title"/></title>
-    <%@ include file="../admin/adminhead.jsp" %>
+	<title><spring:message code="student.signup.title"/></title>
+	<%@ include file="../admin/adminhead.jsp" %>
 
 
 </head>
@@ -46,82 +46,82 @@
 
 <div id="centeredDiv">
 
-    <div style="text-align:center;">
-        <!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
+	<div style="text-align:center;">
+		<!--This bad boy ensures centering of block level elements in IE (avoiding margin:auto bug).  Oh how I hate IE-->
 
-        <h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudent.1"/></h1>
+		<h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudent.1"/></h1>
 
-        <div id="subtitleStudentReg"><spring:message code="student.registerstudent.2"/> <br/><spring:message
-                code="student.registerstudent.3"/></div>
+		<div id="subtitleStudentReg"><spring:message code="student.registerstudent.2"/> <br/><spring:message
+				code="student.registerstudent.3"/></div>
 
-        <!-- Support for Spring errors object -->
-        <div id="regErrorMessages">
-            <spring:bind path="userDetails.*">
-                <c:forEach var="error" items="${status.errorMessages}">
-                    <br/><c:out value="${error}"/>
-                </c:forEach>
-            </spring:bind>
-        </div>
+		<!-- Support for Spring errors object -->
+		<div id="regErrorMessages">
+			<spring:bind path="userDetails.*">
+				<c:forEach var="error" items="${status.errorMessages}">
+					<br/><c:out value="${error}"/>
+				</c:forEach>
+			</spring:bind>
+		</div>
 
-        <form:form id="studentRegForm" commandName="userDetails" method="post" action="registerstudent.html">
-            <table>
-                <tr>
-                    <td>
-                        <spring:message code="student.registerstudent.4"/>
-                    </td>
-                    <td>
-                        <form:input path="firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Last name
-                    </td>
-                    <td>
-                        <form:input path="lastname" id="lastname" size="25" maxlength="25" tabindex="1"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Username
-                    </td>
-                    <td>
-                        <form:input path="username" id="username" size="25" maxlength="25" tabindex="1"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Password
-                    </td>
-                    <td>
-                        <form:password path="password" id="password" size="25" maxlength="25" tabindex="6"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div id="regButtons">
-                            <input type="image" id="save" src="../themes/tels/default/images/CreateAccount.png"
-                                   onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')"
-                                   onmouseout="swapImage('save','../themes/tels/default/images/CreateAccount.png')"
-                                    />
-                            <a href="../index.html"><input type="image" id="cancel"
-                                                           src="../<spring:theme code="register_cancel" />"
-                                                           onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')"
-                                                           onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
-                                    /> </a></div>
-                    </td>
-                </tr>
-            </table>
+		<form:form id="studentRegForm" commandName="userDetails" method="post" action="registerstudent.html">
+			<table>
+				<tr>
+					<td>
+						<spring:message code="student.registerstudent.4"/>
+					</td>
+					<td>
+						<form:input path="firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Last name
+					</td>
+					<td>
+						<form:input path="lastname" id="lastname" size="25" maxlength="25" tabindex="1"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Username
+					</td>
+					<td>
+						<form:input path="username" id="username" size="25" maxlength="25" tabindex="1"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Password
+					</td>
+					<td>
+						<form:password path="password" id="password" size="25" maxlength="25" tabindex="6"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div id="regButtons">
+							<input type="image" id="save" src="../themes/tels/default/images/CreateAccount.png"
+								   onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')"
+								   onmouseout="swapImage('save','../themes/tels/default/images/CreateAccount.png')"
+									/>
+							<a href="../index.html"><input type="image" id="cancel"
+														   src="../<spring:theme code="register_cancel" />"
+														   onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')"
+														   onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
+									/> </a></div>
+					</td>
+				</tr>
+			</table>
 
-            <!--This unusually placed script gets the cursor into the First Name field immediately on page load (MattFish)-->
-            <script type="text/javascript">
-                document.getElementById('firstname').focus();
-            </script>
+			<!--This unusually placed script gets the cursor into the First Name field immediately on page load (MattFish)-->
+			<script type="text/javascript">
+				document.getElementById('firstname').focus();
+			</script>
 
 
-        </form:form>
+		</form:form>
 
-    </div>
+	</div>
 
 </div>
 <!-- /* End of the CenteredDiv */-->

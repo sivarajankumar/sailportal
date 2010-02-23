@@ -1,155 +1,246 @@
-/**
- * Copyright (c) 2006 Encore Research Group, University of Toronto
- * 
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
- * $Id: styles.css 396 2009-09-09 15:36 bjoerge $
- */
 body, html {
-    background: #eee;
-    margin: 0;
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
+	background: #fff;
 }
 
-.header {
-    height: 7.7em;
-    background: url("../images/top-bg.jpg");
-    border-bottom: 1px solid #cccccc;
-    color: #fff;
-}
+body {
 
-.header .title {
-    font-weight: bold;
-    color: #ffffff;
-    float: right;
-    margin: 1em;
-    font-size: 1.2em;
-}
-
-.header .logo {
-    background:url('../images/logo.jpg') no-repeat;height: 3.5em;
-}
-.header .menubar {
-    border-top: 1px solid #e0e0e0;
-    height: 2em;
-    background:url('../images/menubar-bg.jpg') repeat-x;
-}
-
-.header .loginstatus {
-    color: #666666;
-}
-
-.border {
-    border: solid #cccccc;
-    border-width: 0 1px;
-}
-
-.border.top {
-    border-top-width: 1px;
-}
-
-.border.bottom {
-    border-bottom-width: 1px;
-}
-
-#taskbar {
-    height: 22px;
-    border: solid #cccccc;
-    border-width: 1px 0;
-    background-color: #eee;
-}
-
-.body {
-    background-color: #ffffff;
-}
-
-body.soria .dojoxFloatingPaneTitle {
-    background: url("../images/titlebar.jpg") 100%;
-}
-
-.topmenu {
-    height: 2em;
-}
-
-.topmenu a {
-    color: #606060;
-    font-size: .8em;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: block;
-    float: left;
-    vertical-align: middle;
-    line-height: 2em;
-    padding: 0 .5em;
-    margin: 0 .5em 0 0;
-}
-
-.topmenu a:hover {
-    color: #006699;
-    background: url("../images/menu_item_hover.png") 50%;
-}
-
-.topmenu img.sep {
-    display: block;
-    float: left;
-    width: 2px;
-    height: 1.5em;
-    margin: 0 .5em 0 0;
-}
-
-#breadcrumbsContainer .sep {
-    width: auto;
-    height: auto;
-    margin-top: 4px;
-}
-
-td {
-
-}
-
-tbody {
 }
 
 th {
-    background: #cccccc url("../images/menubar-bg.jpg") 100%;
-    color: #666666;
-    font-weight: bold;
-    padding: .2em 1em;
+	font-weight: bold;
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+}
+
+h1 {
+	font-size: 1.4em;
+	margin-bottom: 1em;
+}
+
+h2 {
+	font-size: 1.2em;
+	margin-bottom: 1em;
+}
+
+h3 {
+	font-size: 1.1em;
+	margin-bottom: 0.5em;
+}
+
+strong {
+	font-weight: bold;
+}
+
+p {
+	margin: 0.3em 0;
+}
+
+.logo {
+	height: 125px;
+	background: url("../images/logo.jpg") no-repeat left bottom;
+	margin-top: 0.8em;
+	margin-bottom: 1em;
+}
+
+/****** MENU AND MENUBAR ******/
+ul.menu {
+	padding-top: 4px;
+	display: block;
+}
+
+ul.menu li {
+	float: left;
+	padding-top: 2px;
+	margin: 0 0 0 0.6em;
+}
+
+ul.menu li a {
+	display: block;
+	font-size: 1.1em;
+	margin: 1px;
+	padding: 0 0.5em;
+	border: 0;
+	color: #404040;
+	text-decoration: none;
+	height: 31px;
+	line-height: 31px;
+	font-variant: small-caps;
+}
+
+ul.menu li a:hover {
+	margin: 0;
+	border: 1px solid white;
+	background: url("../images/menu-item-hover-bg.jpg") repeat-x;
+}
+
+ul.menu li a.selected {
+	margin: 0;
+	color: #fff;
+	border: 1px inset white;
+	background: url("../images/menu-item-selected-bg.jpg") repeat-x;
+}
+
+.menubar-wrapper {
+	background: url("../images/menubar-bg.jpg") repeat-x;
+	height: 47px;
+}
+
+.menubar-wrapper .border-left {
+	background: url("../images/menubar-corner-left.jpg") no-repeat;
+	height: 47px;
+}
+
+.menubar-wrapper .border-right {
+	background: url("../images/menubar-corner-right.jpg") no-repeat right;
+	height: 47px;
+}
+
+/****** OPTIONS ******/
+.options {
+	text-align: right;
+	font-size: 0.9em;
+}
+
+.options a {
+	color: #006699;
+	text-decoration: none;
+	margin: 0 0.5em;
+	padding: 0 0.5em;
+	border-right: 1px solid #cccccc;
+}
+
+.options a:hover {
+	background-color: #ffff99;
+	text-decoration: underline;
+}
+
+.options a.selected {
+	margin: 0;
+	color: #fff;
+	border: 1px inset #ff6600;
+}
+
+.options .loginstatus {
+	color: #999999;
+}
+
+.options a.login, .options a.logout {
+	border-right: 0;
+}
+
+.options a.logout {
 
 }
 
-td {
-    padding: .2em 1em;
+/****** END OPTIONS ******/
+
+.main, .footer {
+	background-color: #b0b0b0;
 }
 
-.centeredContentsContainer {
-    text-align: center;
+.main .border-right, .footer .border-right {
+	background: url("../images/body-bg-right.jpg") repeat-y right;
 }
 
-div.t-beaneditor, div.t-beandisplay, div.t-beaneditor-row {
-    background: #ffffff none repeat scroll 0 0;
-    border: 0;
-    text-align: left;
-    color: #666666; /*padding:2px;*/
+.main .border-left, .footer .border-left {
+	background: url("../images/body-bg-left.jpg") repeat-y left;
 }
 
-#bodyContainer {
-    padding: 1em;
+.bottom {
+	height: 11px;
+	background: url("../images/bottom-bg.jpg");
 }
 
-table.t-data-grid thead tr {
-    background: url("../images/menubar-bg.jpg") 100%;
+.bottom .border-left {
+	height: 11px;
+	background: url("../images/bottom-corner-left.jpg") no-repeat left;
+}
+
+.bottom .border-right {
+	height: 11px;
+	background: url("../images/bottom-corner-right.jpg") no-repeat right;
+}
+
+.content {
+	margin-top: 1em;
+}
+
+.splitpane .dijitSplitContainer-child {
+	border: none;
+}
+
+.splitpane .dijitContentPane {
+	background: none;
+}
+
+.splitpane .dojoxRotatorContainer {
+	border: none;
+}
+
+.messages li, .errorlist li {
+	padding: 0.5em;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin-bottom: 0.5em;
+}
+
+.messages li.info {
+	background-color: #99cc00;
+}
+
+.errorlist li, .messages li.error {
+	margin-top: 1em;
+	background-color: #cc0000;
+	color: #ffffff;
+}
+
+.rounded {
+	border: 1px solid #aaa;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
+
+.rounded-small {
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.rounded-small.contribution {
+	font-size: 0.9em;
+	padding: 0.2em;
+	margin: 0.2em 0;
+	background-color: #fff;
+	border: 1px solid #ffffcc;
+}
+
+.content.rounded {
+	height: 40em;
+	padding: 1em;
+	border: 1px solid #999;
+	background: #fafafa;
+}
+
+table.elo-summary th, table.rateform th {
+	padding-right: 1em;
+}
+
+table.elo-summary tr, table.rateform tr {
+	margin: 1em 0;
+}
+
+form table td {
+	padding: 0.1em;
+}
+
+table th {
+	font-weight: bold;
 }

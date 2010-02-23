@@ -1,9 +1,9 @@
-<%@ include file="../include.jsp" %>
+<%@ include file="../common-taglibs.jsp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
 <html xml:lang="en" lang="en">
 <head>
-    <%@ include file="../admin/adminhead.jsp" %>
+	<%@ include file="../admin/adminhead.jsp" %>
 
 </head>
 <body>
@@ -12,10 +12,10 @@
 
 <div id="centeredDiv">
 
-    <form method="post" action="upload.html" enctype="multipart/form-data">
-        <input type="file" name="file"/>
-        <input type="submit"/>
-    </form>
+	<form method="post" action="upload.html" enctype="multipart/form-data">
+		<input type="file" name="file"/>
+		<input type="submit"/>
+	</form>
 
 </div>
 
