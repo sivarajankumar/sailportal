@@ -40,6 +40,7 @@ import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectServiceFactory;
@@ -304,5 +305,13 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		return projectService.getMetadata(projectId, versionId);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getActiveVersions(java.lang.String)
+	 */
+	public String getActiveVersions(String projectIDPaths) {
+		ProjectService projectService = projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.getActiveVersions(projectIDPaths);
 	}
 }

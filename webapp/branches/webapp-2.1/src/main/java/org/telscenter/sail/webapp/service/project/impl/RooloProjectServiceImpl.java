@@ -414,4 +414,9 @@ public class RooloProjectServiceImpl implements ProjectService{
 		return null;
 	}
 
+	public String getActiveVersions(String projectIDPaths) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

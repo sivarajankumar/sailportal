@@ -113,6 +113,7 @@
 		class="org.telscenter.sail.webapp.dao.project.impl.HibernateProjectMetadataDao">
 		<property name="sessionFactory" ref="sessionFactory" />
 		<property name="projectService" ref="projectService"/>
+        <property name="portalProperties" ref="portalproperties" />
 	</bean>
 
     <bean id="module"

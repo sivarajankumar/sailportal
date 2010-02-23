@@ -275,6 +275,16 @@ public interface ProjectService {
 	public String getActiveVersion(Project project);
 	
 	/**
+	 * Given a <code>String</code> projectIDPaths - a | delimited list of ~ delimited
+	 * project IDs, project paths and returns <code>String</code> a | delimited list of
+	 * ~ delimited project IDs, version id.
+	 * 
+	 * @param projects
+	 * @return String
+	 */
+	public String getActiveVersions(String projectIDPaths);
+	
+	/**
 	 * Given a <code>Project</code> project, a <code>String</code> username, and a
 	 * <code>String</code> snapshotName, attempts to create a snapshot of the given
 	 * version of the project. If successful, returns <code>String</code> the versionId

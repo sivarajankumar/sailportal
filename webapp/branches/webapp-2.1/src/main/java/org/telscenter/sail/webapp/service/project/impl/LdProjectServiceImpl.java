@@ -559,6 +559,21 @@ public class LdProjectServiceImpl implements ProjectService {
 	}
 	
 	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getActiveVersions(java.lang.String)
+	 */
+	public String getActiveVersions(String projectIDPaths) {
+		String versionUrl = this.portalProperties.getProperty("versionmaster_baseurl") + "/master.html";
+		String params = "command=getActiveVersions&projectIDPaths=" + projectIDPaths;
+		
+		try {
+			return Connector.request(versionUrl, params);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
 	 * Given a <code>Project</code> project, a <code>String</code> username, and a
 	 * <code>String</code> snapshotName, attempts to create a snapshot of the given
 	 * version of the project. If successful, returns <code>String</code> the versionId

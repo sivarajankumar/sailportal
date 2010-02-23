@@ -22,15 +22,19 @@
  */
 package org.telscenter.sail.webapp.dao.project.impl;
 
-import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
 
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 
 import org.telscenter.sail.webapp.dao.project.ProjectMetadataDao;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -40,6 +44,8 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 public class HibernateProjectMetadataDao extends AbstractHibernateDao<ProjectMetadata> implements ProjectMetadataDao<ProjectMetadata>{
 	
 	private ProjectService projectService;
+	
+	private Properties portalProperties;
 	
 	private final static String FIND_ALL_QUERY = "from ProjectMetadataImpl";
 
@@ -63,15 +69,16 @@ public class HibernateProjectMetadataDao extends AbstractHibernateDao<ProjectMet
 	 * @see org.telscenter.sail.webapp.dao.project.ProjectMetadataDao#addMetadataToProjects(java.util.List)
 	 */
 	public List<Project> addMetadataToProjects(List<Project> projects){
-		if(projects != null && projects.size() > 0){
-			for(Project project : projects){
-				String versionId = this.projectService.getActiveVersion(project);
-				
-				if(versionId!=null){
-					project.setMetadata(this.getMetadataByProjectIdAndVersionId((Long) project.getId(), versionId));
-				}
-			}
-		}
+		this.populateProjectListWithMetadata(projects, this.getActiveVersionsForProjectList(projects));
+//		if(projects != null && projects.size() > 0){
+//			for(Project project : projects){
+//				String versionId = this.projectService.getActiveVersion(project);
+//				
+//				if(versionId!=null){
+//					project.setMetadata(this.getMetadataByProjectIdAndVersionId((Long) project.getId(), versionId));
+//				}
+//			}
+//		}
 		
 		return projects;
 	}
@@ -106,10 +113,73 @@ public class HibernateProjectMetadataDao extends AbstractHibernateDao<ProjectMet
 	}
 	
 	/**
+	 * Returns a <code>String</code> of | delimited project id, version id ~ delimited pairs for each of 
+	 * the projects in the given <code>List<Project></code> projectList.
+	 * 
+	 * @param projectList
+	 * @return String
+	 */
+	private String getActiveVersionsForProjectList(List<Project> projectList){
+		String curriculumBase = this.portalProperties.getProperty("curriculum_base_dir");
+		String projectIDPaths = null;
+		
+		/* create a | delimited list of a ~ delimited string of project id and the project path */
+		for(int y=0;y<projectList.size();y++){
+			Project project = projectList.get(y);
+			if(project.getProjectType().equals(ProjectType.LD)){
+				String url = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+				
+				if(projectIDPaths==null){
+					projectIDPaths = project.getId() + "~" + curriculumBase + url;
+				} else {
+					projectIDPaths += "|" + project.getId() + "~" + curriculumBase + url;
+				}
+			}
+		}
+		
+		/* return the versions for the ids from project service (which gets it from the version master) */
+		return this.projectService.getActiveVersions(projectIDPaths);
+	}
+	
+	/**
+	 * Given a <code>List<Project></code> and the | and ~ delimited <code>String</code> of active versions
+	 * and project ids, populates the projects in the list with the associated metadata.
+	 * 
+	 * @param projectList
+	 * @param activeVersionProjectIdList
+	 */
+	private void populateProjectListWithMetadata(List<Project> projectList, String activeVersionProjectIdList){
+		Map<Long,String> idVersionMap = new TreeMap<Long,String>();
+		String[] projectIDVersions = activeVersionProjectIdList.split("|");
+		
+		/* parse the project ids and versions and place them in a map for easy lookup */
+		for(int z=0;z<projectIDVersions.length;z++){
+			String[] splitz = projectIDVersions[z].split("~");
+			idVersionMap.put(Long.parseLong(splitz[0]), splitz[1]);
+		}
+		
+		/* add any metadata associated with each project in the list */
+		for(Project project : projectList){
+			String versionId = idVersionMap.get(project.getId());
+			
+			if(versionId != null){
+				project.setMetadata(this.getMetadataByProjectIdAndVersionId((Long)project.getId(), versionId));
+			}
+		}
+	}
+	
+	/**
 	 * @param projectService the projectService to set
 	 */
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
+	}
+
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 	
 }

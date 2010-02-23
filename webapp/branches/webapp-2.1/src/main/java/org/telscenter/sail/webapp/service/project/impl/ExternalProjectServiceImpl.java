@@ -390,4 +390,9 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String getActiveVersions(String projectIDPaths) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
