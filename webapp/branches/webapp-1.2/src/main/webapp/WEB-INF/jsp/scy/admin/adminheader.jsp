@@ -27,6 +27,11 @@
                                 <a href="../teacher/studentList.html">Student list</a>
                             </span>
 					</sec:authorize>
+                    <sec:authorize ifAllGranted="ROLE_USER">
+                            <span id="signOugBannerHome">
+                                <a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor </a>
+                            </span>
+					</sec:authorize>
 					<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
                             <span id="signOutBannerHome">
                                 <a href="/admin/index.html"><spring:message code="header.admin"/></a>
@@ -43,11 +48,7 @@
                             </span>
 					</sec:authorize>
 
-					<sec:authorize ifAllGranted="ROLE_AUTHOR">
-                            <span id="signOugBannerHome">
-                                <a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor </a>
-                            </span>
-					</sec:authorize>
+
 
 					<sec:authorize ifAllGranted="ROLE_USER">
                             <span id="signOugBannerHome">

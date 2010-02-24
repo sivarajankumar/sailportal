@@ -21,7 +21,7 @@
 		<li><a href="/webapp/app/useradmin/UserAdminIndex.html">Manage users</a></li>
 	</sec:authorize>
 
-	<sec:authorize ifAllGranted="ROLE_AUTHOR">
+	<sec:authorize ifAllGranted="ROLE_TEACHER">
 		<li><a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor</a></li>
 	</sec:authorize>
 

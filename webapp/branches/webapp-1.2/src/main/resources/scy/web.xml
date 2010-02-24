@@ -64,6 +64,7 @@
 			classpath:eu/scy/core/applicationContext-service.xml,
 			classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml,
 			classpath:configurations/applicationContexts/scy/hibernate.xml,
+            classpath:configurations/applicationContexts/scy/localRooloConfig.xml,
 
 
 			classpath:configurations/dispatcherServlet/scy/scycontrollers.xml,
