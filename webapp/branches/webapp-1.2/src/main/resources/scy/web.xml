@@ -61,14 +61,14 @@
 			classpath:configurations/applicationContexts/pas/spring.xml
 			classpath:configurations/applicationContexts/pas/annotation.xml,
 
-			classpath:configurations/applicationContexts/scy/applicationContext-service.xml,
-			classpath:configurations/applicationContexts/scy/applicationContext-dao.xml,
+			classpath:eu/scy/core/applicationContext-service.xml,
+			classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml,
 			classpath:configurations/applicationContexts/scy/hibernate.xml,
 
 
 			classpath:configurations/dispatcherServlet/scy/scycontrollers.xml,
 			classpath:configurations/dispatcherServlet/scy/config.xml,
-			classpath:scyAuthorControllers.xml
+			classpath:scyAuthorControllers.xml,
 			classpath:scyPlayfulControllers.xml
 		</param-value>
 	</context-param>

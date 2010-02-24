@@ -4,7 +4,9 @@
 
 <beans>
 
-    <bean id="scenarioService" class="eu.scy.core.ScenarioServiceImpl">
+    <!-- DO NOT USE ME!  -->
+
+    <!--bean id="scenarioService" class="eu.scy.core.ScenarioServiceImpl">
         <property name="scyBaseDAO" ref="scenarioDAO"/>
     </bean>
 
@@ -38,6 +40,6 @@
 
     <bean id="agentService" class="eu.scy.core.AgentServiceImpl">
         <property name="scyBaseDAO" ref="agentDAO"/>
-    </bean>
+    </bean-->
 
 </beans>

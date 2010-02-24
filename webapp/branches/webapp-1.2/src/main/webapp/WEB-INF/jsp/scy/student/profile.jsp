@@ -1,30 +1,19 @@
 <%@ include file="../common-taglibs.jsp" %>
+<tiles:insertDefinition name="default-page">
+    <tiles:putAttribute name="main">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
-<html xml:lang="en" lang="en">
-<head>
-	<%@ include file="../admin/adminhead.jsp" %>
+        <div id="centeredDiv">
 
-</head>
-<body>
-<%@ include file="../admin/adminheader.jsp" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+            <form method="post" action="upload.html" enctype="multipart/form-data">
+                <input type="file" name="file"/>
+                <input type="submit"/>
+            </form>
 
-<div id="centeredDiv">
+        </div>
 
-	<form method="post" action="upload.html" enctype="multipart/form-data">
-		<input type="file" name="file"/>
-		<input type="submit"/>
-	</form>
+        </div>  <!-- /* End of the CenteredDiv */-->
 
-</div>
-
-</div>  <!-- /* End of the CenteredDiv */-->
-
-</body>
-
-</html>
-
-
+    </tiles:putAttribute>
+</tiles:insertDefinition>
 
 
