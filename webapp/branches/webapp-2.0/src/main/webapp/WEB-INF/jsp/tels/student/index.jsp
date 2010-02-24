@@ -69,8 +69,7 @@
 																  //modal:false,
 																  constraintoviewport : true,
 																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-																  buttons : [ 
-																			  {text:"Close Window", handler:handleCancel,isDefault:true } ]
+																  buttons : [ {text:"CANCEL", handler:handleCancel,isDefault:true } ]
 																 } );
 	
 	
@@ -630,9 +629,9 @@ If you want to save work to an archived project run, ask your teacher to change 
 <div class="bd">
 <h3>Instructions</h3>
 <ol>
-<li>Enter your Access Code.</li>
-<li>Click the <i>View Periods</i> link.</li>
-<li>Select your class period, then click the <i>Add Project</i> button.</li>
+<li>Enter the Access Code in the blank space below.</li>
+<li>Press TAB on your keyboard or click the link <b>Show Periods</b>.</li>
+<li>Select your class period, then click the <b>Add Project</b> button.</li>
 </ol>
 
 <iframe id="addProjectFrame" src="" width="100%" height="240px" FRAMEBORDER="0"
