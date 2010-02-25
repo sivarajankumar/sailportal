@@ -110,7 +110,12 @@
         <property name="userService" ref="userService"/>
         <property name="studentPedagogicalPlanPersistenceService" ref="studentPedagogicalPlanService"/>
         <property name="pedagogicalPlanPersistenceService" ref="pedagogicalPlanPersistenceService"/>
-        
+    </bean>
+
+    <bean id="studentActivityDetailsController" class="eu.scy.controllers.teacher.StudentActivityDetailsController">
+        <property name="userService" ref="userService"/>
+        <property name="studentPedagogicalPlanPersistenceService" ref="studentPedagogicalPlanService"/>
+        <property name="pedagogicalPlanPersistenceService" ref="pedagogicalPlanPersistenceService"/>
     </bean>
 
 

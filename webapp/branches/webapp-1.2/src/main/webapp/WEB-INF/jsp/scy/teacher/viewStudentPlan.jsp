@@ -7,6 +7,9 @@
     <tiles:putAttribute name="main">
 
         <h1>${studentPlan.pedagogicalPlan.name}</h1>
+        <div id="user_details">
+            <img src="/webapp/common/filestreamer.html?username=${studentPlan.user.userDetails.username}&showIcon"/>&nbsp;<strong>${studentPlan.user.userDetails.firstname}&nbsp;${studentPlan.user.userDetails.lastname}</strong>
+        </div>
 
         <c:choose>
             <c:when test="${fn:length(studentPlan.studentPlannedActivities) > 0}">
@@ -17,18 +20,16 @@
                         <th>End date</th>
                         <th>Note</th>
                         <th>Associated ELO</th>
-                        <th>Associated ELO id</th>
                         <th>Activity</th>
                         <th>Input to LAS</th>
                     </tr>
                     <c:forEach var="studentPlannedActivity" items="${studentPlan.studentPlannedActivities}">
                         <tr>
-                            <td>${studentPlannedActivity.name}</td>
+                            <td><a href="viewStudentActivityDetails.html?eloId=${studentPlannedActivity.assoicatedELO.missionMapId}&username=${studentPlan.user.userDetails.username}">${studentPlannedActivity.name}</a></td>
                             <td>${studentPlannedActivity.startDate}</td>
                             <td>${studentPlannedActivity.endDate}</td>
                             <td>${studentPlannedActivity.note}</td>
                             <td>${studentPlannedActivity.assoicatedELO.name}</td>
-                            <td>${studentPlannedActivity.assoicatedELO.missionMapId}</td>
                             <td>${studentPlannedActivity.assoicatedELO.producedBy.name}</td>
                             <td>${studentPlannedActivity.assoicatedELO.inputTo.name}</td>
                         </tr>
