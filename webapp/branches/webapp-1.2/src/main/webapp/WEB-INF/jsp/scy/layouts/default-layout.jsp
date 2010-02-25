@@ -26,6 +26,7 @@
 	<title><tiles:insertAttribute name="title" defaultValue=""/></title>
 	<tiles:insertAttribute name="extrahead" defaultValue=""/>
 </head>
+<body class="<tiles:insertAttribute name="bodyclass" defaultValue=""/>">
 <div id="doc4" class="yui-t7">
 	<div id="hd" role="banner">
 		<div class="logo"></div>
@@ -68,4 +69,5 @@
 		</div>
 	</div>
 </div>
+</body>
 </html>

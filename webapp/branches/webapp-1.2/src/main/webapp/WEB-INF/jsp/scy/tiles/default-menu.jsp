@@ -1,7 +1,7 @@
 <%@ include file="../common-taglibs.jsp" %>
 <sec:authorize ifAllGranted="ROLE_USER">
 	<sec:authorize ifAllGranted="ROLE_STUDENT">
-		<li><a href="/webapp/app/playful/index.html">Playful Assessment</a></li>
+		<li><a href="/webapp/app/playful/elorefs.html">Playful Assessment</a></li>
 	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_TEACHER">
