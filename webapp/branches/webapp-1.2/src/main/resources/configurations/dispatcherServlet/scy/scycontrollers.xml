@@ -95,5 +95,25 @@
         <property name="userService" ref="userService"/>
     </bean>
     
+    <bean id="viewStudentDetailsController" class="eu.scy.controllers.teacher.StudentDetailsController">
+        <property name="userService" ref="userService"/>
+        <property name="studentPedagogicalPlanPersistenceService" ref="studentPedagogicalPlanService"/>
+        <property name="pedagogicalPlanPersistenceService" ref="pedagogicalPlanPersistenceService"/>
+    </bean>
+
+    <bean id="selectPedagogicalPlanForStudentController" class="eu.scy.controllers.teacher.SelectPedagogicalPlanForStudent">
+        <property name="userService" ref="userService"/>
+        <property name="pedagogicalPlanPersistenceService" ref="pedagogicalPlanPersistenceService"/>
+    </bean>
+
+    <bean id="studentPlanController" class="eu.scy.controllers.teacher.StudentPlanController">
+        <property name="userService" ref="userService"/>
+        <property name="studentPedagogicalPlanPersistenceService" ref="studentPedagogicalPlanService"/>
+        <property name="pedagogicalPlanPersistenceService" ref="pedagogicalPlanPersistenceService"/>
+        
+    </bean>
+
+
+
 
 </beans>

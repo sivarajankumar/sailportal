@@ -4,8 +4,10 @@ import eu.scy.controllers.AbstractSCYController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class StudentListController extends AbstractSCYController {
-    
+
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
@@ -27,4 +29,6 @@ public class StudentListController extends AbstractSCYController {
 
         return modelAndView;
     }
+
+    
 }

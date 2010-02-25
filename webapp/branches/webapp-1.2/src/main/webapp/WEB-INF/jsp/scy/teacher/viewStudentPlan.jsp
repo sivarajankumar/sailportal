@@ -1,0 +1,42 @@
+<%@ include file="../common-taglibs.jsp" %>
+
+<tiles:insertDefinition name="default-page">
+
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+    <tiles:putAttribute name="main">
+
+        <h1>${studentPlan.pedagogicalPlan.name}</h1>
+
+        <c:choose>
+            <c:when test="${fn:length(studentPlan.studentPlannedActivities) > 0}">
+                <table id="studentPlanTable" border="2">
+                    <tr>
+                        <th>Planned Activity</th>
+                        <th>Start date</th>
+                        <th>End date</th>
+                        <th>Note</th>
+                        <th>Associated ELO</th>
+                        <th>Associated ELO id</th>
+                        <th>Activity</th>
+                        <th>Input to LAS</th>
+                    </tr>
+                    <c:forEach var="studentPlannedActivity" items="${studentPlan.studentPlannedActivities}">
+                        <tr>
+                            <td>${studentPlannedActivity.name}</td>
+                            <td>${studentPlannedActivity.startDate}</td>
+                            <td>${studentPlannedActivity.endDate}</td>
+                            <td>${studentPlannedActivity.note}</td>
+                            <td>${studentPlannedActivity.assoicatedELO.name}</td>
+                            <td>${studentPlannedActivity.assoicatedELO.missionMapId}</td>
+                            <td>${studentPlannedActivity.assoicatedELO.producedBy.name}</td>
+                            <td>${studentPlannedActivity.assoicatedELO.inputTo.name}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <br>
+            </c:when>
+        </c:choose>
+
+    </tiles:putAttribute>
+</tiles:insertDefinition>

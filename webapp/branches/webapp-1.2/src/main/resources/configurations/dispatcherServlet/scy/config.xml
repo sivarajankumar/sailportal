@@ -79,6 +79,9 @@
                 /student/upload.html=fileUploadController
                 /teacher/registerteacher.html=registerTeacherController
                 /teacher/studentList.html=studentListController
+                /teacher/viewStudentDetails.html=viewStudentDetailsController
+                /teacher/selectPedagogicalPlanForStudent.html=selectPedagogicalPlanForStudentController
+                /teacher/viewStudentPlan.html=studentPlanController
                 /teacher/addNewStudent.html=addNewStudentController
                 /common/filestreamer.html=fileStreamerController
             </value>

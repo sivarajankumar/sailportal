@@ -7,7 +7,8 @@
     <tiles:putAttribute name="main">
     <div id="centeredDiv">
 
-        Hey!
+        
+
         <c:choose>
             <c:when test="${fn:length(students) > 0}">
                 <table id="teachersTable" border="2">
@@ -23,7 +24,7 @@
                             <td><img
                                     src="/webapp/common/filestreamer.html?username=${student.userDetails.username}&showIcon"/>
                             </td>
-                            <td>${student.userDetails.username}</td>
+                            <td><a href="viewStudentDetails.html?username=${student.userDetails.username}">${student.userDetails.username}</a></td>
                             <td>${student.userDetails.firstname} </td>
                             <td>${student.userDetails.lastname}</td>
                         </tr>
