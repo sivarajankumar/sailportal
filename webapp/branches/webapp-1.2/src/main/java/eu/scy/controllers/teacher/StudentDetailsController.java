@@ -30,7 +30,15 @@ public class StudentDetailsController extends AbstractSCYController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
         String username = request.getParameter("username");
         User student = getUserService().getUser(username);
-                                                                                                           
+
+        String assignPedPlan = request.getParameter("pedPlan");
+        if(assignPedPlan != null && assignPedPlan.equals("published")) {
+            logger.info("Assigning student plan to user!");
+            getStudentPedagogicalPlanPersistenceService().createStudentPlan(username);
+        } else {
+            logger.info("assignPedPlan = " + assignPedPlan);
+        }
+
         String pedagogicalPlanId = request.getParameter("pedPlanId");
         if(pedagogicalPlanId != null) {
             assignPedagogicalPlanToStudent(student, getPedagogicalPlanPersistenceService().getPedagogicalPlan(pedagogicalPlanId));

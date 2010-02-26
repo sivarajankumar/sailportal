@@ -8,26 +8,13 @@
 
         <h1>Student Details</h1>
 
-        <table>
-            <tr>
-                <td>
-                    Username
-                </td>
-                <td>
-                    ${student.userDetails.username}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Name
-                </td>
-                <td>
-                    ${student.userDetails.firstname}
-                </td>
-            </tr>
-        </table>
+        <div id="user_details">
+            <img src="/webapp/common/filestreamer.html?username=${student.userDetails.username}&showIcon"/>&nbsp;<strong>${student.userDetails.firstname}&nbsp;${student.userDetails.lastname}</strong>
+        </div>
 
-        <a href="selectPedagogicalPlanForStudent.html?username=${student.userDetails.username}">Assign mission</a>
+        <a href="selectPedagogicalPlanForStudent.html?username=${student.userDetails.username}">Select mission to assign</a> <br/>
+
+        <a href="viewStudentDetails.html?username=${student.userDetails.username}&pedPlan=published">Assign published mission</a>
 
         <c:choose>
             <c:when test="${fn:length(studentPlans) > 0}">
