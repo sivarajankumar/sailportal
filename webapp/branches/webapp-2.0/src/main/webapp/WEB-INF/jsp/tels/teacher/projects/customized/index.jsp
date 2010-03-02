@@ -25,6 +25,13 @@
 
 <%@ include file="../styles.jsp"%>
 
+<!-- Source File --> 
+<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/menu/menu-min.js"></script> 
+
+<link href="../../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
+<link href="../../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
+
 <!-- Core + Skin CSS --> 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/menu/assets/skins/sam/menu.css"> 
  
@@ -32,13 +39,6 @@
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/yahoo-dom-event/yahoo-dom-event.js"></script> 
 <script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/container/container_core-min.js"></script> 
 <script type="text/javascript" src="../../.././javascript/tels/yui/connection/connection.js"></script>
- 
-<!-- Source File --> 
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/menu/menu-min.js"></script> 
-
-<link href="../../../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="../../../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="../../../javascript/tels/general.js"></script>
 
@@ -525,7 +525,8 @@ function minifyProject(id){
         <li style="margin-left:4px;"><a href="#tab1"><em><spring:message code="teacher.pro.custom.index.12"/></em></a></li>
         <li style="margin-left:4px;"><a href="#tab2"><em><spring:message code="teacher.pro.custom.index.13"/></em></a></li>
         <li style="margin-left:4px;"><a href="#tab3"><em><spring:message code="teacher.pro.custom.index.tab.bookmark"/></em></a></li>
-        <li style="margin-left:4px;"><a href="#tab4"><em><spring:message code="teacher.pro.custom.index.14"/></em></a></li>        
+        <li style="margin-left:4px;"><a href="#tab4"><em><spring:message code="teacher.pro.custom.index.14"/></em></a></li>  
+		<li style="margin-left:4px;"><a id="special" href="#tab5"><em>my project runs</em></a></li>        
     </ul>     
 <div class="yui-content" style="background-color: #FFFFFF;">
 
@@ -1077,6 +1078,10 @@ function minifyProject(id){
 	</c:choose>
 
 
+</div>
+
+<div id="tab5">  <!--  My Project Runs tab -->
+<h5>A listing of the project runs you have set up for classroom use can be found on the <a href="/webapp/teacher/index.html">Home Page</a> or in the <a href="/webapp/teacher/run/myprojectruns.html">Management/My Project Runs</a> section.</h5>
 </div>
 
 </div>

@@ -469,6 +469,16 @@ img#none{
 	font-variant:small-caps;
 }
 
+/* This style is for the 5th My Projects tab */
+
+.yui-nav a#special {
+	color:#666;
+}
+
+.yui-nav .selected a#special {
+	color:#FFF;
+}
+
 #projectInfoInstructions {
 	font-weight:bold;
 	font-size:.8em;
