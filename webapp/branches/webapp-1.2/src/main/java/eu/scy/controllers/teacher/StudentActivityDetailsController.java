@@ -27,10 +27,10 @@ public class StudentActivityDetailsController extends AbstractSCYController {
         String eloId = request.getParameter("eloId");
         String username = request.getParameter("username");
 
-        StudentPlannedActivity activity = getStudentPedagogicalPlanPersistenceService().getStudentPlannedActivity(username, eloId);
+        //StudentPlannedActivity activity = getStudentPedagogicalPlanPersistenceService().getStudentPlannedActivity(username, eloId);
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.addObject("activity", activity);
+        //modelAndView.addObject("activity", activity);
 
         return modelAndView;
     }

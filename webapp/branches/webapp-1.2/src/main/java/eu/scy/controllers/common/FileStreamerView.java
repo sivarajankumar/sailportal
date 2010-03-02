@@ -1,6 +1,8 @@
 package eu.scy.controllers.common;
 
 import eu.scy.core.UserService;
+import eu.scy.core.model.FileRef;
+import eu.scy.core.model.ImageRef;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
 import org.springframework.web.servlet.view.AbstractView;
@@ -40,41 +42,39 @@ public class FileStreamerView extends AbstractView {
 
 
         ServletOutputStream out = null;
-        File source = null;
         try {
 
             User user = getUserService().getUser(userName);
             if (user != null && user.getUserDetails() instanceof SCYStudentUserDetails) {
                 SCYStudentUserDetails userDetails = (SCYStudentUserDetails) user.getUserDetails();
-                String pictureName = userDetails.getProfilePictureUrl();
-                if (showIcon) {
-                    pictureName = pictureName + ".jpg";
-                }
+                ImageRef fileRef = (ImageRef) userDetails.getProfilePicture();
+                if (fileRef != null) {
+                    byte[] bytes = null;
+                    if (fileRef!= null ) {
+                        if(showIcon) {
+                            bytes = ((ImageRef)fileRef).getIcon().getBytes();
+                        } else {
+                            bytes =  fileRef.getFileData().getBytes();
+                        }
 
-                File fileDirectory = getFileDirectory(httpServletRequest);
-                String fileName = fileDirectory + File.separator + pictureName;
-                source = new File(fileName);
-                if (source != null && source.exists()) {
-                    byte[] bytes = getBytesFromFile(source);
+                        out = httpServletResponse.getOutputStream();
+                        httpServletResponse.setContentType(fileRef.getFileData().getContentType());
+                        httpServletResponse.setContentLength(bytes.length);
+                        out.write(bytes);
+                        out.flush();
+                    } else {
+                        InputStream is = null;
+                        if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
+                        else is = this.getClass().getResourceAsStream("buddyicon_online.png");
 
-
-                    out = httpServletResponse.getOutputStream();
-                    httpServletResponse.setContentType(getContentType());
-                    httpServletResponse.setContentLength(bytes.length);
-                    out.write(bytes);
-                    out.flush();
-                } else {
-                    InputStream is = null;
-                    if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
-                    else is = this.getClass().getResourceAsStream("buddyicon_online.png");
-
-                    byte[] bytes = new byte[is.available()];
-                    is.read(bytes);
-                    out = httpServletResponse.getOutputStream();
-                    httpServletResponse.setContentType(getContentType());
-                    httpServletResponse.setContentLength(bytes.length);
-                    out.write(bytes);
-                    out.flush();
+                        bytes = new byte[is.available()];
+                        is.read(bytes);
+                        out = httpServletResponse.getOutputStream();
+                        httpServletResponse.setContentType(getContentType());
+                        httpServletResponse.setContentLength(bytes.length);
+                        out.write(bytes);
+                        out.flush();
+                    }
                 }
 
             } else {

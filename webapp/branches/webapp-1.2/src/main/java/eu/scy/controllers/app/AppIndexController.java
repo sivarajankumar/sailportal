@@ -34,8 +34,7 @@ public class AppIndexController extends AbstractController {
 
         if(user.getUserDetails() instanceof SCYStudentUserDetails) {
             SCYStudentUserDetails details = (SCYStudentUserDetails) user.getUserDetails();
-            if(details.getProfilePictureUrl() != null) {
-                modelAndView.addObject("profilePictureUrl", "/webapp/" + details.getProfilePictureUrl());
+            if(details.getProfilePicture() != null) {
                 modelAndView.addObject("showProfilePicture", true);
             } else {
                 modelAndView.addObject("showProfilePicture", false);

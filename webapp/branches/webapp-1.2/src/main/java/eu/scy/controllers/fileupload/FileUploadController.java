@@ -1,8 +1,9 @@
 package eu.scy.controllers.fileupload;
 
+import eu.scy.core.FileService;
 import eu.scy.core.UserService;
-import eu.scy.core.model.StudentUserDetails;
-import eu.scy.core.model.User;
+import eu.scy.core.model.*;
+import eu.scy.core.model.impl.FileDataImpl;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,8 +41,7 @@ public class FileUploadController extends SimpleFormController {
     private static Logger log = Logger.getLogger("FileUploadController.class");
 
     private UserService userService;
-
-
+    private FileService fileService;
 
 
     @Override
@@ -63,70 +63,32 @@ public class FileUploadController extends SimpleFormController {
             HttpServletResponse response,
             Object command,
             BindException errors) throws Exception {
-        log.info("========================SUBMITTED FILE!");
-
-
-        // cast the bean
         FileUploadBean bean = (FileUploadBean) command;
-
-        File tempFolder = new File(System.getProperty("java.io.tmpdir"));
-
-
-        MultipartFile file = bean.getFile();
-        if (file == null) {
-            // hmm, that's strange, the user did not upload anything
-        }
-
-        log.info(file.getContentType());
-        log.info(file.getOriginalFilename());
-
-
-        String postFix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."), file.getOriginalFilename().length());
-
-        String newFileName = getCurrentUserName(request) + Math.random() + postFix;
-
-        File fileDirectory = getFileDirectory(request);
-        String fileName = fileDirectory + File.separator + newFileName ;
-
-
-
-        File profilePicture = new File(fileName);
-        if(profilePicture.exists()) {
-            profilePicture.renameTo(new File(fileName + "" + Math.random()));
-            //profilePicture.deleteOnExit();
-        }
-        profilePicture = new File(fileName);
-        file.transferTo(profilePicture);
-        log.info("Added image: " + profilePicture.getAbsolutePath());
-
-        ImageConverter converter = new ImageConverter();
-        converter.handleImageConversion(profilePicture);
 
         User user = getUserService().getUser(getCurrentUserName(request));
         StudentUserDetails details = (StudentUserDetails) user.getUserDetails();
-        details.setProfilePictureUrl(newFileName);
+
+
+        MultipartFile file = bean.getFile();
+        File tmpFile = new File(file.getOriginalFilename());
+        tmpFile.deleteOnExit();
+        file.transferTo(tmpFile);
+
+        if(file.getContentType().contains("image")) {
+            ImageRef fileRef = (ImageRef) getFileService().saveFile(tmpFile);
+            details.setProfilePicture(fileRef);
+        } else {
+            FileRef fileRef = getFileService().saveFile(tmpFile);
+        }
+
         getUserService().save(user);
 
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("userDetails", details);
         return modelAndView;
-
-        // well, let's do nothing with the bean for now and return
-        //return super.onSubmit(request, response, command, errors);
     }
 
-    private File getFileDirectory(HttpServletRequest request) {
-        try {
-            File folder = new File(request.getSession().getServletContext().getRealPath("/") );
-            if (folder.exists()) return folder;
-            folder.mkdirs();
-            return folder;
-        } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        return null;
-    }
-
+    
     public String getCurrentUserName(HttpServletRequest request) {
         org.springframework.security.userdetails.User user = (org.springframework.security.userdetails.User) request.getSession().getAttribute("CURRENT_USER");
         return user.getUsername();
@@ -140,6 +102,14 @@ public class FileUploadController extends SimpleFormController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public FileService getFileService() {
+        return fileService;
+    }
+
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
     }
 }
 

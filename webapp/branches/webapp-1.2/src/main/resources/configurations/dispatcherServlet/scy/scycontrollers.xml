@@ -85,6 +85,7 @@
         <property name="formView" value="fileuploadform"/>
         <property name="successView" value="student/profile"/>
         <property name="userService" ref="userService"/>
+        <property name="fileService" ref="fileService"/>
     </bean>
 
     <bean id="fileStreamerController" class="eu.scy.controllers.common.FileStreamerController">
