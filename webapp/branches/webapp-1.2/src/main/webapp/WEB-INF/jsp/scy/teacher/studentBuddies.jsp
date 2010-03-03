@@ -24,6 +24,7 @@
                     </tr>
                     <c:forEach var="buddy" items="${buddies}">
                         <tr>
+                            <td><img src="/webapp/common/filestreamer.html?username=${buddy.name}&showIcon"/></td>
                             <td>${buddy.name}</td>
                             <td><a href="studentBuddies.html?username=${student.userDetails.username}&removeBuddy&buddy=${buddy.name}">remove buddy</a> </td>
                         </tr>
@@ -42,6 +43,7 @@
                     </tr>
                     <c:forEach var="nonBuddy" items="${students}">
                         <tr>
+                            <td><img src="/webapp/common/filestreamer.html?username=${nonBuddy.userDetails.username}&showIcon"/></td>
                             <td>${nonBuddy.userDetails.username}</td>
                             <td><a href="studentBuddies.html?username=${student.userDetails.username}&addBuddy&potentialBuddy=${nonBuddy.userDetails.username}">Make buddy</a> </td>
                         </tr>
