@@ -31,6 +31,10 @@
                 <br>
             </c:when>
         </c:choose>
+
+        <div>
+            <a href="studentBuddies.html?username=${student.userDetails.username}">Buddies</a>
+        </div>
         
     </tiles:putAttribute>
 </tiles:insertDefinition>

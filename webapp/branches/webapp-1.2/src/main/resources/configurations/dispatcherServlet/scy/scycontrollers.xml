@@ -119,6 +119,11 @@
         <property name="pedagogicalPlanPersistenceService" ref="pedagogicalPlanPersistenceService"/>
     </bean>
 
+    <bean id="studentBuddies" class="eu.scy.controllers.teacher.StudentBuddyController">
+        <property name="userService" ref="userService"/>
+        <property name="buddyService" ref="buddyService"/>
+    </bean>
+
 
 
 

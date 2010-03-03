@@ -80,6 +80,7 @@
                 /teacher/registerteacher.html=registerTeacherController
                 /teacher/studentList.html=studentListController
                 /teacher/viewStudentDetails.html=viewStudentDetailsController
+                /teacher/studentBuddies.html=studentBuddies
                 /teacher/selectPedagogicalPlanForStudent.html=selectPedagogicalPlanForStudentController
                 /teacher/viewStudentPlan.html=studentPlanController
                 /teacher/viewStudentActivityDetails.html=studentActivityDetailsController
