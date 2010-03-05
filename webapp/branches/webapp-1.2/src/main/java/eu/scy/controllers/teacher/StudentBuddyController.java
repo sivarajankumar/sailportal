@@ -53,8 +53,9 @@ public class StudentBuddyController extends AbstractSCYController {
         String buddyToRemove = request.getParameter("buddy");
         String userName = request.getParameter("username");
         User user = getUserService().getUser(userName);
+        User buddy = getUserService().getUser(buddyToRemove);
         try {
-            getBuddyService().removeBuddy(user.getUserDetails().getUsername(), user.getUserDetails().getPassword(), buddyToRemove);
+            getBuddyService().removeBuddy(user.getUserDetails().getUsername(), user.getUserDetails().getPassword(), buddy.getUserDetails().getUsername(), buddy.getUserDetails().getPassword());
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -64,9 +65,10 @@ public class StudentBuddyController extends AbstractSCYController {
         String potentialBuddyName = request.getParameter("potentialBuddy");
         String userName = request.getParameter("username");
         User user = getUserService().getUser(userName);
+        User buddy = getUserService().getUser(potentialBuddyName);
 
         try {
-            getBuddyService().makeBuddies(user.getUserDetails().getUsername(), user.getUserDetails().getPassword(), potentialBuddyName);
+            getBuddyService().makeBuddies(user.getUserDetails().getUsername(), user.getUserDetails().getPassword(), buddy.getUserDetails().getUsername(), buddy.getUserDetails().getPassword());
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

@@ -22,6 +22,7 @@
                         <th>Associated ELO</th>
                         <th>Activity</th>
                         <th>Input to LAS</th>
+                        <th>Collaborators</th>
                     </tr>
                     <c:forEach var="studentPlannedActivity" items="${studentPlan.studentPlannedActivities}">
                         <tr>
