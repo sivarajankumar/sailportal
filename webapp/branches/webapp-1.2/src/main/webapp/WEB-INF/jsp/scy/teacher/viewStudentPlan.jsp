@@ -36,7 +36,7 @@
 
                             <td>
                                 <c:forEach var="member" items="${studentPlannedActivity.members}">
-                                    <img src="/webapp/common/filestreamer.html?username=${member.username}&showIcon"/>
+                                    <img src="/webapp/common/filestreamer.html?username=${member.userDetails.username}&showIcon"/>
                                 </c:forEach>
                             </td>
 
