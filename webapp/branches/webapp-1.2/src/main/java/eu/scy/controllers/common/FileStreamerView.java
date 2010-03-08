@@ -51,19 +51,13 @@ public class FileStreamerView extends AbstractView {
                 logger.info("loading image for " + user.getUserDetails().getUsername() + " image ref is  " + fileRef);
 
                 if (fileRef != null) {
-                    logger.info("fileref is not null");
                     byte[] bytes = null;
                     if (fileRef != null && fileRef.getIcon() != null) {
-                        logger.info("getting bytes");
                         if (showIcon) {
-                            logger.info("Getting as icon");
                             bytes = ((ImageRef) fileRef).getIcon().getBytes();
-                            logger.info("BYTES: " + bytes);
                         } else {
                             bytes = fileRef.getFileData().getBytes();
                         }
-
-                        logger.info("BYTES: " + bytes.length);
 
                         out = httpServletResponse.getOutputStream();
                         httpServletResponse.setContentType(fileRef.getFileData().getContentType());
