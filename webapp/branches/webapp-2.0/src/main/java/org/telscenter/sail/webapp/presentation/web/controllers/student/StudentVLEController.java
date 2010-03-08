@@ -548,6 +548,7 @@ public class StudentVLEController extends AbstractController {
 		
 		JSONObject teacherUserInfo = new JSONObject();
 		
+		/*
 		// add teacher info
 		for (Workgroup classmateWorkgroup : workgroups) {
 			if (((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
@@ -574,6 +575,18 @@ public class StudentVLEController extends AbstractController {
 				
 
 			}
+		}
+		*/
+		
+		List<Workgroup> teacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, run.getOwners().iterator().next());
+		
+		Workgroup teacherWorkgroup = teacherWorkgroups.get(0);
+		
+		try {
+			teacherUserInfo.put("workgroupId", teacherWorkgroup.getId());
+			teacherUserInfo.put("userName", teacherWorkgroup.generateWorkgroupName());
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		
 		try {
