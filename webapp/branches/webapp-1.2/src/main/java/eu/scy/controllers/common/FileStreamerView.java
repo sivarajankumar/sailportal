@@ -48,14 +48,22 @@ public class FileStreamerView extends AbstractView {
             if (user != null && user.getUserDetails() instanceof SCYStudentUserDetails) {
                 SCYStudentUserDetails userDetails = (SCYStudentUserDetails) user.getUserDetails();
                 ImageRef fileRef = (ImageRef) userDetails.getProfilePicture();
+                logger.info("loading image for " + user.getUserDetails().getUsername() + " image ref is  " + fileRef);
+
                 if (fileRef != null) {
+                    logger.info("fileref is not null");
                     byte[] bytes = null;
-                    if (fileRef!= null ) {
-                        if(showIcon) {
-                            bytes = ((ImageRef)fileRef).getIcon().getBytes();
+                    if (fileRef != null && fileRef.getIcon() != null) {
+                        logger.info("getting bytes");
+                        if (showIcon) {
+                            logger.info("Getting as icon");
+                            bytes = ((ImageRef) fileRef).getIcon().getBytes();
+                            logger.info("BYTES: " + bytes);
                         } else {
-                            bytes =  fileRef.getFileData().getBytes();
+                            bytes = fileRef.getFileData().getBytes();
                         }
+
+                        logger.info("BYTES: " + bytes.length);
 
                         out = httpServletResponse.getOutputStream();
                         httpServletResponse.setContentType(fileRef.getFileData().getContentType());
@@ -63,6 +71,7 @@ public class FileStreamerView extends AbstractView {
                         out.write(bytes);
                         out.flush();
                     } else {
+                        logger.info("No image available - loading buddy icon");
                         InputStream is = null;
                         if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
                         else is = this.getClass().getResourceAsStream("buddyicon_online.png");
@@ -75,9 +84,26 @@ public class FileStreamerView extends AbstractView {
                         out.write(bytes);
                         out.flush();
                     }
+                } else {
+                    logger.info("LOADING BUDDY ICON");
+                    InputStream is = null;
+                    if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
+                    else is = this.getClass().getResourceAsStream("buddyicon_online.png");
+
+
+                    byte[] bytes = new byte[is.available()];
+                    is.read(bytes);
+                    logger.info("Bytes: " + bytes.length);
+                    out = httpServletResponse.getOutputStream();
+                    httpServletResponse.setContentType(getContentType());
+                    httpServletResponse.setContentLength(bytes.length);
+                    out.write(bytes);
+                    out.flush();
+
                 }
 
             } else {
+                logger.info("LOADING BUDDY ICON");
                 InputStream is = null;
                 if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
                 else is = this.getClass().getResourceAsStream("buddyicon_online.png");
@@ -85,6 +111,7 @@ public class FileStreamerView extends AbstractView {
 
                 byte[] bytes = new byte[is.available()];
                 is.read(bytes);
+                logger.info("Bytes: " + bytes.length);
                 out = httpServletResponse.getOutputStream();
                 httpServletResponse.setContentType(getContentType());
                 httpServletResponse.setContentLength(bytes.length);
