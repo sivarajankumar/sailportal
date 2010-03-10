@@ -270,6 +270,8 @@ public class BridgeController extends AbstractController {
 		String type = request.getParameter("type");
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		User user = ControllerUtil.getSignedInUser(request);
+		CredentialManager.setRequestCredentials(request, user);
 		
 		if (type == null) {
 			// get student data
@@ -296,6 +298,8 @@ public class BridgeController extends AbstractController {
 		String type = request.getParameter("type");
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
+		User user = ControllerUtil.getSignedInUser(request);
+		CredentialManager.setRequestCredentials(request, user);
 		
 		if (type == null) {
 			// post student data
