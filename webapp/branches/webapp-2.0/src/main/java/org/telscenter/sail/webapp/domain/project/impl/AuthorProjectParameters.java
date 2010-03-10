@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.domain.project.impl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -45,6 +46,8 @@ public class AuthorProjectParameters {
 	private String portalUrl;
 	
 	private Project project;
+	
+	private User author;
 
 	/**
 	 * @return the httpRestTransport
@@ -114,6 +117,20 @@ public class AuthorProjectParameters {
 	 */
 	public void setPortalUrl(String portalUrl) {
 		this.portalUrl = portalUrl;
+	}
+
+	/**
+	 * @return the author
+	 */
+	public User getAuthor() {
+		return author;
+	}
+
+	/**
+	 * @param author the author to set
+	 */
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 }

@@ -28,10 +28,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -64,6 +67,7 @@ public class PostProjectController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		try {
 			String projectId = request.getParameter(PROJECT_ID_PARAM);
 			String encodedOtmlString = request.getParameter(OTML_CONTENT_PARAM);
@@ -77,9 +81,12 @@ public class PostProjectController extends AbstractController {
 				((OtmlModuleImpl) project.getCurnit()).setOtml(otmlString.getBytes());
 				moduleService.updateCurnit(project.getCurnit());
 			}
-			projectService.updateProject(project);
+			projectService.updateProject(project, user);
 		} catch (NullPointerException e) {
 			response.setStatus(HttpStatus.SC_BAD_REQUEST);
+		} catch (NotAuthorizedException e){
+			e.printStackTrace();
+			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
 		}
 		return null;
 	}

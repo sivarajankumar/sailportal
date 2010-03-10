@@ -40,9 +40,14 @@ public class LoginController extends AbstractController {
   protected ModelAndView handleRequestInternal(HttpServletRequest request,
       HttpServletResponse response) throws Exception {
     String failed = request.getParameter("failed");
+    String redirectUrl = request.getParameter("redirect");
     ModelAndView modelAndView = new ModelAndView();
     if (StringUtils.hasText(failed)) {
       modelAndView.addObject("failed", Boolean.TRUE);
+    }
+    
+    if(StringUtils.hasText(redirectUrl)){
+    	modelAndView.addObject("redirect",redirectUrl);
     }
     return modelAndView;
   }

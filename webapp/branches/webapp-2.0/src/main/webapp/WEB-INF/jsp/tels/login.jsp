@@ -73,6 +73,8 @@
 									
 									<dt><label for="password"><spring:message code="login.failed12"/></label></dt>
                                     <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
+                                    
+                                    <dd><input type='hidden' value='${redirect}' name='redirect'/></dd>
                                 </dl>
                                                        
                                 <div class="alignRight"><input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png"

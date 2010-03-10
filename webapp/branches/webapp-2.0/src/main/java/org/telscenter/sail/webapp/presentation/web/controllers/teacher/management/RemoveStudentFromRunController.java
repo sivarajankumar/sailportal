@@ -22,23 +22,22 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.management;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
+import net.sf.sail.webapp.service.authentication.UserDetailsService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.teacher.management.RemoveStudentFromRunParameters;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
@@ -94,9 +93,16 @@ public class RemoveStudentFromRunController extends SimpleFormController {
     	try  {
     		run = runService.retrieveById(runId);
     		studentUser = userService.retrieveById(userId);
-    		studentService.removeStudentFromRun(studentUser, run);
-
-    		modelAndView = new ModelAndView(getSuccessView());
+    		User callingUser = ControllerUtil.getSignedInUser(request);
+    		
+    		if(callingUser.getUserDetails().hasGrantedAuthority(UserDetailsService.ADMIN_ROLE) ||
+    				this.runService.hasRunPermission(run, callingUser, BasePermission.WRITE)){
+	    		studentService.removeStudentFromRun(studentUser, run);
+	
+	    		modelAndView = new ModelAndView(getSuccessView());
+    		} else {
+    			modelAndView = new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
+    		}
     	} catch (ObjectNotFoundException e) {
 			errors.rejectValue("runId", "error.illegal-runId");
 			modelAndView = new ModelAndView(getFormView());

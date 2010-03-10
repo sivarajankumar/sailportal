@@ -36,13 +36,10 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.group.GroupService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.StudentUserAlreadyAssociatedWithRunException;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.domain.run.StudentRunInfo;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -115,6 +112,7 @@ public class StudentServiceImpl implements StudentService {
 		for (Run run : runList) {
 			// add all of the owners of the run to the list.
 			teachers.addAll(run.getOwners());
+			teachers.addAll(run.getSharedowners());
 		}
 		return teachers;
 	}

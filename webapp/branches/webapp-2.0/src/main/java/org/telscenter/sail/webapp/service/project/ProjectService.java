@@ -27,10 +27,10 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
@@ -179,7 +179,7 @@ public interface ProjectService {
 	 * 
 	 * @param project <code>Project</code> contains updated Project.
 	 */
-	public void updateProject(Project project);
+	public void updateProject(Project project, User user) throws NotAuthorizedException;
 	
 	/**
 	 * Launches the project given the launchProjectParameters
@@ -252,4 +252,26 @@ public interface ProjectService {
 	 * @return
 	 */
 	public JSONObject getProjectMetadataFile(Project project);
+	
+	/**
+	 * Given a <code>Project</code> project and <code>User</code> user, returns
+	 * <code>boolean</code> true if the user is allowed to create a run from that
+	 * project (ie, project is TELS, owner, sharedOwner), returns false otherwise.
+	 * 
+	 * @param project
+	 * @param user
+	 * @return boolean
+	 */
+	public boolean canCreateRun(Project project, User user);
+	
+	/**
+	 * Given a <code>Project</code> project and <code>User</code> user, returns
+	 * <code>boolean</code> true if the user is allowed to author that particular
+	 * project, returns false otherwise.
+	 * 
+	 * @param project
+	 * @param user
+	 * @return boolean
+	 */
+	public boolean canAuthorProject(Project project, User user);
 }

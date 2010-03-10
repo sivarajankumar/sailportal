@@ -31,6 +31,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.service.offering.OfferingService;
 
+import org.springframework.security.acls.Permission;
 import org.springframework.security.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.Run;
@@ -287,4 +288,16 @@ public interface RunService extends OfferingService {
      * @param maxScoreValue
      */
     public void setExtras(Run run, String extras) throws Exception;
+    
+    /**
+	 * Returns <code>boolean</code> true if the given <code>User</code> user has the
+	 * given <code>Permission</code> permission for the given <code>Run</code> run,
+	 * returns false otherwise.
+	 * 
+	 * @param run
+	 * @param user
+	 * @param permission
+	 * @return boolean
+	 */
+    public boolean hasRunPermission(Run run, User user, Permission permission);
 }

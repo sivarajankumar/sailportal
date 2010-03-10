@@ -36,6 +36,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
@@ -285,11 +286,17 @@ public class RooloProjectServiceImpl implements ProjectService{
 	}
 
 	/**
+	 * @throws NotAuthorizedException 
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
 	 */
 	@Transactional()
-	public void updateProject(Project project) {
-		this.projectDao.save(project);
+	public void updateProject(Project project, User user) throws NotAuthorizedException {
+		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
+				this.aclService.hasPermission(project, BasePermission.WRITE, user)){
+			this.projectDao.save(project);
+		} else {
+			throw new NotAuthorizedException("You are not authorized to update this project.");
+		}
 	}
 	
 	public String generateStudentStartProjectUrlString(HttpServletRequest request,
@@ -387,4 +394,20 @@ public class RooloProjectServiceImpl implements ProjectService{
 		return null;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canCreateRun(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canCreateRun(Project project, User user) {
+		return project.getFamilytag().equals(FamilyTag.TELS) || 
+			this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) || 
+			this.aclService.hasPermission(project, BasePermission.WRITE, user);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canAuthorProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canAuthorProject(Project project, User user) {
+		return this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
+			this.aclService.hasPermission(project, BasePermission.WRITE, user);
+	}
 }

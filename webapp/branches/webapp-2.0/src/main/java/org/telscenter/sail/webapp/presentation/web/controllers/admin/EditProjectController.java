@@ -28,6 +28,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.NotAuthorizedException;
+
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -72,8 +75,14 @@ public class EditProjectController extends SimpleFormController{
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		Project project = (Project) command;
-		projectService.updateProject(project);
+		try{
+			projectService.updateProject(project, user);
+		} catch (NotAuthorizedException e){
+			e.printStackTrace();
+			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
+		}
 		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
 		return modelAndView;
 	}

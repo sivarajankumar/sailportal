@@ -27,6 +27,7 @@ import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
@@ -182,9 +183,9 @@ public class ProjectServiceImpl implements ProjectService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
 	 */
-	public void updateProject(Project project) {
+	public void updateProject(Project project, User user) throws NotAuthorizedException{
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
-		projectService.updateProject(project);
+		projectService.updateProject(project, user);
 	}
 
 	/**
@@ -247,5 +248,25 @@ public class ProjectServiceImpl implements ProjectService {
 	public JSONObject getProjectMetadataFile(Project project){
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		return projectService.getProjectMetadataFile(project);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canCreateRun(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canCreateRun(Project project, User user){
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.canCreateRun(project, user);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canAuthorProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canAuthorProject(Project project, User user) {
+		if(project == null){
+			return false;
+		} else {
+			ProjectService projectService = projectServiceFactory.getProjectService(project);
+			return projectService.canAuthorProject(project, user);
+		}
 	}
 }

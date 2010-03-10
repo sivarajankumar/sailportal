@@ -23,9 +23,12 @@ import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
@@ -53,6 +56,8 @@ public class ShareProjectController extends SimpleFormController {
 	private UserService userService;
 
 	private UserDetailsService userDetailsService;
+	
+	private AclService aclService;
 	
 	private IMailFacade javaMail = null;
 
@@ -98,30 +103,36 @@ public class ShareProjectController extends SimpleFormController {
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) 
 	    throws Exception {
-		Map<String, Object> model = new HashMap<String, Object>();
-		String message = request.getParameter("message");
-		if (message != null) {
-			model.put("message", message);
-		}
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID_PARAM_NAME)));
-		Set<User> sharedowners = project.getSharedowners();
-
-		for (User sharedowner : sharedowners) {
-			String sharedTeacherRole = projectService.getSharedTeacherRole(project, sharedowner);
-			AddSharedTeacherParameters addSharedTeacherParameters = 
-				new AddSharedTeacherParameters();
-			addSharedTeacherParameters.setPermission(sharedTeacherRole);
-			addSharedTeacherParameters.setProject(project);
-			addSharedTeacherParameters.setSharedOwnerUsername(
-					sharedowner.getUserDetails().getUsername());
-			model.put(sharedowner.getUserDetails().getUsername(), 
-					addSharedTeacherParameters);
+		
+		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user)){
+			Map<String, Object> model = new HashMap<String, Object>();
+			String message = request.getParameter("message");
+			if (message != null) {
+				model.put("message", message);
+			}
+			Set<User> sharedowners = project.getSharedowners();
+	
+			for (User sharedowner : sharedowners) {
+				String sharedTeacherRole = projectService.getSharedTeacherRole(project, sharedowner);
+				AddSharedTeacherParameters addSharedTeacherParameters = 
+					new AddSharedTeacherParameters();
+				addSharedTeacherParameters.setPermission(sharedTeacherRole);
+				addSharedTeacherParameters.setProject(project);
+				addSharedTeacherParameters.setSharedOwnerUsername(
+						sharedowner.getUserDetails().getUsername());
+				model.put(sharedowner.getUserDetails().getUsername(), 
+						addSharedTeacherParameters);
+			}
+			model.put(PROJECT_PARAM_NAME, project);
+			List<String> allTeacherUsernames = userDetailsService.retrieveAllUsernames("TeacherUserDetails");
+			String allTeacherUsernameString = StringUtils.join(allTeacherUsernames.iterator(), ":");
+			model.put(ALL_TEACHER_USERNAMES, allTeacherUsernameString);
+			return model;
+		} else {
+			throw new NotAuthorizedException("You do not have permission to do that.");
 		}
-		model.put(PROJECT_PARAM_NAME, project);
-		List<String> allTeacherUsernames = userDetailsService.retrieveAllUsernames("TeacherUserDetails");
-		String allTeacherUsernameString = StringUtils.join(allTeacherUsernames.iterator(), ":");
-		model.put(ALL_TEACHER_USERNAMES, allTeacherUsernameString);
-		return model;
 	}
 
 	/**
@@ -297,5 +308,12 @@ public class ShareProjectController extends SimpleFormController {
 	 */
 	public void setUserDetailsService(UserDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
+	}
+
+	/**
+	 * @param aclService the aclService to set
+	 */
+	public void setAclService(AclService aclService) {
+		this.aclService = aclService;
 	}
 }

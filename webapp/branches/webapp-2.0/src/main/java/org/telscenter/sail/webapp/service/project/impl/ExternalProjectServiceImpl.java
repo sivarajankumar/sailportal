@@ -32,8 +32,10 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.workgroup.WorkgroupDao;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -243,7 +245,7 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
 	 */
 	@Transactional()
-	public void updateProject(Project project) {
+	public void updateProject(Project project, User user) throws NotAuthorizedException{
 		this.projectCommunicatorDao.save(((ExternalProject) project).getProjectCommunicator());
 		this.projectDao.save(project);
 	}
@@ -362,5 +364,15 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	public JSONObject getProjectMetadataFile(Project project) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean canCreateRun(Project project, User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean canAuthorProject(Project project, User user) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -28,13 +28,16 @@ import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
@@ -56,16 +59,6 @@ public class GradeWorkController extends AbstractController {
 	
 	public static final String CURNIT_MAP = "curnitMap";
 
-	private static final String GRADE_BY_STEP_URL = "getGradeByStepUrl";
-
-	private static final String CONTENT_URL = "getContentUrl";
-	
-	private static final String USER_INFO_URL = "getUserInfoUrl";
-
-	private static final String GET_DATA_URL = "getDataUrl";
-
-	private static final String WORKGROUP = "workgroup";
-
 	private GradingService gradingService;
 	
 	private RunService runService;
@@ -75,7 +68,6 @@ public class GradeWorkController extends AbstractController {
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -99,18 +91,23 @@ public class GradeWorkController extends AbstractController {
 			String result = (String) run.getProject().accept(typeVisitor);
 			
 			if (result.equals("LDProject")) {
-				String portalurl = ControllerUtil.getBaseUrlString(request);
-
-		    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";
-				String getGradingConfigUrl = portalurl + "/webapp/teacher/grading/gradework.html?action=getGradingConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType;
-				
-				ModelAndView modelAndView = new ModelAndView();
-				modelAndView.addObject(RUN_ID, runId);
-				modelAndView.addObject("run", run);
-				modelAndView.addObject("getGradeWorkUrl", getGradeWorkUrl);
-				modelAndView.addObject("getGradingConfigUrl", getGradingConfigUrl);
-				
-				return modelAndView;
+				User user = ControllerUtil.getSignedInUser(request);
+				if(this.runService.hasRunPermission(run, user, BasePermission.WRITE)){
+					String portalurl = ControllerUtil.getBaseUrlString(request);
+	
+			    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";
+					String getGradingConfigUrl = portalurl + "/webapp/teacher/grading/gradework.html?action=getGradingConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType;
+					
+					ModelAndView modelAndView = new ModelAndView();
+					modelAndView.addObject(RUN_ID, runId);
+					modelAndView.addObject("run", run);
+					modelAndView.addObject("getGradeWorkUrl", getGradeWorkUrl);
+					modelAndView.addObject("getGradingConfigUrl", getGradingConfigUrl);
+					
+					return modelAndView;
+				} else {
+					return new ModelAndView(new RedirectView("../../accessdenied.html"));
+				}
 			} else if( runId != null ) {
 				ECurnitmap curnitMap = gradingService.getCurnitmap(new Long(runId));
 				ModelAndView modelAndView = new ModelAndView();

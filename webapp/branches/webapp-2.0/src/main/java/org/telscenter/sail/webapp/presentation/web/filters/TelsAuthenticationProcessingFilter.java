@@ -34,6 +34,7 @@ import net.sf.sail.webapp.service.authentication.UserDetailsService;
 import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
@@ -67,16 +68,14 @@ public class TelsAuthenticationProcessingFilter extends
 			javax.servlet.http.HttpServletRequest request,
 			javax.servlet.http.HttpServletResponse response,
 			Authentication authResult) throws IOException, ServletException {
-
+		
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
         if (userDetails instanceof StudentUserDetails) {
         	this.setDefaultTargetUrl(STUDENT_DEFAULT_TARGET_PATH);
         }
         else if (userDetails instanceof TeacherUserDetails) {
 	   		this.setDefaultTargetUrl(TEACHER_DEFAULT_TARGET_PATH);
-	        // if destination after logged in is specified in the request, make that the targetUrl
-	        // currently only support destination=author.html
-	   		//if (request.getParameter(""))
+	        
         	GrantedAuthority adminAuth = null;
         	try {
 				adminAuth = userDetailsService.loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
@@ -92,6 +91,12 @@ public class TelsAuthenticationProcessingFilter extends
         	}
         }
         
+        /* redirect if specified in the login request */
+   		String redirectUrl = request.getParameter("redirect");
+   		if(StringUtils.hasText(redirectUrl)){
+   			this.setDefaultTargetUrl(redirectUrl);
+   		}
+   		
 		super.successfulAuthentication(request, response, authResult);
 		((MutableUserDetails) userDetails).incrementNumberOfLogins();
 		((MutableUserDetails) userDetails).setLastLoginTime(Calendar.getInstance().getTime());

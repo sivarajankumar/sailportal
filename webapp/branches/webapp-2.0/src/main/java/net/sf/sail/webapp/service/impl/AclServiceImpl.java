@@ -164,4 +164,21 @@ public class AclServiceImpl<T extends Persistable> implements AclService<T> {
 					"Cannot retrieve ACL. Object not set.");
 		}		
 	}
+	
+	/**
+	 * @see net.sf.sail.webapp.service.AclService#hasPermission(java.lang.Object, org.springframework.security.acls.Permission, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean hasPermission(T object, Permission permission, User user){
+		
+		if(object != null && permission != null && user != null){
+			List<Permission> permissions = this.getPermissions(object, user);
+			for(Permission p : permissions){
+				if(p.getMask() >= permission.getMask()){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 }

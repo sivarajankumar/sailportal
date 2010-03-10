@@ -6,16 +6,18 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
+import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -59,15 +61,20 @@ public class PreviewProjectController extends AbstractController {
 			return (ModelAndView) projectService.previewProject(params);
 		}
 		
+		User user = ControllerUtil.getSignedInUser(request);
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
 		
-		PreviewProjectParameters params = new PreviewProjectParameters();
-		params.setProject(project);
-		params.setHttpServletRequest(request);
-		params.setHttpRestTransport(httpRestTransport);
-		params.setPortalUrl(Util.getPortalUrl(request));
-		return (ModelAndView) projectService.previewProject(params);
+		if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canAuthorProject(project, user)){
+			PreviewProjectParameters params = new PreviewProjectParameters();
+			params.setProject(project);
+			params.setHttpServletRequest(request);
+			params.setHttpRestTransport(httpRestTransport);
+			params.setPortalUrl(Util.getPortalUrl(request));
+			return (ModelAndView) projectService.previewProject(params);
+		} else {
+			return new ModelAndView("accessdenied.html");
+		}
     }
 	
 	/**

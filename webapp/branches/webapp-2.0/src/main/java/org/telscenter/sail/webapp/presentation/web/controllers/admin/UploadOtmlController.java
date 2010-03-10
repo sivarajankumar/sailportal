@@ -29,7 +29,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.validation.BindException;
@@ -89,7 +91,7 @@ public class UploadOtmlController extends SimpleFormController {
 			throws Exception {
 		OtmlFileUpload bean = (OtmlFileUpload) command;
 		MultipartFile file = bean.getFile();
-				
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		
 		if (file == null) {
 			ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
@@ -108,7 +110,13 @@ public class UploadOtmlController extends SimpleFormController {
 				((OtmlModuleImpl) curnit).setOtml(file.getBytes());
 				moduleService.updateCurnit(curnit);
 			}
-			projectService.updateProject(project);
+			
+			try{
+				projectService.updateProject(project, user);
+			} catch (NotAuthorizedException e){
+				e.printStackTrace();
+				return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
+			}
 		}
 		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
 		return modelAndView;

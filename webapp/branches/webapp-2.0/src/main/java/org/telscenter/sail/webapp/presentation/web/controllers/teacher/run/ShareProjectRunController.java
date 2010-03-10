@@ -38,9 +38,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
@@ -73,6 +76,8 @@ public class ShareProjectRunController extends SimpleFormController {
 	private UserService userService;
 
 	private UserDetailsService userDetailsService;
+	
+	private AclService aclService;
 
 	private IMailFacade javaMail = null;
 
@@ -118,26 +123,31 @@ public class ShareProjectRunController extends SimpleFormController {
 	protected Map<String, Object> referenceData(HttpServletRequest request) 
 	    throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		Run run = runService.retrieveById(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
 		Set<User> sharedowners = run.getSharedowners();
 
-		for (User sharedowner : sharedowners) {
-			String sharedTeacherRole = runService.getSharedTeacherRole(run, sharedowner);
-			AddSharedTeacherParameters addSharedTeacherParameters = 
-				new AddSharedTeacherParameters();
-			addSharedTeacherParameters.setPermission(sharedTeacherRole);
-			addSharedTeacherParameters.setRun(run);
-			addSharedTeacherParameters.setSharedOwnerUsername(
-					sharedowner.getUserDetails().getUsername());
-			model.put(sharedowner.getUserDetails().getUsername(), 
-					addSharedTeacherParameters);
+		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user)){
+			for (User sharedowner : sharedowners) {
+				String sharedTeacherRole = runService.getSharedTeacherRole(run, sharedowner);
+				AddSharedTeacherParameters addSharedTeacherParameters = 
+					new AddSharedTeacherParameters();
+				addSharedTeacherParameters.setPermission(sharedTeacherRole);
+				addSharedTeacherParameters.setRun(run);
+				addSharedTeacherParameters.setSharedOwnerUsername(
+						sharedowner.getUserDetails().getUsername());
+				model.put(sharedowner.getUserDetails().getUsername(), 
+						addSharedTeacherParameters);
+			}
+			model.put(RUN_PARAM_NAME, run);
+			List<String> allTeacherUsernames = userDetailsService.retrieveAllUsernames("TeacherUserDetails");
+			String allTeacherUsernameString = StringUtils.join(allTeacherUsernames.iterator(), ":");
+			model.put(ALL_TEACHER_USERNAMES, allTeacherUsernameString);
+			
+			return model;
+		} else {
+			throw new NotAuthorizedException("You do not have permission to share this run.");
 		}
-		model.put(RUN_PARAM_NAME, run);
-		List<String> allTeacherUsernames = userDetailsService.retrieveAllUsernames("TeacherUserDetails");
-		String allTeacherUsernameString = StringUtils.join(allTeacherUsernames.iterator(), ":");
-		model.put(ALL_TEACHER_USERNAMES, allTeacherUsernameString);
-		
-		return model;
 	}
 
 	/**
@@ -323,6 +333,13 @@ public class ShareProjectRunController extends SimpleFormController {
 	 */
 	public void setWorkgroupService(WISEWorkgroupService workgroupService) {
 		this.workgroupService = workgroupService;
+	}
+
+	/**
+	 * @param aclService the aclService to set
+	 */
+	public void setAclService(AclService aclService) {
+		this.aclService = aclService;
 	}
 }
 

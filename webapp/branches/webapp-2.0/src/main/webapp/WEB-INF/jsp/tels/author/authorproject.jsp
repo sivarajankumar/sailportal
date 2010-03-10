@@ -1,7 +1,7 @@
 <html>
 <head>
 
-<script type='text/javascript'>
+<script type='text/javascript'><!--
 var portalAuthorUrl = "${portalAuthorUrl}";
 
 function notifyFatal(type,args,obj){
@@ -21,7 +21,7 @@ function escapeQuotes(str){
 		return null;
 	};
 };
-</script>
+--></script>
 
 </head>
 

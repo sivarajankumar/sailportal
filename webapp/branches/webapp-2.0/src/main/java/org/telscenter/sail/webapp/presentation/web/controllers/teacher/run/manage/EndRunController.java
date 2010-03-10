@@ -27,7 +27,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -45,6 +48,8 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 public class EndRunController extends SimpleFormController {
 
 	private RunService runService;
+	
+	private AclService aclService;
 
 	private static final String RUNID_PARAM_NAME = "runId";
 
@@ -52,10 +57,17 @@ public class EndRunController extends SimpleFormController {
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		EndRunParameters params = new EndRunParameters();
-		params.setRunId(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
-		params.setRunName(request.getParameter(RUN_NAME_PARAM_NAME));
-		return params;
+		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+
+		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user)){
+			EndRunParameters params = new EndRunParameters();
+			params.setRunId(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
+			params.setRunName(request.getParameter(RUN_NAME_PARAM_NAME));
+			return params;
+		} else {
+			throw new NotAuthorizedException("You do not have permission to archive this run.");
+		}
 	}
 	
 	/**
@@ -96,5 +108,12 @@ public class EndRunController extends SimpleFormController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	/**
+	 * @param aclService the aclService to set
+	 */
+	public void setAclService(AclService aclService) {
+		this.aclService = aclService;
 	}
 }

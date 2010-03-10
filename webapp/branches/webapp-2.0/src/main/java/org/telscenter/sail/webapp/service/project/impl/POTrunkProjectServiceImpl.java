@@ -36,8 +36,10 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -70,8 +72,13 @@ public class POTrunkProjectServiceImpl extends OTrunkProjectServiceImpl {
 	 */
 	@Override
 	@Transactional()
-	public void updateProject(Project project) {
-		this.projectDao.save(project);
+	public void updateProject(Project project, User user) throws NotAuthorizedException {
+		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
+				this.aclService.hasPermission(project, BasePermission.WRITE, user)){
+			this.projectDao.save(project);
+		} else {
+			throw new NotAuthorizedException("You are not authorized to updated this project");
+		}
 	}
 
 	/**

@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -39,6 +42,7 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
@@ -57,7 +61,6 @@ import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
-import org.telscenter.sail.webapp.domain.impl.UrlModuleImpl;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
@@ -151,18 +154,23 @@ public class LdProjectServiceImpl implements ProjectService {
 		if(command != null && command != ""){
 			mav.addObject("command", command);
 		}
-		
+
 		Project project = params.getProject();
 		if(project != null){
-			String title = null;
-			if(project.getMetadata() != null && project.getMetadata().getTitle() != null && !project.getMetadata().getTitle().equals("")){
-				title = project.getMetadata().getTitle();
+			if(this.aclService.hasPermission(project, BasePermission.WRITE, params.getAuthor()) ||
+					this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, params.getAuthor())){
+				String title = null;
+				if(project.getMetadata() != null && project.getMetadata().getTitle() != null && !project.getMetadata().getTitle().equals("")){
+					title = project.getMetadata().getTitle();
+				} else {
+					title = project.getName();
+				}
+				
+				mav.addObject("command", "editProject");
+				mav.addObject("projectId", (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "~" + title);
 			} else {
-				title = project.getName();
+				return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
 			}
-			
-			mav.addObject("command", "editProject");
-			mav.addObject("projectId", (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "~" + title);
 		}
 		return mav;
 	}
@@ -331,8 +339,13 @@ public class LdProjectServiceImpl implements ProjectService {
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
 	 */
 	@Transactional()
-	public void updateProject(Project project) {
-		this.projectDao.save(project);
+	public void updateProject(Project project, User user) throws NotAuthorizedException{
+		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
+				this.aclService.hasPermission(project, BasePermission.WRITE, user)){
+			this.projectDao.save(project);
+		} else {
+			throw new NotAuthorizedException("You are not authorized to update this project");
+		}
 	}
 	
 	/**
@@ -488,19 +501,21 @@ public class LdProjectServiceImpl implements ProjectService {
 	 */
 	public JSONObject getProjectMetadataFile(Project project) {
 		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
-		String filemanagerUrl = this.portalProperties.getProperty("vlewrapper_baseurl") + "/vle/filemanager.html";
 		String rawURL = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 		
-		if(rawURL == null || rawURL == ""){
-			return null;
-		}
-		
-		String projectMetaUrl = rawURL.replace(".project.json", ".project-meta.json");
-		String params = "command=retrieveFile&param1=" + curriculumBaseDir + "/" + projectMetaUrl;
-		
 		try{
-			String response = Connector.request(filemanagerUrl, params);
-			return new JSONObject(response);
+			File file = new File((curriculumBaseDir + rawURL).replace(".project.json", ".project-meta.json"));
+			String fullText = "";
+			if(file.exists() && file.isFile()){
+				BufferedReader br = new BufferedReader(new FileReader(file));
+				String current = br.readLine();
+				while(current != null){
+					fullText += current + System.getProperty("line.separator");
+					current = br.readLine();
+				}
+				br.close();
+			}
+			return new JSONObject(fullText);
 		} catch(MalformedURLException e){
 			e.printStackTrace();
 			return null;
@@ -511,5 +526,22 @@ public class LdProjectServiceImpl implements ProjectService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canCreateRun(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canCreateRun(Project project, User user) {
+		return FamilyTag.TELS.equals(project.getFamilytag()) || 
+			this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) || 
+			this.aclService.hasPermission(project, BasePermission.WRITE, user);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canAuthorProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canAuthorProject(Project project, User user) {
+		return this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
+			this.aclService.hasPermission(project, BasePermission.WRITE, user);
 	}
 }

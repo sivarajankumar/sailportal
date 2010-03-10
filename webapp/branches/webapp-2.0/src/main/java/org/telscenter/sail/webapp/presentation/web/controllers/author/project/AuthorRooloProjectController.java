@@ -28,6 +28,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.NotAuthorizedException;
+
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -88,6 +91,7 @@ public class AuthorRooloProjectController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors) throws Exception{
     	RooloProjectParameters params = (RooloProjectParameters) command;
+    	User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
     	
     	//not really jnlpid, it is projectid set in formbackingobject
     	Project project = this.projectService.getById(params.getJnlpId()); 
@@ -99,7 +103,13 @@ public class AuthorRooloProjectController extends SimpleFormController {
     	elo.setContent(new StringContent(params.getXml()));
     	mod.setElo(elo);
     	this.moduleService.updateCurnit(mod);
-    	this.projectService.updateProject(project);
+    	
+    	try{
+    		this.projectService.updateProject(project, user);
+    	} catch (NotAuthorizedException e){
+    		e.printStackTrace();
+    		return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
+    	}
     	
     	ModelAndView mav = new ModelAndView(new RedirectView("./authorrooloproject.html"));
     	mav.addObject(PROJECTID, project.getId());

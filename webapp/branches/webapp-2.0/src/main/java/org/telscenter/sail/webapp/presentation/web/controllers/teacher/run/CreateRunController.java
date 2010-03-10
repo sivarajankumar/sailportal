@@ -42,6 +42,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -53,7 +54,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractWizardFormController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.Module;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.brainstorm.Brainstorm;
@@ -69,7 +69,6 @@ import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.brainstorm.BrainstormService;
-import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -97,8 +96,6 @@ public class CreateRunController extends AbstractWizardFormController {
 	private RunService runService = null;
 	
 	private WISEWorkgroupService workgroupService = null;
-	
-	private ModuleService moduleService = null;
 
 	private UserService userService;
 
@@ -180,9 +177,16 @@ public class CreateRunController extends AbstractWizardFormController {
 	protected void validatePage(Object command, Errors errors, int page) {
 	    super.validatePage(command, errors, page);
 		RunParameters runParameters = (RunParameters) command;
-
+		
 	    switch (page) {
 	    case 0:
+	    	SecurityContext context = SecurityContextHolder.getContext();
+			UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+			User user = userService.retrieveUser(userDetails);
+			
+			if(!this.projectService.canCreateRun(runParameters.getProject(), user)){
+				errors.rejectValue("project", "not.authorized", "You are not authorized to set up a run with this project.");
+			}
 	    	break;
 	    case 1:
 	    	break;
@@ -528,14 +532,6 @@ public class CreateRunController extends AbstractWizardFormController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
-	/**
-	 * @param moduleService the projectService to set
-	 */
-	public void setModuleService(ModuleService moduleService) {
-		this.moduleService = moduleService;
-	}
-
 
 	/**
 	 * @return the javaMail

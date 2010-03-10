@@ -276,6 +276,7 @@
     <bean id="endRunController"
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.manage.EndRunController">
         <property name="runService" ref="runService" />
+    	<property name="aclService" ref="aclServiceImpl" />
     	<property name="commandName" value="endRunParameters" />    	
     	<property name="commandClass" 
     	    value="org.telscenter.sail.webapp.domain.impl.EndRunParameters" />
@@ -370,7 +371,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.CreateRunController">
 		<property name="runService" ref="runService" />
 		<property name="userService" ref="userService" />
-		<property name="moduleService" ref="curnitService" />
         <property name="projectService" ref="projectService" />       
         <property name="workgroupService" ref="wiseWorkgroupService" />
         <property name="brainstormService" ref="brainstormService" />        
@@ -570,6 +570,10 @@
         <property name="emaillisteners" ref="emaillisteners" />
     </bean>
     
+    <bean id="accessDeniedController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.AccessDeniedController">
+    </bean>
+    
 	<bean id="lostPasswordStudentReminderWizardController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.LostPasswordStudentReminderWizardController">
 		<property name="userService" ref="userService" />
@@ -681,6 +685,7 @@
 		<property name="userService" ref="userService"/>
 		<property name="workgroupService" ref="wiseWorkgroupService" />
 		<property name="httpRestTransport" ref="httpRestTransport" />
+    	<property name="aclService" ref="aclServiceImpl" />
 	</bean>
 
 	<bean id="classMonitorController"
@@ -697,6 +702,8 @@
 		<property name="successView" value="/teacher/management/batchstudentchangepasswordsuccess"/>
 		<property name="userService" ref="userService"/>
 		<property name="groupService" ref="groupService"/>
+		<property name="runService" ref="runService"/>
+    	<property name="aclService" ref="aclServiceImpl" />
 		<property name="sessionForm" value="true"/>
 		<property name="commandName" value="batchStudentChangePasswordParameters"/>
 		<property name="commandClass" value="org.telscenter.sail.webapp.domain.impl.BatchStudentChangePasswordParameters"/>
@@ -765,6 +772,7 @@
         <property name="userService" ref="userService" />
         <property name="userDetailsService" ref="userDetailsService" />
         <property name="projectService" ref="projectService" />
+    	<property name="aclService" ref="aclServiceImpl" />
     	<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters" />
         <property name="javaMail" ref="javaMail"/>
@@ -815,6 +823,7 @@
 	<bean id="infoController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.admin.InfoController">
 		<property name="userService" ref="userService"/>
+		<property name="studentService" ref="studentService"/>
 	</bean>
 	
 	<bean id="viewAllUsersController"
@@ -927,6 +936,7 @@
         class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.ShareProjectRunController">
 		<property name="runService" ref="runService"/>
 		<property name="userService" ref="userService" />
+    	<property name="aclService" ref="aclServiceImpl" />
 		<property name="userDetailsService" ref="userDetailsService" />
 		<property name="workgroupService" ref="wiseWorkgroupService"/>
 		<property name="commandName" value="addSharedTeacherParameters" />
@@ -1243,6 +1253,7 @@
         <bean id="manageAnnouncementController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.announcement.ManageAnnouncementController">
     	<property name="runService" ref="runService"/>
+    	<property name="aclService" ref="aclServiceImpl" />
     </bean>
     
     <bean id="createAnnouncementController"
@@ -1452,5 +1463,14 @@
     	<property name="workgroupService" ref="wiseWorkgroupService"/>
     	<property name="runService" ref="runService" />
     </bean>
-    	
+    
+    <bean id="credentialManager"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.CredentialManager">
+        <property name="projectService" ref="projectService" />
+		<property name="portalProperties" ref="portalproperties" />
+    </bean>
+    
+    <bean id="routerController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.RouterController">
+    </bean>
 </beans>

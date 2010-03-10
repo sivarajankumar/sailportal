@@ -430,7 +430,7 @@
         					scope:this
         				};
         				
-        				YAHOO.util.Connect.asyncRequest('POST', '/vlewrapper/vle/filemanager.html', callback, 'command=copyProject&param1=' + url + '&param2=' + base);
+        				YAHOO.util.Connect.asyncRequest('POST', '/webapp/author/authorproject.html', callback, 'forward=filemanager&projectId=' + pID + '&command=copyProject&param1=' + url + '&param2=' + base);
         			} else {
         				var callback = {
         					success:function(o){alert(o.responseText);},

@@ -29,22 +29,22 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.*;
 
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.cmsImpl.RooloProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectTypeVisitor;
 import org.telscenter.sail.webapp.domain.teacher.management.ViewMyStudentsPeriod;
@@ -69,6 +69,8 @@ public class ViewMyStudentsController extends AbstractController{
 	private UserService userService;
 
 	private WorkgroupService workgroupService;
+	
+	private AclService aclService;
 
 	private HttpRestTransport httpRestTransport;
 
@@ -133,74 +135,81 @@ public class ViewMyStudentsController extends AbstractController{
 		String runIdStr = servletRequest.getParameter("runId");
 		Long runId = Long.valueOf(runIdStr);
 		Run run = runService.retrieveById(runId);
-		Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
-		String workgroupsWithoutPeriod = "";
-		Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
-		String projectName = run.getProject().getName();
-		String projectId = run.getProject().getId().toString();
-		
-		/* retrieves the get parameter periodName to determine which 
-		   period the link is requesting */
-		String periodName = servletRequest.getParameter("periodName");
-		
-		int tabIndex = 0;
-		int periodCounter = 0;
-		
-		for (Group period : run.getPeriods()) {
-			ViewMyStudentsPeriod viewmystudentsperiod = new ViewMyStudentsPeriod();
-			viewmystudentsperiod.setRun(run);
-			viewmystudentsperiod.setPeriod(period);
-			Set<Workgroup> periodworkgroups = new TreeSet<Workgroup>();
-			Set<User> grouplessStudents = new HashSet<User>();
-			grouplessStudents.addAll(period.getMembers());
-			for(Workgroup workgroup : allworkgroups){
-				grouplessStudents.removeAll(workgroup.getMembers());
-				try {
-					if (workgroup.getMembers().size() > 0    // don't include workgroups with no members.
-							&& !((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
-							&& ((WISEWorkgroup) workgroup).getPeriod().getId().equals(period.getId())) {
-						// set url where this workgroup's work can be retrieved as PDF
-						ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
-						if (!(run.getProject().accept(typeVisitor).equals("ExternalProject")) 
-								&& run.getProject().getProjectType() != ProjectType.ROLOO
-								&& run.getProject().getProjectType() != ProjectType.LD) {
-							String workPdfUrl = ((WISEWorkgroupService) workgroupService)
-							.generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
-							((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
-						}
-						periodworkgroups.add(workgroup);				
-					}
-				} catch (NullPointerException npe) {
-					// if a workgroup is not in a period, make a list of them and let teacher put them in a period...
-					// this should not be the case if the code works correctly and associates workgroups with periods when workgroups are created.
-					workgroupsWithoutPeriod += workgroup.getId().toString() + ",";
-				}
-			}
-			viewmystudentsperiod.setGrouplessStudents(grouplessStudents);
-			viewmystudentsperiod.setWorkgroups(periodworkgroups);
-			viewmystudentsallperiods.add(viewmystudentsperiod);
-			
-			//determines which period tab to show in the AJAX tab object
-			if(periodName != null && periodName.equals(period.getName())) {
-				tabIndex = periodCounter;
-			}
-			periodCounter++;
-		}
 
-		if (servletRequest.getParameter("tabIndex") != null) {
-			tabIndex = Integer.valueOf(servletRequest.getParameter("tabIndex"));
+		/* Ensure that the user has permission for this run */
+		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||
+				this.aclService.hasPermission(run, BasePermission.WRITE, user)){
+			Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
+			String workgroupsWithoutPeriod = "";
+			Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();
+			String projectName = run.getProject().getName();
+			String projectId = run.getProject().getId().toString();
+			
+			/* retrieves the get parameter periodName to determine which 
+			   period the link is requesting */
+			String periodName = servletRequest.getParameter("periodName");
+			
+			int tabIndex = 0;
+			int periodCounter = 0;
+			
+			for (Group period : run.getPeriods()) {
+				ViewMyStudentsPeriod viewmystudentsperiod = new ViewMyStudentsPeriod();
+				viewmystudentsperiod.setRun(run);
+				viewmystudentsperiod.setPeriod(period);
+				Set<Workgroup> periodworkgroups = new TreeSet<Workgroup>();
+				Set<User> grouplessStudents = new HashSet<User>();
+				grouplessStudents.addAll(period.getMembers());
+				for(Workgroup workgroup : allworkgroups){
+					grouplessStudents.removeAll(workgroup.getMembers());
+					try {
+						if (workgroup.getMembers().size() > 0    // don't include workgroups with no members.
+								&& !((WISEWorkgroup) workgroup).isTeacherWorkgroup() 
+								&& ((WISEWorkgroup) workgroup).getPeriod().getId().equals(period.getId())) {
+							// set url where this workgroup's work can be retrieved as PDF
+							ProjectTypeVisitor typeVisitor = new ProjectTypeVisitor();
+							if (!(run.getProject().accept(typeVisitor).equals("ExternalProject")) 
+									&& run.getProject().getProjectType() != ProjectType.ROLOO
+									&& run.getProject().getProjectType() != ProjectType.LD) {
+								String workPdfUrl = ((WISEWorkgroupService) workgroupService)
+								.generateWorkgroupWorkPdfUrlString(httpRestTransport, servletRequest, (WISEWorkgroup) workgroup);
+								((WISEWorkgroup) workgroup).setWorkPDFUrl(workPdfUrl);
+							}
+							periodworkgroups.add(workgroup);				
+						}
+					} catch (NullPointerException npe) {
+						// if a workgroup is not in a period, make a list of them and let teacher put them in a period...
+						// this should not be the case if the code works correctly and associates workgroups with periods when workgroups are created.
+						workgroupsWithoutPeriod += workgroup.getId().toString() + ",";
+					}
+				}
+				viewmystudentsperiod.setGrouplessStudents(grouplessStudents);
+				viewmystudentsperiod.setWorkgroups(periodworkgroups);
+				viewmystudentsallperiods.add(viewmystudentsperiod);
+				
+				//determines which period tab to show in the AJAX tab object
+				if(periodName != null && periodName.equals(period.getName())) {
+					tabIndex = periodCounter;
+				}
+				periodCounter++;
+			}
+	
+			if (servletRequest.getParameter("tabIndex") != null) {
+				tabIndex = Integer.valueOf(servletRequest.getParameter("tabIndex"));
+			}
+			modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
+			modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
+			modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
+			modelAndView.addObject(RUN_KEY, run);
+			modelAndView.addObject(RUN_NAME_KEY, run.getName());
+			modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
+			modelAndView.addObject(TAB_INDEX, tabIndex);
+			modelAndView.addObject(PROJECT_NAME, projectName);
+			modelAndView.addObject(PROJECT_ID, projectId);
+			modelAndView.addObject("workgroupsWithoutPeriod", workgroupsWithoutPeriod);
+			return modelAndView;
+		} else {
+			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
 		}
-		modelAndView.addObject(CURRENT_RUN_LIST_KEY, current_run_list);
-		modelAndView.addObject(WORKGROUP_MAP_KEY, workgroupMap);
-		modelAndView.addObject(VIEWMYSTUDENTS_KEY, viewmystudentsallperiods);
-		modelAndView.addObject(RUN_KEY, run);
-		modelAndView.addObject(RUN_NAME_KEY, run.getName());
-		modelAndView.addObject(HTTP_TRANSPORT_KEY, this.httpRestTransport);
-		modelAndView.addObject(TAB_INDEX, tabIndex);
-		modelAndView.addObject(PROJECT_NAME, projectName);
-		modelAndView.addObject(PROJECT_ID, projectId);
-		modelAndView.addObject("workgroupsWithoutPeriod", workgroupsWithoutPeriod);
-		return modelAndView;
 	}
 
 	/**
@@ -235,6 +244,13 @@ public class ViewMyStudentsController extends AbstractController{
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @param aclService the aclService to set
+	 */
+	public void setAclService(AclService aclService) {
+		this.aclService = aclService;
 	}
 
 }

@@ -27,14 +27,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
@@ -45,12 +44,10 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.domain.AccountQuestion;
 import org.telscenter.sail.webapp.domain.PeriodNotFoundException;
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.Gender;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.presentation.web.StudentAccountForm;
-import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
@@ -84,34 +81,41 @@ public class RegisterStudentController extends SignupController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-
-		StudentAccountForm accountForm = (StudentAccountForm) command;
-		StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
-
-		if (accountForm.isNewAccount()) {
-			try {
-				User user = userService.createUser(userDetails);
-				Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
-				studentService.addStudentToRun(user, projectcode);
-			} catch (DuplicateUsernameException e) {
-				errors.rejectValue("userDetails.username", "error.duplicate-username",
-						new Object[] { userDetails.getUsername() }, "Duplicate Username.");
-				return showForm(request, response, errors);
-			} catch (ObjectNotFoundException e) {
-	    		errors.rejectValue("projectCode", "error.illegal-projectcode");
-	    		return showForm(request, response, errors);
-	    	} catch (PeriodNotFoundException e) {
-	    		errors.rejectValue("projectCode", "error.illegal-projectcode");
-	    		return showForm(request, response, errors);
-	    	}
+		String portalUrl = ControllerUtil.getBaseUrlString(request);
+		String referrer = request.getHeader("referer");
+		
+		if(referrer != null && referrer.equals(portalUrl + "/webapp/student/registerstudent.html")){
+			StudentAccountForm accountForm = (StudentAccountForm) command;
+			StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
+	
+			if (accountForm.isNewAccount()) {
+				try {
+					User user = userService.createUser(userDetails);
+					Projectcode projectcode = new Projectcode(accountForm.getProjectCode());
+					studentService.addStudentToRun(user, projectcode);
+				} catch (DuplicateUsernameException e) {
+					errors.rejectValue("userDetails.username", "error.duplicate-username",
+							new Object[] { userDetails.getUsername() }, "Duplicate Username.");
+					return showForm(request, response, errors);
+				} catch (ObjectNotFoundException e) {
+		    		errors.rejectValue("projectCode", "error.illegal-projectcode");
+		    		return showForm(request, response, errors);
+		    	} catch (PeriodNotFoundException e) {
+		    		errors.rejectValue("projectCode", "error.illegal-projectcode");
+		    		return showForm(request, response, errors);
+		    	}
+			} else {
+				//userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
+			}
+	
+			ModelAndView modelAndView = new ModelAndView(getSuccessView());
+	
+			modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
+			return modelAndView;
 		} else {
-			//userService.updateUser(userDetails);    // TODO HT: add updateUser() to UserService
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			return null;
 		}
-
-		ModelAndView modelAndView = new ModelAndView(getSuccessView());
-
-		modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
-		return modelAndView;
 	}
 	
 	@Override

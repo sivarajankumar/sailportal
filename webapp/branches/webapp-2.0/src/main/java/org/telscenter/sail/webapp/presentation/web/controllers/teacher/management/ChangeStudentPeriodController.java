@@ -26,11 +26,15 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.manageme
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.impl.ChangePeriodParameters;
 import org.telscenter.sail.webapp.domain.impl.Projectcode;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -66,22 +70,27 @@ public class ChangeStudentPeriodController extends SimpleFormController{
 	@Override
     protected ModelAndView onSubmit(HttpServletRequest request, 
     		HttpServletResponse response, Object command, BindException errors){
-		
+		User callingUser = ControllerUtil.getSignedInUser(request);
 		ChangePeriodParameters params = (ChangePeriodParameters) command;
 		
-		try{
-			if(!params.getProjectcodeTo().equals(params.getProjectcode())){
-				studentService.removeStudentFromRun(params.getStudent(), params.getRun());
-				studentService.addStudentToRun(params.getStudent(), new Projectcode(params.getRun().getRuncode(), params.getProjectcodeTo()));
-			}
-		} catch (Exception e){}
-
-		
-		ModelAndView modelAndView = new ModelAndView(getSuccessView());
-		
-		return modelAndView;
+		if(this.runService.hasRunPermission(params.getRun(), callingUser, BasePermission.WRITE) ||
+				this.runService.hasRunPermission(params.getRun(), callingUser, BasePermission.ADMINISTRATION)){
+			try{
+				if(!params.getProjectcodeTo().equals(params.getProjectcode())){
+					studentService.removeStudentFromRun(params.getStudent(), params.getRun());
+					studentService.addStudentToRun(params.getStudent(), new Projectcode(params.getRun().getRuncode(), params.getProjectcodeTo()));
+				}
+			} catch (Exception e){}
+	
+			
+			ModelAndView modelAndView = new ModelAndView(getSuccessView());
+			
+			return modelAndView;
+		} else {
+			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
+		}
 	}
-
+	
 	/**
 	 * @param runService the runService to set
 	 */

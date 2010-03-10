@@ -98,6 +98,7 @@
 
 
 <body class="yui-skin-sam" onload="checkRuns()">
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="centeredDivDynamicFrame">
@@ -222,12 +223,14 @@
 					    	<c:set var="isExternalProject" value="0"/>
 					      		<li><a href="./announcement/manageannouncement.html?runId=${run.id}" target="_top">Manage Announcements</a></li>
 					        			    	
+					    	<!-- 
 					    	<li><a href="../run/brainstorm/createbrainstorm.html?runId=${run.id}" target="_top">Create Q&A Discussion</a></li>
 					    	<c:if test="${not empty run.brainstorms}" >
 					            <c:forEach var="brainstorm" items="${run.brainstorms}" varStatus="brainstormVS" >
 					                <li class="qaBullet"><a href="../run/brainstorm/managebrainstorm.html?brainstormId=${brainstorm.id}">Manage Q&A #${brainstormVS.index+1}</a></li>
 					            </c:forEach>
-					    	</c:if>		
+					    	</c:if>
+					    	 -->		
 							<li><a href="../../contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
 					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=${run.name}')">Archive Project</a></li>

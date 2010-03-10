@@ -20,61 +20,60 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized;
+package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.service.project.ProjectService;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class PublicController extends AbstractController{
+public class RouterController extends AbstractController{
 
-private ProjectService projectService;
-	
-	private final static String PROJECTID = "projectId";
-	
-	private final static String CHECKED = "checked";
-	
-	private final static String RESPONSE = "response";
+	private final static String FORWARD = "forward";
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		Boolean checked = Boolean.valueOf(request.getParameter(CHECKED));
-		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID)));
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		
-		try{
-			project.setPublic(checked);
-			this.projectService.updateProject(project, user);
-		} catch (NotAuthorizedException e){
-			e.printStackTrace();
-			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
+		/* ensure that logged in user has administrator permissions if coming from the util page */
+		String referrer = request.getHeader("referer");
+		/* if there is no referrer we also want to deny access */
+		if(referrer == null || (referrer.endsWith("util/util.html") && !user.getUserDetails().hasGrantedAuthority(UserDetailsService.ADMIN_ROLE))){
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+			return null;
+		} else {
+			/* if no forward parameter specified, we don't know what to do with the request */
+			String forward = request.getParameter(FORWARD);
+			if(forward==null || forward.equals("")){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+				return null;
+			} else {
+				ServletContext servletContext = this.getServletContext().getContext("/vlewrapper");
+				CredentialManager.setRequestCredentials(request, user);
+				if(forward.equals("convert") || forward.equals("minifier")){
+					servletContext.getRequestDispatcher("/util/" + forward + ".html").forward(request, response);
+					return null;
+				} else if(forward.equals("filemanager")){
+					servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
+					return null;
+				} else {
+					response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+					return null;
+				}
+			}
 		}
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(RESPONSE, "public option updated on server");
-		return modelAndView;
 	}
-	
-	/**
-	 * @param projectService the projectService to set
-	 */
-	public void setProjectService(ProjectService projectService) {
-		this.projectService = projectService;
-	}
+
 }

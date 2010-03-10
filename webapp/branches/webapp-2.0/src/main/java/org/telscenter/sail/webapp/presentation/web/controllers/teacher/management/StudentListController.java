@@ -28,10 +28,14 @@ import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.service.offering.RunService;
 
@@ -60,23 +64,27 @@ public class StudentListController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+		User user = ControllerUtil.getSignedInUser(request);
 		String runId = request.getParameter(RUNID_PARAM_KEY);
 		
 		Run run = runService.retrieveById(Long.valueOf(runId));
 
-		Set<Group> periods = run.getPeriods();
-		Set<Group> requestedPeriods = new TreeSet<Group>();
-		
-		for (Group period : periods) {
-			// TODO in future: filter by period...for now, include all periods
-			requestedPeriods.add(period);
+		if(this.runService.hasRunPermission(run, user, BasePermission.READ)){
+			Set<Group> periods = run.getPeriods();
+			Set<Group> requestedPeriods = new TreeSet<Group>();
+			
+			for (Group period : periods) {
+				// TODO in future: filter by period...for now, include all periods
+				requestedPeriods.add(period);
+			}
+			
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(RUN, run);
+			modelAndView.addObject(PERIODS, requestedPeriods);
+			return modelAndView;
+		} else {
+			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
 		}
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(RUN, run);
-		modelAndView.addObject(PERIODS, requestedPeriods);
-		return modelAndView;
 	}
 
 

@@ -20,61 +20,27 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.customized;
+package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.service.NotAuthorizedException;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
-public class PublicController extends AbstractController{
+public class AccessDeniedController extends AbstractController{
 
-private ProjectService projectService;
-	
-	private final static String PROJECTID = "projectId";
-	
-	private final static String CHECKED = "checked";
-	
-	private final static String RESPONSE = "response";
-	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
+	protected ModelAndView handleRequestInternal(HttpServletRequest reques,
 			HttpServletResponse response) throws Exception {
-		Boolean checked = Boolean.valueOf(request.getParameter(CHECKED));
-		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID)));
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
-		
-		try{
-			project.setPublic(checked);
-			this.projectService.updateProject(project, user);
-		} catch (NotAuthorizedException e){
-			e.printStackTrace();
-			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
-		}
-		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(RESPONSE, "public option updated on server");
-		return modelAndView;
+		return new ModelAndView();
 	}
-	
-	/**
-	 * @param projectService the projectService to set
-	 */
-	public void setProjectService(ProjectService projectService) {
-		this.projectService = projectService;
-	}
+
 }

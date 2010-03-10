@@ -90,4 +90,10 @@ public interface AclService<T> {
 	 */
 	public List<Permission> getPermissions(T object, User user);
 
+	/**
+	 * Returns <code>boolean</code> true if the given <code>User</code> principle
+	 * has the given <code>Permission</code> on the give <code>Object</code>, returns
+	 * fale otherwise.
+	 */
+	public boolean hasPermission(T object, Permission permission, User user);
 }

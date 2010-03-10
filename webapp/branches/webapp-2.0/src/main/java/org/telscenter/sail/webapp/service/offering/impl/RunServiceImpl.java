@@ -42,7 +42,6 @@ import net.sf.sail.webapp.domain.impl.OfferingParameters;
 import net.sf.sail.webapp.domain.sds.SdsOffering;
 import net.sf.sail.webapp.service.offering.impl.OfferingServiceImpl;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.acls.Permission;
 import org.springframework.security.acls.domain.BasePermission;
@@ -492,5 +491,12 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public void setExtras(Run run, String extras) throws Exception {
 		run.setExtras(extras);
 		this.runDao.save(run);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#hasRunPermission(org.telscenter.sail.webapp.domain.Run, net.sf.sail.webapp.domain.User, org.springframework.security.acls.Permission)
+	 */
+	public boolean hasRunPermission(Run run, User user, Permission permission){
+		return this.aclService.hasPermission(run, permission, user);
 	}
 }

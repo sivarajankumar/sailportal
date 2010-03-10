@@ -27,14 +27,19 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.BatchStudentChangePasswordParameters;
+import org.telscenter.sail.webapp.service.offering.RunService;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.service.AclService;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.group.GroupService;
 
@@ -48,13 +53,25 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 	
 	private UserService userService;
 	
+	private RunService runService;
+	
+	private AclService aclService;
+	
 	private static final String GROUPID_PARAM_NAME = "groupId";
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		BatchStudentChangePasswordParameters params = new BatchStudentChangePasswordParameters();
-		params.setGroupId(Long.parseLong(request.getParameter(GROUPID_PARAM_NAME)));
-		return params;
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter("runId")));
+		
+		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||
+				this.aclService.hasPermission(run, BasePermission.WRITE, user)){
+			BatchStudentChangePasswordParameters params = new BatchStudentChangePasswordParameters();
+			params.setGroupId(Long.parseLong(request.getParameter(GROUPID_PARAM_NAME)));
+			return params;
+		} else {
+			throw new NotAuthorizedException("You are not authorized to change these passwords.");
+		}
 	}
 	
 	/**
@@ -104,6 +121,20 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @param runService the runService to set
+	 */
+	public void setRunService(RunService runService) {
+		this.runService = runService;
+	}
+
+	/**
+	 * @param aclService the aclService to set
+	 */
+	public void setAclService(AclService aclService) {
+		this.aclService = aclService;
 	}
 	
 	

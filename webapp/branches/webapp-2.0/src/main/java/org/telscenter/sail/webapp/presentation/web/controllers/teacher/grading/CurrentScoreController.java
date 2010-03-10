@@ -33,18 +33,18 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.emf.sailuserdata.EAnnotation;
-import net.sf.sail.emf.sailuserdata.EAnnotationGroup;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.annotation.AnnotationBundleService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.eclipse.emf.common.util.EList;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.pas.emf.pas.EActivity;
 import org.telscenter.pas.emf.pas.ECurnitmap;
 import org.telscenter.pas.emf.pas.EProject;
@@ -52,9 +52,6 @@ import org.telscenter.pas.emf.pas.EStep;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.grading.GradeWorkByWorkgroupAggregate;
 import org.telscenter.sail.webapp.domain.grading.IndividualScore;
-import org.telscenter.sail.webapp.domain.grading.StudentScore;
-import org.telscenter.sail.webapp.domain.grading.impl.IndividualScoreNumericImpl;
-import org.telscenter.sail.webapp.domain.grading.impl.StudentScoreImpl;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.grading.GradingService;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -100,76 +97,80 @@ public class CurrentScoreController extends AbstractController {
 			
 			//get the stuff from the run
 			Run aRun = runService.retrieveById(new Long(runId));
-			System.out.println("OBJECT ID: " + aRun.getSdsOffering().getSdsCurnit().getSdsObjectId() );
-			String curnitId = aRun.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
-			
-			ECurnitmap curnitMap = this.gradingService.getCurnitmap(new Long(runId));
-			EProject project = curnitMap.getProject();
-			
-			HashMap<String, EStep> gradableSteps = new HashMap<String, EStep>();
-			
-			//find all the gradable steps
-			for (Iterator iterator = curnitMap.getProject().getActivity().iterator(); iterator.hasNext();) {
-				EActivity foundActivity = (EActivity) iterator.next();
-				EList stepList = foundActivity.getStep();
-				//find the gradable steps
-				for (Iterator stepListIt = stepList.iterator(); stepListIt
-						.hasNext();) {
-					EStep step = (EStep) stepListIt.next();
-					
-					//if it is a gradeable record the scores
-					//if(GradingToolController.isGradable(step.getType()) ) {
-					//	gradableSteps.put(step.getPodUUID().toString(),step);
-					//}// if
+			User user = ControllerUtil.getSignedInUser(request);
+			if(this.runService.hasRunPermission(aRun, user, BasePermission.READ)){
+				System.out.println("OBJECT ID: " + aRun.getSdsOffering().getSdsCurnit().getSdsObjectId() );
+				String curnitId = aRun.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();
+				
+				ECurnitmap curnitMap = this.gradingService.getCurnitmap(new Long(runId));
+				EProject project = curnitMap.getProject();
+				
+				HashMap<String, EStep> gradableSteps = new HashMap<String, EStep>();
+				
+				//find all the gradable steps
+				for (Iterator iterator = curnitMap.getProject().getActivity().iterator(); iterator.hasNext();) {
+					EActivity foundActivity = (EActivity) iterator.next();
+					EList stepList = foundActivity.getStep();
+					//find the gradable steps
+					for (Iterator stepListIt = stepList.iterator(); stepListIt
+							.hasNext();) {
+						EStep step = (EStep) stepListIt.next();
+						
+						//if it is a gradeable record the scores
+						//if(GradingToolController.isGradable(step.getType()) ) {
+						//	gradableSteps.put(step.getPodUUID().toString(),step);
+						//}// if
+					}// for
 				}// for
-			}// for
-			
-			
-			//get all workgroups
-			Set<Workgroup> workgroups = runService.getWorkgroups(new Long(runId));
-			periodsToScoreLists = new HashMap<String, List<IndividualScore>>();
-			
-			//go through all the workgroups and create the score list
-			for (Workgroup workgroup : workgroups) {
 				
-				GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate = this.gradingService.getGradeWorkByWorkgroupAggregate(new Long(runId), workgroup);
-				List<IndividualScore> individualScores = this.gradingService.getIndividualScores(gradeWorkByWorkgroupAggregate, gradableSteps);
 				
-				Group period = ((WISEWorkgroup)workgroup).getPeriod();
+				//get all workgroups
+				Set<Workgroup> workgroups = runService.getWorkgroups(new Long(runId));
+				periodsToScoreLists = new HashMap<String, List<IndividualScore>>();
 				
-				if (period != null) {
-					String periodKey = period.getName();
-
-					if( periodsToScoreLists.containsKey(periodKey) ) {
-						periodsToScoreLists.get(periodKey).addAll(individualScores);
-					} else {
-						periodsToScoreLists.put(periodKey, individualScores);
-					}// if
-				}				
+				//go through all the workgroups and create the score list
+				for (Workgroup workgroup : workgroups) {
+					
+					GradeWorkByWorkgroupAggregate gradeWorkByWorkgroupAggregate = this.gradingService.getGradeWorkByWorkgroupAggregate(new Long(runId), workgroup);
+					List<IndividualScore> individualScores = this.gradingService.getIndividualScores(gradeWorkByWorkgroupAggregate, gradableSteps);
+					
+					Group period = ((WISEWorkgroup)workgroup).getPeriod();
+					
+					if (period != null) {
+						String periodKey = period.getName();
+	
+						if( periodsToScoreLists.containsKey(periodKey) ) {
+							periodsToScoreLists.get(periodKey).addAll(individualScores);
+						} else {
+							periodsToScoreLists.put(periodKey, individualScores);
+						}// if
+					}				
+				
+				}// for
+				
+				allScores = new ArrayList<IndividualScore>();
+				for (Map.Entry<String, List<IndividualScore>> entry : periodsToScoreLists.entrySet()) {
+					allScores.addAll(entry.getValue());
+				}
+				
+				Collections.sort(allScores);
 			
-			}// for
-			
-			allScores = new ArrayList<IndividualScore>();
-			for (Map.Entry<String, List<IndividualScore>> entry : periodsToScoreLists.entrySet()) {
-				allScores.addAll(entry.getValue());
+				//Map<String, List<IndividualScore>> mockMap = this.createMockMap(gradableSteps.size());
+				
+				ModelAndView modelAndView = new ModelAndView();
+				
+				
+				modelAndView.addObject(PROJECT_TITLE,project.getTitle());
+				modelAndView.addObject(CURNIT_ID,curnitId);
+				modelAndView.addObject(RUN_ID, runId);
+				//modelAndView.addObject(CURNIT_MAP, curnitMap);
+				modelAndView.addObject(SCORE_MAP, periodsToScoreLists);
+				modelAndView.addObject(ALL_SCORES,allScores);
+				
+				return modelAndView;
+			} else {
+				return new ModelAndView(new RedirectView("../../accessdenied.html"));
 			}
-			
-			Collections.sort(allScores);
-		
-			//Map<String, List<IndividualScore>> mockMap = this.createMockMap(gradableSteps.size());
-			
-			ModelAndView modelAndView = new ModelAndView();
-			
-			
-			modelAndView.addObject(PROJECT_TITLE,project.getTitle());
-			modelAndView.addObject(CURNIT_ID,curnitId);
-			modelAndView.addObject(RUN_ID, runId);
-			//modelAndView.addObject(CURNIT_MAP, curnitMap);
-			modelAndView.addObject(SCORE_MAP, periodsToScoreLists);
-			modelAndView.addObject(ALL_SCORES,allScores);
-			
-			return modelAndView;
-		
 		} else {
 			
 			//throw error

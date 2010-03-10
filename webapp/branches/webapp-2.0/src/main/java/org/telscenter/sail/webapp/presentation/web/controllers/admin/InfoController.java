@@ -24,11 +24,17 @@ package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
+import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * @author Sally Ahn
@@ -37,6 +43,8 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 public class InfoController extends AbstractController{
 	
 	private UserService userService;
+	
+	private StudentService studentService;
 
 	protected final static String USER_INFO_MAP = "userInfoMap";
 	
@@ -46,12 +54,19 @@ public class InfoController extends AbstractController{
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
+		User signedInUser = ControllerUtil.getSignedInUser(servletRequest);
 		String userName = (String) servletRequest.getParameter("userName");
+		User infoUser = this.userService.retrieveUserByUsername(userName);
 		
-		MutableUserDetails userDetails = (MutableUserDetails) userService.retrieveUserByUsername(userName).getUserDetails();
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(USER_INFO_MAP, userDetails.getInfo());
-        return modelAndView;	
+		if(signedInUser.getUserDetails().hasGrantedAuthority(UserDetailsService.ADMIN_ROLE) ||
+				this.studentService.isStudentAssociatedWithTeacher(infoUser, signedInUser)){
+			MutableUserDetails userDetails = (MutableUserDetails) infoUser.getUserDetails();
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject(USER_INFO_MAP, userDetails.getInfo());
+	        return modelAndView;
+		} else {
+			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
+		}
     }
 
 	/**
@@ -59,6 +74,13 @@ public class InfoController extends AbstractController{
 	 */
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @param studentService the studentService to set
+	 */
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
 	}
 
 }

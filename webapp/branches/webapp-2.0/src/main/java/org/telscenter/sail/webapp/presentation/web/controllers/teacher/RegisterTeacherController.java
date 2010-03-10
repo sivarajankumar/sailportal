@@ -30,11 +30,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.Curriculumsubjects;
 import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
@@ -87,46 +89,53 @@ public class RegisterTeacherController extends SignupController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-
-		TeacherAccountForm accountForm = (TeacherAccountForm) command;
-		TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
-
-		if (accountForm.isNewAccount()) {
-			try {
-				userDetails.setDisplayname(userDetails.getFirstname() + " " + userDetails.getLastname());
-				userDetails.setEmailValid(true);
-				this.userService.createUser(userDetails);
-			}
-			catch (DuplicateUsernameException e) {
-				errors.rejectValue("username", "error.duplicate-username",
-						new Object[] { userDetails.getUsername() }, "Duplicate Username.");
-				return showForm(request, response, errors);
-			}
-		} else {
-			User user = userService.retrieveUserByUsername(userDetails.getUsername());
-			
-			TeacherUserDetails teacherUserDetails = (TeacherUserDetails) user.getUserDetails();
-			teacherUserDetails.setCity(userDetails.getCity());
-			teacherUserDetails.setCountry(userDetails.getCountry());
-			teacherUserDetails.setCurriculumsubjects(userDetails.getCurriculumsubjects());
-			teacherUserDetails.setEmailAddress(userDetails.getEmailAddress());
-			teacherUserDetails.setSchoollevel(userDetails.getSchoollevel());
-			teacherUserDetails.setSchoolname(userDetails.getSchoolname());
-			teacherUserDetails.setState(userDetails.getState());
-			teacherUserDetails.setDisplayname(userDetails.getDisplayname());
-			teacherUserDetails.setEmailValid(true);
-
-			userService.updateUser(user);
-			// update user in session
-			request.getSession().setAttribute(
-					User.CURRENT_USER_SESSION_KEY, user);
-		}
+		String portalUrl = ControllerUtil.getBaseUrlString(request);
+		String referrer = request.getHeader("referer");
 		
-		ModelAndView modelAndView = new ModelAndView(getSuccessView());
-
-		modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
-		modelAndView.addObject(DISPLAYNAME_KEY, userDetails.getDisplayname());
-		return modelAndView;
+		if(referrer.equals(portalUrl + "/webapp/teacher/registerteacher.html")){
+			TeacherAccountForm accountForm = (TeacherAccountForm) command;
+			TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
+	
+			if (accountForm.isNewAccount()) {
+				try {
+					userDetails.setDisplayname(userDetails.getFirstname() + " " + userDetails.getLastname());
+					userDetails.setEmailValid(true);
+					this.userService.createUser(userDetails);
+				}
+				catch (DuplicateUsernameException e) {
+					errors.rejectValue("username", "error.duplicate-username",
+							new Object[] { userDetails.getUsername() }, "Duplicate Username.");
+					return showForm(request, response, errors);
+				}
+			} else {
+				User user = userService.retrieveUserByUsername(userDetails.getUsername());
+				
+				TeacherUserDetails teacherUserDetails = (TeacherUserDetails) user.getUserDetails();
+				teacherUserDetails.setCity(userDetails.getCity());
+				teacherUserDetails.setCountry(userDetails.getCountry());
+				teacherUserDetails.setCurriculumsubjects(userDetails.getCurriculumsubjects());
+				teacherUserDetails.setEmailAddress(userDetails.getEmailAddress());
+				teacherUserDetails.setSchoollevel(userDetails.getSchoollevel());
+				teacherUserDetails.setSchoolname(userDetails.getSchoolname());
+				teacherUserDetails.setState(userDetails.getState());
+				teacherUserDetails.setDisplayname(userDetails.getDisplayname());
+				teacherUserDetails.setEmailValid(true);
+	
+				userService.updateUser(user);
+				// update user in session
+				request.getSession().setAttribute(
+						User.CURRENT_USER_SESSION_KEY, user);
+			}
+			
+			ModelAndView modelAndView = new ModelAndView(getSuccessView());
+	
+			modelAndView.addObject(USERNAME_KEY, userDetails.getUsername());
+			modelAndView.addObject(DISPLAYNAME_KEY, userDetails.getDisplayname());
+			return modelAndView;
+		} else {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			return null;
+		}
 	}
 	
 	/**

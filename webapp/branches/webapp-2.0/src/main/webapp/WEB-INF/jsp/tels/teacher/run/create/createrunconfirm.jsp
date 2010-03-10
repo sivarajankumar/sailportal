@@ -69,6 +69,19 @@
 
 <body>
 
+<!-- Support for Spring errors object -->
+<spring:bind path="runParameters.project">
+  <c:forEach var="error" items="${status.errorMessages}">
+    <c:choose>
+      <c:when test="${fn:length(error) > 0}" >
+        <script type="text/javascript">
+            alert("${error}");
+        </script>
+      </c:when>
+    </c:choose>
+  </c:forEach>
+</spring:bind>
+
 <div id="centeredDiv">
 
 <%@ include file="../../headerteacher.jsp"%> 

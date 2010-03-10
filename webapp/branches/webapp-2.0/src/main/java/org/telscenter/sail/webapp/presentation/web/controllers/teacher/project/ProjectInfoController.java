@@ -25,8 +25,12 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -57,11 +61,21 @@ public class ProjectInfoController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
+		User user = ControllerUtil.getSignedInUser(request);
 		
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(PROJECT_PARAM_NAME, project);
-		modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));
-		return modelAndView;
+		if(project != null){
+			if(this.projectService.canAuthorProject(project, user)){
+				ModelAndView modelAndView = new ModelAndView();
+				modelAndView.addObject(PROJECT_PARAM_NAME, project);
+				modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));
+				return modelAndView;
+			} else {
+				return new ModelAndView(new RedirectView("../../accessdenied.html"));
+			}
+		} else {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Cannot determine project to retrieve info for.");
+			return null;
+		}
 	}
 
 	/**
