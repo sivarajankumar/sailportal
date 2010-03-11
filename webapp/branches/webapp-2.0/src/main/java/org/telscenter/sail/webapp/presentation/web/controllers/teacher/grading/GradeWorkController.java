@@ -197,6 +197,12 @@ public class GradeWorkController extends AbstractController {
     	//get the url to post max scores
     	String postMaxScoreUrl = portalurl + "/webapp/teacher/grading/gradebystep.html?action=postMaxScore&runId=" + run.getId().toString();
     	
+    	//get the url for peer review work
+    	String getPeerReviewUrl = portalurl + "/webapp/bridge/request.html?type=peerreview&runId=" + run.getId().toString();
+    	
+    	//get the url for xls export
+    	String getXLSExportUrl = portalurl + "/webapp/bridge/request.html?type=xlsexport&runId=" + run.getId().toString();
+    	
 		//the json object to return that will contain the config params
 		JSONObject config = new JSONObject();
 		
@@ -219,6 +225,8 @@ public class GradeWorkController extends AbstractController {
 			config.put("getRunExtrasUrl", getRunExtrasUrl);
 			config.put("postMaxScoreUrl", postMaxScoreUrl);
 			config.put("gradingType", gradingType);
+			config.put("getPeerReviewUrl", getPeerReviewUrl);
+			config.put("getXLSExportUrl", getXLSExportUrl);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

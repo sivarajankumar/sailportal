@@ -44,6 +44,10 @@ import org.springframework.security.GrantedAuthority;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -162,13 +166,9 @@ public class BridgeController extends AbstractController {
 				workgroupIdStr = request.getParameter("workgroupId");
 			} else if(type.equals("peerreview")) {
 				//return true for now until logic is implemented
-				try {
-					Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(runId, period);
-					request.setAttribute("numWorkgroups", classmateWorkgroups.size());
-				} catch (ObjectNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				return true;
+			} else if(type.equals("xlsexport")) {
+				
 				return true;
 			} else {
 				// this should never happen
@@ -287,7 +287,83 @@ public class BridgeController extends AbstractController {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/journaldata.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("peerreview")) {
+			
+			//get the run id
+			String runIdString = request.getParameter("runId");
+			Long runId = null;
+			
+			if(runIdString != null) {
+				runId = Long.parseLong(runIdString);
+			}
+			
+			//get the period id
+			String periodString = request.getParameter("periodId");
+			Long period = null;
+			if(periodString != null) {
+				period = Long.parseLong(periodString);	
+			}
+			
+			try {
+				/*
+				 * set the number of students in the class period for when we need
+				 * to calculate peer review opening
+				 */
+				Set<Workgroup> classmateWorkgroups = runService.getWorkgroups(runId, period);
+				request.setAttribute("numWorkgroups", classmateWorkgroups.size());
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
+			requestDispatcher.forward(request, response);
+		} else if (type.equals("xlsexport")) {
+			//get the run id
+			String runIdString = request.getParameter("runId");
+			Long runId = null;
+			
+			if(runIdString != null) {
+				runId = Long.parseLong(runIdString);
+			}
+			
+			try {
+				//get the workgroups in the run
+				Set<Workgroup> workgroups = runService.getWorkgroups(runId);
+				
+				JSONObject teacherUserInfoJSONObject = new JSONObject();
+				JSONArray classmateUserInfosJSONArray = new JSONArray();
+				
+				//loop through all the workgroups in the run
+				for(Workgroup workgroup : workgroups) {
+					try {
+						JSONObject classmateJSONObject = new JSONObject();
+						
+						if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+							//the workgroup is the teacher workgroup
+							teacherUserInfoJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
+						} else {
+							//the workgroup is a student workgroup
+							classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
+							
+							if(((WISEWorkgroup) workgroup).getPeriod() != null) {
+								classmateJSONObject.put("periodId", ((WISEWorkgroup) workgroup).getPeriod().getId());	
+							} else {
+								classmateJSONObject.put("periodId", JSONObject.NULL);
+							}
+							
+							//add the student to the list of classmates array
+							classmateUserInfosJSONArray.put(classmateJSONObject);
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				//set the JSON objects to request attributes so the vlewrapper servlet can access them
+				request.setAttribute("classmateUserInfos", classmateUserInfosJSONArray.toString());
+				request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
+			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getxls.html");
 			requestDispatcher.forward(request, response);
 		}
 		return null;
