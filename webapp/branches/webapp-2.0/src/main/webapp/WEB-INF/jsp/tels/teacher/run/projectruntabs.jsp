@@ -324,8 +324,10 @@
 					    <ul id="actionList1">
 					
 					        <li><a href="../../previewproject.html?projectId=${run.project.id}" target="_blank">View the Project</a></li>
+					        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
+   	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>		
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=${run.name}')">Restore to <i>My Current Project Runs</i> Tab</a></li>
+					    	  <li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}&runName=${run.name}')">Restore to <i>My Current Project Runs</i> Tab</a></li>
 					    	</sec:accesscontrollist>							
 			
 					    </ul>
