@@ -30,13 +30,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.authentication.Curriculumsubjects;
 import org.telscenter.sail.webapp.domain.authentication.Schoollevel;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
@@ -89,10 +87,12 @@ public class RegisterTeacherController extends SignupController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-		String portalUrl = ControllerUtil.getBaseUrlString(request);
+		String domain =  "http://" + request.getServerName();
+		String domainWithPort = domain + ":" + request.getLocalPort();
 		String referrer = request.getHeader("referer");
+		String registerUrl = "/webapp/teacher/registerteacher.html";
 		
-		if(referrer.equals(portalUrl + "/webapp/teacher/registerteacher.html")){
+		if(referrer.contains(domain + registerUrl) || referrer.contains(domainWithPort + registerUrl)){
 			TeacherAccountForm accountForm = (TeacherAccountForm) command;
 			TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
 	

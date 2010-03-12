@@ -33,7 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.controllers.SignupController;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 
@@ -81,10 +80,12 @@ public class RegisterStudentController extends SignupController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-		String portalUrl = ControllerUtil.getBaseUrlString(request);
+		String domain =  "http://" + request.getServerName();
+		String domainWithPort = domain + ":" + request.getLocalPort();
 		String referrer = request.getHeader("referer");
+		String registerUrl = "/webapp/student/registerstudent.html";
 		
-		if(referrer != null && referrer.equals(portalUrl + "/webapp/student/registerstudent.html")){
+		if(referrer != null && (referrer.contains(domain + registerUrl) || referrer.contains(domainWithPort + registerUrl))){
 			StudentAccountForm accountForm = (StudentAccountForm) command;
 			StudentUserDetails userDetails = (StudentUserDetails) accountForm.getUserDetails();
 	
