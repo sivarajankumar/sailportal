@@ -35,8 +35,14 @@
                             <td>${studentPlannedActivity.assoicatedELO.inputTo.name}</td>
 
                             <td>
+
                                 <c:forEach var="member" items="${studentPlannedActivity.members}">
-                                    <img src="/webapp/common/filestreamer.html?username=${member.userDetails.username}&showIcon"/>
+                                    <table>
+                                        <tr><td>
+                                            <img src="/webapp/common/filestreamer.html?username=${member.userDetails.username}&showIcon"/>
+                                            ${member.userDetails.username}
+                                        </td></tr>
+                                    </table>
                                 </c:forEach>
                             </td>
 
