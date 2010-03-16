@@ -244,3 +244,13 @@ form table td {
 table th {
 	font-weight: bold;
 }
+
+.tablerow-even{
+    background-color:#dde5e9;
+    border-collapse:collapse;
+}
+
+.tablerow-odd{
+    background-color:#ebebeb;
+    border-collapse:collapse;
+}
