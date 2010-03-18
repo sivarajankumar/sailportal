@@ -27,9 +27,14 @@
                                 <a href="../teacher/studentList.html">Student list</a>
                             </span>
 					</sec:authorize>
-                    <sec:authorize ifAllGranted="ROLE_USER">
+                    <sec:authorize ifAllGranted="ROLE_TEACHER">
                             <span id="signOugBannerHome">
                                 <a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor </a>
+                            </span>
+					</sec:authorize>
+                    <sec:authorize ifAllGranted="ROLE_TEACHER">
+                            <span id="signOugBannerHome">
+                                <a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYRuntime Author</a>
                             </span>
 					</sec:authorize>
 					<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
