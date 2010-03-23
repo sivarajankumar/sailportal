@@ -19,10 +19,8 @@
 
 <!-- $Id: web.xml 2556 2009-11-06 14:59:50Z henrik@enovate.no $ -->
 
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-		 version="2.4">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         version="2.5" metadata-complete="true">
 
 
 	<display-name>SCY Web application</display-name>
@@ -69,6 +67,7 @@
 
 			classpath:configurations/dispatcherServlet/scy/scycontrollers.xml,
 			classpath:configurations/dispatcherServlet/scy/config.xml,
+			classpath:component-controllers.xml,
 			classpath:scyAuthorControllers.xml,
 			classpath:scyPlayfulControllers.xml
 		</param-value>
