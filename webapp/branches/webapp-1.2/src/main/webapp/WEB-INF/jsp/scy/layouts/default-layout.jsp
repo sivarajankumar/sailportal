@@ -45,7 +45,7 @@
 
             theDialog.show();
         }
-        
+
 		var djConfig = {
 			isDebug: true,
 			parseOnLoad: true,
