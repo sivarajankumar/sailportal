@@ -20,6 +20,10 @@
             var xhrArgs = {
                     form: dojo.byId(form),
                     handleAs: "text",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                    },
+
                     load: function(data) {
                         //dojo.byId("response").innerHTML = "Form posted.";
                         console.log("Form posted.");
@@ -61,6 +65,9 @@
             dojo.require("dijit.InlineEditBox");
             dojo.require("dijit.form.Textarea");            
             dojo.require("dijit.Dialog");
+            dojo.require("dijit.form.HorizontalSlider");
+            dojo.require("dijit.form.HorizontalRuleLabels");
+            dojo.require("dijit.form.TextBox");
         }
 
 	</script>
