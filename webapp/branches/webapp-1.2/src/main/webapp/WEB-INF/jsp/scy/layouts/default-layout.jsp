@@ -15,20 +15,22 @@
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
 	<script type="text/javascript">
+
         function postForm(form){
             var xhrArgs = {
                     form: dojo.byId(form),
                     handleAs: "text",
                     load: function(data) {
-                        dojo.byId("response").innerHTML = "Form posted.";
+                        //dojo.byId("response").innerHTML = "Form posted.";
+                        console.log("Form posted.");
                     },
                     error: function(error) {
-                        
-                        dojo.byId("response").innerHTML = "Form not posted.";
+                         console.log("Form not posted.");
+                        //dojo.byId("response").innerHTML = "Form not posted.";
                     }
                 }
                 //Call the asynchronous xhrPost
-                dojo.byId("response").innerHTML = "Form being sent..."
+                console.log("Form being sent...");
                 var deferred = dojo.xhrPost(xhrArgs);
             }
 
@@ -56,6 +58,8 @@
         function startDojo(){
             dojo.require("dojo.parser");
             dojo.require("dijit.form.CheckBox");
+            dojo.require("dijit.InlineEditBox");
+            dojo.require("dijit.form.Textarea");            
             dojo.require("dijit.Dialog");
         }
 
