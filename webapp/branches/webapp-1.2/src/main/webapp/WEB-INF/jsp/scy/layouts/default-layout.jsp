@@ -73,7 +73,14 @@
             dojo.require("dijit.form.HorizontalSlider");
             dojo.require("dijit.form.HorizontalRuleLabels");
             dojo.require("dijit.form.TextBox");
+            dojo.addOnLoad = function(){
+                if(document.getElementById("j_username")){
+                    document.getElementById("j_username").focus();
+                }
+            }
         }
+
+
 
 	</script>
 	<title><tiles:insertAttribute name="title" defaultValue=""/></title>
