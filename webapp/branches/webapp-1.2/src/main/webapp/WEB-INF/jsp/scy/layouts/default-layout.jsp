@@ -50,6 +50,11 @@
             theDialog.show();
         }
 
+        function updateAjaxSlider(id, sliderObject){
+            dojo.byId('sliderValue' + id ).value=sliderObject.value;
+            postForm('ajaxSliderForm' + id);
+        }
+
 		var djConfig = {
 			isDebug: true,
 			parseOnLoad: true,
