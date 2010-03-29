@@ -125,6 +125,7 @@
     </bean>
 
     <bean id="uploadMultipleUsers" class="eu.scy.controllers.teacher.UploadMultipleUsers">
+        <property name="userService" ref="userService"/> 
     </bean>
 
 
