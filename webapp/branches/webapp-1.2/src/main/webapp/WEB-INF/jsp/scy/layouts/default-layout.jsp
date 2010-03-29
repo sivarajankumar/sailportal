@@ -16,7 +16,7 @@
 
 	<script type="text/javascript">
 
-        function postForm(form){
+        function postForm(form){           
             var xhrArgs = {
                     form: dojo.byId(form),
                     handleAs: "text",
@@ -68,16 +68,13 @@
             dojo.require("dojo.parser");
             dojo.require("dijit.form.CheckBox");
             dojo.require("dijit.InlineEditBox");
-            dojo.require("dijit.form.Textarea");            
+            dojo.require("dijit.form.Textarea");
+            dojo.require("dijit.form.TextBox");
             dojo.require("dijit.Dialog");
             dojo.require("dijit.form.HorizontalSlider");
             dojo.require("dijit.form.HorizontalRuleLabels");
-            dojo.require("dijit.form.TextBox");
-            dojo.addOnLoad = function(){
-                if(document.getElementById("j_username")){
-                    document.getElementById("j_username").focus();
-                }
-            }
+
+           
         }
 
 
