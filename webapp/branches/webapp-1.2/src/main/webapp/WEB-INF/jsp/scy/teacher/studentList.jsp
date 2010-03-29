@@ -38,6 +38,7 @@
                 <br>
             </c:when>
         </c:choose>
+        <s:uploadFile listener="eu.scy.controllers.teacher.UploadMultipleUsers"/>
 
 
     </div>

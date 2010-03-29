@@ -124,6 +124,9 @@
         <property name="buddyService" ref="buddyService"/>
     </bean>
 
+    <bean id="uploadMultipleUsers" class="eu.scy.controllers.teacher.UploadMultipleUsers">
+    </bean>
+
 
 
 

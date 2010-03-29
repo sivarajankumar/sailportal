@@ -85,6 +85,7 @@
                 /teacher/viewStudentPlan.html=studentPlanController
                 /teacher/viewStudentActivityDetails.html=studentActivityDetailsController
                 /teacher/addNewStudent.html=addNewStudentController
+                /teacher/uploadMultipleUsers.html=uploadMultipleUsers
                 /common/filestreamer.html=fileStreamerController
             </value>
         </property>
