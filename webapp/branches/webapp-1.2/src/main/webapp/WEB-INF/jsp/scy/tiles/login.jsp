@@ -24,3 +24,8 @@
 	   </li-->
 	<li><a href="signup.html" id="joinlink">Create new SCY account</a></li>
 </ul>
+<script type="text/javascript">
+    if(document.getElementById("j_username")){
+        document.getElementById("j_username").focus();
+    }
+</script>
