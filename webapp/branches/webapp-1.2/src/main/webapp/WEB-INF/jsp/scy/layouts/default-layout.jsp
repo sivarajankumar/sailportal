@@ -12,11 +12,25 @@
 	<link rel="shortcut icon" href="/webapp/themes/tels/default/images/favicon_panda.ico" />
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dijit/themes/tundra/tundra.css" />
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dijit/themes/tundra/layout/Dialog.css" />
+    <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dojox/form/resources/FileUploader.css" rel="stylesheet" />
+
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
 	<script type="text/javascript">
 
-        function postForm(form){           
+
+        function initUploader(){
+            dojo.require("dojox.form.FileUploader");
+            var uploader = new dojox.form.FileUploader({
+                hoverClass:"uploadHover",
+                activeClass:"uploadBtn",
+                pressClass:"uploadPress",
+                disabledClass:"uploadDisable",
+                uploadUrl:'/webapp/components/fileupload/fileupload.html'
+            }, "btn");
+
+        }
+        function postForm(form){
             var xhrArgs = {
                     form: dojo.byId(form),
                     handleAs: "text",
@@ -38,7 +52,7 @@
                 var deferred = dojo.xhrPost(xhrArgs);
             }
 
-        
+
 
         function loadDialog(url, title){
             var theDialog =  new dijit.Dialog({
@@ -54,17 +68,27 @@
             dojo.byId('sliderValue' + id ).value=sliderObject.value;
             postForm('ajaxSliderForm' + id);
         }
+        function doUpload(){
 
+            console.log("doUpload");
+            dojo.byId("fileToUpload").innerHTML="uploading...";
+            f0.upload();
+        };
+        //var f0 = null;
+        //dojo.connect(f0,"onChange",function(_a){console.log("DATA:",_a);dojo.forEach(_a,function(d){if(selectMultipleFiles){dojo.byId("fileToUpload").value+=d.name+" "+Math.ceil(d.size*0.001)+"kb \n";}else{dojo.byId("fileToUpload").value=d.name+" "+Math.ceil(d.size*0.001)+"kb \n";}});});dojo.connect(f0,"onProgress",function(_c){console.warn("onProgress",_c);dojo.byId("fileToUpload").value="";dojo.forEach(_c,function(d){dojo.byId("fileToUpload").value+="("+d.percent+"%) "+d.name+" \n";});});dojo.connect(f0,"onComplete",function(_e){console.warn("onComplete",_e);dojo.forEach(_e,function(d){dojo.byId("uploadedFiles").value+=d.file+" \n";dojo.byId("rgtCol").innerHTML+=imageHTML(d);rmFiles+=d.file+";";});});Destroy=function(){f0.destroyAll();};
 		var djConfig = {
 			isDebug: true,
 			parseOnLoad: true,
 			xdWaitSeconds: 5,
 			noFirebugLite: true,
-			cacheBust: new Date()
+			cacheBust: new Date(),
+            uploaderPath: '../themes/scy/default/images/uploader.swf'
+
 		};
 		google.load("dojo", "1.4.0");
         google.setOnLoadCallback(startDojo);
         function startDojo(){
+
             dojo.require("dojo.parser");
             dojo.require("dijit.form.CheckBox");
             dojo.require("dijit.InlineEditBox");
@@ -73,9 +97,22 @@
             dojo.require("dijit.Dialog");
             dojo.require("dijit.form.HorizontalSlider");
             dojo.require("dijit.form.HorizontalRuleLabels");
+            dojo.require("dijit.ProgressBar");
 
-           
+
+            startUploader();
+
         }
+        var f0;
+        function startUploader(){
+           
+            dojo.require("dojox.form.FileUploader");
+            dojo.require("dijit.form.Button");
+                //
+
+        }
+
+
 
 
 
@@ -86,10 +123,10 @@
 <body class="<tiles:insertAttribute name="bodyclass" defaultValue=""/> tundra">
 <div id="doc4" class="yui-t7">
 	<div id="hd" role="banner">
-		<div class="logo"></div>
-		<div class="options">
+        <div class="options">
 			<tiles:insertAttribute name="options"/>
 		</div>
+		<div class="logo"></div>
 		<div class="menubar-wrapper">
 			<div class="border-left">
 				<div class="border-right">
@@ -101,17 +138,11 @@
 		</div>
 	</div>
 	<div id="bd" role="main">
-		<div class="yui-g main">
-			<div class="border-left">
-				<div class="border-right">
-					<div style="padding: 0.3em 1em 0.3em 1em;">
-						<div class="content rounded">
+        <div id="centeredDiv">
+
 							<tiles:insertAttribute name="main"/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+
+        </div>
 	</div>
 	<div id="ft" role="contentinfo" class="footer">
 		<div class="border-left">
@@ -126,5 +157,6 @@
 		</div>
 	</div>
 </div>
+
 </body>
 </html>

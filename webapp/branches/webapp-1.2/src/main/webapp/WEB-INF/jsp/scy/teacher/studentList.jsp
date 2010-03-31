@@ -5,14 +5,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
     <tiles:putAttribute name="main">
-    <div id="centeredDiv">
+    
 
         
 
         <c:choose>
             <c:when test="${fn:length(students) > 0}">
-                <table id="teachersTable" border="2">
-                    <h5>Students</h5>
+                <table id="teachersTable">
+                    <h1>Students</h1>
                     <tr>
                         <th></th>
                         <th>User name</th>
@@ -20,7 +20,7 @@
                         <th>Last name</th>
                     </tr>
                     <c:forEach var="student" items="${students}">
-                        <tr>
+                        <tr  class="${oddEven.oddEven}">
                             <td><img
                                     src="/webapp/common/filestreamer.html?username=${student.userDetails.username}&showIcon"/>
                             </td>
@@ -41,7 +41,7 @@
         <s:uploadFile listener="uploadMultipleUsers"/>
 
 
-    </div>
+
 
     </div>
 </tiles:putAttribute>
