@@ -169,7 +169,7 @@ public class PreviewLDProjectController extends AbstractController {
 		
 		JSONObject config = new JSONObject();
 		try {
-			config.put("mode", "preview");
+			config.put("mode", "portalpreview");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

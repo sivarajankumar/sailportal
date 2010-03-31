@@ -40,7 +40,6 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
@@ -94,7 +93,6 @@ public class StudentVLEController extends AbstractController {
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -361,7 +359,7 @@ public class StudentVLEController extends AbstractController {
 		//put all the config params into the json object
 		try {
 			if (isPreview) {
-				config.put("mode", "preview");
+				config.put("mode", "portalpreview");
 			} else {
 				config.put("mode", "run");
 			}
