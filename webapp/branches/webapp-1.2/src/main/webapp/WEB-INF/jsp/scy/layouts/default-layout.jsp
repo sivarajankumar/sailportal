@@ -98,6 +98,7 @@
             dojo.require("dijit.form.HorizontalSlider");
             dojo.require("dijit.form.HorizontalRuleLabels");
             dojo.require("dijit.ProgressBar");
+            dojo.require("dijit.form.DateTextBox");
 
 
             startUploader();
