@@ -166,6 +166,10 @@ ul.menu li a.selected {
 	height: 42px;
 }
 
+
+.dijitRuleLabel{
+    color:#000000 !important;
+}
 /*.menubar-wrapper .border-left {
 	background: url("../images/menubar-corner-left.jpg") no-repeat;
 	height: 47px;
