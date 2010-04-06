@@ -349,12 +349,12 @@ table td{
 }
 
 .tablerow-even{
-    background-color:#90c1ed;
+    background-color:#ecf6ff;
     /*border-collapse:collapse;*/
 }
 
 .tablerow-odd{
-    background-color:#62a5e3;
+    background-color:#d8ecff;
     /*border-collapse:collapse;*/
 }
 
