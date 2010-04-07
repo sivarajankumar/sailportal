@@ -97,23 +97,9 @@
             dojo.require("dijit.Dialog");
             dojo.require("dijit.form.HorizontalSlider");
             dojo.require("dijit.form.HorizontalRuleLabels");
-            dojo.require("dijit.ProgressBar");
             dojo.require("dijit.form.DateTextBox");
             dojo.require("dijit.form.TimeTextBox");
-
-
-            startUploader();
-
         }
-        var f0;
-        function startUploader(){
-           
-            dojo.require("dojox.form.FileUploader");
-            dojo.require("dijit.form.Button");
-                //
-
-        }
-
 
 
 
