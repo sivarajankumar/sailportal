@@ -170,15 +170,12 @@ ul.menu li a.selected {
 .dijitRuleLabel{
     color:#000000 !important;
 }
-/*.menubar-wrapper .border-left {
-	background: url("../images/menubar-corner-left.jpg") no-repeat;
-	height: 47px;
-}
 
-.menubar-wrapper .border-right {
-	background: url("../images/menubar-corner-right.jpg") no-repeat right;
-	height: 47px;
-}*/
+.dijitDialogPaneContent{
+    height:90% !important;
+
+    overflow:auto !important;    
+}
 
 /****** OPTIONS ******/
 .options {
@@ -373,28 +370,3 @@ table td{
 .loginTableBottom{
     text-align:center;
 }
-/* uploader */
-.uploadBtn{
-            border:1px solid #333333;
-            background:url(../images/buttonEnabled.png) #d0d0d0 repeat-x scroll 0px top;
-            font-size:14px;
-            width:201px;
-            height:30px;
-            vertical-align:middle; /* emulates a <button> if node is not */
-            text-align:center;
-        }
-        .uploadHover{
-            background-image:url(../images/buttonHover.png);
-            cursor:pointer;
-            font-weight:bold;
-        }
-
-        .uploadPress{
-            background-image:url(../images/buttonActive.png);
-        }
-        .uploadDisabled{
-            background-image:none;
-            background-color:#666;
-            color:#999;
-            border:1px solid #999;
-        }
