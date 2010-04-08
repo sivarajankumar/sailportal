@@ -99,6 +99,7 @@
             dojo.require("dijit.form.HorizontalRuleLabels");
             dojo.require("dijit.form.DateTextBox");
             dojo.require("dijit.form.TimeTextBox");
+            dojo.require("dijit.form.NumberTextBox");
         }
 
 
