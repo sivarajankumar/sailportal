@@ -43,6 +43,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.presentation.util.KeyGenerator;
 import org.telscenter.sail.webapp.presentation.util.http.Base64;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -139,13 +140,9 @@ public final class CredentialManager extends AbstractController{
 							 * of the ability of administrators to log in as other users */
 							if(user != null && user.getUserDetails().getUsername().equals(username)){
 								authenticated = true;
-							} else {
-								/* if an admin has logged in as another user, we need to check if that is the
-								 * case and authenticate if it is */
-								SecurityContext context = SecurityContextHolder.getContext();
-								Object details = context.getAuthentication().getDetails();
-								String name = context.getAuthentication().getName();
-								Object credentials = context.getAuthentication().getCredentials();
+							} else if(user.getUserDetails().hasGrantedAuthority(UserDetailsService.ADMIN_ROLE)){
+								/* then the user is an admin and has logged in as another user */
+								authenticated = true;
 							}
 						}
 					}
