@@ -34,6 +34,7 @@ import javax.xml.bind.JAXBElement;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.imsglobal.xsd.imsqti_v2p0.ImgType;
 import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
@@ -92,8 +93,7 @@ public class StudentBrainstormController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		Map<String, Serializable> choiceMap = new LinkedHashMap<String, Serializable>();
 		Brainstorm brainstorm = null;
 		String brainstormIdStr = request.getParameter(BRAINSTORMID_PARAM);

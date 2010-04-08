@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -90,8 +91,7 @@ public class CreateBrainstormController extends AbstractController {
 		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
 		Brainstorm brainstorm = new BrainstormImpl();
 		
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
 		if (runIdStr != null) {
 			Long runId = Long.parseLong(runIdStr);

@@ -46,7 +46,7 @@ import org.telscenter.sail.webapp.service.student.StudentService;
 
 /**
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class StudentDataController extends AbstractController {
 
@@ -103,8 +103,7 @@ public class StudentDataController extends AbstractController {
 
 		String runIdStr = request.getParameter(RUNID);
 
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
 		List<Workgroup> workgroupListByOfferingAndUser 
 		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);

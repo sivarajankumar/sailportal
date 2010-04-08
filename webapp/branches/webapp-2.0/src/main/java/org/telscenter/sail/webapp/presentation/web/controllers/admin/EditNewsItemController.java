@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,8 +65,7 @@ public class EditNewsItemController extends SimpleFormController {
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors){
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		NewsItemParameters params = (NewsItemParameters) command;
 		params.setOwner(user);
 		params.setDate(Calendar.getInstance().getTime());

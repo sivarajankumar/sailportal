@@ -64,7 +64,7 @@ public class StudentListController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		User user = ControllerUtil.getSignedInUser(request);
+		User user = ControllerUtil.getSignedInUser();
 		String runId = request.getParameter(RUNID_PARAM_KEY);
 		
 		Run run = runService.retrieveById(Long.valueOf(runId));

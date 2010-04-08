@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.security.context.SecurityContext;
@@ -40,9 +41,7 @@ public class ChangeUserPasswordController extends SimpleFormController {
      throws Exception {
     	// first get the logged-in user and check that the user has permission to change the
     	// specified user's password
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User loggedInUser = userService.retrieveUser(userDetails);
+		User loggedInUser = ControllerUtil.getSignedInUser();
     	String username = request.getParameter(USER_NAME);
     	User userToChange = null;
     	if (username != null) {
@@ -87,9 +86,7 @@ public class ChangeUserPasswordController extends SimpleFormController {
     		userToChange = userService.retrieveUserByUsername(username);
     	} else {
     		// if username is not specified, assume that logged-in user wants to change his/her own password.
-    		SecurityContext context = SecurityContextHolder.getContext();
-    		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-    		userToChange = userService.retrieveUser(userDetails);
+    		userToChange = ControllerUtil.getSignedInUser();
     	}
 		ChangeStudentPasswordParameters params = new ChangeStudentPasswordParameters();
 		params.setUser(userToChange);

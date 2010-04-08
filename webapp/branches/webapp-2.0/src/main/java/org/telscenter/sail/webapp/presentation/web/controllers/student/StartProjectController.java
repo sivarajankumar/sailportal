@@ -33,6 +33,7 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.security.context.SecurityContext;
@@ -79,9 +80,7 @@ public class StartProjectController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		 SecurityContext context = SecurityContextHolder.getContext();
-		 StudentUserDetails userDetails = (StudentUserDetails) context.getAuthentication().getPrincipal();
-		 User user = userService.retrieveUser(userDetails);
+		 User user = ControllerUtil.getSignedInUser();
 
 		String runIdStr = request.getParameter("runId");
 		String projectIdStr = request.getParameter("projectId");

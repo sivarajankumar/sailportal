@@ -41,6 +41,7 @@ import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.presentation.web.listeners.PasSessionListener;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
@@ -103,7 +104,7 @@ public class AuthorProjectController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		String forward = request.getParameter(FORWARD);
@@ -196,7 +197,7 @@ public class AuthorProjectController extends AbstractController {
 	 * @throws Exception
 	 */
 	private ModelAndView handleCreateProject(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		if(this.hasAuthorPermissions(user)){
 			String path = request.getParameter("param1");
 			String name = request.getParameter("param2");
@@ -234,7 +235,7 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	@SuppressWarnings("unchecked")
 	private ModelAndView handleNotifyProjectOpen(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		if(this.hasAuthorPermissions(user)){
 			String projectPath = request.getParameter("param1");
 			
@@ -289,7 +290,7 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	@SuppressWarnings("unchecked")
 	private ModelAndView handleNotifyProjectClose(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		if(this.hasAuthorPermissions(user)){
 			String projectPath = request.getParameter("param1");
 			HttpSession currentSession = request.getSession();
@@ -352,8 +353,8 @@ public class AuthorProjectController extends AbstractController {
 	
 	private ModelAndView handleProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<Project> allAuthorableProjects = new ArrayList<Project>();
-		List<Project> projects = projectService.getProjectList((User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY));
-		List<Project> sharedProjects = projectService.getSharedProjectList((User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY));
+		List<Project> projects = projectService.getProjectList(ControllerUtil.getSignedInUser());
+		List<Project> sharedProjects = projectService.getSharedProjectList(ControllerUtil.getSignedInUser());
 
 		// in the future, we'll want to filter this allAuthorableProjects list even further by what kind of
 		// permissions (view, edit, share) the user has on the project.
@@ -391,7 +392,7 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handlePublishMetadata(HttpServletRequest request, HttpServletResponse response) throws ObjectNotFoundException, IOException{
 		Long projectId = Long.parseLong(request.getParameter("projectId"));
 		Project project = this.projectService.getById(projectId);
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		
 		/* retrieve the metadata from the file */
 		JSONObject metadata = this.projectService.getProjectMetadataFile(project);

@@ -108,10 +108,7 @@ public class RunListController extends AbstractController {
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
-		//User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
 		//List<Run> runList = this.runService.getRunList();
 		
 		List<Run> runList = this.runService.getRunListByOwner(user);

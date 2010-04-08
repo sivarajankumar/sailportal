@@ -35,6 +35,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -133,8 +135,17 @@ public final class CredentialManager extends AbstractController{
 						Map<String,User> sessionIdsToUsers = (Map<String,User>) request.getSession().getServletContext().getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
 						if(sessionIdsToUsers != null && sessionIdsToUsers.containsKey(sId)){
 							User user = sessionIdsToUsers.get(sId);
+							/* check the user against the sessionId, also get the user from the session and check because
+							 * of the ability of administrators to log in as other users */
 							if(user != null && user.getUserDetails().getUsername().equals(username)){
 								authenticated = true;
+							} else {
+								/* if an admin has logged in as another user, we need to check if that is the
+								 * case and authenticate if it is */
+								SecurityContext context = SecurityContextHolder.getContext();
+								Object details = context.getAuthentication().getDetails();
+								String name = context.getAuthentication().getName();
+								Object credentials = context.getAuthentication().getCredentials();
 							}
 						}
 					}

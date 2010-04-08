@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -59,8 +60,7 @@ public class AddProjectController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors)
             throws Exception {
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		// command contains a legally-formatted projectcode.
     	AddProjectParameters params = (AddProjectParameters) command;
 

@@ -181,11 +181,7 @@ public class StudentVLEController extends AbstractController {
 	private Workgroup getWorkgroup(HttpServletRequest request, Run run)
 	throws ObjectNotFoundException {
 		Workgroup workgroup = null;
-		//User user = (User) request.getSession().getAttribute(
-    	//		User.CURRENT_USER_SESSION_KEY);
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
 		
 		List<Workgroup> workgroupListByOfferingAndUser 
 		= workgroupService.getWorkgroupListByOfferingAndUser(run, user);

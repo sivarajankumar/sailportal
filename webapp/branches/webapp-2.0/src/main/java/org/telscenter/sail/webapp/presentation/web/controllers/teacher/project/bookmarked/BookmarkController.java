@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.security.context.SecurityContext;
@@ -61,9 +62,7 @@ public class BookmarkController extends AbstractController{
 		
 		Boolean checked = Boolean.valueOf(request.getParameter(CHECKED));
 		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID)));
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
 		String outResponse;
 		
 		if(checked){

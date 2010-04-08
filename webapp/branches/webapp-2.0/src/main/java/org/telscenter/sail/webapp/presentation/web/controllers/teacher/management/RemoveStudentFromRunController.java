@@ -93,7 +93,7 @@ public class RemoveStudentFromRunController extends SimpleFormController {
     	try  {
     		run = runService.retrieveById(runId);
     		studentUser = userService.retrieveById(userId);
-    		User callingUser = ControllerUtil.getSignedInUser(request);
+    		User callingUser = ControllerUtil.getSignedInUser();
     		
     		if(callingUser.getUserDetails().hasGrantedAuthority(UserDetailsService.ADMIN_ROLE) ||
     				this.runService.hasRunPermission(run, callingUser, BasePermission.WRITE)){

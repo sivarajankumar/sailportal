@@ -70,7 +70,7 @@ public class ChangeStudentPeriodController extends SimpleFormController{
 	@Override
     protected ModelAndView onSubmit(HttpServletRequest request, 
     		HttpServletResponse response, Object command, BindException errors){
-		User callingUser = ControllerUtil.getSignedInUser(request);
+		User callingUser = ControllerUtil.getSignedInUser();
 		ChangePeriodParameters params = (ChangePeriodParameters) command;
 		
 		if(this.runService.hasRunPermission(params.getRun(), callingUser, BasePermission.WRITE) ||

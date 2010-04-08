@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitImpl;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
@@ -91,7 +92,7 @@ public class UploadOtmlController extends SimpleFormController {
 			throws Exception {
 		OtmlFileUpload bean = (OtmlFileUpload) command;
 		MultipartFile file = bean.getFile();
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		
 		if (file == null) {
 			ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		

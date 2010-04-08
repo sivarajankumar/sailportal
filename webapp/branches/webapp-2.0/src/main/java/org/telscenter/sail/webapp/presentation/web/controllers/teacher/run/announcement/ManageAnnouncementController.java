@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.AclService;
 
 import org.springframework.security.acls.domain.BasePermission;
@@ -56,7 +57,7 @@ public class ManageAnnouncementController extends AbstractController{
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		Run run = runService.retrieveById(Long.parseLong(request.getParameter(RUNID)));
 		
 		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||

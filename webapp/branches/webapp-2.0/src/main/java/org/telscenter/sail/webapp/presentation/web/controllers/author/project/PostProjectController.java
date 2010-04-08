@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -67,7 +68,7 @@ public class PostProjectController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		try {
 			String projectId = request.getParameter(PROJECT_ID_PARAM);
 			String encodedOtmlString = request.getParameter(OTML_CONTENT_PARAM);

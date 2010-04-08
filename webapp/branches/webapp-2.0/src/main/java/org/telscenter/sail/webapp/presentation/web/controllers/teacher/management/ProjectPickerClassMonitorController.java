@@ -69,10 +69,8 @@ public class ProjectPickerClassMonitorController extends AbstractController {
 
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
- 
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+
+		User user = ControllerUtil.getSignedInUser();
 		List<Run> runList = this.runService.getRunList();
 		// this is a temporary solution to filtering out runs that the logged-in user owns.
 		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering

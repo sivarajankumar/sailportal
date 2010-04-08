@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -61,7 +62,7 @@ public class TelsProjectLibraryController extends AbstractController{
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		 User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		 User user = ControllerUtil.getSignedInUser();
 		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 

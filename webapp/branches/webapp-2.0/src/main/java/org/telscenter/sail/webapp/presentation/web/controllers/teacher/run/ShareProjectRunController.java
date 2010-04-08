@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
@@ -123,7 +124,7 @@ public class ShareProjectRunController extends SimpleFormController {
 	protected Map<String, Object> referenceData(HttpServletRequest request) 
 	    throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		Run run = runService.retrieveById(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
 		Set<User> sharedowners = run.getSharedowners();
 
@@ -192,9 +193,7 @@ public class ShareProjectRunController extends SimpleFormController {
 			workgroupService.createWISEWorkgroup("teacher", sharedOwners, params.getRun(), null);			
 			// only send email if this is a new shared owner
 			if (newSharedOwner) {
-				SecurityContext context = SecurityContextHolder.getContext();
-				UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-				User sharer = userService.retrieveUser(userDetails);
+				User sharer = ControllerUtil.getSignedInUser();
 				
 				ProjectRunEmailService emailService = new ProjectRunEmailService(sharer, retrievedUser,  params.getRun());
 				Thread thread = new Thread(emailService);

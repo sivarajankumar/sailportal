@@ -113,10 +113,7 @@ public class ViewMyStudentsController extends AbstractController{
     	ModelAndView modelAndView = new ModelAndView();
     	ControllerUtil.addUserToModelAndView(servletRequest, modelAndView);
  
-		//User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
 		List<Run> runList = this.runService.getRunList();
 		// this is a temporary solution to filtering out runs that the logged-in user owns.
 		// when the ACL entry permissions is figured out, we shouldn't have to do this filtering
@@ -138,7 +135,7 @@ public class ViewMyStudentsController extends AbstractController{
 
 		/* Ensure that the user has permission for this run */
 		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||
-				this.aclService.hasPermission(run, BasePermission.WRITE, user)){
+				this.aclService.hasPermission(run, BasePermission.READ, user)){
 			Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
 			String workgroupsWithoutPeriod = "";
 			Set<ViewMyStudentsPeriod> viewmystudentsallperiods = new TreeSet<ViewMyStudentsPeriod>();

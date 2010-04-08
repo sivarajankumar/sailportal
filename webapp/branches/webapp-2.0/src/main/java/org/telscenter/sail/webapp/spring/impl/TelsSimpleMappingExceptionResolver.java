@@ -40,6 +40,7 @@ import org.telscenter.sail.webapp.service.portal.PortalService;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.spring.impl.PasSimpleMappingExceptionResolver;
 
 /**
@@ -100,7 +101,7 @@ public class TelsSimpleMappingExceptionResolver extends
 	/**
 	 * Sends exception email in a new thread.
 	 * @author hirokiterashima
-	 * @version $Id:$
+	 * @version $Id$
 	 */
 	class ExceptionEmailSender implements Runnable {
 		String[] recipients;
@@ -140,8 +141,7 @@ public class TelsSimpleMappingExceptionResolver extends
 			HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) {
 		Date time = Calendar.getInstance().getTime();
 
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		
 		String fullUrl =
 			request.getScheme() + "://" + request.getServerName() + ":" +

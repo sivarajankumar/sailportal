@@ -12,6 +12,7 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectCommunicatorDao;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
@@ -61,7 +62,7 @@ public class PreviewProjectController extends AbstractController {
 			return (ModelAndView) projectService.previewProject(params);
 		}
 		
-		User user = ControllerUtil.getSignedInUser(request);
+		User user = ControllerUtil.getSignedInUser();
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
 		
@@ -73,7 +74,7 @@ public class PreviewProjectController extends AbstractController {
 			params.setPortalUrl(Util.getPortalUrl(request));
 			return (ModelAndView) projectService.previewProject(params);
 		} else {
-			return new ModelAndView("accessdenied.html");
+			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
 		}
     }
 	

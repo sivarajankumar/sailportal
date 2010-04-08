@@ -20,7 +20,11 @@ package net.sf.sail.webapp.presentation.web.controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.UserService;
 
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -34,17 +38,23 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControllerUtil {
 
 	public final static String USER_KEY = "user";
+	
+	private static UserService userService;
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	public static void addUserToModelAndView(HttpServletRequest request,
 			ModelAndView modelAndView) {
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = getSignedInUser();
 		modelAndView.addObject(USER_KEY, user);
 	}
 	
-	public static User getSignedInUser(HttpServletRequest request) {
-		return (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+	public static User getSignedInUser() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+		return userService.retrieveUser(userDetails);
 	}
 	
 	/*

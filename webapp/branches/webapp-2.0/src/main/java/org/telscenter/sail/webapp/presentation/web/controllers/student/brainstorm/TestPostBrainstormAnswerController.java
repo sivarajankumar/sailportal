@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,8 +63,7 @@ public class TestPostBrainstormAnswerController extends SimpleFormController {
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 	throws Exception {
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
 		String brainstormId = request.getParameter("brainstormId");
 		Brainstorm brainstorm = brainstormService.getBrainstormById(brainstormId);

@@ -153,4 +153,9 @@
     	<property name="userService" ref="userService" />
 		<property name="sessionForm" value="true"/>
     </bean>
+    
+    <bean id="controllerUtil"
+    	class="net.sf.sail.webapp.presentation.web.controllers.ControllerUtil">
+    	<property name="userService" ref="userService"/>
+    </bean>
 </beans>

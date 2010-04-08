@@ -105,9 +105,7 @@ public class StudentIndexController extends AbstractController {
 
     	ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
-		 SecurityContext context = SecurityContextHolder.getContext();
-		 StudentUserDetails userDetails = (StudentUserDetails) context.getAuthentication().getPrincipal();
-		 User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
     	
 		List<Run> runlist = runService.getRunList(user);
 		List<StudentRunInfo> current_run_list = new ArrayList<StudentRunInfo>();
@@ -132,8 +130,8 @@ public class StudentIndexController extends AbstractController {
 			}
 			
 			// check if there are new announcement for this run
-			if (userDetails != null) {
-				Date lastLoginTime = userDetails.getLastLoginTime();
+			if (user.getUserDetails() != null) {
+				Date lastLoginTime = ((StudentUserDetails) user.getUserDetails()).getLastLoginTime();
 				for (Announcement announcement : run.getAnnouncements()) {
 					if (lastLoginTime == null ||
 							lastLoginTime.before(announcement.getTimestamp())) {

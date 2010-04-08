@@ -61,7 +61,7 @@ public class ProjectInfoController extends AbstractController {
 			HttpServletResponse response) throws Exception {
 		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
-		User user = ControllerUtil.getSignedInUser(request);
+		User user = ControllerUtil.getSignedInUser();
 		
 		if(project != null){
 			if(this.projectService.canAuthorProject(project, user)){

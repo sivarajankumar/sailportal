@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetOtmlVisitor;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -66,7 +67,7 @@ public class CopyProjectController extends AbstractController{
 			HttpServletResponse response) throws Exception {
 		
 		String outResponse = "";
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		Set<User> owners = new TreeSet<User>();
 		owners.add(user);
 		

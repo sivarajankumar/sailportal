@@ -54,7 +54,7 @@ public class BookmarkedProjectController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		List<Project> projectList = this.projectService.getBookmarkerProjectList(user);
 		
 		ModelAndView modelAndView = new ModelAndView();

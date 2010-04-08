@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -57,8 +58,7 @@ public class PremadeCommentsController extends AbstractController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		//retrieves the current user
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		
 		/* retreives the document javascript id of the comment box in the 
 		   grading tool page */

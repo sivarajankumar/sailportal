@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 
@@ -58,7 +59,7 @@ public class EndRunController extends SimpleFormController {
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
 		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
 		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user)){
 			EndRunParameters params = new EndRunParameters();
@@ -83,8 +84,7 @@ public class EndRunController extends SimpleFormController {
             HttpServletResponse response, Object command, BindException errors) {
     	EndRunParameters params = (EndRunParameters) command;
     	Long runId = params.getRunId();
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
     	ModelAndView modelAndView = null;
     	Run run = null;

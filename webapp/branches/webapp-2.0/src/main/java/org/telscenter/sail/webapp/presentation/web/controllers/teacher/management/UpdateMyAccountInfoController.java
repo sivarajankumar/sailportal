@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.teacher.manageme
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
@@ -52,9 +53,7 @@ public class UpdateMyAccountInfoController extends RegisterTeacherController {
 	 */
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
  
 		return new TeacherAccountForm((TeacherUserDetails) user.getUserDetails());
 	}

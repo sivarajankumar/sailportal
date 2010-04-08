@@ -42,6 +42,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 
@@ -180,9 +181,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		
 	    switch (page) {
 	    case 0:
-	    	SecurityContext context = SecurityContextHolder.getContext();
-			UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-			User user = userService.retrieveUser(userDetails);
+			User user = ControllerUtil.getSignedInUser();
 			
 			if(!this.projectService.canCreateRun(runParameters.getProject(), user)){
 				errors.rejectValue("project", "not.authorized", "You are not authorized to set up a run with this project.");
@@ -253,9 +252,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		RunParameters runParameters = (RunParameters) command;
 		Project project = null;
 		Map<String, Object> model = new HashMap<String, Object>();
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
 		switch(page) {
 		case 0:
 			try {
@@ -400,9 +397,7 @@ public class CreateRunController extends AbstractWizardFormController {
 		
 		// send email to the recipients in new thread
 		//tries to retrieve the user from the session
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
 
 		CreateRunEmailService emailService = 
 			new CreateRunEmailService(command, run, user);

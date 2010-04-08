@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -95,7 +96,7 @@ public class ProjectLibraryController extends SimpleFormController {
 	protected Map<String, Object> referenceData(HttpServletRequest request) 
 	    throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		List<Project> projectList;
 		String query = request.getParameter("query");
 		

@@ -103,7 +103,7 @@ public class ShareProjectController extends SimpleFormController {
 	@Override
 	protected Map<String, Object> referenceData(HttpServletRequest request) 
 	    throws Exception {
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID_PARAM_NAME)));
 		
 		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user)){
@@ -161,9 +161,7 @@ public class ShareProjectController extends SimpleFormController {
 	    	modelAndView.addObject("message", "The user is not a teacher and thus cannot be added as a shared teacher.");
 	    	return modelAndView;
     	}  else {
-    		SecurityContext context = SecurityContextHolder.getContext();
-    		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-    		User signedInUser = userService.retrieveUser(userDetails);
+    		User signedInUser = ControllerUtil.getSignedInUser();
     		if (params.getPermission().equals(UserDetailsService.PROJECT_SHARE_ROLE)) {
     			if (!params.getProject().getOwners().contains(signedInUser)) {
     	    		modelAndView = new ModelAndView(new RedirectView(request.getRequestURI()));

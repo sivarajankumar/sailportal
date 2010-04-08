@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.springframework.validation.BindException;
@@ -91,7 +92,7 @@ public class AuthorRooloProjectController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors) throws Exception{
     	RooloProjectParameters params = (RooloProjectParameters) command;
-    	User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+    	User user = ControllerUtil.getSignedInUser();
     	
     	//not really jnlpid, it is projectid set in formbackingobject
     	Project project = this.projectService.getById(params.getJnlpId()); 

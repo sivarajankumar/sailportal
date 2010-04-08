@@ -91,8 +91,8 @@ public class GradeWorkController extends AbstractController {
 			String result = (String) run.getProject().accept(typeVisitor);
 			
 			if (result.equals("LDProject")) {
-				User user = ControllerUtil.getSignedInUser(request);
-				if(this.runService.hasRunPermission(run, user, BasePermission.WRITE)){
+				User user = ControllerUtil.getSignedInUser();
+				if(this.runService.hasRunPermission(run, user, BasePermission.READ)){
 					String portalurl = ControllerUtil.getBaseUrlString(request);
 	
 			    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";

@@ -230,7 +230,7 @@ public class GradeByStepController extends AbstractController {
 			HttpServletResponse response, Run run) {
 		try {
 			/* make sure that the logged in user has permission to post max scores for this run */
-			User user = ControllerUtil.getSignedInUser(request);
+			User user = ControllerUtil.getSignedInUser();
 			
 			if(this.runService.hasRunPermission(run, user, BasePermission.WRITE)){
 				//get the nodeId

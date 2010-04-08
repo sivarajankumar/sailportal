@@ -74,7 +74,7 @@ public class BridgeController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// check if user is logged in
-		if (ControllerUtil.getSignedInUser(request) == null) {
+		if (ControllerUtil.getSignedInUser() == null) {
 			response.sendRedirect("/webapp/login.html");
 			return null;
 		}
@@ -96,7 +96,7 @@ public class BridgeController extends AbstractController {
 
 	private boolean authorize(HttpServletRequest request) {
 		String method = request.getMethod();
-		User signedInUser = ControllerUtil.getSignedInUser(request);
+		User signedInUser = ControllerUtil.getSignedInUser();
 		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
 		Long signedInUserId = null;
 		for (GrantedAuthority authority : authorities) {
@@ -270,7 +270,7 @@ public class BridgeController extends AbstractController {
 		String type = request.getParameter("type");
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
-		User user = ControllerUtil.getSignedInUser(request);
+		User user = ControllerUtil.getSignedInUser();
 		CredentialManager.setRequestCredentials(request, user);
 		
 		if (type == null) {
@@ -374,7 +374,7 @@ public class BridgeController extends AbstractController {
 		String type = request.getParameter("type");
 		ServletContext servletContext2 = this.getServletContext();
 		ServletContext vlewrappercontext = servletContext2.getContext("/vlewrapper");
-		User user = ControllerUtil.getSignedInUser(request);
+		User user = ControllerUtil.getSignedInUser();
 		CredentialManager.setRequestCredentials(request, user);
 		
 		if (type == null) {

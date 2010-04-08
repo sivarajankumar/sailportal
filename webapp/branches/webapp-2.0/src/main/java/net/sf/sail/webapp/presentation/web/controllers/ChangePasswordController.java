@@ -56,8 +56,7 @@ public class ChangePasswordController extends SimpleFormController{
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors){
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
     	ChangePasswordParameters params = (ChangePasswordParameters) command;
 
     	ModelAndView modelAndView = null;

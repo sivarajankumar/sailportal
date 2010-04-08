@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -86,8 +87,7 @@ public class ContactWiseProjectController extends SimpleFormController {
 		ContactWISEProject contactWISEProject = new ContactWISEProject();
 		
 		//tries to retrieve the user from the session
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
 		/* if the user is logged in to the session, auto populate the name and 
 		email address in the form, if not, the fields will just be blank */

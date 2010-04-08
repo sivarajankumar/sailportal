@@ -97,7 +97,7 @@ public class CurrentScoreController extends AbstractController {
 			
 			//get the stuff from the run
 			Run aRun = runService.retrieveById(new Long(runId));
-			User user = ControllerUtil.getSignedInUser(request);
+			User user = ControllerUtil.getSignedInUser();
 			if(this.runService.hasRunPermission(aRun, user, BasePermission.READ)){
 				System.out.println("OBJECT ID: " + aRun.getSdsOffering().getSdsCurnit().getSdsObjectId() );
 				String curnitId = aRun.getSdsOffering().getSdsCurnit().getSdsObjectId().toString();

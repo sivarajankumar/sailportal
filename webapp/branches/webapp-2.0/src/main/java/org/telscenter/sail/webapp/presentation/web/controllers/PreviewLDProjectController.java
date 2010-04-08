@@ -86,7 +86,7 @@ public class PreviewLDProjectController extends AbstractController {
 	 * @throws IOException 
 	 */
 	private ModelAndView handleLaunchVLEPreview(HttpServletRequest request, HttpServletResponse response) throws ObjectNotFoundException, IOException {
-		User user = ControllerUtil.getSignedInUser(request);
+		User user = ControllerUtil.getSignedInUser();
 		String projectId = request.getParameter("projectId");
 		Project project = this.projectService.getById(Long.parseLong(projectId));
 		

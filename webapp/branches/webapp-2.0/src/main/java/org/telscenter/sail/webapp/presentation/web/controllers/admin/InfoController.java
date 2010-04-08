@@ -54,7 +54,7 @@ public class InfoController extends AbstractController{
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest servletRequest,
 			HttpServletResponse servletResponse) throws Exception {
-		User signedInUser = ControllerUtil.getSignedInUser(servletRequest);
+		User signedInUser = ControllerUtil.getSignedInUser();
 		String userName = (String) servletRequest.getParameter("userName");
 		User infoUser = this.userService.retrieveUserByUsername(userName);
 		

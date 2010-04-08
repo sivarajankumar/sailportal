@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.IMailFacade;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.security.context.SecurityContext;
@@ -66,9 +67,7 @@ public class MessageController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);  // logged-in user
+		User user = ControllerUtil.getSignedInUser();  // logged-in user
 		String action = request.getParameter("action");
 		boolean successful = false;
 		if (action.equals("index")) {

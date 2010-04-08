@@ -75,10 +75,7 @@ public class TeacherIndexController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView(VIEW_NAME);
     	ControllerUtil.addUserToModelAndView(request, modelAndView);
     	
-		//User user = (User) modelAndView.getModel().get(ControllerUtil.USER_KEY);
-		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		User user = userService.retrieveUser(userDetails);
+		User user = ControllerUtil.getSignedInUser();
     	List<Run> runList = runService.getRunList();
     	List<Run> run_list = new ArrayList<Run>();
     	

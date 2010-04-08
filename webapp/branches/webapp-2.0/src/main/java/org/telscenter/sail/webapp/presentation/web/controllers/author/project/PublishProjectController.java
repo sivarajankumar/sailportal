@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.validation.BindException;
@@ -105,8 +106,8 @@ public class PublishProjectController extends SimpleFormController {
 		createProjectParameters.setProjectType(ProjectType.LD);
 
 		// add the current user as an owner of the project
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
+		
 		Set<User> owners = new HashSet<User>();
 		owners.add(user);
 		createProjectParameters.setOwners(owners);

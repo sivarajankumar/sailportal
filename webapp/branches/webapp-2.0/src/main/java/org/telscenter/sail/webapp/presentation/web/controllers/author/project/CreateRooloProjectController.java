@@ -33,6 +33,7 @@ import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.Curnit;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitParameters;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.validation.BindException;
@@ -81,7 +82,7 @@ public class CreateRooloProjectController extends SimpleFormController{
     	
     	RooloProjectParameters params = (RooloProjectParameters) command;
     	
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		Set<User> owners = new HashSet<User>();
 		owners.add(user);
 		params.setOwners(owners);

@@ -37,6 +37,7 @@ import javax.xml.bind.JAXBElement;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.Workgroup;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.imsglobal.xsd.imsqti_v2p0.ImgType;
 import org.imsglobal.xsd.imsqti_v2p0.SimpleChoiceType;
@@ -103,8 +104,7 @@ public class ManageBrainstormController extends SimpleFormController {
 		
         modelAndView.addObject(BRAINSTORM_KEY, brainstorm);
         
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
 		List<Workgroup> workgroupListByOfferingAndUser 
 		    = workgroupService.getWorkgroupListByOfferingAndUser(brainstorm.getRun(), user);
@@ -147,8 +147,7 @@ public class ManageBrainstormController extends SimpleFormController {
 	    throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		User user = (User) request.getSession().getAttribute(
-				User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 
 		String brainstormId = request.getParameter(BRAINSTORMID_PARAM);
 		Brainstorm brainstorm = brainstormService.getBrainstormById(brainstormId);

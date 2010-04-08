@@ -38,6 +38,7 @@ import org.telscenter.sail.webapp.service.offering.RunService;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
@@ -61,7 +62,7 @@ public class BatchStudentChangePasswordController extends SimpleFormController {
 	
 	@Override
 	protected Object formBackingObject(HttpServletRequest request) throws Exception {
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		Run run = this.runService.retrieveById(Long.parseLong(request.getParameter("runId")));
 		
 		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||

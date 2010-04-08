@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.UserService;
 
 import org.springframework.security.context.SecurityContext;
@@ -47,9 +48,7 @@ public class CustomizedIndexController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {		 
 		 ModelAndView modelAndView = new ModelAndView();
-		 SecurityContext context = SecurityContextHolder.getContext();
-		 UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		 User user = userService.retrieveUser(userDetails);
+		 User user = ControllerUtil.getSignedInUser();
 
 		 // separate owned projects to current and archived.
 		 List<Project> ownedProjectsList = this.projectService.getProjectList(user);

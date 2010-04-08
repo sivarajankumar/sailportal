@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -56,7 +57,7 @@ private ProjectService projectService;
 			HttpServletResponse response) throws Exception {
 		Boolean checked = Boolean.valueOf(request.getParameter(CHECKED));
 		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID)));
-		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		User user = ControllerUtil.getSignedInUser();
 		
 		try{
 			project.setPublic(checked);
