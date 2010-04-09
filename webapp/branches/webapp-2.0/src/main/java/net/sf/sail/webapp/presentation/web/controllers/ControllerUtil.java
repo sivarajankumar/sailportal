@@ -51,10 +51,19 @@ public class ControllerUtil {
 		modelAndView.addObject(USER_KEY, user);
 	}
 	
+	/**
+	 * Returns signed in user. If not signed in, return null
+	 * @return User signed in user. If not logged in, returns null.
+	 */
 	public static User getSignedInUser() {
 		SecurityContext context = SecurityContextHolder.getContext();
-		UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
-		return userService.retrieveUser(userDetails);
+		try {
+			UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
+			return userService.retrieveUser(userDetails);
+		} catch (ClassCastException cce) {
+			// the try-block throws class cast exception if user is not logged in.
+			return null;
+		}
 	}
 	
 	/*
