@@ -12,12 +12,22 @@ body {
     background-repeat:repeat-x;
 }
 
-th {
+th{
 	font-weight: bold;
     background-color:#2374bc;
     color:#ffffff;
 }
 
+#breadcrumbs{
+    background-color:#d8ecff;
+    margin-right:2px;
+    /*margin:2px;
+    padding:2px;*/
+}
+#breadcrumbs a{
+    color:#000000;
+    margin-left:15px;
+}
 h1, h2, h3 {
 	font-weight: bold;
 }
@@ -88,7 +98,7 @@ p {
 }
 
 #hd{
-    height:208px;
+    height:220px;
     width:812px;
     margin-left:12px;
     /*padding-top:17px;*/
@@ -106,7 +116,7 @@ p {
     position:absolute;
     width:100%;
 
-    top:220px;
+    top:230px;
     bottom:21px;
     clear:both;
 }
@@ -343,6 +353,7 @@ table th {
 
 table td{
     border:0 !important;
+    padding:4px;
 }
 
 .tablerow-even{

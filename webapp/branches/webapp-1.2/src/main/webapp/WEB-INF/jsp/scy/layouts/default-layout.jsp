@@ -125,8 +125,9 @@
 				</div>
 			</div>
 		</div>
+        <div id="breadcrumbs"><s:breadcrumbs/></div>
 	</div>
-    <div><s:breadcrumbs/></div>
+
 	<div id="bd" role="main">
 
         <div id="centeredDiv">
