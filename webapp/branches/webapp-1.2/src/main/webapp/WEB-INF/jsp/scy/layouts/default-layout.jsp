@@ -73,7 +73,7 @@
             console.info("updating status....." + statusid);
             var targetNode = dojo.byId(statusid);
             var xhrArgs = {
-                url: '/webapp/components/links/help.html',
+                url: '/webapp/components/realtime/currentStudentActivity.html',
                 handleAs: "text",
                 load: function(data){
                     data = data.replace(/\n/g, "<br/>");
