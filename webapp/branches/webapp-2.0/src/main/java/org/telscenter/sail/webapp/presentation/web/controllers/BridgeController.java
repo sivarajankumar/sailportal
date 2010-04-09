@@ -337,8 +337,19 @@ public class BridgeController extends AbstractController {
 						JSONObject classmateJSONObject = new JSONObject();
 						
 						if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
-							//the workgroup is the teacher workgroup
-							teacherUserInfoJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
+							/*
+							 * check if we have already set the teacher workgroup id.
+							 * the first teacher workgroup id that we come upon should
+							 * be the actual teacher and not the shared researcher.
+							 * 
+							 * this needs to be fixed in the future when we allow
+							 * multiple teacher/researcher workgroupids to grade
+							 * work for the same run.
+							 */
+							if(!teacherUserInfoJSONObject.has("workgroupId")) {
+								//the workgroup is the teacher workgroup
+								teacherUserInfoJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());								
+							}
 						} else {
 							//the workgroup is a student workgroup
 							classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
