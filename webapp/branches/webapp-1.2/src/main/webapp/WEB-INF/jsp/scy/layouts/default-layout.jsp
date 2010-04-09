@@ -126,8 +126,11 @@
 			</div>
 		</div>
 	</div>
+    <div><s:breadcrumbs/></div>
 	<div id="bd" role="main">
+
         <div id="centeredDiv">
+
 
 							<tiles:insertAttribute name="main"/>
 
