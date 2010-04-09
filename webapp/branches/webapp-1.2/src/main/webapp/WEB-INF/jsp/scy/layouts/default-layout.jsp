@@ -68,6 +68,26 @@
             dojo.byId('sliderValue' + id ).value=sliderObject.value;
             postForm('ajaxSliderForm' + id);
         }
+
+        function updateActivityStatus(statusid){
+            console.info("updating status....." + statusid);
+            var targetNode = dojo.byId(statusid);
+            var xhrArgs = {
+                url: '/webapp/components/links/help.html',
+                handleAs: "text",
+                load: function(data){
+                    data = data.replace(/\n/g, "<br/>");
+
+                    data = data.replace(/\t/g, "&nbsp;&nbsp;&nbsp;");
+                    targetNode.innerHTML = data;
+                },
+                error: function(error){
+                    targetNode.innerHTML = "An unexpected error occured: " + error;
+                }
+            }
+
+            var deferred = dojo.xhrGet(xhrArgs);
+        }
         function doUpload(){
 
             console.log("doUpload");
@@ -100,6 +120,8 @@
             dojo.require("dijit.form.DateTextBox");
             dojo.require("dijit.form.TimeTextBox");
             dojo.require("dijit.form.NumberTextBox");
+            
+
         }
 
 
@@ -132,7 +154,7 @@
 
         <div id="centeredDiv">
 
-
+                             
 							<tiles:insertAttribute name="main"/>
 
         </div>
