@@ -92,7 +92,10 @@ public class GradeWorkController extends AbstractController {
 			
 			if (result.equals("LDProject")) {
 				User user = ControllerUtil.getSignedInUser();
-				if(this.runService.hasRunPermission(run, user, BasePermission.READ)){
+				
+				//check that the user has read or write permission on the run
+				if(this.runService.hasRunPermission(run, user, BasePermission.WRITE) ||
+						this.runService.hasRunPermission(run, user, BasePermission.READ)){
 					String portalurl = ControllerUtil.getBaseUrlString(request);
 	
 			    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";
@@ -103,6 +106,13 @@ public class GradeWorkController extends AbstractController {
 					modelAndView.addObject("run", run);
 					modelAndView.addObject("getGradeWorkUrl", getGradeWorkUrl);
 					modelAndView.addObject("getGradingConfigUrl", getGradingConfigUrl);
+					
+					//set the permission variable so that we can access it in the .jsp
+					if(this.runService.hasRunPermission(run, user, BasePermission.WRITE)) {
+						modelAndView.addObject("permission", "write");						
+					} else if(this.runService.hasRunPermission(run, user, BasePermission.READ)) {
+						modelAndView.addObject("permission", "read");
+					}
 					
 					return modelAndView;
 				} else {
