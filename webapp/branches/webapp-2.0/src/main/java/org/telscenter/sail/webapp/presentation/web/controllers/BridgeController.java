@@ -41,6 +41,7 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.security.GrantedAuthority;
+import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
@@ -100,9 +101,38 @@ public class BridgeController extends AbstractController {
 		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
 		Long signedInUserId = null;
 		for (GrantedAuthority authority : authorities) {
-			if (authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)
-					|| authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
+			if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
 				return true;
+			} else if(authority.getAuthority().equals(UserDetailsService.TEACHER_ROLE)) {
+				//the signed in user is a teacher
+				
+				Run run = null;
+				try {
+					//get the run object
+					run = runService.retrieveById(new Long(request.getParameter("runId")));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (ObjectNotFoundException e) {
+					e.printStackTrace();
+				}
+				
+				if(run == null) {
+					//we could not find the run
+					return false;
+				} else if(this.runService.hasRunPermission(run, signedInUser, BasePermission.WRITE)) {
+					//the teacher has write permission for the run so we will allow authorization
+					return true;
+				} else if(this.runService.hasRunPermission(run, signedInUser, BasePermission.READ)) {
+					//the teacher only has read permission for the run
+					
+					if(method.equals("GET")) {
+						//we will allow authorization for GET requests
+						return true;
+					} else if(method.equals("POST")) {
+						//we will deny authorization for POST requests since the teacher only has READ permissions
+						return false;
+					}
+				}
 			}
 		}
 		if (method.equals("GET")) {
@@ -168,7 +198,7 @@ public class BridgeController extends AbstractController {
 				//return true for now until logic is implemented
 				return true;
 			} else if(type.equals("xlsexport")) {
-				
+				//TODO: need to check user permissions
 				return true;
 			} else {
 				// this should never happen
