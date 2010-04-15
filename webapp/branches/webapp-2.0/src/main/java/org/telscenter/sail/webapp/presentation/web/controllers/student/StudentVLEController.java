@@ -41,18 +41,15 @@ import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
+import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
-import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 
 /**
  * Controller for handling student VLE-portal interactions.
@@ -540,47 +537,62 @@ public class StudentVLEController extends AbstractController {
 
 		}
 		
+		//the JSONObject that will hold the owner teacher user info
 		JSONObject teacherUserInfo = new JSONObject();
 		
-		/*
-		// add teacher info
-		for (Workgroup classmateWorkgroup : workgroups) {
-			if (((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-				// inside, add teacher info
-				Set<User> owners = run.getOwners();
-				User teacher = null;
-				
-				try {
-					if (owners.size() > 0) {
-						teacher = owners.iterator().next();
-						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>");
-						
-						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
-						teacherUserInfo.put("userName", teacher.getUserDetails().getUsername());
-					} else {
-						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>");
-						
-						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
-						teacherUserInfo.put("userName", classmateWorkgroup.generateWorkgroupName());
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
-
+		//get the owners of the run (there should only be one)
+		Iterator<User> ownersIterator = run.getOwners().iterator();
+		
+		//loop through the owners (there should only be one)
+		while(ownersIterator.hasNext()) {
+			//get an owner
+			User owner = ownersIterator.next();
+			
+			//get the workgroups
+			List<Workgroup> teacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, owner);
+			
+			//there should only be one workgroup for the owner
+			Workgroup teacherWorkgroup = teacherWorkgroups.get(0);
+			
+			try {
+				//set the values into the owner JSONObject
+				teacherUserInfo.put("workgroupId", teacherWorkgroup.getId());
+				teacherUserInfo.put("userName", teacherWorkgroup.generateWorkgroupName());
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
 		}
-		*/
 		
-		List<Workgroup> teacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, run.getOwners().iterator().next());
+		//the JSONArray that will hold the shared teacher user infos
+		JSONArray sharedTeacherUserInfos = new JSONArray();
 		
-		Workgroup teacherWorkgroup = teacherWorkgroups.get(0);
+		//get the shared owners
+		Iterator<User> sharedOwnersIterator = run.getSharedowners().iterator();
 		
-		try {
-			teacherUserInfo.put("workgroupId", teacherWorkgroup.getId());
-			teacherUserInfo.put("userName", teacherWorkgroup.generateWorkgroupName());
-		} catch (JSONException e) {
-			e.printStackTrace();
+		//loop through the shared owners
+		while(sharedOwnersIterator.hasNext()) {
+			//get a shared owner
+			User sharedOwner = sharedOwnersIterator.next();
+			
+			//get the workgroups
+			List<Workgroup> sharedTeacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, sharedOwner);
+			
+			//there should only be one workgroup for the shared owner
+			Workgroup sharedTeacherWorkgroup = sharedTeacherWorkgroups.get(0);
+			
+			//make a JSONObject for this shared owner
+			JSONObject sharedTeacherUserInfo = new JSONObject();
+			
+			try {
+				//set the values into the shared owner JSONObject
+				sharedTeacherUserInfo.put("workgroupId", sharedTeacherWorkgroup.getId());
+				sharedTeacherUserInfo.put("userName", sharedTeacherWorkgroup.generateWorkgroupName());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			//add the shared owner to the array
+			sharedTeacherUserInfos.put(sharedTeacherUserInfo);
 		}
 		
 		try {
@@ -588,13 +600,11 @@ public class StudentVLEController extends AbstractController {
 			myUserInfo.put("myClassInfo", myClassInfo);
 			myClassInfo.put("classmateUserInfos", classmateUserInfos);
 			myClassInfo.put("teacherUserInfo", teacherUserInfo);
+			myClassInfo.put("sharedTeacherUserInfos", sharedTeacherUserInfos);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
-		//userInfoString.append("</myClassInfo>");
-
-		//userInfoString.append("</userInfo>");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader ("Expires", 0);
