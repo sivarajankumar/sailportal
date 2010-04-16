@@ -50,10 +50,12 @@ public class FileStreamerView extends AbstractView {
                 ImageRef fileRef = null;
                 try {
                     fileRef = userDetails.getProfilePicture();
+                    logger.info("loading image for " + user.getUserDetails().getUsername() + " image ref is  " + fileRef);
                 } catch (Exception e) {
                     logger.warn("ImageRef does not exist!");
+                    fileRef = null;
                 }
-                logger.info("loading image for " + user.getUserDetails().getUsername() + " image ref is  " + fileRef);
+
 
                 if (fileRef != null) {
                     byte[] bytes = null;
