@@ -161,7 +161,7 @@ public class StudentVLEController extends AbstractController {
 		if (runExtras == null) {
 			runExtras = "";
 		}
-		response.setContentType("text/xml");
+		
 		response.getWriter().print(runExtras);
 		return null;
 	}
