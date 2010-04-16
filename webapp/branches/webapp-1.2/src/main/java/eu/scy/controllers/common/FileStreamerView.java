@@ -47,7 +47,12 @@ public class FileStreamerView extends AbstractView {
             User user = getUserService().getUser(userName);
             if (user != null && user.getUserDetails() instanceof SCYStudentUserDetails) {
                 SCYStudentUserDetails userDetails = (SCYStudentUserDetails) user.getUserDetails();
-                ImageRef fileRef = (ImageRef) userDetails.getProfilePicture();
+                ImageRef fileRef = null;
+                try {
+                    fileRef = userDetails.getProfilePicture();
+                } catch (Exception e) {
+                    logger.warn("ImageRef does not exist!");
+                }
                 logger.info("loading image for " + user.getUserDetails().getUsername() + " image ref is  " + fileRef);
 
                 if (fileRef != null) {
