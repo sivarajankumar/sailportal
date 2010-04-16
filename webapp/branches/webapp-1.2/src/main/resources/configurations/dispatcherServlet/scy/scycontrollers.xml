@@ -80,7 +80,7 @@
 
     </bean>
 
-    <bean id="fileUploadController" class="eu.scy.controllers.fileupload.FileUploadController">
+    <bean id="profilePictureUploadController" class="eu.scy.controllers.fileupload.ProfilePictureUploadController">
         <property name="commandClass" value="eu.scy.controllers.fileupload.FileUploadBean"/>
         <property name="formView" value="fileuploadform"/>
         <property name="successView" value="student/profile"/>

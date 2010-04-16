@@ -3,27 +3,15 @@ package eu.scy.controllers.fileupload;
 import eu.scy.core.FileService;
 import eu.scy.core.UserService;
 import eu.scy.core.model.*;
-import eu.scy.core.model.impl.FileDataImpl;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 
-import javax.activation.MimetypesFileTypeMap;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.Principal;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -36,9 +24,9 @@ import java.util.logging.Logger;
  * Time: 14:25:33
  * To change this template use File | Settings | File Templates.
  */
-public class FileUploadController extends SimpleFormController {
+public class ProfilePictureUploadController extends SimpleFormController {
 
-    private static Logger log = Logger.getLogger("FileUploadController.class");
+    private static Logger log = Logger.getLogger("ProfilePictureUploadController.class");
 
     private UserService userService;
     private FileService fileService;
@@ -77,8 +65,10 @@ public class FileUploadController extends SimpleFormController {
         if(file.getContentType().contains("image")) {
             ImageRef fileRef = (ImageRef) getFileService().saveFile(tmpFile);
             details.setProfilePicture(fileRef);
+            log.info("saved image!");
         } else {
             FileRef fileRef = getFileService().saveFile(tmpFile);
+            log.info("saved file!");
         }
 
         getUserService().save(user);

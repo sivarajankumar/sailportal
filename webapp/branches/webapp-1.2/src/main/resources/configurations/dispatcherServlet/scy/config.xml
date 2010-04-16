@@ -76,7 +76,7 @@
                 /app/useradmin/UserAdminIndex.html=userAdminIndexController
                 /app/useradmin/EditStudent.html=editUserStudentController
                 /student/profile.html=studentProfileController
-                /student/upload.html=fileUploadController
+                /student/upload.html=profilePictureUploadController
                 /teacher/registerteacher.html=registerTeacherController
                 /teacher/studentList.html=studentListController
                 /teacher/viewStudentDetails.html=viewStudentDetailsController
