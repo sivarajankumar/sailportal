@@ -354,33 +354,32 @@ public class BridgeController extends AbstractController {
 				runId = Long.parseLong(runIdString);
 			}
 			
+			Run run = null;
+			try {
+				//get the run object
+				run = runService.retrieveById(runId);
+			} catch (ObjectNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			
 			try {
 				//get the workgroups in the run
 				Set<Workgroup> workgroups = runService.getWorkgroups(runId);
 				
-				JSONObject teacherUserInfoJSONObject = new JSONObject();
+				//get the teacher info
+				JSONObject teacherUserInfoJSONObject = getTeacherUserInfo(run);
+				
+				//get the shared teacher infos
+				JSONArray sharedTeacherUserInfosJSONArray = getSharedTeacherUserInfos(run);
+				
 				JSONArray classmateUserInfosJSONArray = new JSONArray();
 				
-				//loop through all the workgroups in the run
+				//loop through all the workgroups in the run and add all the classmate workgroups
 				for(Workgroup workgroup : workgroups) {
 					try {
 						JSONObject classmateJSONObject = new JSONObject();
 						
-						if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
-							/*
-							 * check if we have already set the teacher workgroup id.
-							 * the first teacher workgroup id that we come upon should
-							 * be the actual teacher and not the shared researcher.
-							 * 
-							 * this needs to be fixed in the future when we allow
-							 * multiple teacher/researcher workgroupids to grade
-							 * work for the same run.
-							 */
-							if(!teacherUserInfoJSONObject.has("workgroupId")) {
-								//the workgroup is the teacher workgroup
-								teacherUserInfoJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());								
-							}
-						} else {
+						if(!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
 							//the workgroup is a student workgroup
 							classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
 							
@@ -391,7 +390,7 @@ public class BridgeController extends AbstractController {
 							}
 							
 							//add the student to the list of classmates array
-							classmateUserInfosJSONArray.put(classmateJSONObject);
+							classmateUserInfosJSONArray.put(classmateJSONObject);	
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
@@ -401,6 +400,7 @@ public class BridgeController extends AbstractController {
 				//set the JSON objects to request attributes so the vlewrapper servlet can access them
 				request.setAttribute("classmateUserInfos", classmateUserInfosJSONArray.toString());
 				request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
+				request.setAttribute("sharedTeacherUserInfos", sharedTeacherUserInfosJSONArray.toString());
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -433,6 +433,88 @@ public class BridgeController extends AbstractController {
 			requestDispatcher.forward(request, response);
 		}
 		return null;
+	}
+	
+	/**
+	 * Get the teacher user info in a JSONObject
+	 * @param run the run object
+	 * @return a JSONObject containing the teacher user info such as workgroup id
+	 * and name
+	 */
+	private JSONObject getTeacherUserInfo(Run run) {
+		//the JSONObject that will hold the owner teacher user info
+		JSONObject teacherUserInfo = new JSONObject();
+		
+		if(run != null) {
+			//get the owners of the run (there should only be one)
+			Iterator<User> ownersIterator = run.getOwners().iterator();
+			
+			//loop through the owners (there should only be one)
+			while(ownersIterator.hasNext()) {
+				//get an owner
+				User owner = ownersIterator.next();
+				
+				//get the workgroups
+				List<Workgroup> teacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, owner);
+				
+				//there should only be one workgroup for the owner
+				Workgroup teacherWorkgroup = teacherWorkgroups.get(0);
+				
+				try {
+					//set the values into the owner JSONObject
+					teacherUserInfo.put("workgroupId", teacherWorkgroup.getId());
+					teacherUserInfo.put("userName", teacherWorkgroup.generateWorkgroupName());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}			
+		}
+		
+		return teacherUserInfo;
+	}
+	
+	/**
+	 * Get an array of shared teacher user infos in a JSONArray
+	 * @param run the run object
+	 * @return a JSONArray containing shared teacher user infos
+	 */
+	private JSONArray getSharedTeacherUserInfos(Run run) {
+
+		//the JSONArray that will hold the shared teacher user infos
+		JSONArray sharedTeacherUserInfos = new JSONArray();
+		
+		if(run != null) {
+			//get the shared owners
+			Iterator<User> sharedOwnersIterator = run.getSharedowners().iterator();
+			
+			//loop through the shared owners
+			while(sharedOwnersIterator.hasNext()) {
+				//get a shared owner
+				User sharedOwner = sharedOwnersIterator.next();
+				
+				//get the workgroups
+				List<Workgroup> sharedTeacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, sharedOwner);
+				
+				//there should only be one workgroup for the shared owner
+				Workgroup sharedTeacherWorkgroup = sharedTeacherWorkgroups.get(0);
+				
+				//make a JSONObject for this shared owner
+				JSONObject sharedTeacherUserInfo = new JSONObject();
+				
+				try {
+					//set the values into the shared owner JSONObject
+					sharedTeacherUserInfo.put("workgroupId", sharedTeacherWorkgroup.getId());
+					sharedTeacherUserInfo.put("userName", sharedTeacherWorkgroup.generateWorkgroupName());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				//add the shared owner to the array
+				sharedTeacherUserInfos.put(sharedTeacherUserInfo);
+			}
+		}
+
+		return sharedTeacherUserInfos;
 	}
 
 	/**
