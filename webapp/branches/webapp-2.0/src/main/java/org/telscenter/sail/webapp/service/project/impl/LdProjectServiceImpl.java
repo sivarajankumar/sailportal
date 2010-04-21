@@ -126,14 +126,16 @@ public class LdProjectServiceImpl implements ProjectService {
 
 		String permission = addSharedTeacherParameters.getPermission();
 		if (permission.equals(UserDetailsService.PROJECT_WRITE_ROLE)) {
+			this.aclService.removePermission(project, BasePermission.ADMINISTRATION, user);
 			this.aclService.removePermission(project, BasePermission.READ, user);
 			this.aclService.addPermission(project, BasePermission.WRITE, user);	
 		} else if (permission.equals(UserDetailsService.PROJECT_READ_ROLE)) {
+			this.aclService.removePermission(project, BasePermission.ADMINISTRATION, user);
 			this.aclService.removePermission(project, BasePermission.WRITE, user);
 			this.aclService.addPermission(project, BasePermission.READ, user);
 		} else if (permission.equals(UserDetailsService.PROJECT_SHARE_ROLE)) {
 			this.aclService.removePermission(project, BasePermission.READ, user);
-			this.aclService.addPermission(project, BasePermission.WRITE, user);	
+			this.aclService.removePermission(project, BasePermission.WRITE, user);
 			this.aclService.addPermission(project, BasePermission.ADMINISTRATION, user);
 		}
 	}
