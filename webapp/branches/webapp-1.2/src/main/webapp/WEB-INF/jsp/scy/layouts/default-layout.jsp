@@ -69,11 +69,11 @@
             postForm('ajaxSliderForm' + id);
         }
 
-        function updateActivityStatus(statusid){
+        function updateActivityStatus(statusid, username){
             console.info("updating status....." + statusid);
             var targetNode = dojo.byId(statusid);
             var xhrArgs = {
-                url: '/webapp/components/realtime/currentStudentActivity.html',
+                url: '/webapp/components/realtime/currentStudentActivity.html?username=' + username,
                 handleAs: "text",
                 load: function(data){
                     data = data.replace(/\n/g, "<br/>");
@@ -148,6 +148,7 @@
 			</div>
 		</div>
         <div id="breadcrumbs"><s:breadcrumbs/></div>
+
 	</div>
 
 	<div id="bd" role="main">
