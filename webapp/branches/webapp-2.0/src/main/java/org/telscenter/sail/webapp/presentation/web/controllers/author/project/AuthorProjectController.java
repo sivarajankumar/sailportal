@@ -120,7 +120,9 @@ public class AuthorProjectController extends AbstractController {
 		if(forward != null && !forward.equals("")){
 			ServletContext servletContext = this.getServletContext().getContext("/vlewrapper");
 			if(forward.equals("filemanager") || forward.equals("assetmanager")){
-				if(this.isProjectlessRequest(request, forward) || this.projectService.canAuthorProject(project, user)){
+				if((this.isProjectlessRequest(request, forward) || this.projectService.canAuthorProject(project, user)) ||
+						("copyProject".equals(request.getParameter("command")) && project.getFamilytag().equals(FamilyTag.TELS))){
+					
 					if("createProject".equals(request.getParameter("command")) && !this.hasAuthorPermissions(user)){
 						return new ModelAndView(new RedirectView("accessdenied.html"));
 					}
