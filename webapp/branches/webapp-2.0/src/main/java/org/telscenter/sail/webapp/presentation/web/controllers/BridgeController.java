@@ -303,6 +303,24 @@ public class BridgeController extends AbstractController {
 		User user = ControllerUtil.getSignedInUser();
 		CredentialManager.setRequestCredentials(request, user);
 		
+		//get the run id
+		String runIdString = request.getParameter("runId");
+		Long runId = null;
+		
+		if(runIdString != null) {
+			runId = Long.parseLong(runIdString);
+		}
+		
+		Run run = null;
+		try {
+			if(runId != null) {
+				//get the run object
+				run = runService.retrieveById(runId);				
+			}
+		} catch (ObjectNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
 		if (type == null) {
 			// get student data
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
@@ -311,21 +329,18 @@ public class BridgeController extends AbstractController {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getdata.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("flag") || type.equals("annotation")){			// get flags
+			/*
+			 * set the user info JSONObjects into the request so the vlewrapper servlet
+			 * has access to the teacher and classmate info
+			 */
+			setUserInfos(run, request);
+			
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/annotations.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("journal")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/journaldata.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("peerreview")) {
-			
-			//get the run id
-			String runIdString = request.getParameter("runId");
-			Long runId = null;
-			
-			if(runIdString != null) {
-				runId = Long.parseLong(runIdString);
-			}
-			
 			//get the period id
 			String periodString = request.getParameter("periodId");
 			Long period = null;
@@ -346,64 +361,8 @@ public class BridgeController extends AbstractController {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
 		} else if (type.equals("xlsexport")) {
-			//get the run id
-			String runIdString = request.getParameter("runId");
-			Long runId = null;
+			setUserInfos(run, request);
 			
-			if(runIdString != null) {
-				runId = Long.parseLong(runIdString);
-			}
-			
-			Run run = null;
-			try {
-				//get the run object
-				run = runService.retrieveById(runId);
-			} catch (ObjectNotFoundException e1) {
-				e1.printStackTrace();
-			}
-			
-			try {
-				//get the workgroups in the run
-				Set<Workgroup> workgroups = runService.getWorkgroups(runId);
-				
-				//get the teacher info
-				JSONObject teacherUserInfoJSONObject = getTeacherUserInfo(run);
-				
-				//get the shared teacher infos
-				JSONArray sharedTeacherUserInfosJSONArray = getSharedTeacherUserInfos(run);
-				
-				JSONArray classmateUserInfosJSONArray = new JSONArray();
-				
-				//loop through all the workgroups in the run and add all the classmate workgroups
-				for(Workgroup workgroup : workgroups) {
-					try {
-						JSONObject classmateJSONObject = new JSONObject();
-						
-						if(!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
-							//the workgroup is a student workgroup
-							classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
-							
-							if(((WISEWorkgroup) workgroup).getPeriod() != null) {
-								classmateJSONObject.put("periodId", ((WISEWorkgroup) workgroup).getPeriod().getId());	
-							} else {
-								classmateJSONObject.put("periodId", JSONObject.NULL);
-							}
-							
-							//add the student to the list of classmates array
-							classmateUserInfosJSONArray.put(classmateJSONObject);	
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-				
-				//set the JSON objects to request attributes so the vlewrapper servlet can access them
-				request.setAttribute("classmateUserInfos", classmateUserInfosJSONArray.toString());
-				request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
-				request.setAttribute("sharedTeacherUserInfos", sharedTeacherUserInfosJSONArray.toString());
-			} catch (ObjectNotFoundException e) {
-				e.printStackTrace();
-			}
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/getxls.html");
 			requestDispatcher.forward(request, response);
 		}
@@ -433,6 +392,74 @@ public class BridgeController extends AbstractController {
 			requestDispatcher.forward(request, response);
 		}
 		return null;
+	}
+	
+	/**
+	 * Sets the classmate, teacher and shared teacher user infos
+	 * into the request object so they can be retrieved by the
+	 * vlewrapper servlets
+	 * @param run
+	 * @param request
+	 */
+	private void setUserInfos(Run run, HttpServletRequest request) {
+		//get the classmate user infos
+		JSONArray classmateUserInfosJSONArray = getClassmateUserInfos(run);
+		
+		//get the teacher info
+		JSONObject teacherUserInfoJSONObject = getTeacherUserInfo(run);
+		
+		//get the shared teacher infos
+		JSONArray sharedTeacherUserInfosJSONArray = getSharedTeacherUserInfos(run);
+		
+		//set the JSON objects to request attributes so the vlewrapper servlet can access them
+		request.setAttribute("classmateUserInfos", classmateUserInfosJSONArray.toString());
+		request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
+		request.setAttribute("sharedTeacherUserInfos", sharedTeacherUserInfosJSONArray.toString());
+	}
+	
+	/**
+	 * Get the classmate user info in a JSONArray
+	 * @param run
+	 * @return a JSONArray containing classmate info
+	 */
+	private JSONArray getClassmateUserInfos(Run run) {
+		JSONArray classmateUserInfosJSONArray = new JSONArray();
+		
+		//get the workgroups in the run
+		Set<Workgroup> workgroups = null;
+		try {
+			workgroups = runService.getWorkgroups(run.getId());
+		} catch (ObjectNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(workgroups != null) {
+			//loop through all the workgroups in the run and add all the classmate workgroups
+			for(Workgroup workgroup : workgroups) {
+				try {
+					JSONObject classmateJSONObject = new JSONObject();
+					
+					if(!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+						//the workgroup is a student workgroup
+						classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
+						
+						if(((WISEWorkgroup) workgroup).getPeriod() != null) {
+							classmateJSONObject.put("periodId", ((WISEWorkgroup) workgroup).getPeriod().getId());	
+						} else {
+							classmateJSONObject.put("periodId", JSONObject.NULL);
+						}
+						
+						//add the student to the list of classmates array
+						classmateUserInfosJSONArray.put(classmateJSONObject);	
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}			
+		}
+		
+		return classmateUserInfosJSONArray;
 	}
 	
 	/**
