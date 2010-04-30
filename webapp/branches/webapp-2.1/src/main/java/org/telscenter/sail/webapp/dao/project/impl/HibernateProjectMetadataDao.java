@@ -70,16 +70,6 @@ public class HibernateProjectMetadataDao extends AbstractHibernateDao<ProjectMet
 	 */
 	public List<Project> addMetadataToProjects(List<Project> projects){
 		this.populateProjectListWithMetadata(projects, this.getActiveVersionsForProjectList(projects));
-//		if(projects != null && projects.size() > 0){
-//			for(Project project : projects){
-//				String versionId = this.projectService.getActiveVersion(project);
-//				
-//				if(versionId!=null){
-//					project.setMetadata(this.getMetadataByProjectIdAndVersionId((Long) project.getId(), versionId));
-//				}
-//			}
-//		}
-		
 		return projects;
 	}
 	
@@ -150,12 +140,14 @@ public class HibernateProjectMetadataDao extends AbstractHibernateDao<ProjectMet
 	 */
 	private void populateProjectListWithMetadata(List<Project> projectList, String activeVersionProjectIdList){
 		Map<Long,String> idVersionMap = new TreeMap<Long,String>();
-		String[] projectIDVersions = activeVersionProjectIdList.split("|");
+		String[] projectIDVersions = activeVersionProjectIdList.split("\\|");
 		
 		/* parse the project ids and versions and place them in a map for easy lookup */
 		for(int z=0;z<projectIDVersions.length;z++){
-			String[] splitz = projectIDVersions[z].split("~");
-			idVersionMap.put(Long.parseLong(splitz[0]), splitz[1]);
+			if(projectIDVersions[z] != null && !projectIDVersions[z].equals("") && !projectIDVersions[z].equals("null")){
+				String[] splitz = projectIDVersions[z].split("~");
+				idVersionMap.put(Long.parseLong(splitz[0]), splitz[1]);
+			}
 		}
 		
 		/* add any metadata associated with each project in the list */
