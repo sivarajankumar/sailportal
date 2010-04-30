@@ -3,9 +3,6 @@
 	<sec:authorize ifAllGranted="ROLE_STUDENT">
 		<a href="student/index.html"><spring:message code="header.student"/></a>
 	</sec:authorize>
-	<sec:authorize ifAllGranted="ROLE_TEACHER">
-		<a href="teacher/index.html"><spring:message code="header.teacher"/></a>
-	</sec:authorize>
 	<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 		<a href="admin/index.html"><spring:message code="header.admin"/></a>
 	</sec:authorize>

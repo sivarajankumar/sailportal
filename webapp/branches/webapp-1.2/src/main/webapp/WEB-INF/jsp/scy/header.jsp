@@ -18,11 +18,6 @@
                                 <spring:message code="header.student"/></a>
                             </div>
                         </sec:authorize>
-                        <sec:authorize ifAllGranted="ROLE_TEACHER">
-                            <span id="signOutBannerHome">
-                                <a href="../teacher/index.html"><spring:message code="header.teacher"/></a>
-                            </span>
-                        </sec:authorize>
                         <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
                             <span id="signOutBannerHome">
                                 <a href="admin/index.html"><spring:message code="header.admin"/></a>

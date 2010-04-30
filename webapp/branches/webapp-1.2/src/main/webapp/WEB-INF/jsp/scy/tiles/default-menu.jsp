@@ -5,7 +5,6 @@
 	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_TEACHER">
-		<li><a href="/webapp/teacher/index.html"><spring:message code="header.teacher"/></a></li>
 		<li><a href="/webapp/teacher/studentList.html">Student list</a></li>
 	</sec:authorize>
 

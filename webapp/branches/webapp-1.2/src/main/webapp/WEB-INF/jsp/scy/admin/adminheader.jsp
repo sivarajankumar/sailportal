@@ -19,11 +19,6 @@
 						<spring:message code="log.out"/></a></div>
 					<sec:authorize ifAllGranted="ROLE_TEACHER">
                             <span id="signOutBannerHome">
-                                <a href="../teacher/index.html"><spring:message code="header.teacher"/></a>
-                            </span>
-					</sec:authorize>
-					<sec:authorize ifAllGranted="ROLE_TEACHER">
-                            <span id="signOutBannerHome">
                                 <a href="../teacher/studentList.html">Student list</a>
                             </span>
 					</sec:authorize>
