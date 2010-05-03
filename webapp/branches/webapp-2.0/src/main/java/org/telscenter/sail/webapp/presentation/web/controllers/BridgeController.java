@@ -45,10 +45,9 @@ import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
-import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtil;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -402,147 +401,25 @@ public class BridgeController extends AbstractController {
 	 * @param request
 	 */
 	private void setUserInfos(Run run, HttpServletRequest request) {
+		//get the signed in user info
+		JSONObject myUserInfoJSONObject = RunUtil.getMyUserInfo(run, workgroupService); 
+			
 		//get the classmate user infos
-		JSONArray classmateUserInfosJSONArray = getClassmateUserInfos(run);
+		JSONArray classmateUserInfosJSONArray = RunUtil.getClassmateUserInfos(run, workgroupService, runService);
 		
 		//get the teacher info
-		JSONObject teacherUserInfoJSONObject = getTeacherUserInfo(run);
+		JSONObject teacherUserInfoJSONObject = RunUtil.getTeacherUserInfo(run, workgroupService);
 		
 		//get the shared teacher infos
-		JSONArray sharedTeacherUserInfosJSONArray = getSharedTeacherUserInfos(run);
+		JSONArray sharedTeacherUserInfosJSONArray = RunUtil.getSharedTeacherUserInfos(run, workgroupService);
 		
 		//set the JSON objects to request attributes so the vlewrapper servlet can access them
+		request.setAttribute("myUserInfo", myUserInfoJSONObject.toString());		
 		request.setAttribute("classmateUserInfos", classmateUserInfosJSONArray.toString());
 		request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
 		request.setAttribute("sharedTeacherUserInfos", sharedTeacherUserInfosJSONArray.toString());
 	}
 	
-	/**
-	 * Get the classmate user info in a JSONArray
-	 * @param run
-	 * @return a JSONArray containing classmate info
-	 */
-	private JSONArray getClassmateUserInfos(Run run) {
-		JSONArray classmateUserInfosJSONArray = new JSONArray();
-		
-		//get the workgroups in the run
-		Set<Workgroup> workgroups = null;
-		try {
-			workgroups = runService.getWorkgroups(run.getId());
-		} catch (ObjectNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		if(workgroups != null) {
-			//loop through all the workgroups in the run and add all the classmate workgroups
-			for(Workgroup workgroup : workgroups) {
-				try {
-					JSONObject classmateJSONObject = new JSONObject();
-					
-					if(!((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
-						//the workgroup is a student workgroup
-						classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
-						
-						if(((WISEWorkgroup) workgroup).getPeriod() != null) {
-							classmateJSONObject.put("periodId", ((WISEWorkgroup) workgroup).getPeriod().getId());	
-						} else {
-							classmateJSONObject.put("periodId", JSONObject.NULL);
-						}
-						
-						//add the student to the list of classmates array
-						classmateUserInfosJSONArray.put(classmateJSONObject);	
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}			
-		}
-		
-		return classmateUserInfosJSONArray;
-	}
-	
-	/**
-	 * Get the teacher user info in a JSONObject
-	 * @param run the run object
-	 * @return a JSONObject containing the teacher user info such as workgroup id
-	 * and name
-	 */
-	private JSONObject getTeacherUserInfo(Run run) {
-		//the JSONObject that will hold the owner teacher user info
-		JSONObject teacherUserInfo = new JSONObject();
-		
-		if(run != null) {
-			//get the owners of the run (there should only be one)
-			Iterator<User> ownersIterator = run.getOwners().iterator();
-			
-			//loop through the owners (there should only be one)
-			while(ownersIterator.hasNext()) {
-				//get an owner
-				User owner = ownersIterator.next();
-				
-				//get the workgroups
-				List<Workgroup> teacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, owner);
-				
-				//there should only be one workgroup for the owner
-				Workgroup teacherWorkgroup = teacherWorkgroups.get(0);
-				
-				try {
-					//set the values into the owner JSONObject
-					teacherUserInfo.put("workgroupId", teacherWorkgroup.getId());
-					teacherUserInfo.put("userName", teacherWorkgroup.generateWorkgroupName());
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}			
-		}
-		
-		return teacherUserInfo;
-	}
-	
-	/**
-	 * Get an array of shared teacher user infos in a JSONArray
-	 * @param run the run object
-	 * @return a JSONArray containing shared teacher user infos
-	 */
-	private JSONArray getSharedTeacherUserInfos(Run run) {
-
-		//the JSONArray that will hold the shared teacher user infos
-		JSONArray sharedTeacherUserInfos = new JSONArray();
-		
-		if(run != null) {
-			//get the shared owners
-			Iterator<User> sharedOwnersIterator = run.getSharedowners().iterator();
-			
-			//loop through the shared owners
-			while(sharedOwnersIterator.hasNext()) {
-				//get a shared owner
-				User sharedOwner = sharedOwnersIterator.next();
-				
-				//get the workgroups
-				List<Workgroup> sharedTeacherWorkgroups = workgroupService.getWorkgroupListByOfferingAndUser(run, sharedOwner);
-				
-				//there should only be one workgroup for the shared owner
-				Workgroup sharedTeacherWorkgroup = sharedTeacherWorkgroups.get(0);
-				
-				//make a JSONObject for this shared owner
-				JSONObject sharedTeacherUserInfo = new JSONObject();
-				
-				try {
-					//set the values into the shared owner JSONObject
-					sharedTeacherUserInfo.put("workgroupId", sharedTeacherWorkgroup.getId());
-					sharedTeacherUserInfo.put("userName", sharedTeacherWorkgroup.generateWorkgroupName());
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
-				//add the shared owner to the array
-				sharedTeacherUserInfos.put(sharedTeacherUserInfo);
-			}
-		}
-
-		return sharedTeacherUserInfos;
-	}
 
 	/**
 	 * @return the workgroupService

@@ -44,12 +44,13 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtil;
 import org.telscenter.sail.webapp.service.offering.RunService;
+
 
 /**
  * Controller for handling student VLE-portal interactions.
@@ -475,7 +476,7 @@ public class StudentVLEController extends AbstractController {
 		}
 		
 		//obtain the user name in the format like "Geoffrey Kwan (GeoffreyKwan)"
-		String userNames = getUserNamesFromWorkgroup(workgroup);
+		String userNames = RunUtil.getUserNamesFromWorkgroup(workgroup);
 		
 		// add this user's info:
 		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + userNames + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
@@ -635,7 +636,7 @@ public class StudentVLEController extends AbstractController {
 			//get the workgroup id
 			//userInfoString.append("<workgroupId>" + classmateWorkgroup.getId() + "</workgroupId>");
 			
-			String userNames = getUserNamesFromWorkgroup(classmateWorkgroup);
+			String userNames = RunUtil.getUserNamesFromWorkgroup(classmateWorkgroup);
 			
 			classmateUserInfo.put("userName", userNames);
 			
@@ -665,63 +666,7 @@ public class StudentVLEController extends AbstractController {
 		//return userInfoString.toString();
 		return classmateUserInfo;
 	}
-	
-	/**
-	 * Obtain the first name, last name, and login for the user
-	 * @param user the User we want to obtain the first, last, login for
-	 * @return the first, last and login in this format below
-	 * Jennifer Chiu (JenniferC829)
-	 */
-	private String getFirstNameLastNameLogin(User user) {
-		String firstName = "";
-		String lastName = "";
-		String userName = "";
-		
-		//get the user details, we need to cast to our own MutableUserDetails class
-		MutableUserDetails userDetails = (org.telscenter.sail.webapp.domain.authentication.MutableUserDetails) user.getUserDetails();
 
-		//get the first name, last name, and login
-		if(userDetails != null) {
-			userName = userDetails.getUsername();
-			firstName = userDetails.getFirstname();
-			lastName = userDetails.getLastname();
-		}
-		
-		//append the user's name and login so it looks like Jennifer Chiu (JenniferC829)
-		return firstName + " " + lastName + " (" + userName + ")";
-	}
-	
-	/**
-	 * Obtain the user names for this workgroup
-	 * @param workgroup a Workgroup that we want the names from
-	 * @return a string of user names delimited by :
-	 * e.g.
-	 * "Jennifer Chiu (JenniferC829):helen zhang (helenz1115a)"
-	 */
-	private String getUserNamesFromWorkgroup(Workgroup workgroup) {
-		//the string buffer to maintain the user names for the logged in user
-		StringBuffer userNames = new StringBuffer();
-		Set<User> members = workgroup.getMembers();
-		Iterator<User> iterator = members.iterator();
-		while(iterator.hasNext()) {
-			//get a user
-			User user = iterator.next();
-
-			//get the first name last name and login as a string like Geoffrey Kwan (GeoffreyKwan)
-			String firstNameLastNameLogin = getFirstNameLastNameLogin(user);
-			
-			//separate the names with a :
-			if(userNames.length() != 0) {
-				userNames.append(":");
-			}
-			
-			//add the first name last name and login for this user
-			userNames.append(firstNameLastNameLogin);
-		}
-		
-		//return the : delimited user names that are in this workgroup
-		return userNames.toString();
-	}
 	
 	/**
 	 * @param runService the runService to set
