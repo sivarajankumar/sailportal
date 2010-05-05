@@ -295,6 +295,12 @@ public class LdProjectServiceImpl implements ProjectService {
 		return null;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getAdminProjectList()
+	 */
+	public List<Project> getAdminProjectList(){
+		return this.projectDao.getList();
+	}
 	public ModelAndView launchProject(LaunchProjectParameters params)
 			throws Exception {
 		return new ModelAndView(new RedirectView(generateStudentStartProjectUrlString( params.getHttpServletRequest(), 

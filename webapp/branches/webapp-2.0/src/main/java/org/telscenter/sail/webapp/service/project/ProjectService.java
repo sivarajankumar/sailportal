@@ -285,4 +285,11 @@ public interface ProjectService {
 	 * @return
 	 */
 	public boolean canReadProject(Project project, User user);
+	
+	/**
+	 * Returns a <code>List<Project></code> list of all projects in the data store.
+	 * 
+	 * @return List<Project> projects
+	 */
+	public List<Project> getAdminProjectList();
 }

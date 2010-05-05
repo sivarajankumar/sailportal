@@ -76,7 +76,7 @@ public class ManageAllProjectsController extends AbstractController {
    		*/
 
 		// separate calls to project services to get internal and external projects
-   		List<Project> internalProjectList = projectService.getProjectList();
+   		List<Project> internalProjectList = projectService.getAdminProjectList();
    		List<Project> externalProjectList = externalProjectService.getProjectList();
 
    		ModelAndView modelAndView = new ModelAndView(VIEW_NAME);

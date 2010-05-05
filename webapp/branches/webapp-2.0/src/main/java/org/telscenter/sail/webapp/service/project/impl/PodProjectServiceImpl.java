@@ -484,6 +484,13 @@ public class PodProjectServiceImpl implements ProjectService {
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getAdminProjectList()
+	 */
+	public List<Project> getAdminProjectList(){
+		return this.projectDao.getList();
+	}
+	
+	/**
 	 * @param projectDao the projectDao to set
 	 */
 	public void setProjectDao(ProjectDao<Project> projectDao) {

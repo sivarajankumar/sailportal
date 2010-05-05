@@ -207,6 +207,13 @@ public class RooloProjectServiceImpl implements ProjectService{
 	}
 
 	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getAdminProjectList()
+	 */
+	public List<Project> getAdminProjectList(){
+		return this.projectDao.getList();
+	}
+	
+	/**
 	 * @override @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTag(org.telscenter.sail.webapp.domain.project.impl.FamilyTag)
 	 */
 	public List<Project> getProjectListByTag(FamilyTag familytag) throws ObjectNotFoundException {

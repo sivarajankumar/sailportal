@@ -281,4 +281,11 @@ public class ProjectServiceImpl implements ProjectService {
 			return projectService.canReadProject(project, user);
 		}
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getAdminProjectList()
+	 */
+	public List<Project> getAdminProjectList(){
+		return projectServiceFactory.getProjectService(new ProjectImpl()).getAdminProjectList();
+	}
 }

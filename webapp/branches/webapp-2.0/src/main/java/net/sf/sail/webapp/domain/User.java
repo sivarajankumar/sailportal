@@ -60,4 +60,11 @@ public interface User extends Persistable {
      * @return the sdsUser
      */
     public SdsUser getSdsUser();
+    
+    /**
+     * Returns true if this use is an admin, false otherwise.
+     * 
+     * @return boolean
+     */
+    public boolean isAdmin();
 }

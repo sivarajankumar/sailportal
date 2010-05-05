@@ -29,6 +29,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
+
+import net.sf.sail.core.service.impl.UserServiceImpl;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.authentication.impl.PersistentUserDetails;
@@ -99,6 +102,13 @@ public class UserImpl implements User {
         this.sdsUser = sdsUser;
     }
 
+    /**
+     * @see net.sf.sail.webapp.domain.User#isAdmin()
+     */
+    public boolean isAdmin(){
+    	return this.userDetails.hasGrantedAuthority(UserDetailsService.ADMIN_ROLE);
+    }
+    
     /**
      * @return the id
      */

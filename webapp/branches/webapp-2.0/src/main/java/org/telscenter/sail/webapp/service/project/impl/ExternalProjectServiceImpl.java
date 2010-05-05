@@ -380,4 +380,9 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public List<Project> getAdminProjectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

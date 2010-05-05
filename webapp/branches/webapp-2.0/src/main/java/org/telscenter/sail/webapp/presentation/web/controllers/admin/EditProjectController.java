@@ -76,8 +76,16 @@ public class EditProjectController extends SimpleFormController{
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-		User user = ControllerUtil.getSignedInUser();
+		/* get the project */
 		Project project = (Project) command;
+		
+		/* get the user, if the user is an admin, set the user as the owner of the
+		 * project for purposes of this request */
+		User user = ControllerUtil.getSignedInUser();
+		if(user.isAdmin()){
+			user = project.getOwners().iterator().next();
+		}
+		
 		try{
 			projectService.updateProject(project, user);
 		} catch (NotAuthorizedException e){
