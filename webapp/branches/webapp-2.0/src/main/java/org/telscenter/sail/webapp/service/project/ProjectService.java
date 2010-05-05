@@ -274,4 +274,15 @@ public interface ProjectService {
 	 * @return boolean
 	 */
 	public boolean canAuthorProject(Project project, User user);
+	
+	/**
+	 * Given a <code>Project</code> project and a <code>User</code> user, returns
+	 * <code>boolean</code> true if the user has read access to that particular
+	 * project, returns false otherwise.
+	 * 
+	 * @param project
+	 * @param user
+	 * @return
+	 */
+	public boolean canReadProject(Project project, User user);
 }

@@ -410,4 +410,9 @@ public class RooloProjectServiceImpl implements ProjectService{
 		return this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
 			this.aclService.hasPermission(project, BasePermission.WRITE, user);
 	}
+
+	public boolean canReadProject(Project project, User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

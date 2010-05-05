@@ -546,4 +546,13 @@ public class LdProjectServiceImpl implements ProjectService {
 		return this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
 			this.aclService.hasPermission(project, BasePermission.WRITE, user);
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canReadProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canReadProject(Project project, User user) {
+		return this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
+			this.aclService.hasPermission(project, BasePermission.WRITE, user) ||
+			this.aclService.hasPermission(project, BasePermission.READ, user);
+	}
 }

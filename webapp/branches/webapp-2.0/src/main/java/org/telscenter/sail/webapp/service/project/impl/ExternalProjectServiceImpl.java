@@ -375,4 +375,9 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public boolean canReadProject(Project project, User user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

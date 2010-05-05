@@ -91,7 +91,7 @@ public class PreviewLDProjectController extends AbstractController {
 		Project project = this.projectService.getById(Long.parseLong(projectId));
 		
 		if(projectId != null && project != null){
-			if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canAuthorProject(project, user)){
+			if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
 				String portalurl = ControllerUtil.getBaseUrlString(request);
 				String portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
 		

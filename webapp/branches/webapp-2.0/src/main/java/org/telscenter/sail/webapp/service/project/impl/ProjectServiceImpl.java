@@ -269,4 +269,16 @@ public class ProjectServiceImpl implements ProjectService {
 			return projectService.canAuthorProject(project, user);
 		}
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canReadProject(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 */
+	public boolean canReadProject(Project project, User user){
+		if(project == null){
+			return false;
+		} else {
+			ProjectService projectService = projectServiceFactory.getProjectService(project);
+			return projectService.canReadProject(project, user);
+		}
+	}
 }

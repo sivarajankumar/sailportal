@@ -66,7 +66,7 @@ public class PreviewProjectController extends AbstractController {
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
 		
-		if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canAuthorProject(project, user)){
+		if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
 			PreviewProjectParameters params = new PreviewProjectParameters();
 			params.setProject(project);
 			params.setHttpServletRequest(request);
