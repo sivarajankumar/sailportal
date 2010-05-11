@@ -4,6 +4,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 
+   
+    <script type="text/javascript" src="${baseUrl}/javascript/joint/joint.all-min.js"></script>
+
 	<link rel="stylesheet" type="text/css"
 		  href="http://yui.yahooapis.com/2.5.1/build/reset-fonts-grids/reset-fonts-grids.css"/>
 
@@ -66,6 +69,7 @@
 
         function updateAjaxSlider(id, sliderObject){
             dojo.byId('sliderValue' + id ).value=sliderObject.value;
+            
             postForm('ajaxSliderForm' + id);
         }
 
@@ -110,6 +114,7 @@
         function startDojo(){
 
             dojo.require("dojo.parser");
+            dojo.require("dojo.dnd.Moveable");
             dojo.require("dijit.form.CheckBox");
             dojo.require("dijit.InlineEditBox");
             dojo.require("dijit.form.Textarea");
@@ -120,7 +125,8 @@
             dojo.require("dijit.form.DateTextBox");
             dojo.require("dijit.form.TimeTextBox");
             dojo.require("dijit.form.NumberTextBox");
-            
+            dojo.require("dojox.gfx");
+
 
         }
 
