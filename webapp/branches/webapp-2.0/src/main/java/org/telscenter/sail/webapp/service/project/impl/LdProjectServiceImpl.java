@@ -542,7 +542,7 @@ public class LdProjectServiceImpl implements ProjectService {
 	public boolean canCreateRun(Project project, User user) {
 		return FamilyTag.TELS.equals(project.getFamilytag()) || 
 			this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) || 
-			this.aclService.hasPermission(project, BasePermission.WRITE, user);
+			this.aclService.hasPermission(project, BasePermission.READ, user);
 	}
 	
 	/**
