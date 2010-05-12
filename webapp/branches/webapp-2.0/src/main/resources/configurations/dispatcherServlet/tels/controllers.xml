@@ -81,15 +81,12 @@
 	<bean id="findProjectParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.FindProjectParametersValidator">
 		<property name="projectService" ref="projectService"/>
+		<property name="userService" ref="userService"/>
+		<property name="runService" ref="runService"/>
 	</bean>
 	
 	<bean id="newsItemParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.NewsItemParametersValidator"/>
-		
-	<bean id="findProjectRunsByTeacherParametersValidator"
-		class="org.telscenter.sail.webapp.presentation.validators.FindProjectRunsByTeacherParametersValidator">
-		<property name="userService" ref="userService"/>
-	</bean>
 	
 	<bean id="lookupParametersValidator"
 		class="org.telscenter.sail.webapp.presentation.validators.LookupParametersValidator"/>
@@ -1084,25 +1081,10 @@
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.impl.FindProjectParameters" />
         <property name="runService" ref="runService" />
+        <property name="userService" ref="userService"/>
+        <property name="validator" ref="findProjectParametersValidator"/>
     </bean>
     
-    <bean id="findProjectRunsByTeacherController"
-    	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.FindProjectRunsByTeacherController">
-    	<property name="commandName" value="findProjectRunsByTeacherParameters"/>
-    	<property name="commandClass"
-    		value="org.telscenter.sail.webapp.domain.impl.FindProjectRunsByTeacherParameters"/>
-    	<property name="userService" ref="userService"/>
-    	<property name="runService" ref="runService"/>
-    	<property name="validator" ref="findProjectRunsByTeacherParametersValidator"/>
-    </bean>
-    
-    <bean id="findProjectRunsByTeacherParameters"
-    	class="org.telscenter.sail.webapp.domain.impl.FindProjectRunsByTeacherParameters"/>
-    	<!-- 
-    <bean id="clientCurnitRepository"
-        class="roolo.elo.RepositoryJcrImpl">
-    </bean>
- -->    
     <bean id="lookupTeacherController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.LookupTeacherController">
     	<property name="userService" ref="userService"/>

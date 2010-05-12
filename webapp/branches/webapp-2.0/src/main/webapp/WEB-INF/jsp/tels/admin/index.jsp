@@ -63,8 +63,9 @@
 		<h5>Manage Project Runs: <a href="manageallprojectruns.html?q=current">Current</a> | 
 								 <a href="manageallprojectruns.html?q=archived">Archived</a>
 								 </h5>
-		<h5><a href="findprojectruns.html">Find Project Runs</a></h5>
-		<h5><a href="findprojectrunsbyteacher.html">Find Project Runs By Teacher</a></h5>
+		<h5>Find Project Runs by {
+			<a href="findprojectrunsbyteacher.html">Teacher</a> | <a href='findprojectrunsbyprojectid.html'>Project Id</a> | <a href='findprojectrunsbyrunid.html'>Run Id</a>
+		}</h5>
 	</div>
 
 <div id="adminTitle">News Management</div>

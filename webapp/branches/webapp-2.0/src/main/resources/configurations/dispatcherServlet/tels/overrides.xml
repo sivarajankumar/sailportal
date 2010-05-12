@@ -255,14 +255,15 @@
 				/admin/editproject.html=editProjectController
 				/admin/manageallprojectruns.html=manageAllProjectRunsController
 				/admin/uploadotml.html=uploadOtmlController
-				/admin/findprojectruns.html=findProjectRunsController
+				/admin/findprojectrunsbyprojectid.html=findProjectRunsController
+				/admin/findprojectrunsbyteacher.html=findProjectRunsController
+				/admin/findprojectrunsbyrunid.html=findProjectRunsController
 				/admin/manageproject.html=listProjectsController
 				/admin/managenewsitems.html=listNewsItemsController
 				/admin/addnewsitems.html=addNewsItemController
 				/admin/editnewsitem.html=editNewsItemController
 				/admin/removenewssuccess.html=removeNewsItemController
 				/admin/removenewsconfirm.html=removeNewsConfirmController
-				/admin/findprojectrunsbyteacher.html=findProjectRunsByTeacherController
 				/admin/lookupteacher.html=lookupTeacherController
 				/admin/lookupstudent.html=lookupStudentController
 				/admin/project/importexternalproject.html=importExternalProjectController

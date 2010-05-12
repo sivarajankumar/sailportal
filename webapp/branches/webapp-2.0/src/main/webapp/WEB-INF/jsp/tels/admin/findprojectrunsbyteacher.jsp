@@ -35,8 +35,8 @@
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
 <!-- Support for Spring errors object -->
-<div id="regErrorMessages">
-	<spring:bind path="findProjectRunsByTeacherParameters.*">
+<div id="regErrorMessages" style="color:#FF8822">
+	<spring:bind path="findProjectParameters.*">
  		<c:forEach var="error" items="${status.errorMessages}">
     		<b><br/><c:out value="${error}"/></b>
 		</c:forEach>
@@ -45,9 +45,9 @@
 
 
 
-<form:form method="post" action="findprojectrunsbyteacher.html" commandName="findProjectRunsByTeacherParameters" id="search" autocomplete='off'>
-	<form:label path="username">Enter the username of the Teacher: </form:label>
-	<form:input path="username" id="username"/>
+<form:form method="post" commandName="findProjectParameters" id="search" autocomplete='off'>
+	<form:label path="userName">Enter the username of the Teacher: </form:label>
+	<form:input path="userName" id="userName"/>
 	
 	<input type="image" id="save" src="../<spring:theme code="register_save" />" 
     	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"   />

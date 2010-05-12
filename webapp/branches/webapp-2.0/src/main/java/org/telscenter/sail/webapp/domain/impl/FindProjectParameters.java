@@ -31,6 +31,38 @@ public class FindProjectParameters {
 	private static final long serialVersionUID = 1L;
 	
 	private String projectId;
+	
+	private String userName;
+	
+	private String runId;
+	
+	/**
+	 * @return String - username
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param String - username to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	/**
+	 * @return String - runId
+	 */
+	public String getRunId() {
+		return runId;
+	}
+
+	/**
+	 * @param String - runId to set
+	 */
+	public void setRunId(String runId) {
+		this.runId = runId;
+	}
 
 	/**
 	 * @return the projectId

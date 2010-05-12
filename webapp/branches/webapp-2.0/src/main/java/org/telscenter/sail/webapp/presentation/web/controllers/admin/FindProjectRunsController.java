@@ -28,14 +28,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.service.UserService;
+
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.FindProjectParameters;
-import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.offering.RunService;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author patrick lawler
@@ -47,21 +49,30 @@ public class FindProjectRunsController extends SimpleFormController{
 	
 	private RunService runService;
 	
+	private UserService userService;
+
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request,
             HttpServletResponse response, Object command, BindException errors){
 
 		ModelAndView modelAndView = new ModelAndView();
-		FindProjectParameters findProjectParameters = (FindProjectParameters) command;
+		FindProjectParameters param = (FindProjectParameters) command;
 	
-		List<Run> runList;
-		List<Run> run_list = runService.getAllRunList();
-		Long project_ID = Long.parseLong(findProjectParameters.getProjectId());
-		runList = new ArrayList<Run>();
-		for(Run run: run_list){
-			if(run.getProject().getId().equals(project_ID)){
-				runList.add(run);
-			}
+		List<Run> runList = new ArrayList<Run>();
+		
+		/* The validation should have ensured that only one of the parameter
+		 * fields has a value, so we will just set the run list based on the
+		 * field with a value. */
+		if(param.getProjectId() != null && !param.getProjectId().equals("")){
+			runList = this.getRunListByProjectId(Long.parseLong(param.getProjectId()));
+		}
+		
+		if(param.getUserName() != null && !param.getUserName().equals("")){
+			runList = this.getRunListByUsername(param.getUserName());
+		}
+		
+		if(param.getRunId() != null && !param.getRunId().equals("")){
+			runList = this.getRunListByRunId(Long.parseLong(param.getRunId()));
 		}
 
 		modelAndView = new ModelAndView(VIEW);
@@ -70,10 +81,76 @@ public class FindProjectRunsController extends SimpleFormController{
 		return modelAndView;
     }
 
+    /**
+     * Returns a <code>List<Run></code> list of any runs that are
+     * associated with the given <code>Long</code> project id.
+     * 
+     * @param Long - projectId
+     * @return List<Run> - list of runs associated with the projectId
+     */
+    private List<Run> getRunListByProjectId(Long projectId){
+		List<Run> runList = new ArrayList<Run>();
+    	List<Run> run_list = runService.getAllRunList();
+		for(Run run: run_list){
+			if(run.getProject().getId().equals(projectId)){
+				runList.add(run);
+			}
+		}
+		
+    	return runList;
+    }
+    
+    /**
+     * Returns a <code>List<Run></code> list of runs that are associated
+     * with the given <code>String</code> username.
+     * 
+     * @param String - username
+     * @return List<Run> - list of runs associated with username
+     */
+    private List<Run> getRunListByUsername(String username){
+    	List<Run> runList = new ArrayList<Run>();
+    	List<Run> run_list = runService.getAllRunList();
+    	User user = userService.retrieveUserByUsername(username);
+    	for(Run run : run_list){
+    		if(run.getOwners().contains(user)){
+    			runList.add(run);
+    		}
+    	}
+    	
+    	return runList;
+    }
+    
+    /**
+     * Returns a <code>List<Run></code> list of runs that are associated
+     * with the given <code>Long</code> run id.
+     * 
+     * @param Long - runId
+     * @return List<Run> - list of runs associated with the runId
+     */
+    private List<Run> getRunListByRunId(Long runId){
+    	List<Run> runList = new ArrayList<Run>();
+    	
+    	try{
+    		Run run = this.runService.retrieveById(runId);
+    		
+    		if(run != null){
+        		runList.add(run);
+        	}
+    	} catch(ObjectNotFoundException e){
+    		e.printStackTrace();
+    	}
+    	
+    	return runList;
+    }
+    
 	/**
 	 * @param runService the runService to set
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 }
