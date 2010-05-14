@@ -146,6 +146,9 @@ public class TeamSignInController extends SimpleFormController {
 	    
 		ModelAndView modelAndView = new ModelAndView();
 		
+		/* update run statistics */
+		this.runService.updateRunStatistics(run);
+		
 		LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
 		launchProjectParameters.setRun(run);
 		launchProjectParameters.setWorkgroup((WISEWorkgroup) workgroup);

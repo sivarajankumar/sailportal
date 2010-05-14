@@ -22,11 +22,15 @@
  */
 package org.telscenter.sail.webapp.dao.offering.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.support.DataAccessUtils;
 import org.telscenter.sail.webapp.dao.offering.RunDao;
 import org.telscenter.sail.webapp.domain.Run;
@@ -115,17 +119,6 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
     	return this.getHibernateTemplate().findByNamedParam(
     			"select run from RunImpl run where run." + field + " " + type + " :term", "term", term);
     }
-	
-    /**
-     * Capitalizes the first letter of a given String
-     * 
-     * @param string
-     * @return String
-     */
-    private String capitalizeFirst(String string){
-    	return StringUtils.upperCase(StringUtils.left(string, 1)) 
-    		+ StringUtils.right(string, string.length() - 1);
-    }
     
     /**
      * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunListByUserInPeriod(net.sf.sail.webapp.domain.User)
@@ -156,4 +149,23 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 	public List<Run> getRunListBySharedOwner(User owner) {
     	String q = "select run from RunImpl run inner join run.sharedowners owner where owner.id='" + owner.getId() + "' order by run.id desc";
     	return this.getHibernateTemplate().find(q);
-	}}
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunsRunToday()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Run> getRunsRunToday(){
+		String q = "select run from RunImpl run where datediff(run.lastRun, curdate()) = 0";
+		return this.getHibernateTemplate().find(q);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunsByActivity()
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Run> getRunsByActivity(){
+		String q = "select run from RunImpl run where run.timesRun <> null order by run.timesRun desc";
+		return this.getHibernateTemplate().find(q);
+	}
+}

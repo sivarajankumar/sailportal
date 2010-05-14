@@ -272,6 +272,7 @@
 				/admin/project/manageprojectcommunicator.html=projectCommunicatorController
 				/admin/portal/manageportal.html=managePortalController
 				/admin/enableaccount.html=enableAccountController
+				/admin/runstats.html=runStatisticsController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				<!-- /repository/retrieveotml.html=retrieveOtmlController  -->

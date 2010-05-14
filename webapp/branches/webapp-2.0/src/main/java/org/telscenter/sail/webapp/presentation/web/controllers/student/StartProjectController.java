@@ -34,14 +34,10 @@ import net.sf.sail.webapp.domain.Workgroup;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.domain.webservice.http.HttpRestTransport;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.UserService;
 
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.service.offering.RunService;
@@ -65,8 +61,6 @@ public class StartProjectController extends AbstractController {
 	private static final String TEAM_SIGN_IN_URL = "student/teamsignin";
 
 	private RunService runService;
-	
-	private UserService userService;
 
 	private WISEWorkgroupService workgroupService;
 
@@ -130,6 +124,10 @@ public class StartProjectController extends AbstractController {
 				Set<User> members = new HashSet<User>();
 				members.add(user);
 				workgroup = workgroupService.createWISEWorkgroup(name, members, run, period);
+				
+				/* update run statistics */
+				this.runService.updateRunStatistics(run);
+				
 				LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
 				launchProjectParameters.setRun(run);
 				launchProjectParameters.setWorkgroup(workgroup);
@@ -145,6 +143,9 @@ public class StartProjectController extends AbstractController {
 		} else if (workgroups.size() == 1) {
 			workgroup = (WISEWorkgroup) workgroups.get(0);
 			if (workgroup.getMembers().size() == 1) {
+				/* update run statistics */
+				this.runService.updateRunStatistics(run);
+				
 				// if the student is already in a workgroup and she is the only member,
 				// launch the project
 				LaunchProjectParameters launchProjectParameters = new LaunchProjectParameters();
@@ -180,14 +181,7 @@ public class StartProjectController extends AbstractController {
 	public void setRunService(RunService runService) {
 		this.runService = runService;
 	}
-
-	/**
-	 * @param userService the userService to set
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
+	
 	/**
 	 * @param httpRestTransport the httpRestTransport to set
 	 */

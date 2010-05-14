@@ -121,12 +121,6 @@ public class RunImpl extends OfferingImpl implements Run {
 	private static final String COLUMN_NAME_RUNNAME = "name";
 
     @Transient
-	private static final String COLUMN_NAME_RUNSTATUS = "runstatus_fk";
-
-    @Transient
-	private static final String COLUMN_NAME_ISPAUSED = "isPaused";
-
-    @Transient
 	private static final String COLUMN_NAME_INFO = "info";
 
     @Transient
@@ -140,6 +134,18 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Transient
     private static final String COLUMN_NAME_POST_LEVEL = "postLevel";
+    
+    @Transient
+    private static final String COLUMN_NAME_LAST_RUN = "lastRun";
+    
+    @Transient
+    private static final String COLUMN_NAME_TIMES_RUN = "timesRun";
+    
+    @Column(name = RunImpl.COLUMN_NAME_LAST_RUN)
+    private Date lastRun;
+    
+    @Column(name = RunImpl.COLUMN_NAME_TIMES_RUN)
+    private Integer timesRun;
 
     @Column(name = RunImpl.COLUMN_NAME_STARTTIME, nullable = false)
     private Date starttime;
@@ -511,5 +517,21 @@ public class RunImpl extends OfferingImpl implements Run {
 	 */
 	public void setPostLevel(Integer postLevel) {
 		this.postLevel = postLevel;
+	}
+
+	public Date getLastRun() {
+		return lastRun;
+	}
+
+	public void setLastRun(Date lastRun) {
+		this.lastRun = lastRun;
+	}
+
+	public Integer getTimesRun() {
+		return timesRun;
+	}
+
+	public void setTimesRun(Integer timesRun) {
+		this.timesRun = timesRun;
 	}
 }

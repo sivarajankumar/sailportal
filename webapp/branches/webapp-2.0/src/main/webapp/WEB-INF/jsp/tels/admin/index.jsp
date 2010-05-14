@@ -66,6 +66,8 @@
 		<h5>Find Project Runs by {
 			<a href="findprojectrunsbyteacher.html">Teacher</a> | <a href='findprojectrunsbyprojectid.html'>Project Id</a> | <a href='findprojectrunsbyrunid.html'>Run Id</a>
 		}</h5>
+		
+		<h5>View: <a href="runstats.html?command=today">runs run today</a> | <a href="runstats.html?command=activity">runs by activity</a></h5>
 	</div>
 
 <div id="adminTitle">News Management</div>

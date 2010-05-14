@@ -279,4 +279,24 @@ public interface Run extends Offering {
 	 * @param postLevel the postLevel to set
 	 */
 	public void setPostLevel(Integer postLevel);
+	
+	/**
+	 * @return Date - that this run was last run
+	 */
+	public Date getLastRun();
+
+	/**
+	 * @param Date - that this run was last run
+	 */
+	public void setLastRun(Date lastRun);
+
+	/**
+	 * @return Integer - number of times this run was run
+	 */
+	public Integer getTimesRun();
+
+	/**
+	 * @param Integer - number of times this run was run
+	 */
+	public void setTimesRun(Integer timesRun);
 }

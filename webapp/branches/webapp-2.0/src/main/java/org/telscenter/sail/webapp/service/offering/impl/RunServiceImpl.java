@@ -507,4 +507,38 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public boolean hasRunPermission(Run run, User user, Permission permission){
 		return this.aclService.hasPermission(run, permission, user);
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#getRunsRunToday()
+	 */
+	public List<Run> getRunsRunToday(){
+		return this.runDao.getRunsRunToday();
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#getRunsByActivity()
+	 */
+	public List<Run> getRunsByActivity(){
+		return this.runDao.getRunsByActivity();
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#updateRunStatistics(org.telscenter.sail.webapp.domain.Run)
+	 */
+	@Transactional()
+	public void updateRunStatistics(Run run){
+		/* set the current time as the last time this run was run */
+		run.setLastRun(Calendar.getInstance().getTime());
+		
+		/* increment the number of times this run has been run, if 
+		 * the run has not yet been run, the times run will be null */
+		if(run.getTimesRun()==null){
+			run.setTimesRun(1);
+		} else {
+			run.setTimesRun(run.getTimesRun() + 1);
+		}
+		
+		/* save changes */
+		this.runDao.save(run);
+	}
 }

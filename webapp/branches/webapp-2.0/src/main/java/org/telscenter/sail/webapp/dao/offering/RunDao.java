@@ -105,4 +105,19 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
      */
     public List<Run> getRunsOfProject(Long id);
 
+    /**
+     * Returns a <code>List<Run></code> list of runs that were run today based
+     * on students whether students worked on that run.
+     * 
+     * @return List<Run> - list of runs
+     */
+    public List<Run> getRunsRunToday();
+    
+    /**
+     * Returns a <code>List<Run></code> list of runs ordered descending by how
+     * active they are.
+     * 
+     * @return List<Run> - list of runs descending by activity
+     */
+    public List<Run> getRunsByActivity();
 }

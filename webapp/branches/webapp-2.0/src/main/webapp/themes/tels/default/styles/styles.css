@@ -1680,3 +1680,12 @@ div.replyFeedbackDiv {
 	margin:2px 0 0 0px;
 	}
 
+#runStatsTable {
+	border:2px solid black;
+	width:100%;	
+}
+
+#runStatsTable tbody td {
+	width:25%;
+	border:1px solid black;
+}

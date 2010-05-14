@@ -22,7 +22,6 @@
  */
 package org.telscenter.sail.webapp.service.offering;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -300,4 +299,28 @@ public interface RunService extends OfferingService {
 	 * @return boolean
 	 */
     public boolean hasRunPermission(Run run, User user, Permission permission);
+    
+    /**
+     * Returns a <code>List<Run></code> list of runs that were run today based
+     * on students whether students worked on that run.
+     * 
+     * @return List<Run> - list of runs
+     */
+    public List<Run> getRunsRunToday();
+    
+    /**
+     * Returns a <code>List<Run></code> list of runs ordered descending by how
+     * active they are.
+     * 
+     * @return List<Run> - list of runs descending by activity
+     */
+    public List<Run> getRunsByActivity();
+    
+    /**
+     * Updates the given <code>Run</code> run's statistics which are currently
+     * the last time run and the number of times run.
+     * 
+     * @param Run - the run whose statistics should be updated.
+     */
+    public void updateRunStatistics(Run run);
 }
