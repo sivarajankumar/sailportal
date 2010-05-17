@@ -42,26 +42,138 @@
 
 <script type="text/javascript">
     
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
+    /* initialise plugins */
+    jQuery(function(){
+    	jQuery('ul.sf-menu').superfish();
+    });
     
-</script>
-
-<!--USED TO SHOW/HIDE A DIV ELEMENT-->
-<script type="text/javascript">
-	/**
-	 * Toggles the summary div
-	 * projectId: id of project whose summary div to toggle
-	 */
-	function toggleDetails(projectId){
-		var searchDiv = document.getElementById('details_'+projectId);
+	/* USED TO SHOW/HIDE A DIV ELEMENT */
+	function toggleProjectSummaryCurrent(){
+		var searchDiv = document.getElementById('toggleProjectSummaryCurrent');
 		if(searchDiv.style.display=='none'){
 			searchDiv.style.display = 'block';
 		} else {
 			searchDiv.style.display = 'none';
 		};
+	};
+
+	/* checks the cleaning variables and determines what on this page is displayed */
+	window.onload = function(){
+		if('${forceCleaning}'==='true'){
+			/* show the cleaning div */
+			document.getElementById('cleaningDiv').style.display = 'block';
+			if('${isAllowedToClean}'==='true'){
+				document.getElementById('cleaningAllowedDiv').style.display = 'block';
+				enableCleaning();
+			} else {
+				document.getElementById('notAllowedButCleaningNeededDiv').style.display = 'block';
+			};
+		} else {
+			enableRunCreation();
+		};
+	};
+
+	/* enables the parts of this page needed to create a run */
+	function enableRunCreation(){
+		/* hide the cleaning divs */
+		document.getElementById('cleaningDiv').style.display = 'none';
+		document.getElementById('cleaningAllowedDiv').style.display = 'none';
+		document.getElementById('notAllowedButCleaningNeededDiv').style.display = 'none';
+
+		/* show the centered div, next and cancel buttons */
+		document.getElementById('setUpRunBox').style.display = 'block';
+		document.getElementById('prevButt').style.display = 'inline';
+		document.getElementById('nextButt').style.display = 'inline';
+	};
+
+	/* launches the cleaning for this project */
+	function runCleaning(allowed){
+		document.getElementById('notAllowedButCleaningNeededDiv').style.display = 'none';
+		var cleaning = document.getElementById('cleaningAllowedDiv');
+		cleaning.style.display = 'block';
+
+		cleaning.innerHTML = "<iframe name='cleaningFrm' id='cleaningFrm' scrolling='auto' width='100%' height='100%' frameborder='0'></iframe>";
+		document.getElementById('cleaningFrm').src = '../../author/authorproject.html?command=launchAuthoring&param1=cleanProject&projectId=${project.id}';
+		window.frames['cleaningFrm'].isOwner = allowed;
+	};
+
+	/* displays the html to run cleaing for this project */
+	function enableCleaning(){
+		var cleaning = document.getElementById('cleaningDisplayDiv');
+		cleaning.innerHTML = 'We have detected that the project has not been cleaned since it was last edited.<br/>' +
+			'Before setting up a run the project must be cleaned. To continue <a onclick="runCleaning(\'true\')"><font color="blue">Clean the Project</font></a> ' +
+			'For any problems detected during cleaning, you will be prompted to resolve them, otherwise, run setup will continue normally';
+	};
+
+	/* processes the results an allows the appropriate action based on the results */
+	function processCleaningResults(results){
+		var cleaning = document.getElementById('cleaningAllowedDiv');
+		var html = '<div id="cleaningDisplayDiv" class="cleaner"></div>';
+		
+		cleaning.innerHTML = html;
+
+		var displayHtml = '<b>Cleaning Results: </b><br/><table><tbody><tr><td></td><td># Problems Detected</td><td># Problems Resolved</td></tr>' +
+		'<tr><td>Severe:</td><td>' + results.severe.detected + '</td><td>' + results.severe.resolved + '</td></tr>' +
+		'<tr><td>Warning:</td><td>' + results.warning.detected + '</td><td>' + results.warning.resolved + '</td></tr>' +
+		'<tr><td>Notifications:</td><td>' + results.notification.detected + '</td><td>' + results.notification.resolved + '</td></tr></tbody></table><br/><br/>'
+	
+		/* determine appropriate display based on results */
+		if('${isAllowedToClean}'==='true'){
+			/* if any severe problems detected equals resolved then we can proceed */
+			if(results.severe.detected==results.severe.resolved){
+				displayHtml += 'The cleaning process was completed and any severe problems were resolved. Continue to ' +
+					'<a onclick="enableRunCreation()"><font color="blue">Set up a Run</font></a>.';
+			/* otherwise, they need to re-run cleaning to continue */
+			} else {
+				displayHtml += 'The cleaning process was completed but not all severe problems were resolved. These must be resolved before ' +
+					'continuing to set up a run.<br/><br/>' +
+					'<a onclick="runCleaning(\'true\')"><font color="blue">Re-Run Cleaning</font></a>';
+			};
+		/* non-owner but severe detected, needs to contact run owner */
+		} else if(results.severe.detected>0){
+			displayHtml += 'Severe problems were detected. Run set up cannot continue. <a onclick="sendCleanMessage()"><font color="blue">' +
+					'Send a message</font></a> to the owner(s) of the project and system administrator requesting cleaning of the project. ' +
+					'NOTE: The owner(s) will be made aware of your username so that they may respond when the project is cleaned. If your ' +
+					'email address for this account is valid, an email will be generated and sent to that address as well.';
+		/* non-owner but no severe detected, can continue to set up run */
+		} else {
+			displayHtml += 'No severe problems detected, continue to <a onclick="enableRunCreation()"><font color="blue">Set up a Run</font></a>.';
+		};
+
+		/* display the html */
+		document.getElementById('cleaningDisplayDiv').innerHTML = displayHtml;
+	};
+
+	/**
+	 * Sends a cleaning message to the owners of the project
+	 */
+	function sendCleanMessage(){
+		if('${project.metadata}' && '${project.metadata.title}'){
+			var projectName = '${project.metadata.title}';
+		} else {
+			var projectName = '${project.name}';
+		};
+		
+		var body = 'Hello, I am ${currentUsername} and would like to request a cleaning for the project ' + projectName +
+				' with project ID ${project.id} so that I may set up a run with this project. Thank you.';
+		var postData = 'recipient=${projectOwners}&subject=Request for project cleaning&body=' + body;
+		var callback = {
+				success:function(o){
+					if(o.responseText != null && o.responseText == 'success'){
+						var msg = '<font color="green">Message was sent to the project owner(s).</font>';
+					} else {
+						var msg = '<font color="red">Error sending message to the owner(s)! Please contact a wise administrator.</font>';
+					};
+					
+					document.getElementById('cleaningDisplayDiv').innerHTML = msg;
+				},
+				failure:function(o){
+					document.getElementById('cleaningDisplayDiv').innerHTML = '<font color="red">Error sending message to the owner(s)! Please contact a wise administrator.</font>';
+				},
+				scope:this
+		};
+
+		YAHOO.util.Connect.asyncRequest('POST', '/webapp/message.html?action=compose', callback, postData);
 	};
 </script>
 
@@ -92,13 +204,14 @@
 
 <h1 id="titleBarSetUpRun" class="blueText"><spring:message code="teacher.setup-project-classroom-run" /></h1>
      	    	    
-<div id="setUpRunBox">
+<div id="setUpRunBox" style='display:none;'>
 
 <div id="stepNumber"><spring:message code="teacher.run.setup.1"/><span class="blueText">&nbsp;<spring:message code="teacher.run.setup.2"/></span></div>
 
-<h5>This process will help you set up a <em>Project Run</em> for your students to explore. You can cancel this process at any time.<br/>
-You have selected:</h5>
- 
+<h5><spring:message code="teacher.run.setup.3"/>&nbsp;<em><spring:message code="teacher.run.setup.4"/></em>&nbsp;<spring:message code="teacher.run.setup.5"/><br/><spring:message code="teacher.run.setup.6"/></h5>
+
+<h5><spring:message code="teacher.run.setup.7"/>&nbsp;<em>[Library/Customized]</em>&nbsp;<spring:message code="teacher.run.setup.8"/></h5>
+
 <table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
@@ -182,12 +295,24 @@ You have selected:</h5>
 
 </div> <!-- /* End setUpRunBox */-->
 
+
+<div id='cleaningDiv' style='display:none;'>
+	<div id='notAllowedButCleaningNeededDiv' style='display:none;' class='cleaner'>
+		We detected that this project needs to be cleaned before a run can be set up with it. You can run the cleaning process to ensure that
+		the run you are setting up will run properly. However, you are not the owner nor are you a shared owner of the project. If any severe
+		problems are detected, you will need to contact the owner or shared owner to resolve the problem before setting up a run. If there are no
+		severe errors, you can continue to set up a run. <a onclick='runCleaning("false")'><font color="blue">Clean the Project</font></a>
+	</div>
+	<div id='cleaningAllowedDiv' style='display:none;'>
+		<div id='cleaningDisplayDiv' class='cleaner'></div>
+	</div>
 </div>
+
 <div align="center">
 <form method="post" align="center">
-<input type="submit" name="_target0" disabled value="<spring:message code="navigate.back" />" />
+<input type="submit" name="_target0" disabled value="<spring:message code="navigate.back" /> " style="display:none;" id='prevButt'/>
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-<input type="submit" name="_target1" value="<spring:message code="navigate.next" />" />
+<input type="submit" name="_target1" value="<spring:message code="navigate.next" />" style="display:none;" id='nextButt'/>
 </form>
 
 </div>  <!-- /* End of the CenteredDiv */-->

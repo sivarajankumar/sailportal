@@ -97,12 +97,24 @@
     <bean id="projectDao"
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateProjectDao">
        <property name="sessionFactory" ref="sessionFactory" />
+       <property name="metadataDao" ref="projectMetadataDao"/>
     </bean>
-
+	
 	<bean id="externalProjectDao"
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateExternalProjectDao">
        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
+
+	<bean id="projectMetadata"
+		class="org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl">
+	</bean>
+	
+	<bean id="projectMetadataDao"
+		class="org.telscenter.sail.webapp.dao.project.impl.HibernateProjectMetadataDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="projectService" ref="projectService"/>
+        <property name="portalProperties" ref="portalproperties" />
+	</bean>
 
     <bean id="module"
         class="org.telscenter.sail.webapp.domain.impl.ModuleImpl">
@@ -200,6 +212,7 @@
     	<property name="jnlpDao" ref="jnlpDao" />
     	<property name="groupDao" ref="groupDao" />
     	<property name="aclService" ref="aclServiceImpl" />
+    	<property name="projectService" ref="projectService"/>
     </bean>
     
     <bean id="projectService"
@@ -301,9 +314,9 @@
         <property name="projectDao" ref="projectDao"/>
         <property name="aclService" ref="aclServiceImpl"/>
         <property name="runService" ref="runService" />
-        <property name="workgroupService" ref="wiseWorkgroupService"/>
         <property name="userService" ref="userService"/>
         <property name="portalProperties" ref="portalproperties" />
+        <property name="metadataDao" ref="projectMetadataDao"/>
 	</bean>
  	
     <bean id="diyProjectCommunicatorDao"
@@ -499,9 +512,15 @@
     	class="org.telscenter.sail.webapp.domain.message.impl.MessageImpl">
     </bean>
 	
+	<bean id="recipients" scope="prototype"
+		class="org.telscenter.sail.webapp.domain.message.impl.MessageRecipientImpl">
+	</bean>
+	
 	<bean id="messageService"
 		class="org.telscenter.sail.webapp.service.message.impl.MessageServiceImpl">
 		<property name="messageDao" ref="messageDao" />
+        <property name="javaMail" ref="javaMail"/>
+		<property name="emaillisteners" ref="emaillisteners" />		
 	</bean>
 	    <!--      
     <bean id="rooloLORProject"

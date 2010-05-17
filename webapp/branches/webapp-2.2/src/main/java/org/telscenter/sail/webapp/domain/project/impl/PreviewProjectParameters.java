@@ -42,6 +42,8 @@ public class PreviewProjectParameters {
 	private Project project;
 	
 	private String portalUrl;
+	
+	private String versionId;
 
 	/**
 	 * @return the httpRestTransport
@@ -97,6 +99,20 @@ public class PreviewProjectParameters {
 	 */
 	public void setPortalUrl(String portalUrl) {
 		this.portalUrl = portalUrl;
+	}
+
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId() {
+		return versionId;
+	}
+
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId) {
+		this.versionId = versionId;
 	}
 	
 }

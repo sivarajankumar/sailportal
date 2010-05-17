@@ -23,17 +23,13 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
-import org.hibernate.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -62,8 +58,6 @@ public class GradeWorkController extends AbstractController {
 	private GradingService gradingService;
 	
 	private RunService runService;
-	
-	private Properties portalProperties = null;
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -80,9 +74,7 @@ public class GradeWorkController extends AbstractController {
 		
 		String action = request.getParameter("action");
 		if(action != null) {
-			if(action.equals("getGradingConfig")) {
-				return handleGetGradingConfig(request, response, run);
-			} else if(action.equals("postMaxScore")) {
+			if(action.equals("postMaxScore")) {
 				return handlePostMaxScore(request, response, run);
 			}
 		} else {
@@ -99,7 +91,7 @@ public class GradeWorkController extends AbstractController {
 					String portalurl = ControllerUtil.getBaseUrlString(request);
 	
 			    	String getGradeWorkUrl = portalurl + "/vlewrapper/vle/gradework.html";
-					String getGradingConfigUrl = portalurl + "/webapp/teacher/grading/gradework.html?action=getGradingConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType;
+					String getGradingConfigUrl = portalurl + "/webapp/request/info.html?action=getVLEConfig&runId=" + run.getId().toString() + "&gradingType=" + gradingType + "&requester=grading";
 					
 					ModelAndView modelAndView = new ModelAndView();
 					modelAndView.addObject(RUN_ID, runId);
@@ -134,125 +126,6 @@ public class GradeWorkController extends AbstractController {
         return modelAndView;
 	}
 
-	/**
-	 * Generates and returns the grading config JSON
-	 * @param request
-	 * @param response
-	 * @param run
-	 * @return
-	 * @throws ObjectNotFoundException
-	 * @throws IOException
-	 */
-	private ModelAndView handleGetGradingConfig(HttpServletRequest request,
-			HttpServletResponse response, Run run) throws ObjectNotFoundException, IOException {
-		
-		//get the grading type (step or team)
-		String gradingType = request.getParameter("gradingType");
-		
-		//get the url for the portal
-		String portalurl = ControllerUtil.getBaseUrlString(request);
-		
-		//get the url for the curriculum base
-		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
-		
-		//get the path for the project
-		String getProjectPath = portalProperties.getProperty("curriculum_base_dir") + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-		
-		//get the url for the project content file
-		String getContentUrl = curriculumBaseWWW + (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-
-		//get the url for the *.project.meta.json file
-		int lastIndexOfDot = getContentUrl.lastIndexOf(".");
-		String getProjectMetadataUrl = getContentUrl.substring(0, lastIndexOfDot) + "-meta.json";
-
-		//get the location of the last slash
-		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
-		if(lastIndexOfSlash==-1){
-			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
-		}
-		
-		//get the directory of the project content
-		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
-		
-		//get the url for the portal vle controller
-		String portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
-		
-		//get the url for the user info
-		String getUserInfoUrl = portalVLEControllerUrl + "&action=getUserInfo";
-		
-		//get the url for the run info
-		String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
-		
-		//get the url for the run extras
-		String getRunExtrasUrl = portalVLEControllerUrl + "&action=getRunExtras";
-		
-		//get the url to get student data
-		String getStudentDataUrl = portalurl + "/webapp/bridge/getdata.html";
-		
-		//get the url to post student data
-		String postStudentDataUrl = portalurl + "/webapp/bridge/postdata.html";
-		
-		//get the url to get flags
-		String getFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
-		
-		//get the url to post flags
-		String postFlagsUrl = portalurl + "/webapp/bridge/getdata.html?type=flag&runId=" + run.getId().toString();
-		
-		//get the url to get annotations
-    	String getAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
-    	
-    	//get the url to post annotations
-    	String postAnnotationsUrl = portalurl + "/webapp/bridge/request.html?type=annotation&runId=" + run.getId().toString();
-		
-    	//get the url to post max scores
-    	String postMaxScoreUrl = portalurl + "/webapp/teacher/grading/gradebystep.html?action=postMaxScore&runId=" + run.getId().toString();
-    	
-    	//get the url for peer review work
-    	String getPeerReviewUrl = portalurl + "/webapp/bridge/request.html?type=peerreview&runId=" + run.getId().toString();
-    	
-    	//get the url for xls export
-    	String getXLSExportUrl = portalurl + "/webapp/bridge/request.html?type=xlsexport&runId=" + run.getId().toString();
-    	
-		//the json object to return that will contain the config params
-		JSONObject config = new JSONObject();
-		
-		//put all the config params into the json object
-		try {
-			config.put("mode", "grading");
-			config.put("runId", run.getId().toString());
-			config.put("getFlagsUrl", getFlagsUrl);
-			config.put("postFlagsUrl", postFlagsUrl);
-			config.put("getAnnotationsUrl", getAnnotationsUrl);
-			config.put("postAnnotationsUrl", postAnnotationsUrl);
-			config.put("getUserInfoUrl", getUserInfoUrl);
-			config.put("getContentUrl", getContentUrl);
-			config.put("getContentBaseUrl", getContentBaseUrl);
-			config.put("getProjectPath", getProjectPath);
-			config.put("getStudentDataUrl", getStudentDataUrl);
-			config.put("postStudentDataUrl", postStudentDataUrl);
-			config.put("getRunInfoUrl", getRunInfoUrl);
-			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
-			config.put("getRunExtrasUrl", getRunExtrasUrl);
-			config.put("postMaxScoreUrl", postMaxScoreUrl);
-			config.put("gradingType", gradingType);
-			config.put("getPeerReviewUrl", getPeerReviewUrl);
-			config.put("getXLSExportUrl", getXLSExportUrl);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader ("Expires", 0);
-		
-		response.setContentType("text/xml");
-		
-		//write the config params json object to the response
-		response.getWriter().print(config.toString());
-		
-		return null;	
-	}
-	
 	/**
 	 * Handles the saving of max score POSTs
 	 * @param request
@@ -385,13 +258,5 @@ public class GradeWorkController extends AbstractController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
-	}
-	
-	/**
-	 * @param portalProperties the portalProperties to set
-	 */
-	@Required
-	public void setPortalProperties(Properties portalProperties) {
-		this.portalProperties = portalProperties;
 	}
 }

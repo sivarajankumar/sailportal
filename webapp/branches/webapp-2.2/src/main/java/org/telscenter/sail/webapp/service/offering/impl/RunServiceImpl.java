@@ -60,6 +60,7 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.DuplicateRunCodeException;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Services for WISE's Run Domain Object
@@ -88,6 +89,8 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	private GroupDao<Group> groupDao;
 	
 	private UserDao<User> userDao;
+	
+	private ProjectService projectService;
 
 	/**
 	 * @param groupDao
@@ -223,6 +226,16 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		}
 		run.setPostLevel(runParameters.getPostLevel());
 
+		/* if this is an LD project take snapshot of project for run and set versionId */
+		if(run.getProject().getProjectType()==ProjectType.LD){
+			String requester = run.getOwners().iterator().next().getUserDetails().getUsername();
+			String versionId = this.projectService.takeSnapshot(run.getProject(), requester, "For Run " + run.getName());
+			if(versionId==null || versionId.equals("failed")){
+				throw new ObjectNotFoundException("Snapshot of project failed when creating the run.", RunImpl.class);
+			} else{
+				run.setVersionId(versionId);
+			}
+		}
 		this.runDao.save(run);
 		this.aclService.addPermission(run, BasePermission.ADMINISTRATION);
 		return run;
@@ -540,5 +553,9 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		
 		/* save changes */
 		this.runDao.save(run);
+	}
+
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 }

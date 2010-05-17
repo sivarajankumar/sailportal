@@ -23,11 +23,15 @@
 package org.telscenter.sail.webapp.service.message;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 
 import org.telscenter.sail.webapp.domain.message.Message;
+import org.telscenter.sail.webapp.domain.message.MessageRecipient;
 
 /**
  * A service for <code>Message</code> objects
@@ -45,11 +49,13 @@ public interface MessageService {
 	public Message saveMessage(Message message);
 	
 	/**
-	 * Marks a message as read. Only the recipient of the
-	 * message can perform this.
+	 * Returns true if the given <code>User</code> is a recipient
+	 * of the message and the update operation succeeds, returns
+	 * false otherwise.
+	 * 
 	 * @param message
 	 */
-	public void markMessageRead(Message message,boolean isRead);
+	public boolean markMessageRead(Message message,boolean isRead, User user);
 	
 	/**
 	 * Retrieves all messages that the logged in user
@@ -86,4 +92,22 @@ public interface MessageService {
 	 * @throws ObjectNotFoundException
 	 */
 	public Message retrieveById(Long id) throws ObjectNotFoundException;
+	
+	/**
+	 * Handles composing a message from the specified user to another.
+	 * all of the parameters needed to compose a request are in the request object.
+	 * Sends an email to the recipient
+	 * @param request
+	 * @param user
+	 * @param originalMessage if not null, this is a reply
+	 * @return true iff message was successfully composed and sent.
+	 */
+	public boolean sendMessage(HttpServletRequest request, User sender, Set<MessageRecipient> recipients, Message originalMessage);
+	
+	/**
+	 * Given a <code>Message</code>, emails that message.
+	 * 
+	 * @param message
+	 */
+	public void emailMessage(Message message);
 }

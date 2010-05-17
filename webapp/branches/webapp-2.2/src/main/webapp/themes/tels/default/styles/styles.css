@@ -163,6 +163,14 @@
 	padding: 15px;
 }
 
+.cleaner {
+	height: 240px;
+	border: 1px solid #666666;
+	margin: 15px auto 15px auto;
+	padding: 15px;
+	width: 928px;
+}
+
 #setUpRunBox li {
 	padding-bottom: 8px;
 }

@@ -43,13 +43,8 @@ import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
 import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
-import net.sf.sail.webapp.service.NotAuthorizedException;
-import net.sf.sail.webapp.service.UserService;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -97,8 +92,6 @@ public class CreateRunController extends AbstractWizardFormController {
 	private RunService runService = null;
 	
 	private WISEWorkgroupService workgroupService = null;
-
-	private UserService userService;
 
 	private ProjectService projectService = null;
 	
@@ -264,12 +257,56 @@ public class CreateRunController extends AbstractWizardFormController {
 			model.put("project", project);
 
 			// add the current user as an owner of the run
-			
 			Set<User> owners = new HashSet<User>();
 			owners.add(user);
 			runParameters.setOwners(owners);
 			runParameters.setProject(project);
 			runParameters.setName(project.getProjectInfo().getName());
+			
+			/* get the owners and add their usernames to the model */
+			String ownerUsernames = "";
+			Set<User> allOwners = project.getOwners();
+			allOwners.addAll(project.getSharedowners());
+			
+			for(User currentOwner : allOwners){
+				ownerUsernames += currentOwner.getUserDetails().getUsername() + ",";
+			}
+			
+			model.put("projectOwners", ownerUsernames.substring(0, ownerUsernames.length() - 1));
+			
+			/* determine if the project has been cleaned since last edited
+			 * and that the results indicate that all critical problems
+			 * have been resolved. Add relevant data to the model. */
+			boolean forceCleaning = false;
+			boolean isAllowedToClean = (project.getOwners().contains(user) || project.getSharedowners().contains(user));
+			JSONObject projectMeta = this.projectService.getProjectMetadataFile(project);
+			if(projectMeta != null){
+				try{
+					JSONObject lastCleaned = projectMeta.getJSONObject("lastCleaned");
+					
+					try{
+						Long lcTime = lastCleaned.getLong("timestamp");
+						Long lastEdited = projectMeta.getLong("lastEdited");
+						
+						/* if it has been edited since it was last cleaned, we need to force cleaning */
+						if(lcTime < lastEdited){
+							forceCleaning = true;
+						}
+					} catch (JSONException e){
+						/* something is wrong with lastCleaned data, since we cannot verify it - force cleaning */
+						e.printStackTrace();
+						forceCleaning = true;
+					}
+				} catch (JSONException e){
+					/* this means that the project has never been cleaned so force cleaning */
+					e.printStackTrace();
+					forceCleaning = true;
+				}
+			}
+			
+			model.put("currentUsername", user.getUserDetails().getUsername());
+			model.put("forceCleaning", forceCleaning);
+			model.put("isAllowedToClean", isAllowedToClean);
 			break;
 		case 1:
 			// for page 2 of the wizard, display existing runs for this user
@@ -519,13 +556,6 @@ public class CreateRunController extends AbstractWizardFormController {
 	 */
 	public void setRunService(RunService runService) {
 		this.runService = runService;
-	}
-
-	/**
-	 * @param userService the userService to set
-	 */
-	public void setUserService(UserService userService) {
-		this.userService = userService;
 	}
 
 	/**

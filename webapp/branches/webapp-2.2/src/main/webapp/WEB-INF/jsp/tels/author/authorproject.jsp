@@ -6,20 +6,16 @@ var portalAuthorUrl = "${portalAuthorUrl}";
 
 function notifyFatal(type,args,obj){
 	window.location = '/webapp/errors/outsideerror.html?msg=' + encodeURIComponent(args[0]);
-}
+};
+
+function notifyCleaningComplete(type,args,obj){
+	window.parent.processCleaningResults(args[0]);
+};
 
 function loaded(){
 	window.frames['authorfrm'].eventManager.subscribe('fatalError', notifyFatal);
+	window.frames['authorfrm'].eventManager.subscribe('notifyCleaningComplete', notifyCleaningComplete);
 	window.frames['authorfrm'].eventManager.fire('portalMode', ["${portalAuthorUrl}", "${curriculumBaseDir}", "${command}", "${projectId}"]);
-};
-
-function escapeQuotes(str){
-	if(str){
-		console.warn(str);
-		console.log(escape(str));
-	} else {
-		return null;
-	};
 };
 --></script>
 

@@ -299,4 +299,14 @@ public interface Run extends Offering {
 	 * @param Integer - number of times this run was run
 	 */
 	public void setTimesRun(Integer timesRun);
+	
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId();
+
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId);
 }

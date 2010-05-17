@@ -48,10 +48,6 @@
             jQuery(function(){
                 jQuery('ul.sf-menu').superfish();
             });
-    
-</script>
-
-<script type="text/javascript">
 
 // asynchronously archives (if isRead=true) or unarchives (if isRead=false) a message
 function archiveMessage(messageId, sender, isRead) {
@@ -194,10 +190,6 @@ function sendReply(originalMessageId) {
 	sendMessage(originalMessageId);
 }
 
-</script>
-
-<script type="text/javascript">
-
 	/**
 	 * Toggles the summary div
 	 * projectId: id of project whose summary div to toggle
@@ -210,9 +202,6 @@ function sendReply(originalMessageId) {
 			searchDiv.style.display = 'none';
 		};
 	};
-</script>
-
-<script type="text/javascript">
 
 	/**
 	 * Toggles the summary div
@@ -333,7 +322,12 @@ function sendReply(originalMessageId) {
 		    	<div id="message_text_div_${message.id}">
 	  	  		<table class='messageDisplayTable2'>
 				<tr><th>Date:</th><td><fmt:formatDate value="${message.date}" type="both" dateStyle="short" timeStyle="short" /></td></tr>
-				<tr><th>To:</th><td><c:out value="${message.recipient.userDetails.username}"/></td></tr>
+				<tr><th>To:</th><td>
+					<c:forEach var="messageRecipient" varStatus='messageRecipientStatus' items="${message.recipients}">
+						<c:out value="${messageRecipient.recipient.userDetails.username}"/>
+						<c:if test='${messageRecipientStatus.last=="false"}'>, </c:if>
+					</c:forEach>
+				</td></tr>
 				<tr><th>Subject:</th><td><span id="message_subject_${message.id}">${message.subject}</span></td></tr>
 				<tr><th>Msg:</th><td><c:out value="${message.body}" /></td></tr>
 				</table>

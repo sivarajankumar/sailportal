@@ -22,25 +22,19 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
- import java.io.IOException;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
-import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.presentation.util.json.JSONException;
-import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
@@ -51,41 +45,16 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  */
 public class PreviewLDProjectController extends AbstractController {
 
-	private ProjectService projectService;
+	ProjectService projectService;
 	
-	private Properties portalProperties = null;
-
+	Properties portalProperties;
+	
 	/** 
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		String action = request.getParameter("action");
-		if (action != null) {
-			if (action.equals("getVLEConfig")) {
-				return handleGetVLEConfig(request, response);
-			} else if (action.equals("getUserInfo")) {
-				return handleGetUserInfo(request, response);
-			} else {
-				// shouldn't get here
-				throw new RuntimeException("should not get here");
-			}
-		} else {
-			return handleLaunchVLEPreview(request, response);
-		}
-	}
-
-	/**
-	 * @param request
-	 * @param modelAndView
-	 * @param workgroup
-	 * @return
-	 * @throws ObjectNotFoundException 
-	 * @throws IOException 
-	 */
-	private ModelAndView handleLaunchVLEPreview(HttpServletRequest request, HttpServletResponse response) throws ObjectNotFoundException, IOException {
 		User user = ControllerUtil.getSignedInUser();
 		String projectId = request.getParameter("projectId");
 		Project project = this.projectService.getById(Long.parseLong(projectId));
@@ -93,10 +62,14 @@ public class PreviewLDProjectController extends AbstractController {
 		if(projectId != null && project != null){
 			if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
 				String portalurl = ControllerUtil.getBaseUrlString(request);
-				String portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
-		
-				String vleConfigUrl = portalVLEControllerUrl + "?projectId=" + projectId + "&action=getVLEConfig";
-		
+				String vleConfigUrl = portalurl + "/webapp/request/info.html" + "?projectId=" + request.getParameter("projectId") + "&action=getVLEConfig&requester=portalpreview";
+
+				/* if preview request is coming from the run, we want to pass along the version id when we make a request to get the config */
+				String versionId = request.getParameter("versionId");
+				if(versionId != null && !versionId.equals("")){
+					vleConfigUrl += "&versionId=" + versionId;
+				}
+				
 				String vleurl = portalurl + "/vlewrapper/vle/vle.html";
 		
 				ModelAndView modelAndView = new ModelAndView();
@@ -110,107 +83,6 @@ public class PreviewLDProjectController extends AbstractController {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not determine project to preview.");
 			return null;
 		}
-	}
-
-	private ModelAndView handleGetUserInfo(HttpServletRequest request,
-			HttpServletResponse response) throws ObjectNotFoundException, IOException {
-		
-		JSONObject userInfo = new JSONObject();
-		
-		/*
-		JSONObject myUserInfo = new JSONObject();
-
-		try {
-			userInfo.put("myUserInfo", myUserInfo);
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
-		
-		try {
-			myUserInfo.put("workgroupId", -1);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		*/
-		
-		response.getWriter().print(userInfo);
-		
-		return null;
-	}
-	
-	/**
-	 * Prints out VLE configuration
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws ObjectNotFoundException 
-	 * @throws IOException 
-	 */
-	private ModelAndView handleGetVLEConfig(HttpServletRequest request,
-			HttpServletResponse response) throws ObjectNotFoundException, IOException {
-
-		String projectIdStr = request.getParameter("projectId");
-		Project project = projectService.getById(projectIdStr);
-		
-		String portalurl = ControllerUtil.getBaseUrlString(request);
-		
-		String curriculumBaseWWW = portalProperties.getProperty("curriculum_base_www");
-
-		String getContentUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-		getContentUrl = curriculumBaseWWW + getContentUrl;
-		int lastIndexOfSlash = getContentUrl.lastIndexOf("/");
-		if(lastIndexOfSlash==-1){
-			lastIndexOfSlash = getContentUrl.lastIndexOf("\\");
-		}
-		
-		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
-		String portalVLEControllerUrl = portalurl + "/webapp/vle/preview.html";
-		String getUserInfoUrl = portalVLEControllerUrl + "?action=getUserInfo";
-		
-		JSONObject config = new JSONObject();
-		try {
-			config.put("mode", "portalpreview");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			config.put("getUserInfoUrl", StringEscapeUtils.escapeHtml(getUserInfoUrl));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			config.put("getContentUrl", StringEscapeUtils.escapeHtml(getContentUrl));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			config.put("getContentBaseUrl", StringEscapeUtils.escapeHtml(getContentBaseUrl));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			config.put("theme", "WISE");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			config.put("enableAudio", "false");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Pragma", "no-cache");
-		response.setDateHeader ("Expires", 0);
-		
-		response.setContentType("text/xml");
-		response.getWriter().print(config);
-		return null;	
 	}
 
 	/**

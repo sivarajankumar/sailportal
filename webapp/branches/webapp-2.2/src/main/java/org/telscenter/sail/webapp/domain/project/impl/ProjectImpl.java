@@ -104,9 +104,6 @@ public class ProjectImpl implements Project {
 	public static final String COLUMN_NAME_JNLP_FK = "jnlp_fk";
 	
 	@Transient
-	public static final String COLUMN_NAME_METADATA_FK = "metadata_fk";
-	
-	@Transient
 	public static final String COLUMN_NAME_PREVIEWOFFERING_FK = "run_fk";
 
 	@Transient
@@ -142,10 +139,8 @@ public class ProjectImpl implements Project {
 	@Column(name = COLUMN_NAME_PROJECT_NAME)
 	protected String name;
 	
-	@OneToOne(targetEntity = ProjectMetadataImpl.class, fetch = FetchType.EAGER)
-	@Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	@JoinColumn(name = COLUMN_NAME_METADATA_FK, unique = false)
-	protected ProjectMetadata metadata;
+	@Transient
+	protected ProjectMetadata metadata = null;
 
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class, fetch = FetchType.LAZY)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })

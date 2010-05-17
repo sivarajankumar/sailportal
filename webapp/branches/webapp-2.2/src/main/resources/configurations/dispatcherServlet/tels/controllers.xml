@@ -207,7 +207,6 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.grading.GradeWorkController">
 		<property name="runService" ref="runService" />
 		<property name="gradingService" ref="gradingService" />
-		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 	
 	<bean id="gradeOverviewController"
@@ -321,16 +320,21 @@
 	
 	<bean id="studentVLEController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.student.StudentVLEController">
-	    <property name="userService" ref="userService" />
 	    <property name="runService" ref="runService" />
-	    <property name="workgroupService" ref="wiseWorkgroupService" />
-		<property name="portalProperties" ref="portalproperties" />
 	</bean>
 
 	<bean id="previewLDProjectController" 
 	    class="org.telscenter.sail.webapp.presentation.web.controllers.PreviewLDProjectController">
-        <property name="projectService" ref="projectService" />
-		<property name="portalProperties" ref="portalproperties" />
+	    <property name="projectService" ref="projectService"/>
+	</bean>
+	
+	<bean id="informationController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.InformationController">
+	    <property name="userService" ref="userService" />
+	    <property name="runService" ref="runService" />
+        <property name="projectService" ref="projectService"/>
+	    <property name="workgroupService" ref="wiseWorkgroupService" />
+		<property name="portalProperties" ref="portalproperties"/>
 	</bean>
 
 	<bean id="studentWorkgroupServiceController" 
@@ -366,7 +370,6 @@
 	<bean id="createRunController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.CreateRunController">
 		<property name="runService" ref="runService" />
-		<property name="userService" ref="userService" />
         <property name="projectService" ref="projectService" />       
         <property name="workgroupService" ref="wiseWorkgroupService" />
         <property name="brainstormService" ref="brainstormService" />        
@@ -1434,9 +1437,7 @@
     <bean id="messageController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.MessageController">
     	<property name="messageService" ref="messageService"/>
-    	<property name="userService" ref="userService" />
-        <property name="javaMail" ref="javaMail"/>
-		<property name="emaillisteners" ref="emaillisteners" />			
+    	<property name="userService" ref="userService" />	
     </bean>
     
     <bean id="bridgeController"

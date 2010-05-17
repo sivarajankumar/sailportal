@@ -84,6 +84,12 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Transient
 	private static final long serialVersionUID = 1L;
 	
+	@Transient
+	public final static String COLUMN_NAME_PROJECT_FK = "project_fk";
+	
+	@Transient
+	public final static String COLUMN_NAME_VERSION_ID = "version_id";
+	
 	@Column(name = COLUMN_NAME_TITLE)
 	private String title;
 
@@ -116,6 +122,12 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Column(name = COLUMN_NAME_KEYWORDS)
 	private String keywords;
+	
+	@Column(name = COLUMN_NAME_PROJECT_FK)
+	private Long projectId;
+	
+	@Column(name = COLUMN_NAME_VERSION_ID)
+	private String versionId;
 	
 	public String getGradeRange() {
 		return gradeRange;
@@ -223,5 +235,33 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	 */
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
+	}
+
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
+	}
+
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId() {
+		return versionId;
+	}
+
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId) {
+		this.versionId = versionId;
+	}
+
+	/**
+	 * @return the projectId
+	 */
+	public Long getProjectId() {
+		return projectId;
 	}
 }

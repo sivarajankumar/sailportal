@@ -141,6 +141,9 @@ public class RunImpl extends OfferingImpl implements Run {
     @Transient
     private static final String COLUMN_NAME_TIMES_RUN = "timesRun";
     
+    @Transient
+    private static final String COLUMN_NAME_VERSION_ID = "versionId";
+    
     @Column(name = RunImpl.COLUMN_NAME_LAST_RUN)
     private Date lastRun;
     
@@ -206,6 +209,9 @@ public class RunImpl extends OfferingImpl implements Run {
     
     @Column(name = RunImpl.COLUMN_NAME_POST_LEVEL)
     private Integer postLevel;
+    
+    @Column(name = RunImpl.COLUMN_NAME_VERSION_ID)
+    private String versionId;
     
     /**
      * @return the endtime
@@ -533,5 +539,19 @@ public class RunImpl extends OfferingImpl implements Run {
 
 	public void setTimesRun(Integer timesRun) {
 		this.timesRun = timesRun;
+	}
+	
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId() {
+		return versionId;
+	}
+
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId) {
+		this.versionId = versionId;
 	}
 }

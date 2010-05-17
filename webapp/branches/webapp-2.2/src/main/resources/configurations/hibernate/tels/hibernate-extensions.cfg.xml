@@ -91,5 +91,7 @@
         	class="org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl"/>
         <mapping
         	class="org.telscenter.sail.webapp.domain.message.impl.MessageImpl"/>
+        <mapping
+        	class="org.telscenter.sail.webapp.domain.message.impl.MessageRecipientImpl"/>
     </session-factory>
 </hibernate-configuration>

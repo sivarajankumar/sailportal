@@ -205,7 +205,7 @@
 					                  <li>Period Reports: <c:forEach var="periodInRun" items="${run.periods}"><a href="report.html?runId=${run.id}&groupId=${periodInRun.id}">${periodInRun.name}</a>&nbsp;</c:forEach></li>
 					               </c:when>
 					               <c:otherwise>
-					        <li><a href="../../previewproject.html?projectId=${run.project.id}" target="_blank">View the Project</a></li>
+					        <li><a href="../../previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank">View the Project</a></li>
 				    		<li><a href="../projects/projectinfo.html?projectId=${run.project.id}" target="_top">Review Project Info</a></li>
 							<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
@@ -323,7 +323,7 @@
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList1">
 					
-					        <li><a href="../../previewproject.html?projectId=${run.project.id}" target="_blank">View the Project</a></li>
+					        <li><a href="../../previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank">View the Project</a></li>
 					        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>		
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	

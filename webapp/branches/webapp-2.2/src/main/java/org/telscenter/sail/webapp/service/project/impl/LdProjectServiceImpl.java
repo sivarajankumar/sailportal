@@ -53,10 +53,13 @@ import org.springframework.security.acls.NotFoundException;
 import org.springframework.security.acls.Permission;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.annotation.Secured;
+import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
+import org.telscenter.sail.webapp.dao.project.ProjectMetadataDao;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.AddSharedTeacherParameters;
 import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
@@ -64,10 +67,13 @@ import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.presentation.util.RetrieveFile;
+import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.presentation.util.http.Connector;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
@@ -101,6 +107,8 @@ public class LdProjectServiceImpl implements ProjectService {
 	private UserService userService;
 	
 	private RunService runService;
+	
+	private ProjectMetadataDao<ProjectMetadata> metadataDao;
 	
 	{
 		PREVIEW_PERIOD_NAMES = new HashSet<String>();
@@ -168,8 +176,23 @@ public class LdProjectServiceImpl implements ProjectService {
 					title = project.getName();
 				}
 				
-				mav.addObject("command", "editProject");
-				mav.addObject("projectId", (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor()) + "~" + project.getId() + "~" + title);
+				if(command == null){
+					mav.addObject("command", "editProject");
+				}
+				
+				/* get the url for the project content file */
+				String versionId = this.getActiveVersion(project);
+				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+				String polishedProjectUrl = null;
+			
+				/* The polishedProjectUrl is the project url with the version id inserted into the project filename
+				 * If null or empty string is returned, we want to use the rawUrl */
+				if(versionId==null || versionId.equals("")){
+					polishedProjectUrl = rawProjectUrl;
+				} else {
+					polishedProjectUrl = rawProjectUrl.replace(".project.json", ".project." + versionId + ".json");
+				}
+				mav.addObject("projectId", polishedProjectUrl + "~" + project.getId() + "~" + title);
 			} else {
 				return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));
 			}
@@ -301,6 +324,7 @@ public class LdProjectServiceImpl implements ProjectService {
 	public List<Project> getAdminProjectList(){
 		return this.projectDao.getList();
 	}
+	
 	public ModelAndView launchProject(LaunchProjectParameters params)
 			throws Exception {
 		return new ModelAndView(new RedirectView(generateStudentStartProjectUrlString( params.getHttpServletRequest(), 
@@ -315,7 +339,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		Project project = params.getProject();
 
 		ModelAndView mav = new ModelAndView(new RedirectView(generateStudentPreviewProjectUrlString(params.getHttpServletRequest(), 
-				project)));
+				project, params.getVersionId())));
 		return mav;
 	}
 
@@ -327,10 +351,17 @@ public class LdProjectServiceImpl implements ProjectService {
 	 * @return
 	 */
 	public String generateStudentPreviewProjectUrlString(HttpServletRequest request,
-			Project project) {
+			Project project, String versionId) {
 		String portalUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + 
 			request.getContextPath();
-		String launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();
+		
+		String launchVLEUrl;
+		if(versionId != null){
+			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId() + "&versionId=" + versionId;
+		} else {
+			launchVLEUrl = "/vle/preview.html?projectId=" + project.getId();
+		}
+		
 		return portalUrl + launchVLEUrl;
 	}
 	
@@ -507,23 +538,25 @@ public class LdProjectServiceImpl implements ProjectService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectMetadataFile(org.telscenter.sail.webapp.domain.project.Project)
 	 */
-	public JSONObject getProjectMetadataFile(Project project) {
+	public JSONObject getProjectMetadataFile(Project project, String versionId) {
 		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
-		String rawURL = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		String rawURL = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());		
 		
+		if(rawURL == null || rawURL == ""){
+			return null;
+		}
+		
+		String projectMetaUrl;
+		
+		if(versionId==null || versionId.equals("")){
+			projectMetaUrl = rawURL.replace(".project.json", ".project-meta.json");
+		} else {
+			projectMetaUrl = rawURL.replace(".project.json", ".project-meta." + versionId + ".json");
+		}
+
 		try{
-			File file = new File((curriculumBaseDir + rawURL).replace(".project.json", ".project-meta.json"));
-			String fullText = "";
-			if(file.exists() && file.isFile()){
-				BufferedReader br = new BufferedReader(new FileReader(file));
-				String current = br.readLine();
-				while(current != null){
-					fullText += current + System.getProperty("line.separator");
-					current = br.readLine();
-				}
-				br.close();
-			}
-			return new JSONObject(fullText);
+			String response = RetrieveFile.getFileText(curriculumBaseDir + "/" + projectMetaUrl);
+			return new JSONObject(response);
 		} catch(MalformedURLException e){
 			e.printStackTrace();
 			return null;
@@ -560,5 +593,113 @@ public class LdProjectServiceImpl implements ProjectService {
 		return this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
 			this.aclService.hasPermission(project, BasePermission.WRITE, user) ||
 			this.aclService.hasPermission(project, BasePermission.READ, user);
+	}
+	
+		/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectMetadataFile(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public JSONObject getProjectMetadataFile(Project project){
+		String versionId = this.getActiveVersion(project);
+		return this.getProjectMetadataFile(project, versionId);
+	}
+	
+	/**
+	 * Given a <code>Project</code> project, attempts to retrieve and return the
+	 * <code>String</code> currently active version of the project from the version
+	 * master. Returns the active version if successful, null otherwise.
+	 * 
+	 * @param project
+	 * @return String activeVersion
+	 */
+	public String getActiveVersion(Project project){
+		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
+		String rawURL = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		String versionUrl = this.portalProperties.getProperty("versionmaster_baseurl") + "/master.html";
+		String params = "command=getActiveVersion&path=" + curriculumBaseDir + "/" + rawURL;
+		
+		try {
+			return Connector.request(versionUrl, params);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getActiveVersions(java.lang.String)
+	 */
+	public String getActiveVersions(String projectIDPaths) {
+		String versionUrl = this.portalProperties.getProperty("versionmaster_baseurl") + "/master.html";
+		String params = "command=getActiveVersions&projectIDPaths=" + projectIDPaths;
+		
+		try {
+			return Connector.request(versionUrl, params);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Given a <code>Project</code> project, a <code>String</code> username, and a
+	 * <code>String</code> snapshotName, attempts to create a snapshot of the given
+	 * version of the project. If successful, returns <code>String</code> the versionId
+	 * of the snapshot, returns "failed" otherwise.
+	 * 
+	 * @param project
+	 * @param username
+	 * @param snapshotName
+	 * @return String versionId
+	 */
+	public String takeSnapshot(Project project, String username, String snapshotName){
+		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
+		String rawURL = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+		String versionUrl = this.portalProperties.getProperty("versionmaster_baseurl") + "/master.html";
+		String versionId = this.getActiveVersion(project);
+		
+		/* if we cannot retrieve version id, we do not know which version of the project to take a
+		 * snapshot of, return failed. */
+		if(versionId==null){
+			return "failed";
+		}
+		
+		/* if username or snapshotName is null, set to empty string */
+		if(username == null){
+			username = "";
+		}
+		
+		if(snapshotName == null){
+			snapshotName = "";
+		}
+		
+		/* create versioned project path based on the version Id of the active version */
+		String projectPath = curriculumBaseDir + "/" + rawURL.replace("project.json", "project." + versionId + ".json");
+		String params = "command=snapshot&path=" + projectPath + "&requester=" + username + "&name=" + snapshotName;
+		
+		try {
+			return Connector.request(versionUrl, params);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "failed";
+		}
+	}
+
+	public ProjectMetadata getMetadata(Long projectId, String versionId) {
+		return this.metadataDao.getMetadataByProjectIdAndVersionId(projectId, versionId);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateMetadata(org.telscenter.sail.webapp.domain.project.ProjectMetadata)
+	 */
+	public ProjectMetadata updateMetadata(ProjectMetadata metadata) {
+		this.metadataDao.save(metadata);
+		return metadata;
+	}
+
+	/**
+	 * @param metadataDao the metadataDao to set
+	 */
+	public void setMetadataDao(ProjectMetadataDao metadataDao) {
+		this.metadataDao = metadataDao;
 	}
 }

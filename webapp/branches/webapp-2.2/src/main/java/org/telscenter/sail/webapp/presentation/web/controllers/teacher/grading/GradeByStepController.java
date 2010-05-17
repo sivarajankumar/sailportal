@@ -92,7 +92,7 @@ public class GradeByStepController extends AbstractController {
 				String portalurl = ControllerUtil.getBaseUrlString(request);
 
 		    	String getGradeByStepUrl = portalurl + "/vlewrapper/vle/gradebystep.html";
-				String getGradingConfigUrl = portalurl + "/webapp/teacher/grading/gradebystep.html?action=getGradingConfig&runId=" + run.getId().toString();
+				String getGradingConfigUrl = portalurl + "/webapp/request/info.html?action=getVLEConfig&runId=" + run.getId().toString() + "&requester=grading";
 				
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.addObject(RUN_ID, runId);

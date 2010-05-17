@@ -19,6 +19,7 @@ import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -36,6 +37,8 @@ public class PreviewProjectController extends AbstractController {
 	private static final String PROJECT_ID_PARAM_NAME = "projectId";
 
 	private static final String EXTERNAL_ID_PARAM_NAME = "externalId";
+	
+	private static final String VERSION_ID = "versionId";
 	
 	private ProjectService projectService;
 	
@@ -72,6 +75,7 @@ public class PreviewProjectController extends AbstractController {
 			params.setHttpServletRequest(request);
 			params.setHttpRestTransport(httpRestTransport);
 			params.setPortalUrl(Util.getPortalUrl(request));
+			params.setVersionId(request.getParameter(VERSION_ID));
 			return (ModelAndView) projectService.previewProject(params);
 		} else {
 			return new ModelAndView(new RedirectView("/webapp/accessdenied.html"));

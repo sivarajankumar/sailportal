@@ -49,6 +49,7 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectCommunicator;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ExternalProjectImpl;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
@@ -245,7 +246,7 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateProject(org.telscenter.sail.webapp.domain.project.Project)
 	 */
 	@Transactional()
-	public void updateProject(Project project, User user) throws NotAuthorizedException{
+	public void updateProject(Project project, User user) {
 		this.projectCommunicatorDao.save(((ExternalProject) project).getProjectCommunicator());
 		this.projectDao.save(project);
 	}
@@ -382,6 +383,37 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 	}
 
 	public List<Project> getAdminProjectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+		public String getActiveVersion(Project project) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String takeSnapshot(Project project, String username,
+			String snapshotName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ProjectMetadata getMetadata(Long projectId, String versionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ProjectMetadata updateMetadata(ProjectMetadata metadata) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public JSONObject getProjectMetadataFile(Project project, String versionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getActiveVersions(String projectIDPaths) {
 		// TODO Auto-generated method stub
 		return null;
 	}

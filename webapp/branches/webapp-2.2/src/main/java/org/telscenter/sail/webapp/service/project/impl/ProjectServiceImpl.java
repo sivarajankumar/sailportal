@@ -35,11 +35,13 @@ import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectServiceFactory;
@@ -245,6 +247,14 @@ public class ProjectServiceImpl implements ProjectService {
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectMetadataFile(org.telscenter.sail.webapp.domain.project.Project)
 	 */
+	public JSONObject getProjectMetadataFile(Project project, String versionId){
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.getProjectMetadataFile(project, versionId);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectMetadataFile(org.telscenter.sail.webapp.domain.project.Project)
+	 */
 	public JSONObject getProjectMetadataFile(Project project){
 		ProjectService projectService = projectServiceFactory.getProjectService(project);
 		return projectService.getProjectMetadataFile(project);
@@ -287,5 +297,62 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	public List<Project> getAdminProjectList(){
 		return projectServiceFactory.getProjectService(new ProjectImpl()).getAdminProjectList();
+	}
+	
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getActiveVersion(org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public String getActiveVersion(Project project) {
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.getActiveVersion(project);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#takeSnapshot(org.telscenter.sail.webapp.domain.project.Project, java.lang.String, java.lang.String)
+	 */
+	public String takeSnapshot(Project project, String username, String snapshotName) {
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.takeSnapshot(project, username, snapshotName);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateMetadata(org.telscenter.sail.webapp.domain.project.Project, org.telscenter.sail.webapp.domain.project.ProjectMetadata)
+	 */
+	@Transactional
+	public ProjectMetadata updateMetadata(ProjectMetadata metadata){
+		Project project;
+		try {
+			project = this.getById(metadata.getProjectId());
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.updateMetadata(metadata);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getMetadata(java.lang.Long, java.lang.String)
+	 */
+	@Transactional
+	public ProjectMetadata getMetadata(Long projectId, String versionId){
+		Project project;
+		try{
+			project = this.getById(projectId);
+		} catch (ObjectNotFoundException e){
+			e.printStackTrace();
+			return null;
+		}
+		ProjectService projectService = projectServiceFactory.getProjectService(project);
+		return projectService.getMetadata(projectId, versionId);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getActiveVersions(java.lang.String)
+	 */
+	public String getActiveVersions(String projectIDPaths) {
+		ProjectService projectService = projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.getActiveVersions(projectIDPaths);
 	}
 }
