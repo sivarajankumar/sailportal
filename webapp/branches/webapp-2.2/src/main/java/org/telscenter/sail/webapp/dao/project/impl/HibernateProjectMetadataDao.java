@@ -139,6 +139,10 @@ public class HibernateProjectMetadataDao extends AbstractHibernateDao<ProjectMet
 	 * @param activeVersionProjectIdList
 	 */
 	private void populateProjectListWithMetadata(List<Project> projectList, String activeVersionProjectIdList){
+		if(activeVersionProjectIdList == null){
+			return;
+		}
+		
 		Map<Long,String> idVersionMap = new TreeMap<Long,String>();
 		String[] projectIDVersions = activeVersionProjectIdList.split("\\|");
 		
