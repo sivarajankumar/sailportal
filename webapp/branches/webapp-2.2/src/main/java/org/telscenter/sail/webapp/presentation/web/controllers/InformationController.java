@@ -413,6 +413,9 @@ public class InformationController extends AbstractController{
 			//get the url to get peer review work
 			String getPeerReviewUrl = portalurl + "/webapp/bridge/getdata.html?type=peerreview";
 			
+	    	//get the url for xls export
+	    	String getXLSExportUrl = portalurl + "/webapp/bridge/request.html?type=xlsexport&runId=" + run.getId().toString();
+			
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
 	    	
@@ -431,6 +434,7 @@ public class InformationController extends AbstractController{
 				config.put("getPeerReviewUrl", getPeerReviewUrl);
 				config.put("getJournalDataUrl", getJournalDataUrl);
 				config.put("postJournalDataUrl", postJournalDataUrl);
+				config.put("getXLSExportUrl", getXLSExportUrl);
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
 				};
