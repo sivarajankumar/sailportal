@@ -4,6 +4,7 @@ import eu.scy.controllers.AbstractSCYController;
 import eu.scy.core.UserService;
 import eu.scy.core.model.StudentUserDetails;
 import eu.scy.core.model.User;
+import eu.scy.core.model.impl.ScyBaseObject;
 import eu.scy.server.controllers.components.fileupload.FileUploadListener;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +29,8 @@ public class UploadMultipleUsers implements FileUploadListener {
     private static Logger log = Logger.getLogger("UploadMultipleUsers.class");
 
     private UserService userService;
+    
+    private ScyBaseObject model;
 
     public void fileUploaded(File file) {
         log.info("MULTIPLE USERS IN FILE: " + file.getAbsolutePath());
@@ -62,6 +65,11 @@ public class UploadMultipleUsers implements FileUploadListener {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+    }
+
+
+    public void setModel(ScyBaseObject model) {
+        this.model = model;
     }
 
     public UserService getUserService() {
