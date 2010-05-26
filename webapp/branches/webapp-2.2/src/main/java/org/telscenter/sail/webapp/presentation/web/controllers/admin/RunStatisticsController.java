@@ -40,11 +40,13 @@ public class RunStatisticsController extends AbstractController {
 
 	private RunService runService;
 	
-	private final static String RUNS_TODAY_VIEW = "/admin/runstoday";
+	private final static String RUNS_WITHIN_VIEW = "/admin/runswithinperiod";
 	
 	private final static String RUNS_BY_ACTIVITY_VIEW = "/admin/runsactivity";
 	
 	private final static String RUNS = "runs";
+	
+	private final static String PERIOD = "period";
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -53,11 +55,18 @@ public class RunStatisticsController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String command = request.getParameter("command");
 		
-		if(command.equals("today")){
-			List<Run> runs = this.runService.getRunsRunToday();
+		if(command.equals("today") || command.equals("week") || command.equals("month")){
+			List<Run> runs = this.runService.getRunsRunWithinPeriod(command);
+			String period = null;
+			if(command.equals("today")){
+				period = command;
+			} else {
+				period = "this " + command;
+			}
 			
-			ModelAndView mav = new ModelAndView(RUNS_TODAY_VIEW);
+			ModelAndView mav = new ModelAndView(RUNS_WITHIN_VIEW);
 			mav.addObject(RUNS, runs);
+			mav.addObject(PERIOD, period);
 			return mav;
 		} else if(command.equals("activity")) {
 			List<Run> runs = this.runService.getRunsByActivity();

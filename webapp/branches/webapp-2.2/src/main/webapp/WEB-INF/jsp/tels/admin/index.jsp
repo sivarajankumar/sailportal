@@ -67,7 +67,7 @@
 			<a href="findprojectrunsbyteacher.html">Teacher</a> | <a href='findprojectrunsbyprojectid.html'>Project Id</a> | <a href='findprojectrunsbyrunid.html'>Run Id</a>
 		}</h5>
 		
-		<h5>View: <a href="runstats.html?command=today">runs run today</a> | <a href="runstats.html?command=activity">runs by activity</a></h5>
+		<h5>View: Runs run (<a href="runstats.html?command=today">today</a> | <a href="runstats.html?command=week">this week</a> | <a href="runstats.html?command=month">this month</a>) | <a href="runstats.html?command=activity">runs by activity</a></h5>
 	</div>
 
 <div id="adminTitle">News Management</div>

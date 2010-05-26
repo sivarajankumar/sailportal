@@ -18,7 +18,7 @@
 <%@ include file="adminheader.jsp"%>
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
-<h3>Runs run today</h3>
+<h3>Runs run ${period}</h3>
 <table id="runStatsTable">
 	<thead>
 		<tr><td>Name</td><td>Run ID</td><td>Owners</td><td>Last Run</td></tr>

@@ -522,10 +522,10 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	}
 	
 	/**
-	 * @see org.telscenter.sail.webapp.service.offering.RunService#getRunsRunToday()
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#getRunsRunWithinPeriod(java.lang.String)
 	 */
-	public List<Run> getRunsRunToday(){
-		return this.runDao.getRunsRunToday();
+	public List<Run> getRunsRunWithinPeriod(String period){
+		return this.runDao.getRunsRunWithinPeriod(period);
 	}
 	
 	/**

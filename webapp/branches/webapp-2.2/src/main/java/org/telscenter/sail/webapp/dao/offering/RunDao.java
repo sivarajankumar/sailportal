@@ -104,14 +104,15 @@ public interface RunDao<T extends Run> extends OfferingDao<Run> {
      * @return <code>List<Run></code>
      */
     public List<Run> getRunsOfProject(Long id);
-
+    
     /**
-     * Returns a <code>List<Run></code> list of runs that were run today based
-     * on students whether students worked on that run.
+     * Returns a <code>List<Run></code> list of runs that were run within the
+     * given <code>String</code> period. Valid periods are "today","week" and "month".
      * 
-     * @return List<Run> - list of runs
+     * @param String - period
+     * @return List<Run> - run list
      */
-    public List<Run> getRunsRunToday();
+    public List<Run> getRunsRunWithinPeriod(String period);
     
     /**
      * Returns a <code>List<Run></code> list of runs ordered descending by how

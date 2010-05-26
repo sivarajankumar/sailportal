@@ -152,12 +152,24 @@ public class HibernateRunDao extends AbstractHibernateDao<Run> implements
 	}
 
 	/**
-	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunsRunToday()
+	 * @see org.telscenter.sail.webapp.dao.offering.RunDao#getRunsRunWithinPeriod(java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Run> getRunsRunToday(){
-		String q = "select run from RunImpl run where datediff(run.lastRun, curdate()) = 0";
-		return this.getHibernateTemplate().find(q);
+	public List<Run> getRunsRunWithinPeriod(String period){
+		String oper = null, value = null;
+		
+		if(period.equals("today")){
+			oper = " = ";
+			value = "0";
+		} else if(period.equals("week")){
+			oper = " <= ";
+			value = "7";
+		} else if(period.equals("month")){
+			oper = " <= ";
+			value = String.valueOf(Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+		}
+		
+		return this.getHibernateTemplate().find("select run from RunImpl run where datediff(curdate(), run.lastRun)" + oper + value);
 	}
 	
 	/**
