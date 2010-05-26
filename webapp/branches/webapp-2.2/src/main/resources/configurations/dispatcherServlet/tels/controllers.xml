@@ -1460,4 +1460,14 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.admin.RunStatisticsController">
     	<property name="runService" ref="runService"/>
     </bean>
+    
+    <bean id="updateRunController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.UpdateRunController">
+    	<property name="runService" ref="runService"/>
+    </bean>
+    
+    <bean id="editRunController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.EditRunController">
+    	<property name="runService" ref="runService"/>
+    </bean>
 </beans>

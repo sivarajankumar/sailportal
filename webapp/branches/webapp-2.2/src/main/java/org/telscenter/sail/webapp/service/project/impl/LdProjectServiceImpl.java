@@ -181,7 +181,13 @@ public class LdProjectServiceImpl implements ProjectService {
 				}
 				
 				/* get the url for the project content file */
-				String versionId = this.getActiveVersion(project);
+				String versionId = null;
+				if(params.getVersionId() != null && !params.getVersionId().equals("")){
+					versionId = params.getVersionId();
+				} else {
+					versionId = this.getActiveVersion(project);
+				}
+				
 				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 				String polishedProjectUrl = null;
 			

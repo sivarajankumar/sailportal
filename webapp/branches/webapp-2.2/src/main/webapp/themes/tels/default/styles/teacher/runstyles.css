@@ -205,6 +205,8 @@ resize the size of Projectruntabs.jsp when the user switches between Current or 
 #actionList1 li, #actionList2 li, #actionList3 li  {
 	list-style-type:none;
 	line-height:100%;
+	font-size:0.7em;
+	margin:4px 2px 4px 4px;
 	}
 	
 #actionList2 .qaBullet  {
@@ -214,13 +216,11 @@ resize the size of Projectruntabs.jsp when the user switches between Current or 
 	
 #currentRunTable a:link, #currentRunTable a:visited, #actionList a:link, #actionList a:visited {
 	text-decoration:none;
-	font-size:.7em;
 	color:#0033CC;
 	padding:1px 7px 1px 7px;
 }
 
 #currentRunTable a:hover, #actionList a:hover {
-	font-size:.7em;
 	color:#000066;
 	padding:0px 6px 0px 6px;
 	background-color:#ffff33;
@@ -354,5 +354,42 @@ text-align:center;
 margin: 30px auto 5px auto;
 }
 
+#errorMsgDiv {
+	color:#aa5522;	
+}
 
+#mainDiv {
+	text-align:left;
+}
 
+.editRunBlock {
+	background-color:#333333;
+	font-size:1.2em;
+	color:silver;
+	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
+	border-radius:7px;
+	margin:3px 0 2px 0;
+	padding:0 5px 0 5px;
+}
+
+#errorMsgDiv {
+	height:25px;
+}
+
+#existingPeriodsList {
+	list-style-type:none;
+	background-color:#666666;
+	border:1px solid silver;
+	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
+	border-radius:7px;
+}
+
+#editRunPeriodsAddPeriodDiv {
+	margin: 5px;
+}
+
+.buffer {
+	height:10px;
+}

@@ -155,6 +155,7 @@ public class AuthorProjectController extends AbstractController {
 		params.setHttpServletResponse(response);
 		params.setHttpRestTransport(httpRestTransport);
 		params.setPortalUrl(Util.getPortalUrl(request));
+		params.setVersionId(request.getParameter("versionId"));
 		
 		String command = request.getParameter(COMMAND);
 		if(command != null && command != ""){

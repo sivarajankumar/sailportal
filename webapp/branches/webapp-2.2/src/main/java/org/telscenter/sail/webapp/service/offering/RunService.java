@@ -324,4 +324,22 @@ public interface RunService extends OfferingService {
      * @param Run - the run whose statistics should be updated.
      */
     public void updateRunStatistics(Run run);
+    
+    /**
+     * Update the name of the run with the given <code>Long</code> to that of
+     * the given <code>String</code> name.
+     * 
+     * @param Long - runId
+     * @param String - name
+     */
+    public void updateRunName(Long runId, String name);
+    
+    /**
+     * Creates and adds a period with the given <code>String</code> name to
+     * the run with the given <code>Long</code> runId.
+     * 
+     * @param Long - runId
+     * @param String - name
+     */
+    public void addPeriodToRun(Long runId, String name);
 }

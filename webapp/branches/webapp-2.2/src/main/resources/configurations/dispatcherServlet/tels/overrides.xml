@@ -159,6 +159,8 @@
     		    /teacher/run/manage/archiveRun.html=endRunController
     		    /teacher/run/manage/startRun.html=startRunController
     		    /teacher/run/createRun.html=createRunController
+    		    /teacher/run/updaterun.html=updateRunController
+    		    /teacher/run/editrun.html=editRunController
     		    /teacher/run/brainstorm/createbrainstorm.html=createBrainstormController
     		    /teacher/run/brainstorm/managebrainstorm.html=manageBrainstormController
 				/teacher/run/brainstorm/getallposts.html=getAllPostsController

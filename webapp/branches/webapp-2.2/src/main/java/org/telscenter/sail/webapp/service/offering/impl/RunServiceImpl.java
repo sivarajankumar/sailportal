@@ -555,6 +555,35 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		this.runDao.save(run);
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.offering.RunService#updateRunName(java.lang.Long, java.lang.String)
+	 */
+	@Transactional()
+	public void updateRunName(Long runId, String name){
+		try{
+			Run run = this.retrieveById(runId);
+			run.setName(name);
+			this.runDao.save(run);
+		} catch(ObjectNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Transactional()
+	public void addPeriodToRun(Long runId, String name){
+		try{
+			Run run = this.retrieveById(runId);
+			Set<Group> periods = run.getPeriods();
+			Group group = new PersistentGroup();
+			group.setName(name);
+			this.groupDao.save(group);
+			periods.add(group);
+			this.runDao.save(run);
+		} catch(ObjectNotFoundException e){
+			e.printStackTrace();
+		}
+	}
+	
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}

@@ -48,6 +48,8 @@ public class AuthorProjectParameters {
 	private Project project;
 	
 	private User author;
+	
+	private String versionId;
 
 	/**
 	 * @return the httpRestTransport
@@ -131,6 +133,20 @@ public class AuthorProjectParameters {
 	 */
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+
+	/**
+	 * @return the versionId
+	 */
+	public String getVersionId() {
+		return versionId;
+	}
+
+	/**
+	 * @param versionId the versionId to set
+	 */
+	public void setVersionId(String versionId) {
+		this.versionId = versionId;
 	}
 
 }
