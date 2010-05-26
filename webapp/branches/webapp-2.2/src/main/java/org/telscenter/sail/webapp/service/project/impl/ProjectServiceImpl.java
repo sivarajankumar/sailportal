@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.service.project.impl;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
@@ -45,6 +46,8 @@ import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectServiceFactory;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * TELS Portal can offer multiple types of projects, including:
@@ -354,5 +357,26 @@ public class ProjectServiceImpl implements ProjectService {
 	public String getActiveVersions(String projectIDPaths) {
 		ProjectService projectService = projectServiceFactory.getProjectService(ProjectType.LD);
 		return projectService.getActiveVersions(projectIDPaths);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#sortProjectsByDateCreated(java.util.List)
+	 */
+	public void sortProjectsByDateCreated(List<Project> projectList){
+		Collections.sort(projectList, new ProjectComparatorByEarliestDate());
+	}
+	
+	/**
+	 * Helper class for sorting projects by date created.
+	 * 
+	 * @author patrick lawler
+	 * @version $Id$
+	 */
+	private class ProjectComparatorByEarliestDate implements Comparator<Project> {
+
+		public int compare(Project p1, Project p2) {
+			return p2.getDateCreated().compareTo(p1.getDateCreated());
+		}
+		
 	}
 }

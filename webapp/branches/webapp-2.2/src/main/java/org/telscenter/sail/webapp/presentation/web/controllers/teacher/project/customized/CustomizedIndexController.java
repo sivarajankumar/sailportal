@@ -61,6 +61,11 @@ public class CustomizedIndexController extends AbstractController {
 				 archivedOwnedProjectsList.add(project);
 			 }
 		 }
+		 
+		 /* sort the project lists */
+		 this.projectService.sortProjectsByDateCreated(currentOwnedProjectsList);
+		 this.projectService.sortProjectsByDateCreated(archivedOwnedProjectsList);
+		 
 	     modelAndView.addObject("currentOwnedProjectsList", currentOwnedProjectsList);
 	     modelAndView.addObject("archivedOwnedProjectsList", archivedOwnedProjectsList);
 
@@ -76,6 +81,11 @@ public class CustomizedIndexController extends AbstractController {
 				 archivedSharedProjectsList.add(project);
 			 }
 		 }
+		 
+		 /* sort the project lists */
+		 this.projectService.sortProjectsByDateCreated(currentSharedProjectsList);
+		 this.projectService.sortProjectsByDateCreated(archivedSharedProjectsList);
+		 
 		 modelAndView.addObject("currentSharedProjectsList", currentSharedProjectsList);
 	     modelAndView.addObject("archivedSharedProjectsList", archivedSharedProjectsList);
 	     

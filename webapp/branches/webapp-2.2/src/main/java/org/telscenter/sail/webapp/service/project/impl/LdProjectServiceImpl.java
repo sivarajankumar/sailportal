@@ -702,4 +702,9 @@ public class LdProjectServiceImpl implements ProjectService {
 	public void setMetadataDao(ProjectMetadataDao metadataDao) {
 		this.metadataDao = metadataDao;
 	}
+
+	public void sortProjectsByDateCreated(List<Project> projectList) {
+		// TODO Auto-generated method stub
+		
+	}
 }

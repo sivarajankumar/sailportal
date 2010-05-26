@@ -358,4 +358,11 @@ public interface ProjectService {
 	 * @return List<Project> projects
 	 */
 	public List<Project> getAdminProjectList();
+	
+	/**
+	 * Sorts the given <code>List<Project></code> list of projects by the date they were created.
+	 * 
+	 * @param projectList
+	 */
+	public void sortProjectsByDateCreated(List<Project> projectList);
 }
