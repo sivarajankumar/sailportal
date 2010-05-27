@@ -130,6 +130,98 @@
 
         }
 
+      var lasMap = new Array();
+      var eloMap = new Array();
+      function createLas(lasObj){
+           var lasX = lasObj.xPos;
+           var lasY = lasObj.yPos;
+           var lasTitle = lasObj.name;
+           var lasW = 80;
+           var lasH = 50;
+                    // "createLasContentBox(lasObj, lasW, lasH);" +
+
+            return uml.State.create({
+              rect: {x: lasX, y: lasY, width: lasW, height: lasH},
+              label: lasTitle,
+              attrs: {
+                fill: "90-#000-#0af:1-#fff"
+           },
+              actions: {
+
+              // entry: \"create()\"\n" +
+              }
+            }).toggleGhosting();
+        }
+
+        function createElo(eloObj){
+               var eloX = eloObj.xPos;
+               var eloY = eloObj.yPos; 
+               return  uml.Class.create({
+                  rect: {x: eloX, y: eloY, width: 20, height: 20, rotate: 45},
+                  //label: \"Client\",\n" +
+                  attrs: {
+                    fill: "135-#000-#0a0:1-#fff"
+                  }
+                });
+            }
+
+        function createLasContentBox(lasObj, lasId){
+
+
+            var worldLeftOffset = document.getElementById("world").offsetLeft;
+            var worldTopOffset = document.getElementById("world").offsetTop;
+
+            var s2w = lasObj.rect.width;
+            var s2h = lasObj.rect.height;
+            var s2x = lasObj.rect.x;
+            var s2y = lasObj.rect.y;
+            var s2Div = document.createElement("div");
+            s2Div.setAttribute("id", lasId);
+            s2Div.style.width = s2w + "px";
+            s2Div.style.height = "40px";
+            s2Div.style.backgroundColor = "transparent";
+
+            s2Div.style.cursor = "pointer";
+
+            s2Div.style.position = "absolute"
+            s2Div.style.left = (worldLeftOffset + s2x) + "px";
+
+            s2Div.style.top = (worldTopOffset + s2y) -10 + "px";
+            s2Div.style.paddingTop = "30px";
+            s2Div.onclick = function(){
+                var theDialog =  new dijit.Dialog({
+                    title: lasObj.label,
+                    style: "width:500px;height:300px;",
+                    id: "dialog_" + lasObj.id,
+                    content: "<div id='dialogContents_\" + lasObj.id + \"'>Contents here</div>"
+                });
+
+                theDialog.show();
+            }
+            document.getElementById("world").appendChild(s2Div);
+
+        }
+        
+        function updateLasContentBox(){
+            var maxNumberOfParticipants = 6;
+            var rndNumber = 1;
+            var rndIconNumber = 0;
+            var userIconArray = new Array();
+            userIconArray[0] = "<img src='${baseUrl}/themes/scy/default/images/green_man_icon.png' />";
+            userIconArray[1] = "<img src='${baseUrl}/themes/scy/default/images/brown_man_icon.png' />";
+
+
+
+            for(var i in lasMap){
+                rndNumber =Math.floor(Math.random()*maxNumberOfParticipants);
+                var imgStr = "";
+                for(j = 0;j<rndNumber;j++){
+                    rndIconNumber = Math.floor(Math.random()*2);
+                    imgStr += userIconArray[rndIconNumber];
+                }
+                document.getElementById(i).innerHTML = imgStr;
+            }
+        }
 
 
 
