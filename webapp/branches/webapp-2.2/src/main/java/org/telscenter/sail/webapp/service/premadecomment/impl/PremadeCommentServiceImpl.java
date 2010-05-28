@@ -58,6 +58,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		premadeComment.setLabel(param.getLabel());
 		premadeComment.setOwner(param.getOwner());
 		premadeComment.setRun(param.getRun());
+		premadeComment.setGlobal(param.isGlobal());
 		
 		premadeCommentDao.save(premadeComment);
 		return premadeComment;
@@ -127,6 +128,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		premadeCommentList.setLabel(param.getLabel());
 		premadeCommentList.setOwner(param.getOwner());
 		premadeCommentList.setRun(param.getRun());
+		premadeCommentList.setGlobal(param.isGlobal());
 		premadeCommentList.setPremadeCommentList(param.getList());
 		
 		premadeCommentListDao.save(premadeCommentList);
@@ -241,5 +243,33 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 			PremadeCommentListDao<PremadeCommentList> premadeCommentListDao) {
 		this.premadeCommentListDao = premadeCommentListDao;
 	}
+
+	/**
+	 * 
+	 * @see org.telscenter.sail.webapp.service.premadecomment.PremadeCommentService#retrieveAllGlobalPremadeCommentLists()
+	 */
+	public Set<PremadeCommentList> retrieveAllGlobalPremadeCommentLists() {
+		TreeSet<PremadeCommentList> returnSet = new TreeSet<PremadeCommentList>();
+		returnSet.addAll(this.premadeCommentListDao.getListByGlobal());
+		return returnSet;		
+	}
 	
+
+	@Transactional()
+	public PremadeCommentList retrievePremadeCommentListById(Long id){
+		return this.premadeCommentListDao.getListById(id);		
+	}
+	
+
+	@Transactional()
+	public PremadeComment retrievePremadeCommentById(Long id){
+		PremadeComment premadeComment = null;
+		try {
+			premadeComment = this.premadeCommentDao.getById(id);
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}		
+		
+		return premadeComment;
+	}
 }

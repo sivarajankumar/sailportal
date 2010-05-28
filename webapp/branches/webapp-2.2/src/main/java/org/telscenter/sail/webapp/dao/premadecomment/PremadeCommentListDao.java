@@ -51,4 +51,18 @@ public interface PremadeCommentListDao<T extends PremadeCommentList> extends Sim
 	 * @return <code>List<PremadeCommentList></code>
 	 */
 	public List<PremadeCommentList> getListByRun(Run run);
+	
+	/**
+	 * Returns a List of PremadeCommentList that have the global field set to true.
+	 * @return
+	 */
+	public List<PremadeCommentList> getListByGlobal();
+	
+	/**
+	 * Returns a PremadeCommentList that has the given id
+	 * @param the id of the PremadeCommentList
+	 * @return a PremadeCommentList or null if there is no PremadeCommentList
+	 * with the given id
+	 */
+	public PremadeCommentList getListById(Long id);
 }

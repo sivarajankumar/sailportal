@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.impl;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import net.sf.sail.webapp.domain.User;
 
@@ -42,7 +43,24 @@ public class PremadeCommentListParameters {
 	private User owner = null;
 	
 	private Run run = null;
+	
+	private boolean global = false;
 
+	public PremadeCommentListParameters() {
+		
+	}
+			
+	public PremadeCommentListParameters(String label, User owner) {
+		this(label, owner, false);
+	}
+	
+	public PremadeCommentListParameters(String label, User owner, boolean global) {
+		this.label = label;
+		this.owner = owner;
+		this.global = global;
+		this.list = new TreeSet<PremadeComment>();
+	}
+	
 	/**
 	 * @return the list
 	 */
@@ -97,5 +115,15 @@ public class PremadeCommentListParameters {
 	 */
 	public void setRun(Run run) {
 		this.run = run;
+	}
+
+
+	public void setGlobal(boolean global) {
+		this.global = global;
+	}
+
+
+	public boolean isGlobal() {
+		return global;
 	}
 }

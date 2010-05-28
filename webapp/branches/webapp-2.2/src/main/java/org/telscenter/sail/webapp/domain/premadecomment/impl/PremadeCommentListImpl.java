@@ -94,6 +94,9 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
     
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_GLOBAL, nullable=true)
+    private boolean global = false;
+    
 	/**
 	 * @return the list of Premade Comments
 	 */
@@ -166,5 +169,13 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
 
 	public int compareTo(Object premadeCommentList){
 		return this.getLabel().compareTo(((PremadeCommentListImpl) premadeCommentList).getLabel());
+	}
+
+	public void setGlobal(boolean global) {
+		this.global = global;
+	}
+
+	public boolean isGlobal() {
+		return global;
 	}
 }

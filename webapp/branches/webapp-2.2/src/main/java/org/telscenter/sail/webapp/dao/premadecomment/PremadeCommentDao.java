@@ -51,4 +51,12 @@ public interface PremadeCommentDao<T extends PremadeComment> extends SimpleDao<T
 	 * @return <code>List<PremadeComment></code>
 	 */
 	public List<PremadeComment> getPremadeCommentsByRun(Run run);
+	
+	/**
+	 * Retrieves a PremadeComment with the given id
+	 * @param id the id of the PremadeComment
+	 * @return a PremadeComment or null if there is no PremadeComment with the
+	 * given id
+	 */
+	public PremadeComment getPremadeCommentById(Long id);
 }

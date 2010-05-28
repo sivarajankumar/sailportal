@@ -415,6 +415,12 @@ public class InformationController extends AbstractController{
 			
 	    	//get the url for xls export
 	    	String getXLSExportUrl = portalurl + "/webapp/bridge/request.html?type=xlsexport&runId=" + run.getId().toString();
+	    	
+	    	//get the url for premade comments
+	    	String getPremadeCommentsUrl = portalurl + "/webapp/teacher/grading/premadeComments.html?action=getData";
+	    	
+	    	//get the url for premade comments
+	    	String postPremadeCommentsUrl = portalurl + "/webapp/teacher/grading/premadeComments.html?action=postData";
 			
 			/* Set the post level if specified in the run */
 			Integer postLevel = run.getPostLevel();
@@ -435,6 +441,8 @@ public class InformationController extends AbstractController{
 				config.put("getJournalDataUrl", getJournalDataUrl);
 				config.put("postJournalDataUrl", postJournalDataUrl);
 				config.put("getXLSExportUrl", getXLSExportUrl);
+				config.put("getPremadeCommentsUrl", getPremadeCommentsUrl);
+				config.put("postPremadeCommentsUrl", postPremadeCommentsUrl);
 				if(postLevel!=null){
 					config.put("postLevel", postLevel);
 				};

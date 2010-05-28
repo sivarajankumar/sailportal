@@ -25,6 +25,9 @@ package org.telscenter.sail.webapp.domain.premadecomment;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.sail.webapp.domain.User;
+
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.owned.Owned;
 
 /**
@@ -46,4 +49,17 @@ public interface PremadeCommentList extends Owned, Comparable {
 	public void setPremadeCommentList(Set<PremadeComment> premadeCommentList);
 	
 	public int compareTo(Object premadeCommentList);
+	
+	public String getLabel();
+	
+	public User getOwner();
+	
+	public Run getRun();
+	
+	public Long getId();
+
+	public void setGlobal(boolean global);
+	
+	public boolean isGlobal();
+	
 }

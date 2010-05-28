@@ -40,4 +40,8 @@ public interface PremadeComment extends Owned{
 	 * @param comment the comment to set
 	 */
 	public void setComment(String comment);
+	
+	public boolean isGlobal();
+	
+	public void setGlobal(boolean global);
 }

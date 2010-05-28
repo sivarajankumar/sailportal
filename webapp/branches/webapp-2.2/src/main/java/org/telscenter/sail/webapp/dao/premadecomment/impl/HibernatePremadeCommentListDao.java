@@ -65,4 +65,15 @@ public class HibernatePremadeCommentListDao extends AbstractHibernateDao<Premade
 		return this.getHibernateTemplate().find(q);
 	}
 	
+	public List<PremadeCommentList> getListByGlobal(){
+		String q = "select commentList from PremadeCommentListImpl commentList where commentList.global=true";
+		return this.getHibernateTemplate().find(q);
+	}
+
+	public PremadeCommentList getListById(Long id) {
+		String q = "select commentList from PremadeCommentListImpl commentList where commentList.id='" + id + "'";
+		List results = this.getHibernateTemplate().find(q);
+		
+		return (PremadeCommentList) results.get(0);	
+	}
 }

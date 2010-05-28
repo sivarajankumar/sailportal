@@ -68,12 +68,15 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     public static final String COLUMN_NAME_RUN = "run";
     
     @Transient
+    public static final String COLUMN_NAME_GLOBAL = "global";
+    
+    @Transient
     public static final long serialVersionUID = 1L;
     
     @Column(name = PremadeCommentImpl.COLUMN_NAME_COMMENT, nullable = false)
     private String comment;
     
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_LABEL, nullable=false)
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_LABEL, nullable=true)
     private String label;
     
     @OneToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
@@ -83,6 +86,9 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     @OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true)
     private Run run = null;
+    
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_GLOBAL, nullable=true)
+    private boolean global = false;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -160,5 +166,13 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
 
 	public int compareTo(PremadeComment premadeComment){
 		return this.getLabel().compareTo(premadeComment.getLabel());
+	}
+
+	public void setGlobal(boolean global) {
+		this.global = global;
+	}
+
+	public boolean isGlobal() {
+		return global;
 	}
 }

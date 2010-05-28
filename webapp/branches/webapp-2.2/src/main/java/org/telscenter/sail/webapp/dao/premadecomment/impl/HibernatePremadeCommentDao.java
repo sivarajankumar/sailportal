@@ -71,5 +71,15 @@ public class HibernatePremadeCommentDao extends AbstractHibernateDao<PremadeComm
 	protected Class<PremadeCommentImpl> getDataObjectClass() {
 		return PremadeCommentImpl.class;
 	}
+
+	/**
+	 * Get the premade comment given the id
+	 */
+	public PremadeComment getPremadeCommentById(Long id) {
+		String q = "select comment from PremadeCommentImpl comment where comment.id='" + id + "'";
+		List results = this.getHibernateTemplate().find(q);
+		
+		return (PremadeComment) results.get(0);
+	}
 	
 }

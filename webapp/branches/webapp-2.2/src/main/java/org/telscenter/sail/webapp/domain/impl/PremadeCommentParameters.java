@@ -39,7 +39,23 @@ public class PremadeCommentParameters {
 	private User owner = null;
 	
 	private Run run = null;
+	
+	private boolean global = false;
 
+	public PremadeCommentParameters() {
+
+	}
+	
+	public PremadeCommentParameters(String comment, User owner) {
+		this(comment, owner, false);
+	}
+	
+	public PremadeCommentParameters(String comment, User owner, boolean global) {
+		this.comment = comment;
+		this.owner = owner;
+		this.global = global;
+	}
+	
 	/**
 	 * @return the comment
 	 */
@@ -96,4 +112,13 @@ public class PremadeCommentParameters {
 		this.run = run;
 	}
 
+	public void setGlobal(boolean global) {
+		this.global = global;
+	}
+
+	public boolean isGlobal() {
+		return global;
+	}
+
+	
 }

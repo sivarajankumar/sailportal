@@ -170,4 +170,26 @@ public interface PremadeCommentService {
 	 * @return a Set<PremadeCommentList>
 	 */
 	public Set<PremadeCommentList> retrieveAllPremadeCommentListsByRun(Run run);
+	
+	/**
+	 * Retrieves all PremadeCommentLists that have the global field set to true
+	 * @return a Set of PremadeCommentLists
+	 */
+	public Set<PremadeCommentList> retrieveAllGlobalPremadeCommentLists();
+	
+	/**
+	 * Retrieves a PremadeCommentList with the given id
+	 * @param id
+	 * @return a PremadeCommentList or null if there is no PremadeCommentList with
+	 * the given id
+	 */
+	public PremadeCommentList retrievePremadeCommentListById(Long id);
+	
+	/**
+	 * Retrieves a PremadeComment with the given id
+	 * @param id
+	 * @return a PremadeCommet or null if there is no PremadeComment with the
+	 * given id
+	 */
+	public PremadeComment retrievePremadeCommentById(Long id);
 }
