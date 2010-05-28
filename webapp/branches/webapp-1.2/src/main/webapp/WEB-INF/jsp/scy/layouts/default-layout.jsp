@@ -165,7 +165,7 @@
                 });
             }
 
-        function createLasContentBox(lasObj, lasId){
+        function createLasContentBox(lasObj, lasId, lasURL){
 
 
             var worldLeftOffset = document.getElementById("world").offsetLeft;
@@ -189,16 +189,33 @@
             s2Div.style.top = (worldTopOffset + s2y) -10 + "px";
             s2Div.style.paddingTop = "30px";
             s2Div.onclick = function(){
+                if(dijit.byId("dialog_" + lasId)){
+                    dijit.byId("dialog_" + lasId).destroy();                    
+                }
                 var theDialog =  new dijit.Dialog({
                     title: lasObj.label,
                     style: "width:500px;height:300px;",
-                    id: "dialog_" + lasObj.id,
-                    content: "<div id='dialogContents_\" + lasObj.id + \"'>Contents here</div>"
+                    id: "dialog_" + lasId,
+                    content: "<div id='dialogContents_" + lasId + "'></div>",
+                              
+
+
                 });
 
                 theDialog.show();
+                dojo.xhrGet( {
+                        url: lasURL,
+                        //handleAs: "text",
+                        load: function(data) {
+                            if(data && !data.error){
+                                document.getElementById('dialogContents_' + lasId).innerHTML = data;
+                            } else {
+                                console.error("Something went wrong when loading data:" + data.error);                                
+                            }
+                        }});
             }
             document.getElementById("world").appendChild(s2Div);
+
 
         }
         
