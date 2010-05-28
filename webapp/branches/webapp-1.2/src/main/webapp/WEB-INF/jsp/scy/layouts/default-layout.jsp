@@ -232,26 +232,138 @@
 
         }
         
-        function updateLasContentBox(){
-            var maxNumberOfParticipants = 6;
-            var rndNumber = 1;
-            var rndIconNumber = 0;
-            var userIconArray = new Array();
+        function updateLasContentBox(UserLASConnection){
+           var userIconArray = new Array();
             userIconArray[0] = "<img src='${baseUrl}/themes/scy/default/images/green_man_icon.png' />";
             userIconArray[1] = "<img src='${baseUrl}/themes/scy/default/images/brown_man_icon.png' />";
+            for(i = 0;i<UserLASConnection.length;i++){
+                var lasId = UserLASConnection[i].lasId;
+                var userName = UserLASConnection[i].userName;
+                var currentUser = new User(userName);
+                currentUser.setLASId(lasId);
+                userLasController.addUser(currentUser);
+
+           }
 
 
 
-            for(var i in lasMap){
-                rndNumber =Math.floor(Math.random()*maxNumberOfParticipants);
-                var imgStr = "";
-                for(j = 0;j<rndNumber;j++){
-                    rndIconNumber = Math.floor(Math.random()*2);
-                    imgStr += userIconArray[rndIconNumber];
-                }
-                document.getElementById(i).innerHTML = imgStr;
+        }
+
+    function UserLasController(){
+        this.lases = new Array();
+        this.users = new Array();
+    }
+
+
+
+    UserLasController.prototype.addLas = function(las){
+        //console.info("Adding las" + las);
+        this.lases.push(las);
+    }
+
+    UserLasController.prototype.init = function(){
+        setInterval("updateUserLasConnection(userLasController)", 3000);
+    }
+
+    UserLasController.prototype.setRuntimeUserInfoUrl = function(url){
+        this.runtimeUserInfoUrl = url;
+    }
+
+
+
+
+
+
+    function updateUserLasConnection(controller){
+         dojo.xhrGet({
+            url: controller.runtimeUserInfoUrl,
+             handleAs: "json",
+             load: function(data){
+                 console.info("UUUUUUSERS: " + data.model.UserLASConnection.length);
+                 for(i = 0;i<data.model.UserLASConnection.length;i++){
+                 //console.log(data.model.UserLASConnection[i].lasId);
+                 console.log("userName " + data.model.UserLASConnection[i].userName);
+                     var userFound = false;
+                     for(j = 0;j<controller.users.length;j++){
+                         if(controller.users[j].userName == data.model.UserLASConnection[i].userName){
+                             //console.info("User found. Not adding: " + data.model.UserLASConnection[i].userName) ;
+                             userFound = true;
+                             break;
+                         }
+                     }
+                     if(controller.users.length == 0 || !userFound){
+
+                        controller.addUser(new User(data.model.UserLASConnection[i].userName));
+                     }
+
+                     for(var j = 0;j<controller.users.length;j++){
+                         if(controller.users[j].userName == data.model.UserLASConnection[i].userName){
+                            controller.users[j].setLASId(data.model.UserLASConnection[i].lasId, controller);
+                         }
+                     }
+
+
+                 }
+
+             }
+         })
+
+
+
+
+
+        console.info("Updating userLasConnection....");
+        console.info("Users: " + controller.users.length);
+        for(i = 0;i<controller.users.length;i++){
+            console.info("username: " + controller.users[i].userName);
+            console.info("lasid: " + controller.users[i].LASId);
+            addUserImageToLas(controller.users[i].LASId, controller.users[i].userName);
+
+        }
+    }
+
+    UserLasController.prototype.addUser = function(user){
+        console.info("Adding user");
+        this.users.push(user);
+    }
+
+    UserLasController.prototype.updateUserLas = function(oldLasId, userId){
+        if(document.getElementById(oldLasId)){
+            if(document.getElementById("userIcon_" + userId)){
+                document.getElementById(oldLasId).removeChild(document.getElementById("userIcon_" + userId));
             }
         }
+    }
+
+    function User(userName){
+        this.userName = userName;
+        this.LASId = null;
+    }
+
+    User.prototype.setLASId = function(id, controller){
+        if(id != this.LASId){
+            if(this.LASId != null){
+                controller.updateUserLas(this.LASId, this.userName);
+            }
+        }
+        this.LASId = id;
+        addUserImageToLas(this.LASId, this.userName);
+    }
+
+    function addUserImageToLas(lasId, userId){
+        if(!document.getElementById("userIcon_" + userId)){
+            var userIcon = document.createElement("img");
+            userIcon.setAttribute("src", "${baseUrl}/themes/scy/default/images/green_man_icon.png");
+            userIcon.setAttribute("id", "userIcon_" + userId);
+
+        } else {
+            var userIcon = document.getElementById("userIcon_" + userId);
+        }
+
+        if(document.getElementById(lasId)){
+            document.getElementById(lasId).appendChild(userIcon);
+        }
+    }
 
 
 
