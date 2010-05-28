@@ -165,8 +165,17 @@
                 });
             }
 
-        function createLasContentBox(lasObj, lasId, lasURL){
-
+        function createLasContentBox(lasObj, lasId, lasURL, dialog){
+            var showInPopup;
+            if(dialog == null){
+                showInPopup = false;
+            } else {
+                if(dialog == true){
+                    showInPopup = true;
+                } else {
+                    showInPopup = false;
+                }
+            }
 
             var worldLeftOffset = document.getElementById("world").offsetLeft;
             var worldTopOffset = document.getElementById("world").offsetTop;
@@ -189,7 +198,8 @@
             s2Div.style.top = (worldTopOffset + s2y) -10 + "px";
             s2Div.style.paddingTop = "30px";
             s2Div.onclick = function(){
-                if(dijit.byId("dialog_" + lasId)){
+                if(showInPopup){
+               if(dijit.byId("dialog_" + lasId)){
                     dijit.byId("dialog_" + lasId).destroy();                    
                 }
                 var theDialog =  new dijit.Dialog({
@@ -213,6 +223,9 @@
                                 console.error("Something went wrong when loading data:" + data.error);                                
                             }
                         }});
+                } else {
+                    location.href = lasURL;
+                }
             }
             document.getElementById("world").appendChild(s2Div);
 
