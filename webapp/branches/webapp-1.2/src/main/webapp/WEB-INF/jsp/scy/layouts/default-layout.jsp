@@ -199,7 +199,7 @@
             s2Div.style.paddingTop = "30px";
             s2Div.onclick = function(){
                 if(showInPopup){
-               if(dijit.byId("dialog_" + lasId)){
+                    if(dijit.byId("dialog_" + lasId)){
                     dijit.byId("dialog_" + lasId).destroy();                    
                 }
                 var theDialog =  new dijit.Dialog({
@@ -224,7 +224,13 @@
                             }
                         }});
                 } else {
-                    location.href = lasURL;
+                    if(!userClicked){
+                        location.href = lasURL;
+                    } else {
+                        userClicked = false;
+                    }
+
+
                 }
             }
             document.getElementById("world").appendChild(s2Div);
@@ -248,6 +254,7 @@
 
 
         }
+    var userClicked = false;
 
     function UserLasController(){
         this.lases = new Array();
@@ -271,7 +278,7 @@
 
 
 
-
+    var lasRuntimeInfoUrl;
 
 
     function updateUserLasConnection(controller){
@@ -279,7 +286,7 @@
             url: controller.runtimeUserInfoUrl,
              handleAs: "json",
              load: function(data){
-                 console.info("UUUUUUSERS: " + data.model.UserLASConnection.length);
+                 console.info("Users: " + data.model.UserLASConnection.length);
                  for(i = 0;i<data.model.UserLASConnection.length;i++){
                  //console.log(data.model.UserLASConnection[i].lasId);
                  console.log("userName " + data.model.UserLASConnection[i].userName);
@@ -350,11 +357,18 @@
         addUserImageToLas(this.LASId, this.userName);
     }
 
+    function viewUser(userId){
+        userClicked = true;
+        location.href=lasRuntimeInfoUrl + "?username=" + userId;
+
+    }
+
     function addUserImageToLas(lasId, userId){
         if(!document.getElementById("userIcon_" + userId)){
             var userIcon = document.createElement("img");
             userIcon.setAttribute("src", "${baseUrl}/themes/scy/default/images/green_man_icon.png");
             userIcon.setAttribute("id", "userIcon_" + userId);
+            userIcon.setAttribute("onClick", "viewUser('" + userId + "');");
 
         } else {
             var userIcon = document.getElementById("userIcon_" + userId);
