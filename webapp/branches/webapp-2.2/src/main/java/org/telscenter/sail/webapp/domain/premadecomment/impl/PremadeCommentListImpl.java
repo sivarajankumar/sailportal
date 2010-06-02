@@ -178,4 +178,22 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
 	public boolean isGlobal() {
 		return global;
 	}
+
+	/**
+	 * Compares the id of the lists to determine if they are the same
+	 * @param premadeCommentList the other premade comment list to compare to
+	 * @see org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList#equals(org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList)
+	 * @return whether the lists have the same ids or not
+	 */
+	public boolean equals(PremadeCommentList premadeCommentList) {
+		//get this list's id
+		Long thisId = this.getId();
+		
+		//see if the ids are the same
+		if(thisId != null && thisId.equals(premadeCommentList.getId())) {
+			return true;
+		}
+		
+		return false;
+	}
 }

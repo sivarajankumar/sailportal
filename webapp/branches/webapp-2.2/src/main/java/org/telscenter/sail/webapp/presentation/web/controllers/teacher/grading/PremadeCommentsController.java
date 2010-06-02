@@ -273,7 +273,8 @@ public class PremadeCommentsController extends AbstractController {
 	}
 
 	/**
-	 * Handles retrieval of premade comments
+	 * Handles retrieval of premade comment lists. Will create a premade
+	 * comment list if the user does not have one
 	 * @param request
 	 * @param response
 	 * @return
@@ -290,6 +291,41 @@ public class PremadeCommentsController extends AbstractController {
 
 			//get all the premade comment lists owned by the signed in user
 			Set<PremadeCommentList> allPremadeCommentListsByUser = premadeCommentService.retrieveAllPremadeCommentListsByUser(signedInUser);
+			
+			//check if the user has any premade comment lists
+			if(allPremadeCommentListsByUser.size() == 0) {
+				//the user does not have any premade comment lists so we will create one for them
+				
+				String premadeCommentListLabel = "";
+				boolean isGlobal = false;
+				
+				if(signedInUserIsAdmin()) {
+					//if the signed in user is admin, we will name the list global
+					premadeCommentListLabel = "Global Premade Comment List";
+				} else {
+					//get the user name of the signed in user
+					String username = getUsernameFromUser(signedInUser);
+
+					if(username != null && !username.equals("")) {
+						//make the premade comment list name
+						premadeCommentListLabel = username + "'s Premade Comment List";
+					}
+				}
+				
+				//make the list global if the signed in user is admin
+				if(signedInUserIsAdmin()) {
+					isGlobal = true;
+				}
+				
+				/*
+				 * if the user does not have any premade comment lists we will
+				 * create one
+				 */
+				PremadeCommentList newPremadeCommentList = createPremadeCommentList(premadeCommentListLabel, signedInUser, isGlobal);
+				
+				//add the new premade comment list to the set
+				allPremadeCommentListsByUser.add(newPremadeCommentList);
+			}
 
 			//get an iterator for the user premade comment lists
 			Iterator<PremadeCommentList> userPremadeCommentListIterator = allPremadeCommentListsByUser.iterator();
@@ -317,11 +353,18 @@ public class PremadeCommentsController extends AbstractController {
 				//get a global premade comment list
 				PremadeCommentList currentPremadeCommentList = globalCommentListIterator.next();
 				
-				//get the JSON version of the list
-				JSONObject currentPremadeCommentListToJSON = convertPremadeCommentListToJSON(currentPremadeCommentList);
-				
-				//put the list into the array of all lists
-				premadeCommentListsJSONArray.put(currentPremadeCommentListToJSON);
+				/*
+				 * check if this global list is owned by this user, if it is owned by this
+				 * user we do not want to put it into the array again. if it is not owned
+				 * by this user we will put it into the array.
+				 */
+				if(!allPremadeCommentListsByUser.contains(currentPremadeCommentList)) {
+					//get the JSON version of the list
+					JSONObject currentPremadeCommentListToJSON = convertPremadeCommentListToJSON(currentPremadeCommentList);
+					
+					//put the list into the array of all lists
+					premadeCommentListsJSONArray.put(currentPremadeCommentListToJSON);
+				}
 			}
 
 			//return the JSON array of all lists to the client in string form
@@ -331,6 +374,21 @@ public class PremadeCommentsController extends AbstractController {
 		}
 
 		return null;
+	}
+	
+	/**
+	 * Create a new PremadeCommentList
+	 * @param premadeCommentListLabel the name of the list
+	 * @param signedInUser the signed in user
+	 * @param isGlobal whether the list will be global
+	 * @return the newly created PremadeCommentList
+	 */
+	private PremadeCommentList createPremadeCommentList(String premadeCommentListLabel, User signedInUser, boolean isGlobal) {
+		//create the new premade comment list
+		PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal);
+		PremadeCommentList premadeCommentList = premadeCommentService.createPremadeCommentList(premadeCommentListParameters);
+		
+		return premadeCommentList;
 	}
 
 	/**

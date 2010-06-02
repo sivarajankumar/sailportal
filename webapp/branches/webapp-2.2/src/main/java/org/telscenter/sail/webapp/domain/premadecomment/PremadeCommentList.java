@@ -62,4 +62,5 @@ public interface PremadeCommentList extends Owned, Comparable {
 	
 	public boolean isGlobal();
 	
+	public boolean equals(PremadeCommentList premadeCommentList);
 }
