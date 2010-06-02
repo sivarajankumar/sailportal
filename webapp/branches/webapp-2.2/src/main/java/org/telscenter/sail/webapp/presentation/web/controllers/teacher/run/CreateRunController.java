@@ -304,6 +304,8 @@ public class CreateRunController extends AbstractWizardFormController {
 				}
 			}
 			
+			forceCleaning = false;  //TODO: Jon remove when cleaning is stable
+			
 			model.put("currentUsername", user.getUserDetails().getUsername());
 			model.put("forceCleaning", forceCleaning);
 			model.put("isAllowedToClean", isAllowedToClean);
