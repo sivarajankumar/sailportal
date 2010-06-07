@@ -62,6 +62,7 @@ import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.controllers.CredentialManager;
+import org.telscenter.sail.webapp.presentation.web.controllers.TaggerController;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -87,6 +88,8 @@ public class AuthorProjectController extends AbstractController {
 	
 	private CurnitService curnitService;
 	
+	private TaggerController tagger;
+	
 	private final static List<String> filemanagerProjectlessRequests;
 	
 	private final static List<String> minifierProjectlessRequests;
@@ -111,7 +114,7 @@ public class AuthorProjectController extends AbstractController {
 		
 		Project project;
 		if(projectIdStr != null && !projectIdStr.equals("") && !projectIdStr.equals("none")){
-			project = projectService.getById(projectIdStr);
+			project = projectService.getProjectWithoutMetadata(Long.parseLong(projectIdStr));
 		} else {
 			project = null;
 		}
@@ -187,6 +190,9 @@ public class AuthorProjectController extends AbstractController {
 				previewParams.setHttpRestTransport(this.httpRestTransport);
 				
 				return (ModelAndView) this.projectService.previewProject(previewParams);
+			} else if(command.equals("createTag") || command.equals("updateTag") || 
+					command.equals("removeTag") || command.equals("retrieveProjectTags")){
+				return this.tagger.handleRequest(request, response);
 			}
 		}
 		
@@ -591,5 +597,12 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	public void setCurnitService(CurnitService curnitService) {
 		this.curnitService = curnitService;
+	}
+
+	/**
+	 * @param tagger the tagger to set
+	 */
+	public void setTagger(TaggerController tagger) {
+		this.tagger = tagger;
 	}
 }

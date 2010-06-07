@@ -59,8 +59,8 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
-import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
 import org.telscenter.sail.webapp.domain.project.ProjectVisitor;
+import org.telscenter.sail.webapp.domain.project.Tag;
 import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.module.impl.ModuleServiceImpl;
 
@@ -132,6 +132,15 @@ public class ProjectImpl implements Project {
     
     @Transient
     private static final String COLUMN_NAME_DATE_CREATED = "datecreated";
+    
+    @Transient
+    private static final String TAGS_JOIN_TABLE_NAME = "projects_related_to_tags";
+    
+    @Transient
+    private static final String TAGS_JOIN_COLUMN_NAME = "tag_fk";
+    
+    @Transient
+    private static final String PROJECT_JOIN_COLUMN_NAME = "project_fk";
 
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
@@ -190,6 +199,10 @@ public class ProjectImpl implements Project {
     
     @Column(name = ProjectImpl.COLUMN_NAME_DATE_CREATED)
     protected Date dateCreated;
+    
+    @ManyToMany(targetEntity = TagImpl.class, fetch = FetchType.EAGER)
+    @JoinTable(name = TAGS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name = PROJECT_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = TAGS_JOIN_COLUMN_NAME, nullable = false))
+    protected Set<Tag> tags = new TreeSet<Tag>();
     
 	/**
 	 * @see org.telscenter.sail.webapp.domain.project.Project#getCurnit()
@@ -465,5 +478,19 @@ public class ProjectImpl implements Project {
 	 */
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
+	}
+
+	/**
+	 * @return the tags
+	 */
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.Project#setTags(java.lang.String)
+	 */
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
 	}
  }

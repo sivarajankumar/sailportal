@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.service.project.impl;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
@@ -37,6 +38,7 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.domain.project.Tag;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
@@ -378,5 +380,85 @@ public class ProjectServiceImpl implements ProjectService {
 			return p2.getDateCreated().compareTo(p1.getDateCreated());
 		}
 		
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addTagToProject(java.lang.String, org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	@Transactional
+	public Long addTagToProject(String tag, Long projectId) {
+		ProjectService projectService = projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.addTagToProject(tag, projectId);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addTagToProject(org.telscenter.sail.webapp.domain.project.Tag, org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	@Transactional
+	public Long addTagToProject(Tag tag, Long projectId) {
+		ProjectService projectService = projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.addTagToProject(tag, projectId);
+	}
+
+
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#removeTagFromProject(org.telscenter.sail.webapp.domain.project.Tag, org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	@Transactional
+	public void removeTagFromProject(Long tagId, Long projectId) {
+		ProjectService projectService = projectServiceFactory.getProjectService(ProjectType.LD);
+		projectService.removeTagFromProject(tagId, projectId);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateTag(java.lang.Long, java.lang.Long, java.lang.String)
+	 */
+	@Transactional
+	public Long updateTag(Long tagId, Long projectId, String name) {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.updateTag(tagId, projectId, name);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#isAuthorizedToCreateTag(net.sf.sail.webapp.domain.User, java.lang.String)
+	 */
+	public boolean isAuthorizedToCreateTag(User user, String name) {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.isAuthorizedToCreateTag(user, name);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#projectContainsTag(java.lang.Long, java.lang.String)
+	 */
+	public boolean projectContainsTag(Long projectId, String name) {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.projectContainsTag(projectId, name);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectWithoutMetadata(java.lang.Long)
+	 */
+	public Project getProjectWithoutMetadata(Long projectId) {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.getProjectWithoutMetadata(projectId);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTagName(java.lang.String)
+	 */
+	@Transactional
+	public List<Project> getProjectListByTagName(String tagName) {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.getProjectListByTagName(tagName);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTagNames(java.util.Set)
+	 */
+	@Transactional
+	public List<Project> getProjectListByTagNames(Set<String> tagNames) {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.getProjectListByTagNames(tagNames);
 	}
 }

@@ -103,6 +103,7 @@
 	<bean id="externalProjectDao"
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateExternalProjectDao">
        <property name="sessionFactory" ref="sessionFactory" />
+       <property name="metadataDao" ref="projectMetadataDao"/>
     </bean>
 
 	<bean id="projectMetadata"
@@ -317,6 +318,7 @@
         <property name="userService" ref="userService"/>
         <property name="portalProperties" ref="portalproperties" />
         <property name="metadataDao" ref="projectMetadataDao"/>
+        <property name="tagService" ref="tagService"/>
 	</bean>
  	
     <bean id="diyProjectCommunicatorDao"
@@ -521,6 +523,20 @@
 		<property name="messageDao" ref="messageDao" />
         <property name="javaMail" ref="javaMail"/>
 		<property name="emaillisteners" ref="emaillisteners" />		
+	</bean>
+	
+	<bean id="tag" scope="prototype"
+		class="org.telscenter.sail.webapp.domain.project.impl.TagImpl">
+	</bean>
+	
+	<bean id="tagDao" scope="prototype"
+		class="org.telscenter.sail.webapp.dao.project.impl.HibernateTagDao">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean id="tagService"
+		class="org.telscenter.sail.webapp.service.tag.impl.TagServiceImpl">
+		<property name="tagDao" ref="tagDao"/>	
 	</bean>
 	    <!--      
     <bean id="rooloLORProject"

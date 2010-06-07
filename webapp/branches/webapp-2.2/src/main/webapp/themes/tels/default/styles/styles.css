@@ -1697,3 +1697,22 @@ div.replyFeedbackDiv {
 	width:25%;
 	border:1px solid black;
 }
+
+.existingTagsDiv, .createTagsDiv {
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.existingTagsDiv table {
+	border-collapse:collapse;
+}
+
+.tagMessage {
+	color:#800000;
+}
+
+.tag {
+	color:red;
+	padding-top:5px;
+	padding-bottom:5px;
+}

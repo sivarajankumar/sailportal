@@ -22,19 +22,13 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.telscenter.sail.webapp.domain.impl.ProjectInfoParameters;
-import org.telscenter.sail.webapp.domain.project.ExternalProject;
-import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.project.ExternalProjectService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -61,20 +55,6 @@ public class ManageAllProjectsController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		/*
-   		List<Project> allProjectList = projectService.getProjectList();
-   		
-   		List<Project> internalProjectList = new ArrayList<Project>();
-   		List<ExternalProject> externalProjectList = new ArrayList<ExternalProject>();
-   		for (Project project : allProjectList) {
-   			if (project instanceof ExternalProject) {
-   				externalProjectList.add((ExternalProject) project);
-   			} else {
-   				internalProjectList.add(project);
-   			}
-   		}
-   		*/
-
 		// separate calls to project services to get internal and external projects
    		List<Project> internalProjectList = projectService.getAdminProjectList();
    		List<Project> externalProjectList = externalProjectService.getProjectList();
@@ -84,14 +64,7 @@ public class ManageAllProjectsController extends AbstractController {
    		modelAndView.addObject(EXTERNAL_PROJECT_LIST_PARAM_NAME, externalProjectList);
     	return modelAndView;
 	}
-
-	/**
-	 * @return the projectService
-	 */
-	public ProjectService getProjectService() {
-		return projectService;
-	}
-
+	
 	/**
 	 * @param projectService the projectService to set
 	 */

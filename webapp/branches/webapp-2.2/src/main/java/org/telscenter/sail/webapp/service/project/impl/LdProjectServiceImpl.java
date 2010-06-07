@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2008 Regents of the University of California (Regents). Created
  * by TELS, Graduate School of Education, University of California at Berkeley.
+ * Copyright (c) 2008 Regents of the University of California (Regents). Created
  *
  * This software is distributed under the GNU Lesser General Public License, v2.
  *
@@ -22,9 +22,6 @@
  */
 package org.telscenter.sail.webapp.service.project.impl;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -32,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,7 +43,6 @@ import net.sf.sail.webapp.service.AclService;
 import net.sf.sail.webapp.service.NotAuthorizedException;
 import net.sf.sail.webapp.service.UserService;
 import net.sf.sail.webapp.service.curnit.CurnitService;
-import net.sf.sail.webapp.service.workgroup.WorkgroupService;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.acls.AlreadyExistsException;
@@ -53,9 +50,7 @@ import org.springframework.security.acls.NotFoundException;
 import org.springframework.security.acls.Permission;
 import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.security.annotation.Secured;
-import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
@@ -68,18 +63,20 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.domain.project.Tag;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
 import org.telscenter.sail.webapp.domain.project.impl.PreviewProjectParameters;
+import org.telscenter.sail.webapp.domain.project.impl.TagImpl;
 import org.telscenter.sail.webapp.presentation.util.RetrieveFile;
-import org.telscenter.sail.webapp.presentation.util.Util;
 import org.telscenter.sail.webapp.presentation.util.http.Connector;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
+import org.telscenter.sail.webapp.service.tag.TagService;
 
 /**
  * @author patrick lawler
@@ -102,11 +99,11 @@ public class LdProjectServiceImpl implements ProjectService {
 	
 	private AclService<Project> aclService;
 	
-	private WorkgroupService workgroupService;
-	
 	private UserService userService;
 	
 	private RunService runService;
+	
+	private TagService tagService;
 	
 	private ProjectMetadataDao<ProjectMetadata> metadataDao;
 	
@@ -450,13 +447,6 @@ public class LdProjectServiceImpl implements ProjectService {
 	}
 
 	/**
-	 * @param workgroupService the workgroupService to set
-	 */
-	public void setWorkgroupService(WorkgroupService workgroupService) {
-		this.workgroupService = workgroupService;
-	}
-
-	/**
 	 * @param userService the userService to set
 	 */
 	public void setUserService(UserService userService) {
@@ -709,8 +699,151 @@ public class LdProjectServiceImpl implements ProjectService {
 		this.metadataDao = metadataDao;
 	}
 
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#sortProjectsByDateCreated(java.util.List)
+	 */
 	public void sortProjectsByDateCreated(List<Project> projectList) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addTagToProject(org.telscenter.sail.webapp.domain.project.Tag, org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	@Transactional
+	public Long addTagToProject(Tag tag, Long projectId){
+		Project project = null;
+		
+		/* retrieve the project */
+		try{
+			project = this.projectDao.getById(projectId);
+		} catch(ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		/* if tag is not from database, we either want to retrieve one that
+		 * has the same name or create one */
+		if(!this.tagService.isFromDatabase(tag)){
+			tag = this.tagService.createOrGetTag(tag.getName());
+		}
+		
+		/* add the tag and save the project */
+		project.getTags().add(tag);
+		this.projectDao.save(project);
+		
+		return (Long) tag.getId();
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#addTagToProject(java.lang.String, org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	public Long addTagToProject(String tag, Long projectId) {
+		return this.addTagToProject(this.tagService.createOrGetTag(tag), projectId);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#removeTagFromProject(java.lang.String, org.telscenter.sail.webapp.domain.project.Project)
+	 */
+	@Transactional
+	public void removeTagFromProject(Long tagId, Long projectId) {
+		Tag tag = this.tagService.getTagById(tagId);
+		Project project = null;
+		
+		try {
+			project = this.projectDao.getById(projectId);
+		} catch(ObjectNotFoundException e){
+			e.printStackTrace();
+		}
+		
+		if(tag != null && project != null){
+			project.getTags().remove(tag);
+			this.projectDao.save(project);
+			this.tagService.removeIfOrphaned((Long)tag.getId());
+		}
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#updateTag(java.lang.Long, java.lang.Long, java.lang.String)
+	 */
+	@Transactional
+	public Long updateTag(Long tagId, Long projectId, String name) {
+		Tag currentTag = this.tagService.getTagById(tagId);
+		
+		/* if the current tag's name is equivalent of the given name to change
+		 * to, then we do not need to do anything, so just return the currentTag's id */
+		if(currentTag.getName().toLowerCase().equals(name.toLowerCase())){
+			return (Long) currentTag.getId();
+		}
+		
+		/* remove the current tag */
+		this.removeTagFromProject(tagId, projectId);
+		
+		/* add a tag with the given name and return its id */
+		return this.addTagToProject(name, projectId);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#isAuthorizedToCreateTag(net.sf.sail.webapp.domain.User, java.lang.String)
+	 */
+	public boolean isAuthorizedToCreateTag(User user, String name) {
+		if(name.toLowerCase().equals("library") && !user.getUserDetails().hasGrantedAuthority(UserDetailsService.ADMIN_ROLE)){
+			return false;
+		}
+		
+		return true;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#projectContainsTag(java.lang.Long, java.lang.String)
+	 */
+	public boolean projectContainsTag(Long projectId, String name) {
+		Project project = null;
+		
+		try {
+			project = this.getById(projectId);
+			for(Tag t : project.getTags()){
+				if(t.getName().toLowerCase().equals(name.toLowerCase())){
+					return true;
+				}
+			}
+		} catch(ObjectNotFoundException e){
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTagName(java.lang.String)
+	 */
+	@Transactional
+	public List<Project> getProjectListByTagName(String tagName) {
+		Set<String> tagNames = new TreeSet<String>();
+		tagNames.add(tagName);
+		return this.getProjectListByTagNames(tagNames);
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectListByTagNames(java.util.Set)
+	 */
+	@Transactional
+	public List<Project> getProjectListByTagNames(Set<String> tagNames) {
+		return this.projectDao.getProjectListByTagNames(tagNames);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectWithoutMetadata(java.lang.Long)
+	 */
+	public Project getProjectWithoutMetadata(Long projectId){
+		Project project = this.projectDao.getProjectWithoutMetadata(projectId);
+		project.populateProjectInfo();
+		return project;
+	}
+	
+	/**
+	 * @param tagService the tagService to set
+	 */
+	public void setTagService(TagService tagService) {
+		this.tagService = tagService;
 	}
 }

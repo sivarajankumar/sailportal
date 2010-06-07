@@ -165,6 +165,7 @@
 		<property name="httpRestTransport" ref="httpRestTransport" />
 		<property name="curnitService" ref="curnitService"/>
 		<property name="portalProperties" ref="portalproperties" />
+		<property name="tagger" ref="taggerController"/>
 	</bean>
 	
 	
@@ -1469,5 +1470,10 @@
     <bean id="editRunController"
     	class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.run.EditRunController">
     	<property name="runService" ref="runService"/>
+    </bean>
+    
+    <bean id="taggerController"
+    	class="org.telscenter.sail.webapp.presentation.web.controllers.TaggerController">
+    	<property name="projectService" ref="projectService"/>
     </bean>
 </beans>

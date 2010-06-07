@@ -35,8 +35,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -202,14 +200,12 @@ public final class CredentialManager extends AbstractController{
 		/* if there is a project id parameter, set access level to the project dir */
 		if(idStr != null && !idStr.equals("") && !idStr.equals("none")){
 			try{
-				Project project = projectService.getById(Long.parseLong(idStr));
+				Project project = projectService.getProjectWithoutMetadata(Long.parseLong(idStr));
 				String projectPath = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 				if(projectPath != null){
 					File accessFile = new File(accessPath + projectPath);
 					accessPath = accessFile.getParentFile().getCanonicalPath();
 				}
-			} catch(ObjectNotFoundException e){
-				e.printStackTrace();
 			} catch(IOException e){
 				e.printStackTrace();
 			}

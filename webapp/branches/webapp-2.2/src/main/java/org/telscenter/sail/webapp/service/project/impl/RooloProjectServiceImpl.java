@@ -59,6 +59,7 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.domain.project.Tag;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
@@ -459,4 +460,54 @@ public class RooloProjectServiceImpl implements ProjectService{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectWithoutMetadata(java.lang.Long)
+	 */
+	public Project getProjectWithoutMetadata(Long projectId){
+		Project project = this.projectDao.getProjectWithoutMetadata(projectId);
+		project.populateProjectInfo();
+		return project;
+	}
+
+	public Long addTagToProject(Tag tag, Long projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Long addTagToProject(String tag, Long projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Project> getProjectListByTagName(String tagName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Project> getProjectListByTagNames(Set<String> tagNames) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean isAuthorizedToCreateTag(User user, String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean projectContainsTag(Long projectId, String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void removeTagFromProject(Long tagId, Long projectId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Long updateTag(Long tagId, Long projectId, String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

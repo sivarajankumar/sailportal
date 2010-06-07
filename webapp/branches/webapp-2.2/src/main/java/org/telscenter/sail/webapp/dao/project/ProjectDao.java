@@ -23,10 +23,12 @@
 package org.telscenter.sail.webapp.dao.project;
 
 import java.util.List;
+import java.util.Set;
 
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.Tag;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.SimpleDao;
@@ -99,4 +101,23 @@ public interface ProjectDao<T extends Project> extends SimpleDao<T> {
 	 * @return <code>List<Project></code>
 	 */
 	public List<T> getProjectList(String query);
+	
+	/**
+	 * Given a <code>Set<String></code> set of tag names, returns a <code>List<Project></code>
+	 * list of projects from the data store that contain all of those tags.
+	 * 
+	 * @param Set<String> - set of tags
+	 * @return List<Project> - list of projects
+	 */
+	public List<T> getProjectListByTagNames(Set<String> tagNames);
+	
+	/**
+	 * Retrieves and returns a <code>Project</code> from the data store without
+	 * populating its metadata. This method should only be called when the use of
+	 * the project will not require metadata.
+	 * 
+	 * @param Long - id
+	 * @return Project - project
+	 */
+	public Project getProjectWithoutMetadata(Long projectId);
 }

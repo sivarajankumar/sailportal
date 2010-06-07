@@ -276,6 +276,7 @@
 				/admin/portal/manageportal.html=managePortalController
 				/admin/enableaccount.html=enableAccountController
 				/admin/runstats.html=runStatisticsController
+				/admin/tagger.html=taggerController
 				/newsarchive.html=listNewsItemsController
 				/teacher/management/changestudentperiod.html=changeStudentPeriodController
 				<!-- /repository/retrieveotml.html=retrieveOtmlController  -->

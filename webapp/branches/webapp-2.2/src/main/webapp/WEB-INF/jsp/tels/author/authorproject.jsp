@@ -1,7 +1,7 @@
 <html>
 <head>
 
-<script type='text/javascript'><!--
+<script type='text/javascript'>
 var portalAuthorUrl = "${portalAuthorUrl}";
 
 function notifyFatal(type,args,obj){
@@ -17,7 +17,7 @@ function loaded(){
 	window.frames['authorfrm'].eventManager.subscribe('notifyCleaningComplete', notifyCleaningComplete);
 	window.frames['authorfrm'].eventManager.fire('portalMode', ["${portalAuthorUrl}", "${curriculumBaseDir}", "${command}", "${projectId}"]);
 };
---></script>
+</script>
 
 </head>
 

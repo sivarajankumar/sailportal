@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.service.project;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
@@ -38,6 +39,7 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.domain.project.Tag;
 import org.telscenter.sail.webapp.domain.project.impl.AuthorProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchProjectParameters;
 import org.telscenter.sail.webapp.domain.project.impl.LaunchReportParameters;
@@ -365,4 +367,98 @@ public interface ProjectService {
 	 * @param projectList
 	 */
 	public void sortProjectsByDateCreated(List<Project> projectList);
+	
+	/**
+	 * Given a <code>String</code> tag name, returns a <code>List<Project></code>
+	 * list of projects with that tag.
+	 * 
+	 * @param String - tagName
+	 * @return List<Project> - list of projects
+	 */
+	@Transactional
+	public List<Project> getProjectListByTagName(String tagName);
+	
+	/**
+	 * Given a <code>Set<String></code> set of tag names, returns a
+	 * <code>List<Project></code> list of projects with all of the tag names.
+	 * 
+	 * @param Set<String> - set of tagNames
+	 * @return List<Project> - list of projects
+	 */
+	@Transactional
+	public List<Project> getProjectListByTagNames(Set<String> tagNames);
+	
+	/**
+	 * Given a <code>Tag</code> tag and a <code>Long</code> project id
+	 * adds the given tag to the project.
+	 * 
+	 * @param Tag - tag
+	 * @param Project - project
+	 */
+	@Transactional
+	public Long addTagToProject(Tag tag, Long projectId);
+	
+	/**
+	 * Given a <code>String</code> and a <code>Project</code> adds the
+	 * tag to the project.
+	 * 
+	 * @param String - tag
+	 * @param String - project
+	 */
+	@Transactional
+	public Long addTagToProject(String tag, Long projectId);
+	
+	/**
+	 * Given a <code>Tag</code> and a <code>Project</code>, removes the
+	 * tag from the project.
+	 * 
+	 * @param Tag - tag
+	 * @param Project - project
+	 */
+	@Transactional
+	public void removeTagFromProject(Long tagId, Long projectId);
+	
+	/**
+	 * Given a <code>Long</code> tag id, a <code>Long</code> project id and
+	 * a <code>String</code> name, updates that project tag to that name, returning
+	 * the resulting <code>Long</code> tag Id.
+	 * 
+	 * @param Long - tagId
+	 * @param Long - projectId
+	 * @param String - name
+	 * @return Long - tag id
+	 */
+	public Long updateTag(Long tagId, Long projectId, String name);
+	
+	/**
+	 * Given a <code>Long</code> project id and a <code>String</code> tag
+	 * name, returns <code>boolean</code> true if the project contains a 
+	 * tag with that name, false otherwise.
+	 * 
+	 * @param Long - projectId
+	 * @param String - name
+	 * @return boolean
+	 */
+	public boolean projectContainsTag(Long projectId, String name);
+	
+	/**
+	 * Given a <code>User</code> user and a <code>String</code> tag name,
+	 * returns true if that user is authorized to create a tag with that
+	 * name, returns false otherwise.
+	 * 
+	 * @param User - user
+	 * @param String - name
+	 * @return boolean
+	 */
+	public boolean isAuthorizedToCreateTag(User user, String name);
+	
+	/**
+	 * Retrieves and returns a <code>Project</code> from the data store without
+	 * populating its metadata. This method should only be called when the use of
+	 * the project will not require metadata.
+	 * 
+	 * @param Long - id
+	 * @return Project - project
+	 */
+	public Project getProjectWithoutMetadata(Long projectId);
 }

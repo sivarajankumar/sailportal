@@ -12,15 +12,26 @@
     
 <script type="text/javascript" src="../javascript/tels/general.js"></script>
 <script type="text/javascript" src="../javascript/tels/effects.js"></script>
+<script type="text/javascript" src="../javascript/tels/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="../javascript/tels/projecttags.js"></script>
 
     
 <title><spring:message code="application.title" /></title>
 
 <script type='text/javascript' src='/webapp/dwr/interface/ChangePasswordParametersValidatorJS.js'></script>
 <script type='text/javascript' src='/webapp/dwr/engine.js'></script>
-<script>
-//alert('hi');
-//alert(ChangePasswordParametersValidatorJS.test('hi'))
+<script type='text/javascript'>
+<c:forEach var='project' items="${internal_project_list}">
+	<c:forEach var='tag' items="${project.tags}">
+		tagNameMap['${tag.id}'] = '${tag.name}';
+	</c:forEach>
+</c:forEach>
+
+<c:forEach var='project' items="${external_project_list}">
+	<c:forEach var='tag' items="${project.tags}">
+		tagNameMap['${tag.id}'] = '${tag.name}';
+	</c:forEach>
+</c:forEach>
 </script>
 
 </head>
@@ -46,6 +57,7 @@
 		<th> Project Id</th>
 		<th> IsCurrent?</th>
 		<th> familytag</th>
+		<th> Tags </th>
 		<th> Edit Project with Authoring tool</th>
 		<th> Upload Otml File</th>
 		<th> Edit Project Metadata</th>		
@@ -57,6 +69,28 @@
 		<td>${project.id }</td>
 		<td>${project.current }</td>
 		<td>${project.familytag} (${project.projectType})</td>
+		<td>
+			<div class="existingTagsDiv">
+				<div>Existing Tags</div>
+				<div id="existingTagsDiv_${project.id}">
+					<c:forEach var="tag" items="${project.tags}">
+						<table id="tagTable_${project.id}_${tag.id}">
+							<tbody>
+								<tr>
+									<td><input id="tagEdit_${project.id}_${tag.id}" type='text' value='${tag.name}'/></td>
+									<td><input id="updateTag_${project.id}_${tag.id}" type="button" value="update" onclick="tagChanged($(this).attr('id'))"/><br/><input id="removeTag_${project.id}_${tag.id}" type='button' value='remove' onclick="removeTag($(this).attr('id'))"/></td>
+								</tr>
+							</tbody>
+						</table>
+					</c:forEach>
+				</div>
+			</div>
+			<div class="createTagsDiv">
+				<div id='createTagMsgDiv_${project.id}' class='tagMessage'></div>
+				<div>Create A New Tag</div>
+				<div><input id="createTagInput_${project.id}" type="text"/><input type="button" value="create" onclick="createTag('${project.id}')"/></div>
+			</div>
+		</td>
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
 		<c:choose>
 		    	<c:when test="${project.projectType == potrunk}">  <!--  if this is a POTrunk project, we can get the otml -->

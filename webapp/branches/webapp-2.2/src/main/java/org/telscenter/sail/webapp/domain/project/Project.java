@@ -199,4 +199,14 @@ public interface Project extends Persistable {
 	 * @param <code>Date</code> date created
 	 */
 	public void setDateCreated(Date datecreated);
+	
+	/**
+	 * @return the tags
+	 */
+	public Set<Tag> getTags();
+	
+	/**
+	 * @param tags the tags to set
+	 */
+	public void setTags(Set<Tag> tags);
 }

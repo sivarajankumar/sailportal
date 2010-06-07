@@ -23,11 +23,12 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.library;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +39,6 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
@@ -63,7 +63,10 @@ public class TelsProjectLibraryController extends AbstractController{
 			HttpServletResponse response) throws Exception {
 		
 		 User user = ControllerUtil.getSignedInUser();
-		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
+		 Set<String> tagNames = new TreeSet<String>();
+		 tagNames.add("tels");
+		 tagNames.add("library");
+		 List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 
 		 
@@ -71,23 +74,25 @@ public class TelsProjectLibraryController extends AbstractController{
 		Map<Long,String> urlMap = new TreeMap<Long,String>();
 		Map<Long,String> filenameMap = new TreeMap<Long,String>();
 		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
-		 for (Project p: projectList) {
-			 if (p.isCurrent()){
-				 currentProjectList.add(p);
-				 String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-				 	if(url != null && url != ""){
-						int ndx = url.lastIndexOf("/");
-						if(ndx == -1){
-							urlMap.put((Long) p.getId(), curriculumBaseDir);
-							filenameMap.put((Long) p.getId(), url);
-						} else {
-							urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
-							filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+		if(projectList != null){
+			 for (Project p: projectList) {
+				 if (p.isCurrent()){
+					 currentProjectList.add(p);
+					 String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+					 	if(url != null && url != ""){
+							int ndx = url.lastIndexOf("/");
+							if(ndx == -1){
+								urlMap.put((Long) p.getId(), curriculumBaseDir);
+								filenameMap.put((Long) p.getId(), url);
+							} else {
+								urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+								filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+							}
 						}
-					}
-				 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+					 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+				 }
 			 }
-		 }
+		}
 		 
 		 ModelAndView modelAndView = new ModelAndView();
 	     modelAndView.addObject("projectList", currentProjectList);

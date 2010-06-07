@@ -23,7 +23,9 @@
 package org.telscenter.sail.webapp.dao.project.impl;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
@@ -34,7 +36,10 @@ import org.telscenter.sail.webapp.dao.project.ProjectMetadataDao;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
+import org.telscenter.sail.webapp.domain.project.Tag;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectImpl;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * @author Hiroki Terashima
@@ -155,5 +160,35 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 	 */
 	public void setMetadataDao(ProjectMetadataDao metadataDao) {
 		this.metadataDao = metadataDao;
+	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#getProjectListByTags(java.util.Set)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Project> getProjectListByTagNames(Set<String> tagNames) {
+		String tagString = "";
+		int counter = 0;
+		for(String name : tagNames){
+			tagString += "'" + name + "',";
+			counter ++;
+		}
+		tagString = tagString.substring(0, tagString.length() - 1);
+		
+		String q = "select project from ProjectImpl project inner join project.tags tag where tag.name in (" + tagString + ")" +
+			"group by project.id having count(project.id)=" + counter;
+		
+		return this.getHibernateTemplate().find(q);
+	}
+	
+	/**
+	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#getProjectWithoutMetadata(java.lang.Long)
+	 */
+	public Project getProjectWithoutMetadata(Long projectId){
+		try {
+			return (Project) this.getHibernateTemplate().get(this.getDataObjectClass(),  projectId);
+		} catch (NumberFormatException e) {
+			return null;
+		}
 	}
 }
