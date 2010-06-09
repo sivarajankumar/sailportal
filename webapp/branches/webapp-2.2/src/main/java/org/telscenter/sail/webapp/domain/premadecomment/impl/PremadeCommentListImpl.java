@@ -40,8 +40,6 @@ import javax.persistence.Transient;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.impl.UserImpl;
 
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.impl.RunImpl;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeComment;
 import org.telscenter.sail.webapp.domain.premadecomment.PremadeCommentList;
 
@@ -86,10 +84,6 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
     @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true)
     private User owner = null;
 
-    @OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true)
-    private Run run = null;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
@@ -137,20 +131,6 @@ public class PremadeCommentListImpl implements PremadeCommentList, Comparable {
 	 */
 	public void setOwner(User owner) {
 		this.owner = owner;
-	}
-
-	/**
-	 * @return the run
-	 */
-	public Run getRun() {
-		return run;
-	}
-
-	/**
-	 * @param run the run to set
-	 */
-	public void setRun(Run run) {
-		this.run = run;
 	}
 
 	/**

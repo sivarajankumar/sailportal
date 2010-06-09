@@ -22,13 +22,9 @@
  */
 package org.telscenter.sail.webapp.domain.premadecomment;
 
-import java.util.List;
 import java.util.Set;
 
 import net.sf.sail.webapp.domain.User;
-
-import org.telscenter.sail.webapp.domain.Run;
-import org.telscenter.sail.webapp.domain.owned.Owned;
 
 /**
  * An Owned object with the added information of a List of
@@ -36,7 +32,7 @@ import org.telscenter.sail.webapp.domain.owned.Owned;
  * 
  * @author patrick lawler
  */
-public interface PremadeCommentList extends Owned, Comparable {
+public interface PremadeCommentList extends Comparable {
 
 	/**
 	 * @return a list of PremadeComments
@@ -52,9 +48,11 @@ public interface PremadeCommentList extends Owned, Comparable {
 	
 	public String getLabel();
 	
+	public void setLabel(String label);
+	
 	public User getOwner();
 	
-	public Run getRun();
+	public void setOwner(User owner);
 	
 	public Long getId();
 

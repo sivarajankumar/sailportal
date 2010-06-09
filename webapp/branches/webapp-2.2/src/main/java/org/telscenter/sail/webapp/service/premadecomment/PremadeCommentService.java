@@ -67,17 +67,6 @@ public interface PremadeCommentService {
 		throws ObjectNotFoundException;
 	
 	/**
-	 * Updates the label for a PremadeComment using its id
-	 * and new label.
-	 * 
-	 * @param commentID <code>Long</code>
-	 * @param newLabel <code>String</code>
-	 * @return updated PremadeComment
-	 */
-	public PremadeComment updatePremadeCommentLabel(Long premadeCommentID, String newLabel)
-		throws ObjectNotFoundException;
-	
-	/**
 	 * Retrieves all PremadeComments from the data store.
 	 * 
 	 * @return a Set<PremadeComment>
@@ -91,14 +80,6 @@ public interface PremadeCommentService {
 	 * @return a Set<PremadeComment>
 	 */
 	public Set<PremadeComment> retrieveAllPremadeCommentsByUser(User user);
-	
-	/**
-	 * Retrieves all PremadeComments associated with a given run.
-	 * 
-	 * @param run <code>Run</code>
-	 * @return a Set<PremadeComment>
-	 */
-	public Set<PremadeComment> retrieveAllPremadeCommentsByRun(Run run);
 	
 	/**
 	 * Creates a new PremadeCommentList in the data store.

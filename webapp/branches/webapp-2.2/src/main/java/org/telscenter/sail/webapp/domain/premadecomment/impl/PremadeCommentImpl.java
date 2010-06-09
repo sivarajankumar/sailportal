@@ -65,9 +65,6 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     public static final String COLUMN_NAME_OWNER = "owner";
     
     @Transient
-    public static final String COLUMN_NAME_RUN = "run";
-    
-    @Transient
     public static final String COLUMN_NAME_GLOBAL = "global";
     
     @Transient
@@ -76,19 +73,9 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     @Column(name = PremadeCommentImpl.COLUMN_NAME_COMMENT, nullable = false)
     private String comment;
     
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_LABEL, nullable=true)
-    private String label;
-    
     @OneToOne(targetEntity = UserImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true)
     private User owner = null;
-
-    @OneToOne(targetEntity = RunImpl.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_RUN, nullable = true)
-    private Run run = null;
-    
-    @Column(name = PremadeCommentImpl.COLUMN_NAME_GLOBAL, nullable=true)
-    private boolean global = false;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -109,20 +96,6 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
 	}
 
 	/**
-	 * @return the label
-	 */
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * @param label the label to set
-	 */
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	/**
 	 * @return the owner
 	 */
 	public User getOwner() {
@@ -134,20 +107,6 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
 	 */
 	public void setOwner(User owner) {
 		this.owner = owner;
-	}
-
-	/**
-	 * @return the run
-	 */
-	public Run getRun() {
-		return run;
-	}
-
-	/**
-	 * @param run the run to set
-	 */
-	public void setRun(Run run) {
-		this.run = run;
 	}
 
 	/**
@@ -164,15 +123,8 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
 		this.id = id;
 	}
 
-	public int compareTo(PremadeComment premadeComment){
-		return this.getLabel().compareTo(premadeComment.getLabel());
-	}
-
-	public void setGlobal(boolean global) {
-		this.global = global;
-	}
-
-	public boolean isGlobal() {
-		return global;
+	public int compareTo(PremadeComment o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

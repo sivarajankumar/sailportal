@@ -55,10 +55,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 	public PremadeComment createPremadeComment (PremadeCommentParameters param){
 		PremadeComment premadeComment = new PremadeCommentImpl();
 		premadeComment.setComment(param.getComment());
-		premadeComment.setLabel(param.getLabel());
 		premadeComment.setOwner(param.getOwner());
-		premadeComment.setRun(param.getRun());
-		premadeComment.setGlobal(param.isGlobal());
 		
 		premadeCommentDao.save(premadeComment);
 		return premadeComment;
@@ -85,19 +82,6 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 			throw e;
 		}
 	}
-
-	@Transactional()
-	public PremadeComment updatePremadeCommentLabel (Long premadeCommentId, String newLabel)
-		throws ObjectNotFoundException{
-		try{
-			PremadeComment premadeComment = premadeCommentDao.getById(premadeCommentId);
-			premadeComment.setLabel(newLabel);
-			premadeCommentDao.save(premadeComment);
-			return premadeComment;
-		} catch (ObjectNotFoundException e) {
-			throw e;
-		}	
-	}
 	
 	@Transactional()
 	public Set<PremadeComment> retrieveAllPremadeComments(){
@@ -116,18 +100,10 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 	}
 	
 	@Transactional()
-	public Set<PremadeComment> retrieveAllPremadeCommentsByRun(Run run){
-		TreeSet<PremadeComment> returnSet = new TreeSet<PremadeComment>();
-		returnSet.addAll(premadeCommentDao.getPremadeCommentsByRun(run));
-		return returnSet;
-	}
-	
-	@Transactional()
 	public PremadeCommentList createPremadeCommentList(PremadeCommentListParameters param){
 		PremadeCommentList premadeCommentList = new PremadeCommentListImpl();
-		premadeCommentList.setLabel(param.getLabel());
 		premadeCommentList.setOwner(param.getOwner());
-		premadeCommentList.setRun(param.getRun());
+		premadeCommentList.setLabel(param.getLabel());
 		premadeCommentList.setGlobal(param.isGlobal());
 		premadeCommentList.setPremadeCommentList(param.getList());
 		

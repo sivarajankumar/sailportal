@@ -471,13 +471,11 @@ public class PremadeCommentsController extends AbstractController {
 			String premadeCommentComment = premadeComment.getComment();
 			User premadeCommentOwner = premadeComment.getOwner();
 			String premadeCommentOwnerUsername = getUsernameFromUser(premadeCommentOwner);
-			boolean premadeCommentGlobal = premadeComment.isGlobal();
 
 			//put the attributes into the JSON object
 			premadeCommentJSON.put("id", premadeCommentId);
 			premadeCommentJSON.put("comment", premadeCommentComment);
 			premadeCommentJSON.put("owner", premadeCommentOwnerUsername);
-			premadeCommentJSON.put("global", premadeCommentGlobal);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

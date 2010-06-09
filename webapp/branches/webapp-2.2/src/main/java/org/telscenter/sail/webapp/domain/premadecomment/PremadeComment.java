@@ -22,15 +22,21 @@
  */
 package org.telscenter.sail.webapp.domain.premadecomment;
 
-import org.telscenter.sail.webapp.domain.owned.Owned;
+import net.sf.sail.webapp.domain.User;
 
 /**
  * An Owned object with the added information of 'comment'
  * 
  * @author patrick lawler
  */
-public interface PremadeComment extends Owned{
+public interface PremadeComment {
 
+	public User getOwner();
+	
+	public void setOwner(User owner);
+	
+	public Long getId();
+	
 	/**
 	 * @return the comment
 	 */
@@ -40,8 +46,4 @@ public interface PremadeComment extends Owned{
 	 * @param comment the comment to set
 	 */
 	public void setComment(String comment);
-	
-	public boolean isGlobal();
-	
-	public void setGlobal(boolean global);
 }

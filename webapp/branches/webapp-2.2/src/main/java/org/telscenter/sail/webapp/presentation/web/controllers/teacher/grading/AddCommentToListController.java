@@ -38,7 +38,7 @@ public class AddCommentToListController extends AbstractController {
 		//create a premade comment with the text of the new comment
 		PremadeComment premadeComment = new PremadeCommentImpl();
 		premadeComment.setComment(comment);
-		premadeComment.setLabel(comment);
+		//premadeComment.setLabel(comment);
 		
 		//add the new comment to the existing list with listId
 		premadeCommentService.addPremadeCommentToList(new Long(listId), premadeComment);
