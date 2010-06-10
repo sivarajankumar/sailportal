@@ -305,7 +305,10 @@
 
                      for(var j = 0;j<controller.users.length;j++){
                          if(controller.users[j].userName == data.model.UserLASConnection[i].userName){
+                            controller.users[j].setPedPlanId(data.model.UserLASConnection[i].pedagogicalPlanId);
+                             console.info("PEDPLAN: " + data.model.UserLASConnection[i].pedagogicalPlanId);
                             controller.users[j].setLASId(data.model.UserLASConnection[i].lasId, controller);
+
                          }
                      }
 
@@ -324,7 +327,7 @@
         for(i = 0;i<controller.users.length;i++){
             console.info("username: " + controller.users[i].userName);
             console.info("lasid: " + controller.users[i].LASId);
-            addUserImageToLas(controller.users[i].LASId, controller.users[i].userName);
+            addUserImageToLas(controller.users[i].LASId, controller.users[i].userName, controller.users[i].pedPlanId);
 
         }
     }
@@ -345,6 +348,7 @@
     function User(userName){
         this.userName = userName;
         this.LASId = null;
+        this.pedPlanId = null;
     }
 
     User.prototype.setLASId = function(id, controller){
@@ -354,21 +358,25 @@
             }
         }
         this.LASId = id;
-        addUserImageToLas(this.LASId, this.userName);
+        addUserImageToLas(this.LASId, this.userName, this.pedPlanId);
     }
 
-    function viewUser(userId){
+    User.prototype.setPedPlanId = function(id){
+        this.pedPlanId = id;        
+    }
+
+    function viewUser(userId, pedPlanId){
         userClicked = true;
-        location.href=lasRuntimeInfoUrl + "?username=" + userId;
+        location.href=lasRuntimeInfoUrl + "?username=" + userId + "&pedplanid=" + pedPlanId;
 
     }
 
-    function addUserImageToLas(lasId, userId){
+    function addUserImageToLas(lasId, userId, pedPlanId){
         if(!document.getElementById("userIcon_" + userId)){
             var userIcon = document.createElement("img");
             userIcon.setAttribute("src", "${baseUrl}/themes/scy/default/images/green_man_icon.png");
             userIcon.setAttribute("id", "userIcon_" + userId);
-            userIcon.setAttribute("onClick", "viewUser('" + userId + "');");
+            userIcon.setAttribute("onClick", "viewUser('" + userId + "', '" + pedPlanId + "');");
 
         } else {
             var userIcon = document.getElementById("userIcon_" + userId);
@@ -379,7 +387,16 @@
         }
     }
 
-
+    function loadPage(url, container){
+         dojo.xhrGet({
+             url: url,
+             load: function(responseObject, ioArgs) {
+                    if(document.getElementById('currentActivityContainer')){
+                        document.getElementById('currentActivityContainer').innerHTML = responseObject;
+                    }
+                }
+             });
+    }
 
 	</script>
 	<title><tiles:insertAttribute name="title" defaultValue=""/></title>
