@@ -41,19 +41,22 @@ public class PremadeCommentParameters {
 	private Run run = null;
 	
 	private boolean global = false;
+	
+	private long listPosition = 0;
 
 	public PremadeCommentParameters() {
 
 	}
 	
 	public PremadeCommentParameters(String comment, User owner) {
-		this(comment, owner, false);
+		this(comment, owner, false, 0);
 	}
 	
-	public PremadeCommentParameters(String comment, User owner, boolean global) {
+	public PremadeCommentParameters(String comment, User owner, boolean global, long listPosition) {
 		this.comment = comment;
 		this.owner = owner;
 		this.global = global;
+		this.listPosition = listPosition;
 	}
 	
 	/**
@@ -120,5 +123,12 @@ public class PremadeCommentParameters {
 		return global;
 	}
 
-	
+
+	public long getListPosition() {
+		return listPosition;
+	}
+
+	public void setListPosition(long listPosition) {
+		this.listPosition = listPosition;
+	}	
 }

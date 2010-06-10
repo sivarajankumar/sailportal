@@ -92,7 +92,7 @@ public class PremadeCommentsController extends AbstractController {
 		try {
 			//get the action
 			String premadeCommentAction = request.getParameter("premadeCommentAction");
-			
+
 			//get the premade comment list id
 			String premadeCommentListId = request.getParameter("premadeCommentListId");
 			if(premadeCommentListId != null && premadeCommentListId.equals("null")) {
@@ -106,7 +106,7 @@ public class PremadeCommentsController extends AbstractController {
 				//if the value is 'null' set it to null
 				premadeCommentListLabel = null;
 			}
-			
+
 			//get the premade comment id
 			String premadeCommentId = request.getParameter("premadeCommentId");
 			if(premadeCommentId != null && premadeCommentId.equals("null")) {
@@ -120,16 +120,24 @@ public class PremadeCommentsController extends AbstractController {
 				//if the value is null or 'null' set it to empty string
 				premadeComment = "";
 			}
-			
+
 			//the default isGlobal value
 			boolean isGlobal = false;
-			
+
 			//get whether the object (premade comment or premade comment list) should be global
 			String isGlobalString = request.getParameter("isGlobal");
 			if(isGlobalString != null) {
 				isGlobal = Boolean.parseBoolean(isGlobalString);
 			}
-			
+
+			//get the premade comment list positions
+			String premadeCommentListPositions = request.getParameter("premadeCommentListPositions");
+			if(premadeCommentListPositions == null || (premadeCommentListPositions != null && premadeCommentListPositions.equals("null"))) {
+				//if the value is null or 'null' set it to empty string
+				premadeCommentListPositions = "";
+			}
+
+
 			/*
 			 * this is a security check to see if signed in user is admin since
 			 * the only user that can create or modify global premade comment
@@ -142,10 +150,10 @@ public class PremadeCommentsController extends AbstractController {
 				 */
 				isGlobal = false;
 			}
-			
+
 			//get the User object of the signed in user
 			User signedInUser = ControllerUtil.getSignedInUser();
-			
+
 			//PremadeComment premadeCommentReturn = null;
 			String returnValue = "";
 
@@ -168,30 +176,32 @@ public class PremadeCommentsController extends AbstractController {
 				//error
 			} else if(premadeCommentAction.equals("addComment")) {
 				//create a new comment and put it into an existing list
-				
-				if(premadeCommentListId != null) {
-					//create a new comment
-					PremadeCommentParameters premadeCommentParameters = new PremadeCommentParameters(premadeComment, signedInUser, isGlobal); 
-					PremadeComment newPremadeComment = premadeCommentService.createPremadeComment(premadeCommentParameters);
 
+				if(premadeCommentListId != null) {
 					//retrieve the existing list
 					PremadeCommentList premadeCommentList = premadeCommentService.retrievePremadeCommentListById(new Long(premadeCommentListId));
 
 					//make sure the signed in user is the owner of the list we are modifying
 					if(signedInUser.equals(premadeCommentList.getOwner())) {
+						int listSize = premadeCommentList.getPremadeCommentList().size();
+
+						//create a new comment
+						PremadeCommentParameters premadeCommentParameters = new PremadeCommentParameters(premadeComment, signedInUser, isGlobal, listSize + 1); 
+						PremadeComment newPremadeComment = premadeCommentService.createPremadeComment(premadeCommentParameters);
+
 						//add the new premade comment to the list
 						premadeCommentService.addPremadeCommentToList(premadeCommentList.getId(), newPremadeComment);
 
 						try {
 							//get the JSON for the new premade comment
 							JSONObject premadeCommentJSON = convertPremadeCommentToJSON(newPremadeComment);
-							
+
 							/*
 							 * insert the premade comment list id so the callback function on the client
 							 * knows which list the comment was put in
 							 */
 							premadeCommentJSON.put("premadeCommentListId", premadeCommentList.getId());
-							
+
 							//get the string version of the JSON
 							returnValue = premadeCommentJSON.toString();
 						} catch (JSONException e) {
@@ -203,10 +213,10 @@ public class PremadeCommentsController extends AbstractController {
 				} else {
 					//error
 				}
-				
+
 			} else if(premadeCommentAction.equals("editComment")) {
 				//modify an existing comment
-				
+
 				if(premadeCommentId != null) {
 					//retrieve the premade comment we are editing
 					PremadeComment premadeCommentToUpdate = premadeCommentService.retrievePremadeCommentById(new Long(premadeCommentId));
@@ -215,42 +225,58 @@ public class PremadeCommentsController extends AbstractController {
 					if(signedInUser.equals(premadeCommentToUpdate.getOwner())) {
 						//update the premade comment
 						PremadeComment updatedPremadeComment = premadeCommentService.updatePremadeCommentMessage(new Long(premadeCommentId), premadeComment);
-						
+
 						//get the JSON value of the premade comment in string form
 						returnValue = convertPremadeCommentToJSON(updatedPremadeComment).toString();
 					}
 				}
 			} else if(premadeCommentAction.equals("deleteComment")) {
 				//remove a comment from an existing list
-				
+
 				if(premadeCommentId != null && premadeCommentListId != null) {
 					//get the premade comment we are going to delete
 					PremadeComment premadeCommentToDelete = premadeCommentService.retrievePremadeCommentById(new Long(premadeCommentId));
-					
+
 					//get the premade comment list we are going to delete from
 					PremadeCommentList premadeCommentListToDeleteFrom = premadeCommentService.retrievePremadeCommentListById(new Long(premadeCommentListId));
-					
+
 					//make sure the signed in user is the owner of both premade comment and premade comment list
 					if(signedInUser.equals(premadeCommentToDelete.getOwner()) && signedInUser.equals(premadeCommentListToDeleteFrom.getOwner())) {
-						//remove the cpremade comment from the lsit
+						//remove the premade comment from the list
 						premadeCommentListToDeleteFrom = premadeCommentService.removePremadeCommentFromList(new Long(premadeCommentListId), premadeCommentToDelete);
-						
+
 						//delete the premade comment
 						premadeCommentService.deletePremadeComment(new Long(premadeCommentId));
-						
+
+						//get the list position of the premade comment we are deleting
+						long listPosition = premadeCommentToDelete.getListPosition();
+
+						//shift the list positions since we are deleting one of the premade comments
+						shiftListPositionsOnDelete(premadeCommentListToDeleteFrom, listPosition);
+
 						//get the JSON value of the premade comment in string form
 						returnValue = convertPremadeCommentToJSON(premadeCommentToDelete).toString();
 					}
 				}
 			} else if(premadeCommentAction.equals("reOrderCommentList")) {
 				//re-order a comment list
+
+				try {
+					//parse the list positions into a JSONArray
+					JSONArray listPositions = new JSONArray(premadeCommentListPositions);
+
+					//update the list positions since we have re-ordered the list
+					updateListPositionsOnReOrder(new Long(premadeCommentListId), listPositions);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			} else if(premadeCommentAction.equals("addCommentList")) {
 				//create a new comment list
-				
+
 				//create the new premade comment list
 				PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal);
 				PremadeCommentList premadeCommentList = premadeCommentService.createPremadeCommentList(premadeCommentListParameters);
-				
+
 				//get the JSON value of the premade comment list in string form
 				returnValue = convertPremadeCommentListToJSON(premadeCommentList).toString();
 			} else if(premadeCommentAction.equals("editCommentList")) {
@@ -260,7 +286,7 @@ public class PremadeCommentsController extends AbstractController {
 			} else {
 				//error
 			}
-			
+
 			//return JSON string data to the client so it can perform updates if necessary
 			response.getWriter().print(returnValue);
 		} catch (IOException e) {
@@ -291,14 +317,14 @@ public class PremadeCommentsController extends AbstractController {
 
 			//get all the premade comment lists owned by the signed in user
 			Set<PremadeCommentList> allPremadeCommentListsByUser = premadeCommentService.retrieveAllPremadeCommentListsByUser(signedInUser);
-			
+
 			//check if the user has any premade comment lists
 			if(allPremadeCommentListsByUser.size() == 0) {
 				//the user does not have any premade comment lists so we will create one for them
-				
+
 				String premadeCommentListLabel = "";
 				boolean isGlobal = false;
-				
+
 				if(signedInUserIsAdmin()) {
 					//if the signed in user is admin, we will name the list global
 					premadeCommentListLabel = "Global Premade Comment List";
@@ -311,18 +337,18 @@ public class PremadeCommentsController extends AbstractController {
 						premadeCommentListLabel = username + "'s Premade Comment List";
 					}
 				}
-				
+
 				//make the list global if the signed in user is admin
 				if(signedInUserIsAdmin()) {
 					isGlobal = true;
 				}
-				
+
 				/*
 				 * if the user does not have any premade comment lists we will
 				 * create one
 				 */
 				PremadeCommentList newPremadeCommentList = createPremadeCommentList(premadeCommentListLabel, signedInUser, isGlobal);
-				
+
 				//add the new premade comment list to the set
 				allPremadeCommentListsByUser.add(newPremadeCommentList);
 			}
@@ -334,10 +360,10 @@ public class PremadeCommentsController extends AbstractController {
 			while(userPremadeCommentListIterator.hasNext()) {
 				//get a list
 				PremadeCommentList currentPremadeCommentList = userPremadeCommentListIterator.next();
-				
+
 				//get the JSON version of the list
 				JSONObject currentPremadeCommentListToJSON = convertPremadeCommentListToJSON(currentPremadeCommentList);
-				
+
 				//put the list into the array of all lists
 				premadeCommentListsJSONArray.put(currentPremadeCommentListToJSON);
 			}
@@ -352,7 +378,7 @@ public class PremadeCommentsController extends AbstractController {
 			while(globalCommentListIterator.hasNext()) {
 				//get a global premade comment list
 				PremadeCommentList currentPremadeCommentList = globalCommentListIterator.next();
-				
+
 				/*
 				 * check if this global list is owned by this user, if it is owned by this
 				 * user we do not want to put it into the array again. if it is not owned
@@ -361,7 +387,7 @@ public class PremadeCommentsController extends AbstractController {
 				if(!allPremadeCommentListsByUser.contains(currentPremadeCommentList)) {
 					//get the JSON version of the list
 					JSONObject currentPremadeCommentListToJSON = convertPremadeCommentListToJSON(currentPremadeCommentList);
-					
+
 					//put the list into the array of all lists
 					premadeCommentListsJSONArray.put(currentPremadeCommentListToJSON);
 				}
@@ -375,7 +401,7 @@ public class PremadeCommentsController extends AbstractController {
 
 		return null;
 	}
-	
+
 	/**
 	 * Create a new PremadeCommentList
 	 * @param premadeCommentListLabel the name of the list
@@ -387,7 +413,21 @@ public class PremadeCommentsController extends AbstractController {
 		//create the new premade comment list
 		PremadeCommentListParameters premadeCommentListParameters = new PremadeCommentListParameters(premadeCommentListLabel, signedInUser, isGlobal);
 		PremadeCommentList premadeCommentList = premadeCommentService.createPremadeCommentList(premadeCommentListParameters);
-		
+
+		/*
+		 * create a new blank premade comment so the list will have one
+		 * premade comment to start out with
+		 */
+		PremadeCommentParameters premadeCommentParameters = new PremadeCommentParameters("", signedInUser, isGlobal, 1);
+		PremadeComment newPremadeComment = premadeCommentService.createPremadeComment(premadeCommentParameters);
+
+		try {
+			//add the new blank premade comment to the list
+			premadeCommentService.addPremadeCommentToList(premadeCommentList.getId(), newPremadeComment);
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		}
+
 		return premadeCommentList;
 	}
 
@@ -437,14 +477,14 @@ public class PremadeCommentsController extends AbstractController {
 			while(premadeCommentsIterator.hasNext()) {
 				//get a premade comment object
 				PremadeComment premadeComment = premadeCommentsIterator.next();
-				
+
 				//get the JSON value of the premade comment
 				JSONObject premadeCommentJSON = convertPremadeCommentToJSON(premadeComment);
-				
+
 				//add the JSON premade comment to the array
 				premadeCommentsJSON.put(premadeCommentJSON);
 			}
-			
+
 			//put the array of premade comments into the JSON object
 			premadeCommentListJSON.put("premadeComments", premadeCommentsJSON);
 
@@ -464,22 +504,24 @@ public class PremadeCommentsController extends AbstractController {
 	private JSONObject convertPremadeCommentToJSON(PremadeComment premadeComment) {
 		//the JSON object that will represent the premade comment
 		JSONObject premadeCommentJSON = new JSONObject();
-		
+
 		try {
 			//obtain all the attributes
 			Long premadeCommentId = premadeComment.getId();
 			String premadeCommentComment = premadeComment.getComment();
 			User premadeCommentOwner = premadeComment.getOwner();
 			String premadeCommentOwnerUsername = getUsernameFromUser(premadeCommentOwner);
+			Long premadeCommentListPosition = premadeComment.getListPosition();
 
 			//put the attributes into the JSON object
 			premadeCommentJSON.put("id", premadeCommentId);
 			premadeCommentJSON.put("comment", premadeCommentComment);
 			premadeCommentJSON.put("owner", premadeCommentOwnerUsername);
+			premadeCommentJSON.put("listPosition", premadeCommentListPosition);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		//return the JSON object representing the premade comment
 		return premadeCommentJSON;
 	}
@@ -504,7 +546,7 @@ public class PremadeCommentsController extends AbstractController {
 
 		return username;
 	}
-	
+
 	/**
 	 * Determine whether the signed in user is admin
 	 * @return whether the signed in user is admin
@@ -512,7 +554,7 @@ public class PremadeCommentsController extends AbstractController {
 	private boolean signedInUserIsAdmin() {
 		//get the signed in user
 		User signedInUser = ControllerUtil.getSignedInUser();
-		
+
 		//get the user's authorities
 		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
 
@@ -524,8 +566,98 @@ public class PremadeCommentsController extends AbstractController {
 				return true;
 			}
 		}
-		
+
 		//user is not admin
 		return false;
+	}
+
+	/**
+	 * Shift the list positions since we are deleting one of the premade comments
+	 * @param premadeCommentListToDeleteFrom the list we are deleting from
+	 * @param listPositionDeleted the list position of the premade comment
+	 * we are deleting
+	 */
+	private void shiftListPositionsOnDelete(PremadeCommentList premadeCommentListToDeleteFrom, long listPositionDeleted) {
+		//get the list of premade comments
+		Set<PremadeComment> premadeCommentList = premadeCommentListToDeleteFrom.getPremadeCommentList();
+
+		//get an iterator of the list
+		Iterator<PremadeComment> premadeCommentListIterator = premadeCommentList.iterator();
+
+		//loop through all the premade comments
+		while(premadeCommentListIterator.hasNext()) {
+			//get a premade comment
+			PremadeComment premadeComment = premadeCommentListIterator.next();
+
+			//get the current list position
+			Long currentListPosition = premadeComment.getListPosition();
+
+			/*
+			 * check if the current premade comment list position is larger
+			 * than the list position we are deleting since we only need
+			 * to shift list positions that are higher than the one we
+			 * are deleting.
+			 */
+			if(currentListPosition > listPositionDeleted) {
+				//current premade comment list position is higher than position we are deleting
+
+				try {
+					//update the list position by decrementing it by 1
+					premadeCommentService.updatePremadeCommentListPosition(premadeComment.getId(), currentListPosition - 1);
+				} catch (ObjectNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
+	 * Update the list positions since we have re-ordered the list
+	 * @param premadeCommentListId the id of the premade comment list
+	 * @param listPositions a JSONArray containing the order of the premade comment ids
+	 * the index is the list position and the value is the premade comment id
+	 * 
+	 * e.g.
+	 * premade comment 10 = "great job"
+	 * premade comment 11 = "needs more facts"
+	 * premade comment 12 = "incorrect"
+	 * 
+	 * are in a list and in the list they are sorted in the order
+	 * 
+	 * "needs more facts"
+	 * "great job"
+	 * "incorrect"
+	 * 
+	 * so the array will contain the premade comment ids in this order
+	 * 
+	 * 11, 10, 12
+	 */
+	private void updateListPositionsOnReOrder(Long premadeCommentListId, JSONArray listPositions) {
+		//loop through all the premade comments
+		for(int x=0; x<listPositions.length(); x++) {
+			try {
+				//get a premade comment id
+				long premadeCommentId = listPositions.getLong(x);
+				
+				/*
+				 * update the list position for the premade comment id. the list position
+				 * is the index in the array incremented by 1. from the example above,
+				 * the list positions would be
+				 * index - premadeCommentId - listPosition
+				 * [0] - 11 - 1
+				 * [1] - 10 - 2
+				 * [2] - 12 - 3
+				 * 
+				 * note: when we display the premade comments in the teacher UI,
+				 * the higher numbered list positions are at the top and the lower 
+				 * numbered list positions are at the bottom
+				 */
+				premadeCommentService.updatePremadeCommentListPosition(premadeCommentId, new Long(x + 1));
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}		
+		}
 	}
 }

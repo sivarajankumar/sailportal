@@ -67,6 +67,16 @@ public interface PremadeCommentService {
 		throws ObjectNotFoundException;
 	
 	/**
+	 * Updates the listPosition in a PremadeComment using its id.
+	 * @param premadeCommentId the id of the premade comment
+	 * @param listPosition the new list position
+	 * @return
+	 * @throws ObjectNotFoundException
+	 */
+	public PremadeComment updatePremadeCommentListPosition (Long premadeCommentId, Long listPosition)
+		throws ObjectNotFoundException;
+	
+	/**
 	 * Retrieves all PremadeComments from the data store.
 	 * 
 	 * @return a Set<PremadeComment>

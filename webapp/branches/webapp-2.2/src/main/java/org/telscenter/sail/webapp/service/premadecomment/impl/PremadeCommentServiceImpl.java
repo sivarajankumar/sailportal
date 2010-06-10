@@ -56,6 +56,7 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		PremadeComment premadeComment = new PremadeCommentImpl();
 		premadeComment.setComment(param.getComment());
 		premadeComment.setOwner(param.getOwner());
+		premadeComment.setListPosition(param.getListPosition());
 		
 		premadeCommentDao.save(premadeComment);
 		return premadeComment;
@@ -76,6 +77,19 @@ public class PremadeCommentServiceImpl implements PremadeCommentService{
 		try{
 			PremadeComment premadeComment = premadeCommentDao.getById(premadeCommentId);
 			premadeComment.setComment(newComment);
+			premadeCommentDao.save(premadeComment);
+			return premadeComment;
+		} catch (ObjectNotFoundException e){
+			throw e;
+		}
+	}
+	
+	@Transactional()
+	public PremadeComment updatePremadeCommentListPosition (Long premadeCommentId, Long listPosition)
+		throws ObjectNotFoundException{
+		try{
+			PremadeComment premadeComment = premadeCommentDao.getById(premadeCommentId);
+			premadeComment.setListPosition(listPosition);
 			premadeCommentDao.save(premadeComment);
 			return premadeComment;
 		} catch (ObjectNotFoundException e){

@@ -68,6 +68,9 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     public static final String COLUMN_NAME_GLOBAL = "global";
     
     @Transient
+    public static final String COLUMN_NAME_LISTPOSITION = "listposition";
+    
+    @Transient
     public static final long serialVersionUID = 1L;
     
     @Column(name = PremadeCommentImpl.COLUMN_NAME_COMMENT, nullable = false)
@@ -77,7 +80,10 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
     @JoinColumn(name = PremadeCommentImpl.COLUMN_NAME_OWNER, nullable = true)
     private User owner = null;
     
-    @Id
+    @Column(name = PremadeCommentImpl.COLUMN_NAME_LISTPOSITION, nullable = true)
+    private Long listPosition = null;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id = null;
     
@@ -122,9 +128,29 @@ public class PremadeCommentImpl implements PremadeComment, Comparable<PremadeCom
 	public void setId(Long id) {
 		this.id = id;
 	}
+    
+    public Long getListPosition() {
+		return listPosition;
+	}
 
+	public void setListPosition(Long listPosition) {
+		this.listPosition = listPosition;
+	}
+	
 	public int compareTo(PremadeComment o) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		long thisListPosition = this.getListPosition();
+		long otherListPosition = o.getListPosition();
+		
+		if(thisListPosition == otherListPosition) {
+			result = 0;
+		} else if(thisListPosition < otherListPosition) {
+			result = -1;
+		} else if(thisListPosition > otherListPosition) {
+			result = 1;
+		}
+		
+		return result;
 	}
 }

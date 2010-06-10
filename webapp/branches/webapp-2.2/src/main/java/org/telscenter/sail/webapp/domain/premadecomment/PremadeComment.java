@@ -46,4 +46,9 @@ public interface PremadeComment {
 	 * @param comment the comment to set
 	 */
 	public void setComment(String comment);
+	
+    
+    public Long getListPosition();
+
+	public void setListPosition(Long listPosition);
 }
