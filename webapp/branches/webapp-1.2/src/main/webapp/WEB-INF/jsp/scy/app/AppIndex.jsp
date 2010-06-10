@@ -21,7 +21,7 @@
 
     <sec:authorize ifAllGranted="ROLE_USER">
         <sec:authorize ifAllGranted="ROLE_STUDENT">
-            <s:myCurrentActivity/>
+            <s:myCurrentActivity username="${currentUser.userDetails.username}"/>
         </sec:authorize>
 	</sec:authorize>
 
