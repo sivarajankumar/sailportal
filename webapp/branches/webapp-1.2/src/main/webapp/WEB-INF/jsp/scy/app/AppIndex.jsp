@@ -19,6 +19,13 @@
                 </center>
             </p>
 
+    <sec:authorize ifAllGranted="ROLE_USER">
+        <sec:authorize ifAllGranted="ROLE_STUDENT">
+            <s:myCurrentActivity/>
+        </sec:authorize>
+	</sec:authorize>
+
+
         </div>
     </tiles:putAttribute>
 </tiles:insertDefinition> 
