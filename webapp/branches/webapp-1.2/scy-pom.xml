@@ -244,6 +244,14 @@
 									<outputDirectory>target</outputDirectory>
 									<includes>**/*.*</includes>
 								</artifactItem>
+								<artifactItem>
+									<groupId>eu.scy.server</groupId>
+									<artifactId>scy-feedback</artifactId>
+									<type>jar</type>
+									<overWrite>false</overWrite>
+									<outputDirectory>target</outputDirectory>
+									<includes>**/*.*</includes>
+								</artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>
@@ -851,6 +859,12 @@
 		<dependency>
 			<groupId>eu.scy.server</groupId>
 			<artifactId>scy-author</artifactId>
+			<version>9.8.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.scy.server</groupId>
+			<artifactId>scy-feedback</artifactId>
 			<version>9.8.0-SNAPSHOT</version>
 		</dependency>
 
