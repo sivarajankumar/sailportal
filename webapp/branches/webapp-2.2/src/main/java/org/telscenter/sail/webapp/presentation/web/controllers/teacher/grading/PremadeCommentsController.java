@@ -264,9 +264,20 @@ public class PremadeCommentsController extends AbstractController {
 				try {
 					//parse the list positions into a JSONArray
 					JSONArray listPositions = new JSONArray(premadeCommentListPositions);
+					
+					//get the premade comment list id
+					long premadeCommentListIdLong = new Long(premadeCommentListId);
 
 					//update the list positions since we have re-ordered the list
-					updateListPositionsOnReOrder(new Long(premadeCommentListId), listPositions);
+					updateListPositionsOnReOrder(premadeCommentListIdLong, listPositions);
+					
+					//create a JSONObject to hold the premade comment list id and the list positions array
+					JSONObject reOrderReturn = new JSONObject();
+					reOrderReturn.put("premadeCommentListId", premadeCommentListIdLong);
+					reOrderReturn.put("listPositions", listPositions);
+					
+					//return the JSONObject in string form
+					returnValue = reOrderReturn.toString();
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
