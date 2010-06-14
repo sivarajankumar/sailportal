@@ -33,7 +33,8 @@
             }, "btn");
 
         }
-        function postForm(form){
+        function postForm(form, retId){
+            var returnid = retId.id;
             var xhrArgs = {
                     form: dojo.byId(form),
                     handleAs: "text",
@@ -42,11 +43,14 @@
                     },
 
                     load: function(data) {
+                        if(returnid != null && document.getElementById(returnid)){
+                            document.getElementById(returnid).innerHMTL = data;
+                        } 
                         //dojo.byId("response").innerHTML = "Form posted.";
                         console.log("Form posted.");
                     },
                     error: function(error) {
-                         console.log("Form not posted.");
+                         console.log("Form not posted." + error);
                         //dojo.byId("response").innerHTML = "Form not posted.";
                     }
                 }
