@@ -566,15 +566,23 @@ public class PremadeCommentsController extends AbstractController {
 		//get the signed in user
 		User signedInUser = ControllerUtil.getSignedInUser();
 
+		//get the user name
+		String username = signedInUser.getUserDetails().getUsername();
+		
 		//get the user's authorities
 		GrantedAuthority[] authorities = signedInUser.getUserDetails().getAuthorities();
 
 		//loop through the authorities
 		for (GrantedAuthority authority : authorities) {
+			
 			//check if the authority is the admin role
 			if (authority.getAuthority().equals(UserDetailsService.ADMIN_ROLE)) {
-				//user is admin
-				return true;
+				
+				//check that the user name is "admin" since other teachers may have admin access
+				if(username != null && username.equals("admin")) {
+					//user is admin
+					return true;
+				}
 			}
 		}
 
