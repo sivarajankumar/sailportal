@@ -248,30 +248,24 @@ public class InformationController extends AbstractController{
 		
 		JSONObject teacherUserInfo = new JSONObject();
 		
-		// add teacher info
-		for (Workgroup classmateWorkgroup : workgroups) {
-			if (((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()) {   // only include classmates, not yourself.
-				// inside, add teacher info
-				Set<User> owners = run.getOwners();
-				User teacher = null;
-				
-				try {
-					if (owners.size() > 0) {
-						teacher = owners.iterator().next();
-						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + teacher.getUserDetails().getUsername() + "</userName></teacherUserInfo>");
-						
-						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
-						teacherUserInfo.put("userName", teacher.getUserDetails().getUsername());
-					} else {
-						//userInfoString.append("<teacherUserInfo><workgroupId>" + classmateWorkgroup.getId() + "</workgroupId><userName>" + classmateWorkgroup.generateWorkgroupName() + "</userName></teacherUserInfo>");
-						
-						teacherUserInfo.put("workgroupId", classmateWorkgroup.getId());
-						teacherUserInfo.put("userName", classmateWorkgroup.generateWorkgroupName());
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
+		//get the owners of the run (there should only be one owner)
+		Set<User> owners = run.getOwners();
+		
+		//get the first element in the set since there should only be one owner
+		User runOwner = owners.iterator().next();
+		
+		try {
+			//get the workgroup for the owner in the run
+			List<Workgroup> workgroupsForRunOwner = workgroupService.getWorkgroupListByOfferingAndUser(run, runOwner);
+			
+			//get the workgroup since the owner should only have one workgroup in the run
+			Workgroup runOwnerWorkgroup = workgroupsForRunOwner.get(0);
+			
+			//set the workgroupid and username into the teacher user info
+			teacherUserInfo.put("workgroupId", runOwnerWorkgroup.getId());
+			teacherUserInfo.put("userName", runOwner.getUserDetails().getUsername());
+		} catch (JSONException e1) {
+			e1.printStackTrace();
 		}
 		
 		//the JSONArray that will hold the shared teacher user infos
