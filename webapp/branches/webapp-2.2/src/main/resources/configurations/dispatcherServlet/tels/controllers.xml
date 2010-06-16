@@ -1476,4 +1476,8 @@
     	class="org.telscenter.sail.webapp.presentation.web.controllers.TaggerController">
     	<property name="projectService" ref="projectService"/>
     </bean>
+    
+    <bean id="compatibilityCheckController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.CompatibilityCheckController">
+	</bean>
 </beans>

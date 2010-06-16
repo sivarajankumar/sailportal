@@ -310,6 +310,7 @@
 				/bridge/**/*.html=bridgeController
 				/errors/outsideerror.html=outsideErrorController
 				/authorize.html=credentialManager
+				/check.html=compatibilityCheckController
     		</value>
     	</property>
     </bean>

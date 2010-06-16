@@ -94,6 +94,7 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
+                /check.html=ROLE_ANONYMOUS,ROLE_USER
                 /contactwisegeneral.html=ROLE_ANONYMOUS,ROLE_USER
                 /contactwiseproject.html=ROLE_ANONYMOUS,ROLE_USER
                 /contactwiseconfirm.html=ROLE_ANONYMOUS,ROLE_USER
