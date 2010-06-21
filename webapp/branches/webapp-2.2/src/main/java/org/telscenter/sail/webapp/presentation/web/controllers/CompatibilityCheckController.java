@@ -27,12 +27,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author patrick lawler
  * @version $Id:$
  */
 public class CompatibilityCheckController extends AbstractController {
+	
+	private ProjectService projectService;
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -40,6 +45,35 @@ public class CompatibilityCheckController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
     	
+		//get the projectId and versionId
+		String projectId = request.getParameter("projectId");
+		String versionId = request.getParameter("versionId");
+		
+		
+		if(projectId != null && versionId != null) {
+			//get the metadata for the project/version 
+			ProjectMetadata metadata = projectService.getMetadata(new Long(projectId), versionId);
+			
+			if(metadata != null) {
+				String projectTechReqs = null;
+				
+				//get the tech requirements from the metadata, this should be a JSON string
+				projectTechReqs = metadata.getTechReqs();
+
+				//set the JSON string into the model so the jsp can access it
+				modelAndView.addObject("specificRequirements", projectTechReqs);
+			}
+		}
+		
 		return modelAndView;
+	}
+	
+	
+	public ProjectService getProjectService() {
+		return projectService;
+	}
+
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 }

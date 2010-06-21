@@ -12,7 +12,8 @@
   
 <title><spring:message code="checkcompatibility.title" /></title>
 
-<script type="text/javascript" src="./javascript/pas/utils.js"></script> 
+<script type="text/javascript" src="./javascript/tels/jquery-1.4.1.min.js"></script>
+<script type="text/javascript" src="./javascript/tels/utils.js"></script>
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
 <script type="text/javascript" src="./javascript/tels/browserdetect.js"></script>
 <script type="text/javascript" src="./javascript/tels/deployJava.js"></script>
@@ -20,31 +21,9 @@
 
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" /> 
 
-<script type="text/javascript">
-var jsver = 1.0;
-</script>
-<script language="Javascript1.1">
-jsver = 1.1;
-</script>
-<script language="Javascript1.2">
-jsver = 1.2;
-</script>
-<script language="Javascript1.3">
-jsver = 1.3;
-</script>
-<script language="Javascript1.4">
-jsver = 1.4;
-</script>
-<script language="Javascript1.5">
-jsver = 1.5;
-</script>
-<script language="Javascript1.6">
-jsver = 1.6;
-</script>
-
 </head>
 
-<body onload='checkCompatibility()'>
+<body onload='checkCompatibility(${specificRequirements})'>
 
 <div id="centeredDiv">
 
@@ -57,7 +36,7 @@ jsver = 1.6;
 				<td>Resource</td>
 				<td>Required Version</td>
 				<td>Your Version</td>
-				<td>Requirement Met</td>
+				<td>Requirement Satisfied</td>
 				<td>Additional Info</td>
 			</tr>
 			<noscript>
@@ -73,35 +52,35 @@ jsver = 1.6;
 				<td id='javascriptResource'></td>
 				<td id='javascriptRequiredVersion'></td>
 				<td id='javascriptYourVersion'></td>
-				<td id='javascriptRequirementMet'></td>
+				<td id='javascriptRequirementSatisfied'></td>
 				<td id='javascriptAdditionalInfo'></td>
-				</tr>
+			</tr>
 			<tr>
 				<td id='browserResource'></td>
 				<td id='browserRequiredVersion'></td>
 				<td id='browserYourVersion'></td>
-				<td id='browserRequirementMet'></td>
+				<td id='browserRequirementSatisfied'></td>
 				<td id='browserAdditionalInfo'></td>
 			</tr>
 			<tr>
 				<td id='quickTimeResource'></td>
 				<td id='quickTimeRequiredVersion'></td>
 				<td id='quickTimeYourVersion'></td>
-				<td id='quickTimeRequirementMet'></td>
+				<td id='quickTimeRequirementSatisfied'></td>
 				<td id='quickTimeAdditionalInfo'></td>
 			</tr>
 			<tr>
 				<td id='flashResource'></td>
 				<td id='flashRequiredVersion'></td>
 				<td id='flashYourVersion'></td>
-				<td id='flashRequirementMet'></td>
+				<td id='flashRequirementSatisfied'></td>
 				<td id='flashAdditionalInfo'></td>
 			</tr>
 			<tr>
 				<td id='javaResource'></td>
 				<td id='javaRequiredVersion'></td>
 				<td id='javaYourVersion'></td>
-				<td id='javaRequirementMet'></td>
+				<td id='javaRequirementSatisfied'></td>
 				<td id='javaAdditionalInfo'></td>
 			</tr>
 		</table>

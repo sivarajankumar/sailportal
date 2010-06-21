@@ -1,52 +1,111 @@
+/**
+ * This file contains functions that check if the client has
+ * the necessary resource requirements to run wise4 projects.
+ */
 
-var requiredFirefoxVersion = '3.0';
-var requiredInternetExplorerVersion = '7.0';
-var requiredChromeVersion = '5.0';
-var requiredSafariVersion = '3.0';
-var requiredQuickTimeVersion = '5.0';
-var requiredFlashVersion = '5.0';
-var requiredJavaVersion = '1.4';
 
-function checkCompatibility() {
-	checkJavascript();
-	checkBrowser();
-	checkQuickTime();
-	checkFlash();
-	checkJava();
+//the default requirements
+var defaultRequirements = {
+	requiredFirefoxVersion:'3.0',
+	requiredInternetExplorerVersion:'7.0',
+	requiredChromeVersion:'5.0',
+	requiredSafariVersion:'3.0',
+	requiredQuickTimeVersion:'5.0',
+	requiredFlashVersion:'5.0',
+	requiredJavaVersion:'1.4'
 }
 
-function checkJavascript() {
-	document.getElementById('javascriptResource').innerHTML = 'Javascript';
-	document.getElementById('javascriptRequiredVersion').innerHTML = 'Enabled';
-	document.getElementById('javascriptYourVersion').innerHTML = 'Enabled';
-	document.getElementById('javascriptRequirementMet').innerHTML = "<img src='./themes/tels/default/images/check_16.gif' />";
-	document.getElementById('javascriptAdditionalInfo').innerHTML = "<a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a>";
-}
-
-function checkBrowser() {
-	document.getElementById('browserResource').innerHTML = getBrowserName();
-	document.getElementById('browserRequiredVersion').innerHTML = getBrowserRequiredVersion();
-	document.getElementById('browserYourVersion').innerHTML = getBrowserVersion();
+/**
+ * Combines the specific requirements with the default requirements
+ * and then checks each of the requirements.
+ * 
+ * Note: if javascript is disabled, all the checks will not be run and
+ * the contents in the <noscript> tag in the check.jsp will be the only
+ * row displayed in the compatibility check table. The row in the
+ * <noscript> tag will show the user that javascript is disabled and
+ * that they will need to enable it.
+ * 
+ * @param requirements a JSON object that is used to override any
+ * or all of the default requirements
+ * 
+ * if a specific project has its own specific requirements it can just specify
+ * the requirement for the resource that has a different requirement than
+ * the default and for all other resources it will fallback to the default.
+ * 
+ * e.g. this specificRequirements will override the required versions of flash and java
+ * 
+ * specificRequirements = {requiredFlashVersion:6.0,requiredJavaVersion:1.5}
+ * 
+ * the compatibility check will look for a flash version 6.0 or greater
+ * and a Java version 1.5 or greater and for all other resources it
+ * will just use the default from defaultRequirements
+ */
+function checkCompatibility(specificRequirements) {
+	//get the default requirements
+	var combinedRequirements = defaultRequirements;
 	
-	var requirementMet = '';
-	
-	if(checkBrowserVersion()) {
-		requirementMet = "<img src='./themes/tels/default/images/check_16.gif' />"
-	} else {
-		requirementMet = "<img src='./themes/tels/default/images/error_16.gif' />"
+	//if there are any specific requirements we will obtain them
+	if(specificRequirements != null) {
+		if(specificRequirements.requiredFirefoxVersion != null) {
+			//override the firefox version requirement
+			combinedRequirements.requiredFirefoxVersion = specificRequirements.requiredFirefoxVersion;
+		}
+		
+		if(specificRequirements.requiredInternetExplorerVersion != null) {
+			//override the ie version requirement
+			combinedRequirements.requiredInternetExplorerVersion = specificRequirements.requiredInternetExplorerVersion;
+		}
+		
+		if(specificRequirements.requiredChromeVersion != null) {
+			//override the chrome version requirement
+			combinedRequirements.requiredChromeVersion = specificRequirements.requiredChromeVersion;
+		}
+		
+		if(specificRequirements.requiredSafariVersion != null) {
+			//override the safari version requirement
+			combinedRequirements.requiredSafariVersion = specificRequirements.requiredSafariVersion;
+		}
+		
+		if(specificRequirements.requiredQuickTimeVersion != null) {
+			//override the quicktime version requirement
+			combinedRequirements.requiredQuickTimeVersion = specificRequirements.requiredQuickTimeVersion;
+		}
+		
+		if(specificRequirements.requiredFlashVersion != null) {
+			//override the flash version requirement
+			combinedRequirements.requiredFlashVersion = specificRequirements.requiredFlashVersion;
+		}
+		
+		if(specificRequirements.requiredJavaVersion != null) {
+			//override the java version requirement
+			combinedRequirements.requiredJavaVersion = specificRequirements.requiredJavaVersion;
+		}
 	}
 	
-	document.getElementById('browserRequirementMet').innerHTML = requirementMet;
-	document.getElementById('browserAdditionalInfo').innerHTML = getBrowserAdditionalInfo();
+	//check all the requirements
+	checkJavascript();
+	checkBrowser(combinedRequirements);
+	checkQuickTime(combinedRequirements.requiredQuickTimeVersion);
+	checkFlash(combinedRequirements.requiredFlashVersion);
+	checkJava(combinedRequirements.requiredJavaVersion);
 }
 
-function checkBrowserVersion() {
-	var requiredVersion = getBrowserRequiredVersion();
-	var yourVersion = getBrowserVersion();
-	
-	requiredVersion = parseFloat(requiredVersion);
+/**
+ * Checks whether the client version satisfies the required version.
+ * This function is a generic function that all the checks will use. 
+ * 
+ * @param yourVersion the client version (can be string, int, or float)
+ * @param requiredVersion the required version (can be string, int, or float)
+ * @return whether the client has the necessary version
+ */
+function requiredVersionSatisfied(yourVersion, requiredVersion) {
+	//get the client version
 	yourVersion = parseFloat(yourVersion);
 	
+	//get the required version
+	requiredVersion = parseFloat(requiredVersion);
+	
+	//check that the client version is greater or equal to the required version
 	if(yourVersion >= requiredVersion) {
 		return true;
 	} else {
@@ -54,81 +113,236 @@ function checkBrowserVersion() {
 	}
 }
 
+/**
+ * Obtains the img html that will notify the user whether their client
+ * satisfies the required version for a resource.
+ * This function is a generic function that all the checks will use. 
+ * 
+ * @param satisfied boolean true or false
+ * @return a string containing the img html that will display a
+ * green check (for pass) or a red x (for fail)
+ */
+function getRequirementSatisfiedIcon(satisfied) {
+	var iconImg = "";
+	
+	if(satisfied) {
+		//the client satisfies the requirement
+		iconImg = "<img src='./themes/tels/default/images/check_16.gif' />";
+	} else {
+		//the client does not satisfy the requirement
+		iconImg = "<img src='./themes/tels/default/images/error_16.gif' />";
+	}
+	
+	return iconImg;
+}
+
+/**
+ * Obtain the OS (this will not include the version of the OS)
+ * @return the OS as a string (return values are 'Mac', 'Windows', or 'Linux')
+ */
+function getOS() {
+	return BrowserDetect.OS;
+}
+
+/**
+ * Check that javascript is enabled and fill in the values in the 
+ * compatibility check table. We do not have to actually check
+ * if javascript is enabled. If it is enabled these values will
+ * be filled into the table. If it is not, the <noscript> tag
+ * in the check.jsp will display javascript as disabled.
+ */
+function checkJavascript() {
+	document.getElementById('javascriptResource').innerHTML = 'Javascript';
+	document.getElementById('javascriptRequiredVersion').innerHTML = 'Enabled';
+	document.getElementById('javascriptYourVersion').innerHTML = 'Enabled';
+	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img src='./themes/tels/default/images/check_16.gif' />";
+	document.getElementById('javascriptAdditionalInfo').innerHTML = "<a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a>";
+}
+
+/**
+ * Checks if the browser the user is currently using meets
+ * or surpasses the required version of that browser. It will
+ * fill in the values in the compatibility check table for
+ * the browser row.
+ * 
+ * @param requirements a JSON object containing the fields below
+ * requiredFirefoxVersion
+ * requiredInternetExplorerVersion
+ * requiredChromeVersion
+ * requiredSafariVersion
+ * the value of each field can be a string, int or float
+ */
+function checkBrowser(requirements) {
+	document.getElementById('browserResource').innerHTML = getBrowserName();
+	document.getElementById('browserRequiredVersion').innerHTML = getBrowserRequiredVersion(requirements);
+	document.getElementById('browserYourVersion').innerHTML = getBrowserVersion();
+	
+	//check if the browser version is satisfied and then get the icon to be displayed (pass or fail)
+	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(checkBrowserVersion(requirements));
+	
+	document.getElementById('browserRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
+	document.getElementById('browserAdditionalInfo').innerHTML = getBrowserAdditionalInfo();
+}
+
+/**
+ * Check if the client browser version satisfies the requirements
+ * @param requirements a JSON object containing the fields below
+ * requiredFirefoxVersion
+ * requiredInternetExplorerVersion
+ * requiredChromeVersion
+ * requiredSafariVersion
+ * the value of each field can be a string, int or float
+ * 
+ * @return whether the version of the browser they are currently using
+ * meets or surpasses the required version for that browser
+ */
+function checkBrowserVersion(requirements) {
+	/*
+	 * get the required version of the browser they are currently using,
+	 * this function will detect which browser the user is using
+	 * and return the required version for that specific browser
+	 */
+	var requiredVersion = getBrowserRequiredVersion(requirements);
+	
+	//get the version of the browser the user is currently using
+	var yourVersion = getBrowserVersion();
+	
+	//check if the client browser version meets the requirement
+	return requiredVersionSatisfied(yourVersion, requiredVersion);
+}
+
+/**
+ * Get the name of the browser that the client is currently using.
+ * @return a string containing the name of the browser such as
+ * 'Firefox'
+ * 'Internet Explorer'
+ * 'Chrome'
+ * 'Safari'
+ * you may view all the other browser names in browserdetect.js
+ * look for the identity fields
+ */
 function getBrowserName() {
 	return BrowserDetect.browser;
 }
 
-function getBrowserRequiredVersion() {
+/**
+ * Get the required version for the browser the client is
+ * currently using
+ * 
+ * @param requirements a JSON object containing the fields below
+ * requiredFirefoxVersion
+ * requiredInternetExplorerVersion
+ * requiredChromeVersion
+ * requiredSafariVersion
+ * the value of each field can be a string, int or float
+ * 
+ * @return the required version of the browser the client
+ * is currently using
+ */
+function getBrowserRequiredVersion(requirements) {
+	//get the name of the browser the client is currently using
 	var browserName = getBrowserName();
+	
 	var requiredVersion = '';
 	
+	//get the required version for the browser the client is using
 	if(browserName == 'Firefox') {
-		requiredVersion = requiredFirefoxVersion;
+		requiredVersion = requirements.requiredFirefoxVersion;
 	} else if(browserName == 'Internet Explorer') {
-		requiredVersion = requiredInternetExplorerVersion;
+		requiredVersion = requirements.requiredInternetExplorerVersion;
 	} else if(browserName == 'Chrome') {
-		requiredVersion = requiredChromeVersion;
+		requiredVersion = requirements.requiredChromeVersion;
 	} else if(browserName == 'Safari') {
-		requiredVersion = requiredSafariVersion;
+		requiredVersion = requirements.requiredSafariVersion;
 	}
 	
 	return requiredVersion;
 }
 
+/**
+ * Get the version of the browser that the client is currently using.
+ * @return the version of the browser that the client is currently using
+ */
 function getBrowserVersion() {
 	return BrowserDetect.version;
 }
 
+/**
+ * The link that we will display on the browser row for users
+ * to upgrade their browser. This will be a link to firefox
+ * regardless of which browser they are currently using because
+ * firefox is the most stable browser to run wise4 in.
+ * @return an a element containing a link to the firefox page
+ */
 function getBrowserAdditionalInfo() {
 	return "<a href='http://www.mozilla.com/firefox/'>Upgrade Firefox</a>";
 }
 
-function checkQuickTime() {
+/**
+ * Checks if the quicktime version the user is currently using meets
+ * or surpasses the required version of quicktime. It will
+ * fill in the values in the compatibility check table for
+ * the quicktime row.
+ * 
+ * @param requiredQuickTimeVersion the required version of quicktime
+ */
+function checkQuickTime(requiredQuickTimeVersion) {
 	document.getElementById('quickTimeResource').innerHTML = getQuickTimeName();
-	document.getElementById('quickTimeRequiredVersion').innerHTML = getQuickTimeRequiredVersion();
+	document.getElementById('quickTimeRequiredVersion').innerHTML = requiredQuickTimeVersion;
 	document.getElementById('quickTimeYourVersion').innerHTML = getQuickTimeVersion();
 	
-	var requirementMet = '';
+	//check if the quicktime version is satisfied and then get the icon to be displayed (pass or fail)
+	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(checkQuickTimeVersion(requiredQuickTimeVersion));
 	
-	if(checkQuickTimeVersion()) {
-		requirementMet = "<img src='./themes/tels/default/images/check_16.gif' />"
-	} else {
-		requirementMet = "<img src='./themes/tels/default/images/error_16.gif' />"
-	}
-	
-	document.getElementById('quickTimeRequirementMet').innerHTML = requirementMet;
+	document.getElementById('quickTimeRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
 	document.getElementById('quickTimeAdditionalInfo').innerHTML = getQuickTimeAdditionalInfo();
 }
 
+/**
+ * Get the value to display for the resource column for the quicktime row.
+ * @return the value to display for the resource column for the quicktime row
+ */
 function getQuickTimeName() {
 	return "QuickTime";
 }
 
-function getQuickTimeRequiredVersion() {
-	return requiredQuickTimeVersion;
-}
-
-function checkQuickTimeVersion() {
-	var requiredVersion = getQuickTimeRequiredVersion();
+/**
+ * Check if the client quicktime version satisfies the requirements
+ * @param requiredQuickTimeVersion the required version of quicktime
+ * @return whether the version of quicktime they are currently using
+ * meets or surpasses the required version of quicktime
+ */
+function checkQuickTimeVersion(requiredQuickTimeVersion) {
+	//get the required version of quicktime
+	var requiredVersion = requiredQuickTimeVersion;
+	
+	//get the version of quicktime the user is currently using
 	var yourVersion = getQuickTimeVersion();
-	
-	requiredVersion = parseFloat(requiredVersion);
-	yourVersion = parseFloat(yourVersion);
-	
-	if(yourVersion >= requiredVersion) {
-		return true;
-	} else {
-		return false;
-	}
+
+	return requiredVersionSatisfied(yourVersion, requiredVersion);
 }
 
+/**
+ * Get the version of quicktime that the client is currently using.
+ * @return the version of quicktime that the client is currently using
+ */
 function getQuickTimeVersion() {
 	var qtVersion = 'Not Installed';
 	
 	if (navigator.plugins) {
+		//loop through all the browser plugins
 		for (i=0; i < navigator.plugins.length; i++ ) {
+			//search for the quicktime plugin
 			if (navigator.plugins[i].name.indexOf("QuickTime") >= 0)
 			{
+				/*
+				 * the plugin name will be like
+				 * QuickTime Plug-In 7.6.4
+				 * or
+				 * QuickTime Plug-in 7.6.4
+				 * so we will remove any 'QuickTime Plug-In ' or 'QuickTime Plug-in '
+				 * part of the name to obtain the quicktime version
+				 */
 				qtVersion = navigator.plugins[i].name.replace('QuickTime Plug-In ', '').replace('QuickTime Plug-in ', '');
 			}
 		}
@@ -137,97 +351,131 @@ function getQuickTimeVersion() {
 	return qtVersion;
 }
 
+/**
+ * The link that we will display on the quicktime row for users
+ * to upgrade their quicktime.
+ * @return an a element containing a link to the quicktime page
+ */
 function getQuickTimeAdditionalInfo() {
 	return "<a href='http://www.apple.com/quicktime/download/'>Upgrade QuickTime</a>";
 }
 
-
-
-function getOS() {
-	return BrowserDetect.OS;
-}
-
-function checkJava() {
+/**
+ * Checks if the java version the user is currently using meets
+ * or surpasses the required version of java. It will
+ * fill in the values in the compatibility check table for
+ * the java row.
+ */
+function checkJava(requiredJavaVersion) {
 	document.getElementById('javaResource').innerHTML = getJavaName();
-	document.getElementById('javaRequiredVersion').innerHTML = getJavaRequiredVersion();
+	document.getElementById('javaRequiredVersion').innerHTML = requiredJavaVersion;
 	document.getElementById('javaYourVersion').innerHTML = getJavaVersion();
 	
-	var requirementMet = '';
+	//check if the java version is satisfied and then get the icon to be displayed (pass or fail)
+	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(checkJavaVersion(requiredJavaVersion));
 	
-	if(checkJavaVersion()) {
-		requirementMet = "<img src='./themes/tels/default/images/check_16.gif' />"
-	} else {
-		requirementMet = "<img src='./themes/tels/default/images/error_16.gif' />"
-	}
-	
-	document.getElementById('javaRequirementMet').innerHTML = requirementMet;
+	document.getElementById('javaRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
 	document.getElementById('javaAdditionalInfo').innerHTML = getJavaAdditionalInfo();
 
 }
 
+/**
+ * Get the value to display for the resource column for the java row.
+ * @return the value to display for the resource column for the java row
+ */
 function getJavaName() {
 	return "Java";
 }
 
-function getJavaRequiredVersion() {
-	return requiredJavaVersion;
-}
-
+/**
+ * Get the version of java that the client is currently using.
+ * Look at deployJava.js to see how the java version is obtained.
+ * @return the version of java that the client is currently using
+ */
 function getJavaVersion() {
-	var javaVersion = 'Not Installed';
+	var javaVersion = '';
 	
+	//obtain an array of the JREs that are installed on the client
 	var jres = deployJava.getJREs();
 	
-	if(jres.length > 0) {
-		javaVersion = jres.toString();		
+	//loop through all the jre versions
+	for(var x=0; x<jres.length; x++) {
+		//get a jre version
+		var jre = jres[x];
+
+		/*
+		 * set the java version to the current jre if this is the
+		 * first jre or if the jre version is greater than the 
+		 * java version we currently have stored
+		 */
+		if(javaVersion == '' || parseFloat(jre) >= parseFloat(javaVersion)) {
+			javaVersion = jre;
+		}
+	}
+	
+	if(javaVersion == '') {
+		//set the java version to 'Not Installed' if we did not find any jres
+		javaVersion = 'Not Installed';
 	}
 	
 	return javaVersion;
 }
 
-function checkJavaVersion() {
-	var requiredVersion = getJavaRequiredVersion();
+/**
+ * Check if the client java version satisfies the requirements
+ * @param requiredJavaVersion the required version of java
+ * @return whether the version of java they are currently using
+ * meets or surpasses the required version of java
+ */
+function checkJavaVersion(requiredJavaVersion) {
+	//get the required version of java
+	var requiredVersion = requiredJavaVersion;
+	
+	//get the version of java the user is currently using
 	var yourVersion = getJavaVersion();
 	
-	requiredVersion = parseFloat(requiredVersion);
-	yourVersion = parseFloat(yourVersion);
-	
-	if(yourVersion >= requiredVersion) {
-		return true;
-	} else {
-		return false;
-	}
+	return requiredVersionSatisfied(yourVersion, requiredVersion);
 }
 
+/**
+ * The link that we will display on the java row for users
+ * to upgrade their java.
+ * @return an a element containing a link to the java page
+ */
 function getJavaAdditionalInfo() {
 	return "<a href='http://www.java.com/download/'>Upgrade Java</a>";
 }
 
-function checkFlash() {
+/**
+ * Checks if the flash version the user is currently using meets
+ * or surpasses the required version of flash. It will
+ * fill in the values in the compatibility check table for
+ * the flash row.
+ */
+function checkFlash(requiredFlashVersion) {
 	document.getElementById('flashResource').innerHTML = getFlashName();
-	document.getElementById('flashRequiredVersion').innerHTML = getFlashRequiredVersion();
+	document.getElementById('flashRequiredVersion').innerHTML = requiredFlashVersion;
 	document.getElementById('flashYourVersion').innerHTML = getFlashVersion();
 	
-	var requirementMet = '';
+	//check if the flash version is satisfied and then get the icon to be displayed (pass or fail)
+	var requirementSatisfiedIcon = getRequirementSatisfiedIcon(checkFlashVersion(requiredFlashVersion));
 	
-	if(checkFlashVersion()) {
-		requirementMet = "<img src='./themes/tels/default/images/check_16.gif' />"
-	} else {
-		requirementMet = "<img src='./themes/tels/default/images/error_16.gif' />"
-	}
-	
-	document.getElementById('flashRequirementMet').innerHTML = requirementMet;
+	document.getElementById('flashRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
 	document.getElementById('flashAdditionalInfo').innerHTML = getFlashAdditionalInfo();
 }
 
+/**
+ * Get the value to display for the resource column for the flash row.
+ * @return the value to display for the resource column for the flash row
+ */
 function getFlashName() {
 	return "Flash";
 }
 
-function getFlashRequiredVersion() {
-	return requiredFlashVersion;
-}
-
+/**
+ * Get the version of flash that the client is currently using.
+ * @return the version of flash that the client is currently using
+ */
 function getFlashVersion() {
 	var flashVersion = 'Not Installed';
 	
@@ -240,20 +488,27 @@ function getFlashVersion() {
 	return flashVersion;
 }
 
-function checkFlashVersion() {
-	var requiredVersion = getFlashRequiredVersion();
+/**
+ * Check if the client flash version satisfies the requirements
+ * @param requiredFlashVersion the required version of flash
+ * @return whether the version of flash they are currently using
+ * meets or surpasses the required version of flash
+ */
+function checkFlashVersion(requiredFlashVersion) {
+	//get the required version of flash
+	var requiredVersion = requiredFlashVersion;
+	
+	//get the version of flash the user is currently using
 	var yourVersion = getFlashVersion();
 	
-	requiredVersion = parseFloat(requiredVersion);
-	yourVersion = parseFloat(yourVersion);
-	
-	if(yourVersion >= requiredVersion) {
-		return true;
-	} else {
-		return false;
-	}
+	return requiredVersionSatisfied(yourVersion, requiredVersion);
 }
 
+/**
+ * The link that we will display on the flash row for users
+ * to upgrade their flash.
+ * @return an a element containing a link to the flash page
+ */
 function getFlashAdditionalInfo() {
 	return "<a href='http://get.adobe.com/flashplayer/'>Upgrade Flash</a>";
 }
@@ -300,6 +555,8 @@ function JSGetSwfVer(i){
 	}
 	return flashVer;
 } 
+
+
 //When called with reqMajorVer, reqMinorVer, reqRevision returns true if that version or greater is available
 function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision) 
 {

@@ -1479,5 +1479,6 @@
     
     <bean id="compatibilityCheckController"
 		class="org.telscenter.sail.webapp.presentation.web.controllers.CompatibilityCheckController">
+		<property name="projectService" ref="projectService"/>
 	</bean>
 </beans>
