@@ -84,6 +84,8 @@
 				<td id='javaAdditionalInfo'></td>
 			</tr>
 		</table>
+		<noscript><div style='text-align:left;color:red'><br />Warning: you must enable Javascript in order to run Wise 4, please click the "How to enable Javascript" link to find out how to enable Javascript.</div></noscript>
+		<div id='compatibilityCheckMessages' style='text-align:left;color:red'></div>
 	</div>
 
 </div>   <!-- end of centered div-->
