@@ -176,6 +176,12 @@ width: 100%;
 									onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)"> <img
 									src="./themes/tels/default/images/ContactWise.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
 									id="Contact Wise Button" /></a></li>
+							<li><a href="./check.html"
+									title="Check if your computer can run Wise 4."
+									onmouseout="MM_swapImgRestore()"
+									onmouseover="MM_swapImage('checkCompatibilityButton','','./themes/tels/default/images/CheckCompatibilityButtonRoll.png',1)"> <img
+									src="./themes/tels/default/images/CheckCompatibilityButton.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
+									id="checkCompatibilityButton" /></a></li>
 	
 					</ul>
 								</div>
