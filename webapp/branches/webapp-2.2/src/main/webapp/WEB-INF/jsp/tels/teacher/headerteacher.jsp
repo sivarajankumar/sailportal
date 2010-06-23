@@ -47,36 +47,41 @@
 
 		<li class="level1"><a href="#">Projects</a>
 		<ul>
-				<li><a href="/webapp/teacher/projects/index.html">Overview</a></li>
-				<li><a href="/webapp/teacher/projects/telsprojectlibrary.html">Browse TELS Projects</a></li>
-				<li><a href="" style="color:#999;">Browse VISUAL Projects</a></li>
-				<li><a href="/webapp/teacher/projects/projectlibrary.html">Search the Project Library</a></li>
 				<li><a href="/webapp/teacher/projects/customized/index.html">View My Projects<br/><span style="font-size:90%;">(Custom, Shared, & Bookmarked)</span></a></li>
-								<li><a href="/webapp/author/authorproject.html">Launch Authoring Tool</a></li>
-
+				<li><a href="/webapp/author/authorproject.html">Launch Authoring Tool</a></li>
+				<li><a href="/webapp/teacher/projects/telsprojectlibrary.html">Browse TELS Projects</a></li>
+				<!--  
+				<li><a href="" style="color:#999;">Browse VISUAL Projects</a></li>
+				-->
+				<li><a href="/webapp/teacher/projects/projectlibrary.html">Search the Project Library</a></li>
+				<li><a href="/webapp/teacher/projects/index.html">Overview</a></li>
 		</ul>
 		</li>
 
 		<li class="level1"><a href="#">Management</a>
 	    <ul>
-            <li><a href="/webapp/teacher/management/overview.html">Overview</a></li>
             <li><a href="/webapp/teacher/run/myprojectruns.html">My Project Runs & Access Codes</a></li>
 			<li><a href="/webapp/teacher/management/projectPickerManagement.html">Manage Students</a></li>
+            <!--  
             <li><a href="/webapp/message.html?action=index">View & Send Messages</a></li>
 			<li><a href="" style="color:#999;">View Student RealTime Progress Monitor</a></li>
             <li><a href="" style="color:#999;">Print/Export Student Work</a></li>
             <li><a href="" style="color:#999;">Manage Extra Teachers</a></li>
             <li><a href="/webapp/teacher/management/updatemyaccount.html">Update My Account</a></li>
+            -->
+            <li><a href="/webapp/teacher/management/overview.html">Overview</a></li>
         </ul>
 		</li>
 
 		<li class="level1"><a href="#">Help</a> 
 		<ul>	
-            <li><a href="/webapp/teacher/help/overview.html">Overview</a></li>
 			<li><a href="http://tels-group.soe.berkeley.edu:9006/confluence/display/W3Help/Quickstart+Guide+for+Teachers" target="_blank">Quickstart Guide for Teachers</a></li>
 			<li><a href="http://tels-group.soe.berkeley.edu:9006/confluence/display/W3Help/Frequently+Asked+Questions+(FAQ)" target="_blank">Frequently Asked Questions</a></li>
+			<!--  
             <li><a href="#" style="color:#999;">Search the Help Guide</a></li>
+            -->
             <li><a href="/webapp/contactwisegeneral.html">Contact WISE Staff</a></li>
+            <li><a href="/webapp/teacher/help/overview.html">Overview</a></li>
 		</ul>
 		</li>
 		</ul>
