@@ -8,7 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
-<link href="<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
   
 <title><spring:message code="checkcompatibility.title" /></title>
 
@@ -17,7 +16,7 @@
 <script type="text/javascript" src="./javascript/tels/general.js"></script>
 <script type="text/javascript" src="./javascript/tels/browserdetect.js"></script>
 <script type="text/javascript" src="./javascript/tels/deployJava.js"></script>
-<script type="text/javascript" src="./javascript/tels/compatibilityCheck.js"></script>
+<script type="text/javascript" src="./javascript/tels/checkCompatibility.js"></script>
 
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" /> 
 
@@ -34,6 +33,7 @@
 		<table border='1'>
 			<tr>
 				<td>Resource</td>
+				<td>Status</td>
 				<td>Required Version</td>
 				<td>Your Version</td>
 				<td>Requirement Satisfied</td>
@@ -42,6 +42,7 @@
 			<noscript>
 				<tr>
 				<td>Javascript</td>
+				<td>Required</td>
 				<td>Enabled</td>
 				<td>Disabled</td>
 				<td><img src='./themes/tels/default/images/error_16.gif' /></td>
@@ -50,6 +51,7 @@
 			</noscript>
 			<tr>
 				<td id='javascriptResource'></td>
+				<td id='javascriptStatus'></td>
 				<td id='javascriptRequiredVersion'></td>
 				<td id='javascriptYourVersion'></td>
 				<td id='javascriptRequirementSatisfied'></td>
@@ -57,6 +59,7 @@
 			</tr>
 			<tr>
 				<td id='browserResource'></td>
+				<td id='browserStatus'></td>
 				<td id='browserRequiredVersion'></td>
 				<td id='browserYourVersion'></td>
 				<td id='browserRequirementSatisfied'></td>
@@ -64,6 +67,7 @@
 			</tr>
 			<tr>
 				<td id='quickTimeResource'></td>
+				<td id='quickTimeStatus'></td>
 				<td id='quickTimeRequiredVersion'></td>
 				<td id='quickTimeYourVersion'></td>
 				<td id='quickTimeRequirementSatisfied'></td>
@@ -71,6 +75,7 @@
 			</tr>
 			<tr>
 				<td id='flashResource'></td>
+				<td id='flashStatus'></td>
 				<td id='flashRequiredVersion'></td>
 				<td id='flashYourVersion'></td>
 				<td id='flashRequirementSatisfied'></td>
@@ -78,14 +83,16 @@
 			</tr>
 			<tr>
 				<td id='javaResource'></td>
+				<td id='javaStatus'></td>
 				<td id='javaRequiredVersion'></td>
 				<td id='javaYourVersion'></td>
 				<td id='javaRequirementSatisfied'></td>
 				<td id='javaAdditionalInfo'></td>
 			</tr>
 		</table>
-		<noscript><div style='text-align:left;color:red'><br />Warning: you must enable Javascript in order to run Wise 4, please click the "How to enable Javascript" link to find out how to enable Javascript.</div></noscript>
-		<div id='compatibilityCheckMessages' style='text-align:left;color:red'></div>
+		<noscript><br><b>Compatibility Check Result: You can not run Wise 4</b><br><br><p class='checkCompatibilityWarning'>Warning: you must enable Javascript in order to run Wise 4, please click the "How to enable Javascript" link to find out how to enable Javascript.</p></noscript>
+		<div id='compatibilityCheckResult'></div>
+		<div id='compatibilityCheckMessages'></div>
 	</div>
 
 </div>   <!-- end of centered div-->

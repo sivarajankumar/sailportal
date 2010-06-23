@@ -11,8 +11,8 @@ var defaultRequirements = {
 	requiredChromeVersion:'5.0',
 	requiredSafariVersion:'3.0',
 	requiredQuickTimeVersion:'5.0',
-	requiredFlashVersion:'5.0',
-	requiredJavaVersion:'1.4'
+	requiredFlashVersion:'10.0',
+	requiredJavaVersion:'1.5'
 }
 
 /**
@@ -82,12 +82,23 @@ function checkCompatibility(specificRequirements) {
 		}
 	}
 	
-	//check all the requirements
-	checkJavascript();
-	checkBrowser(combinedRequirements);
-	checkQuickTime(combinedRequirements.requiredQuickTimeVersion);
-	checkFlash(combinedRequirements.requiredFlashVersion);
-	checkJava(combinedRequirements.requiredJavaVersion);
+	var requiredResources = true;
+	var recommendedResources = true;
+	
+	//check required resources
+	requiredResources = checkJavascript() && requiredResources;
+	requiredResources = checkBrowser(combinedRequirements) && requiredResources;
+	
+	//check recommended resources
+	recommendedResources = checkQuickTime(combinedRequirements.requiredQuickTimeVersion) && recommendedResources;
+	recommendedResources = checkFlash(combinedRequirements.requiredFlashVersion) && recommendedResources;
+	recommendedResources = checkJava(combinedRequirements.requiredJavaVersion) && recommendedResources;
+	
+	if(requiredResources) {
+		document.getElementById('compatibilityCheckResult').innerHTML = '<br><b>Compatibility Check Result: You can run Wise 4</b>';
+	} else {
+		document.getElementById('compatibilityCheckResult').innerHTML = '<br><b>Compatibility Check Result: You can not run Wise 4</b>';
+	}
 }
 
 /**
@@ -153,10 +164,13 @@ function getOS() {
  */
 function checkJavascript() {
 	document.getElementById('javascriptResource').innerHTML = 'Javascript';
+	document.getElementById('javascriptStatus').innerHTML = 'Required';
 	document.getElementById('javascriptRequiredVersion').innerHTML = 'Enabled';
 	document.getElementById('javascriptYourVersion').innerHTML = 'Enabled';
 	document.getElementById('javascriptRequirementSatisfied').innerHTML = "<img src='./themes/tels/default/images/check_16.gif' />";
 	document.getElementById('javascriptAdditionalInfo').innerHTML = "<a href='https://www.google.com/support/adsense/bin/answer.py?answer=12654'>How to enable Javascript</a>";
+
+	return true;
 }
 
 /**
@@ -174,6 +188,7 @@ function checkJavascript() {
  */
 function checkBrowser(requirements) {
 	document.getElementById('browserResource').innerHTML = getBrowserName();
+	document.getElementById('browserStatus').innerHTML = getBrowserStatus();
 	document.getElementById('browserRequiredVersion').innerHTML = getBrowserRequiredVersion(requirements);
 	document.getElementById('browserYourVersion').innerHTML = getBrowserVersion();
 	
@@ -186,16 +201,29 @@ function checkBrowser(requirements) {
 	document.getElementById('browserRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
 	document.getElementById('browserAdditionalInfo').innerHTML = getBrowserAdditionalInfo();
 	
-	if(!browserPassed) {
+	if(browserPassed) {
+		return true;
+	} else {
 		//browser version is too old so we will display a warning message about the browser
 		
 		var browserName = getBrowserName();
 		if(browserName == 'Firefox') {
-			document.getElementById('compatibilityCheckMessages').innerHTML += "<br><br>Warning: the version of " + browserName + " you are running is too old to run Wise 4, please update " + browserName + ".";
+			document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityWarning'>Warning: the version of " + browserName + " you are running is too old to run Wise 4, please update " + browserName + ".</p>";
 		} else {
-			document.getElementById('compatibilityCheckMessages').innerHTML += "<br><br>Warning: the version of " + browserName + " you are running is too old to run Wise 4, please update " + browserName + ". We suggest upgrading to Firefox as Firefox is the most stable browser to run Wise 4.";			
+			document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityWarning'>Warning: the version of " + browserName + " you are running is too old to run Wise 4, please update " + browserName + ". We suggest switching to Firefox as Firefox is the most stable browser to run Wise 4.</p>";			
 		}
+		
+		return false;
 	}
+}
+
+/**
+ * Obtain the requirement status of the browser
+ * 'Required' or 'Recommended'
+ * @return a string specifying the requirement status
+ */
+function getBrowserStatus() {
+	return "Required";
 }
 
 /**
@@ -302,6 +330,7 @@ function getBrowserAdditionalInfo() {
  */
 function checkQuickTime(requiredQuickTimeVersion) {
 	document.getElementById('quickTimeResource').innerHTML = getQuickTimeName();
+	document.getElementById('quickTimeStatus').innerHTML = getQuickTimeStatus();
 	document.getElementById('quickTimeRequiredVersion').innerHTML = requiredQuickTimeVersion;
 	document.getElementById('quickTimeYourVersion').innerHTML = getQuickTimeVersion();
 	
@@ -314,10 +343,23 @@ function checkQuickTime(requiredQuickTimeVersion) {
 	document.getElementById('quickTimeRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
 	document.getElementById('quickTimeAdditionalInfo').innerHTML = getQuickTimeAdditionalInfo();
 	
-	if(!quickTimePassed) {
+	if(quickTimePassed) {
+		return true;
+	} else {
 		//quicktime version is too old so we will display a warning message about quicktime
-		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><br>Warning: the version of QuickTime you are running is too old to run Wise 4 projects that utilize QuickTime, please update your QuickTime if you are running a project that uses it.";
+		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityCaution'>Caution: you may not be able to watch some QuickTime videos unless you update QuickTime.</p>";
+		
+		return false;
 	}
+}
+
+/**
+ * Obtain the requirement status of quicktime
+ * 'Required' or 'Recommended'
+ * @return a string specifying the requirement status
+ */
+function getQuickTimeStatus() {
+	return "Recommended";
 }
 
 /**
@@ -390,6 +432,7 @@ function getQuickTimeAdditionalInfo() {
  */
 function checkJava(requiredJavaVersion) {
 	document.getElementById('javaResource').innerHTML = getJavaName();
+	document.getElementById('javaStatus').innerHTML = getJavaStatus();
 	document.getElementById('javaRequiredVersion').innerHTML = requiredJavaVersion;
 	document.getElementById('javaYourVersion').innerHTML = getJavaVersion();
 	
@@ -402,10 +445,23 @@ function checkJava(requiredJavaVersion) {
 	document.getElementById('javaRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
 	document.getElementById('javaAdditionalInfo').innerHTML = getJavaAdditionalInfo();
 
-	if(!javaPassed) {
+	if(javaPassed) {
+		return true;
+	} else {
 		//java version is too old so we will display a warning message about java
-		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><br>Warning: the version of Java you are running is too old to run Wise 4 projects that utilize Java, please update your Java if you are running a project that uses it.";
+		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityCaution'>Caution: you may not be able to run some Java applets unless you update Java.</p>";
+		
+		return false;
 	}
+}
+
+/**
+ * Obtain the requirement status of java
+ * 'Required' or 'Recommended'
+ * @return a string specifying the requirement status
+ */
+function getJavaStatus() {
+	return "Recommended";
 }
 
 /**
@@ -483,6 +539,7 @@ function getJavaAdditionalInfo() {
  */
 function checkFlash(requiredFlashVersion) {
 	document.getElementById('flashResource').innerHTML = getFlashName();
+	document.getElementById('flashStatus').innerHTML = getFlashStatus();
 	document.getElementById('flashRequiredVersion').innerHTML = requiredFlashVersion;
 	document.getElementById('flashYourVersion').innerHTML = getFlashVersion();
 	
@@ -495,10 +552,23 @@ function checkFlash(requiredFlashVersion) {
 	document.getElementById('flashRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
 	document.getElementById('flashAdditionalInfo').innerHTML = getFlashAdditionalInfo();
 	
-	if(!flashPassed) {
+	if(flashPassed) {
+		return true;
+	} else {
 		//flash version is too old so we will display a warning message about flash
-		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><br>Warning: the version of Flash you are running is too old to run Wise 4 projects that utilize Flash, please update your Flash if you are running a project that uses it.";
+		document.getElementById('compatibilityCheckMessages').innerHTML += "<br><p class='checkCompatibilityCaution'>Caution: you may not be able to run some Flash animations unless you update Flash.</p>";
+		
+		return false;
 	}
+}
+
+/**
+ * Obtain the requirement status of flash
+ * 'Required' or 'Recommended'
+ * @return a string specifying the requirement status
+ */
+function getFlashStatus() {
+	return "Recommended";
 }
 
 /**

@@ -304,3 +304,14 @@ form {margin:0px; padding:0px;}
 	font-style:normal;
 			}
 			
+.checkCompatibilityWarning {
+	font-size:1.0em;
+	text-align:left;
+	color:red
+}
+
+.checkCompatibilityCaution {
+	font-size:1.0em;
+	text-align:left;
+	color:blue
+}
