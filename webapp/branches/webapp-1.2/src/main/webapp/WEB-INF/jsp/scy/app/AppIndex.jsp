@@ -21,7 +21,36 @@
 
     <sec:authorize ifAllGranted="ROLE_USER">
         <sec:authorize ifAllGranted="ROLE_STUDENT">
-            <s:myCurrentActivity username="${currentUser.userDetails.username}"/>
+            <h2>What do you want to do?</h2>
+            <table>
+                <tr>
+                    <td><a href="/extcomp/scy-lab.jnlp">Start SCYLab</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/webapp/app/feedback/ScyFeedbackIndex.html">View ELOs</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <s:myCurrentActivity username="${currentUser.userDetails.username}"/>
+                    </td>
+                </tr>
+
+            </table>
+        </sec:authorize>
+        <sec:authorize ifAllGranted="ROLE_TEACHER">
+            <h2>What do you want to do?</h2>
+            <table>
+                <tr>
+                    <td><a href="/extcomp/scy-lab.jnlp">Start SCYLab</a></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="/webapp/app/feedback/ScyFeedbackIndex.html">View ELOs</a>
+                    </td>
+                </tr>
+            </table>        
         </sec:authorize>
 	</sec:authorize>
 
