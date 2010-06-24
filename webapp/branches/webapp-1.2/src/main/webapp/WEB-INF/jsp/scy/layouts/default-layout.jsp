@@ -61,10 +61,21 @@
 
 
 
-        function loadDialog(url, title){
+        function loadDialog(url, title, width, height){
+            var dialogWidth = 500;
+            var dialogHeight = 300;
+
+            if(width != null){
+                dialogWidth = width;
+            }
+
+            if(height != null){
+                dialogHeight = height;
+            }
+
             var theDialog =  new dijit.Dialog({
                 title: title,
-                style: "width:500px;height:300px;",
+                style: "width:" + dialogWidth + "px;height:" + dialogHeight + "px;",
                 href: url
             });
 
