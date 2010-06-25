@@ -123,6 +123,10 @@
         </listener-class>
     </listener>
 
+     <listener>
+          <listener-class>net.sf.ehcache.constructs.web.ShutdownListener</listener-class>
+     </listener>
+
     <!--
              The HttpSessionEventPublisher will publish
              HttpSessionCreatedEvent and HttpSessionDestroyedEvent
