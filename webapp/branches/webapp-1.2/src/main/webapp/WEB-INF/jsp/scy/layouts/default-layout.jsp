@@ -34,7 +34,8 @@
 
         }
         function postForm(form, retId){
-            var returnid = retId.id;
+            var returnid = null;
+            if(retId != null) returnid = retId.id;
             var xhrArgs = {
                     form: dojo.byId(form),
                     handleAs: "text",
@@ -45,7 +46,9 @@
                     load: function(data) {
                         if(returnid != null && document.getElementById(returnid)){
                             document.getElementById(returnid).innerHMTL = data;
-                        } 
+                        } else {
+                            console.log("Return id does not exist!!");
+                        }
                         //dojo.byId("response").innerHTML = "Form posted.";
                         console.log("Form posted.");
                     },
