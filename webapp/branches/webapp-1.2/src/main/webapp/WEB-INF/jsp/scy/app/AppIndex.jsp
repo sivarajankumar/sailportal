@@ -33,7 +33,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <s:myCurrentActivity username="${currentUser.userDetails.username}"/>
+                        <s:dialog url="/webapp/app/feedback/uploadELOForFeedbackForm.html?username=${currentUser.userDetails.username}" title="Upload ELO" dialogHeader="Upload ELO"/>
+                        <!--s:myCurrentActivity username="${currentUser.userDetails.username}"/-->
                     </td>
                 </tr>
 

@@ -70,7 +70,6 @@
             classpath:component-controllers.xml,
             classpath:scyAuthorControllers.xml,
             classpath:scyFeedbackControllers.xml,
-            classpath:scyPlayfulControllers.xml
         </param-value>
     </context-param>
 
