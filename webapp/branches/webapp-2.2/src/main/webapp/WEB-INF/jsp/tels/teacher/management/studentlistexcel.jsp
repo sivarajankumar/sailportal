@@ -10,12 +10,11 @@
 
 <table>
 	<tr>
-		<th>WISE Student ID</th>
-		<th>SDS Student ID</th>
+		<th>WISE Period Name</th>
 		<th>WISE Group ID</th>
-		<th>SDS Group ID</th>
-		<th>Student Name</th>
+		<th>WISE Student ID</th>
 		<th>Student Username</th>		
+		<th>Student Name</th>
 	</tr>
 	
 	<c:forEach var="viewmystudentsperiod" varStatus="periodStatus" items="${viewmystudentsallperiods}">
@@ -30,7 +29,7 @@
 			      <c:forEach var="workgroupMember" items="${workgroupInPeriod.members}">
 			      
 			        <li class="workgrouplist" id="li_${workgroupMember.id}_${workgroupInPeriod.id}">
-			        <tr><td>${workgroupMember.id}</td><td>${workgroupMember.sdsUser.sdsObjectId}</td><td>${workgroupInPeriod.id}</td><td>${workgroupInPeriod.sdsWorkgroup.sdsObjectId}</td><td>${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</td><td>${workgroupMember.userDetails.username}</td></tr>
+			        <tr><td>${workgroupInPeriod.period.name}</td><td>${workgroupInPeriod.id}</td><td>${workgroupMember.id}</td><td>${workgroupMember.userDetails.username}</td><td>${workgroupMember.userDetails.firstname} ${workgroupMember.userDetails.lastname}</td></tr>
 			      </c:forEach>
             </c:forEach>
 		</c:otherwise>
