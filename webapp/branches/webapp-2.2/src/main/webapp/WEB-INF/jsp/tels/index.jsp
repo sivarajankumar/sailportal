@@ -227,7 +227,8 @@ width: 100%;
 				<div id="header"><spring:message code="researchdevelop1" /></div>
 				<div id="researcherText">
 				<p><spring:message code="researchdevelop2" />
-				<spring:message code="researchdevelop3" />&nbsp;<a style="color:#666;" href="#" target="_blank">PENDING</a></p>
+				(<a href="/webapp/pages/gettingstarted.html" target="_blank">here</a>)
+				<spring:message code="researchdevelop3" /></p>
 				</div>
 				</div>
 
