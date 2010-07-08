@@ -130,6 +130,8 @@
                 /message.html=ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /authorize.html=ROLE_ANONYMOUS,ROLE_USER
                 /request/info.html=ROLE_ANONYMOUS,ROLE_USER
+                /pages/*.html=ROLE_ANONYMOUS,ROLE_USER
+                /pages/**/*.html=ROLE_ANONYMOUS,ROLE_USER
                 /*.html=ROLE_USER
                 /**/*.html=ROLE_USER
             </value>

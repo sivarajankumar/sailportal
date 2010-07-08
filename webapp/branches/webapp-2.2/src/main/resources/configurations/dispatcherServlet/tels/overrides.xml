@@ -311,6 +311,7 @@
 				/errors/outsideerror.html=outsideErrorController
 				/authorize.html=credentialManager
 				/check.html=compatibilityCheckController
+				/pages/*.html=urlFilenameViewController
     		</value>
     	</property>
     </bean>
