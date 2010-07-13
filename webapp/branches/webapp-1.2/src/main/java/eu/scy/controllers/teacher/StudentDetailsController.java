@@ -1,6 +1,7 @@
 package eu.scy.controllers.teacher;
 
 import eu.scy.controllers.AbstractSCYController;
+import eu.scy.core.AssignedPedagogicalPlanService;
 import eu.scy.core.PedagogicalPlanPersistenceService;
 import eu.scy.core.StudentPedagogicalPlanPersistenceService;
 import eu.scy.core.StudentPedagogicalPlanPersistenceServiceImpl;
@@ -25,6 +26,7 @@ public class StudentDetailsController extends AbstractSCYController {
 
     private StudentPedagogicalPlanPersistenceService studentPedagogicalPlanPersistenceService;
     private PedagogicalPlanPersistenceService pedagogicalPlanPersistenceService;
+    private AssignedPedagogicalPlanService assignedPedagogicalPlanService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
@@ -54,6 +56,8 @@ public class StudentDetailsController extends AbstractSCYController {
         modelAndView.addObject("student", student);
 
         modelAndView.addObject("studentPlans", getStudentPedagogicalPlanPersistenceService().getStudentPlans(student));
+        modelAndView.addObject("assignedPedagogicalPlans", getAssignedPedagogicalPlanService().getAssignedPedagogicalPlans(student));
+
 
 
         return modelAndView;
@@ -83,5 +87,13 @@ public class StudentDetailsController extends AbstractSCYController {
 
     public void setPedagogicalPlanPersistenceService(PedagogicalPlanPersistenceService pedagogicalPlanPersistenceService) {
         this.pedagogicalPlanPersistenceService = pedagogicalPlanPersistenceService;
+    }
+
+    public AssignedPedagogicalPlanService getAssignedPedagogicalPlanService() {
+        return assignedPedagogicalPlanService;
+    }
+
+    public void setAssignedPedagogicalPlanService(AssignedPedagogicalPlanService assignedPedagogicalPlanService) {
+        this.assignedPedagogicalPlanService = assignedPedagogicalPlanService;
     }
 }
