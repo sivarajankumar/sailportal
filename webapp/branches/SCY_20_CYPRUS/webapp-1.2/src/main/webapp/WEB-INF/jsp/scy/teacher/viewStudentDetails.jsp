@@ -32,6 +32,25 @@
             </c:when>
         </c:choose>
 
+        <c:choose>
+            <c:when test="${fn:length(assignedPedagogicalPlans) > 0}">
+                    <c:forEach var="assignedPedagogicalPlan" items="${assignedPedagogicalPlans}">
+                        <table border="2">
+                            <tr>
+                                <td><strong>Name</strong></td>
+                                <td>${assignedPedagogicalPlan.pedagogicalPlan.name}</td>
+                            </tr>
+                        <tr>
+                            <td><strong>Use criteria based assessment</strong></td>
+                            <td><s:ajaxCheckBox model="${assignedPedagogicalPlan}" property="useCriteriaBasedAssessment"/> </td>
+                        </tr>
+
+
+                    </c:forEach>
+            </c:when>
+        </c:choose>
+
+
         <div>
             <a href="studentBuddies.html?username=${student.userDetails.username}">Buddies</a>
         </div>
