@@ -106,7 +106,7 @@ public class ShareProjectController extends SimpleFormController {
 		User user = ControllerUtil.getSignedInUser();
 		Project project = projectService.getById(Long.parseLong(request.getParameter(PROJECTID_PARAM_NAME)));
 		
-		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user)){
+		if(user.isAdmin() || this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user)){
 			Map<String, Object> model = new HashMap<String, Object>();
 			String message = request.getParameter("message");
 			if (message != null) {
