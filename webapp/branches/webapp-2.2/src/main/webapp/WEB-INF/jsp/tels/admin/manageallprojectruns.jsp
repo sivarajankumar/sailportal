@@ -91,6 +91,7 @@
     <td><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><ul>
+    		<li><a href="../teacher/run/shareprojectrun.html?runId=${run.id}">Manage shared teachers</a></li>
     		<li><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage students</a></li>
     	<c:choose>
     		<c:when test="${run.endtime == null}">

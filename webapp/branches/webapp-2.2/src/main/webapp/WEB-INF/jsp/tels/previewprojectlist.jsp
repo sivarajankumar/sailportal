@@ -50,9 +50,9 @@ You need to be running a recent web browser (Firefox, Safari, or Internet Explor
   </tr>
 <c:forEach var="project" items="${projectList}">
   <tr>
-  <td><c:out value="${project.projectInfo.name}"/></td>
-  <td>${project.projectInfo.subject}, ${project.projectInfo.keywords}</td>
-  <td>${project.projectInfo.gradeLevel}</td>
+  <td><c:out value="${project.name}"/></td>
+  <td>${project.metadata.subject}</td>
+  <td>${project.metadata.gradeRange}</td>
   <td id="previewActionLinks"><a href="<c:url value="previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">
 	       Preview Project
       </a> <br /> 

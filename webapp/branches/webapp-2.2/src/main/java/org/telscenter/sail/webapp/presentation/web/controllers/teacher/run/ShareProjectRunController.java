@@ -128,7 +128,7 @@ public class ShareProjectRunController extends SimpleFormController {
 		Run run = runService.retrieveById(Long.parseLong(request.getParameter(RUNID_PARAM_NAME)));
 		Set<User> sharedowners = run.getSharedowners();
 
-		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user)){
+		if(user.isAdmin() || this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user)){
 			for (User sharedowner : sharedowners) {
 				String sharedTeacherRole = runService.getSharedTeacherRole(run, sharedowner);
 				AddSharedTeacherParameters addSharedTeacherParameters = 

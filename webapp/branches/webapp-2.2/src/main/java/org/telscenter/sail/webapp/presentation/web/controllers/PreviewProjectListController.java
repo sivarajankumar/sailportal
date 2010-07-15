@@ -24,6 +24,8 @@ package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,7 +53,12 @@ public class PreviewProjectListController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		 List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
+		 Set<String> tagNames = new TreeSet<String>();
+		 tagNames.add("tels");
+		 tagNames.add("library");
+		 List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
+
+		 // List<Project> projectList = this.projectService.getProjectListByTag(FamilyTag.TELS);
 		 List<Project> currentProjectList = new ArrayList<Project>();
 		 for (Project p: projectList) {
 			 if (p.isCurrent())
