@@ -60,4 +60,7 @@ delete FROM sail_database.premadecomments_related_to_premadecommentlists;
 delete FROM sail_database.premadecommentlists;
 delete FROM sail_database.premadecomments;
 
+update projects set projecttype=2 where projecttype is null;
+
+
 ### 2010.06.11 End
