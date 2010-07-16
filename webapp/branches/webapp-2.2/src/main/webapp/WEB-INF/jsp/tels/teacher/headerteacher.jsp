@@ -53,7 +53,9 @@
 				<!--  
 				<li><a href="" style="color:#999;">Browse VISUAL Projects</a></li>
 				-->
+				<!--  
 				<li><a href="/webapp/teacher/projects/projectlibrary.html">Search the Project Library</a></li>
+				-->
 				<li><a href="/webapp/teacher/projects/index.html">Overview</a></li>
 		</ul>
 		</li>
