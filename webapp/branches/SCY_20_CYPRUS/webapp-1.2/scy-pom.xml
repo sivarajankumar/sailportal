@@ -25,7 +25,7 @@
 	<artifactId>webapp</artifactId>
 	<packaging>war</packaging>
 	<name>SAIL Web Application</name>
-	<version>0.20.SCY-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<url>http://sail.sourceforge.net/</url>
 	<developers>
 		<developer>
