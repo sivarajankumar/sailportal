@@ -22,6 +22,9 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,6 +35,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.Tag;
+import org.telscenter.sail.webapp.domain.project.impl.TagImpl;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -62,9 +67,13 @@ public class ProjectInfoController extends AbstractController {
 		String projectIdStr = request.getParameter(PROJECTID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
 		User user = ControllerUtil.getSignedInUser();
-		
+		Set<String> telslibrary = new TreeSet<String>();
+		telslibrary.add("tels");
+		telslibrary.add("library");
+
 		if(project != null){
-			if(this.projectService.canAuthorProject(project, user)){
+			if(this.projectService.canAuthorProject(project, user)
+			||	project.hasTags(telslibrary)){
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.addObject(PROJECT_PARAM_NAME, project);
 				modelAndView.addObject(USAGE, this.runService.getProjectUsage((Long)project.getId()));

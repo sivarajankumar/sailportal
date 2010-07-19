@@ -152,7 +152,8 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		if (object == null)
 			throw new ObjectNotFoundException((Long) id, this.getDataObjectClass());
 		
-		return this.metadataDao.addMetadataToProject(object);
+		return object;
+		//return this.metadataDao.addMetadataToProject(object);
 	}
 	
 	/**

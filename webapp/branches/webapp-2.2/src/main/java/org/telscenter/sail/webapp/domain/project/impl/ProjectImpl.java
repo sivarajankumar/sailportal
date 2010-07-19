@@ -493,4 +493,22 @@ public class ProjectImpl implements Project {
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
- }
+
+	/**
+	 * @see org.telscenter.sail.webapp.domain.project.Project#hasTags(java.util.Set)
+	 */
+	public boolean hasTags(Set<String> tagnames) {
+		for (String tagname : tagnames) {
+			boolean tagfound = false;
+			for (Tag tag : this.getTags()) {
+				if (tag.getName().equals(tagname)) {
+					tagfound = true;
+				}
+			}
+			if (!tagfound) {
+				return false;
+			}
+		}
+		return true;
+	}
+}

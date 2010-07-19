@@ -209,4 +209,13 @@ public interface Project extends Persistable {
 	 * @param tags the tags to set
 	 */
 	public void setTags(Set<Tag> tags);
+	
+	/**
+	 * Returns true iff this project has at least all of the tags
+	 * specified.
+	 * 
+	 * @param tagnames
+	 * @return
+	 */
+	public boolean hasTags(Set<String> tagnames);
 }
