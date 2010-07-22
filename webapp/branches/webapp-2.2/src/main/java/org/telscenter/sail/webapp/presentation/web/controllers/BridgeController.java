@@ -413,11 +413,15 @@ public class BridgeController extends AbstractController {
 		//get the shared teacher infos
 		JSONArray sharedTeacherUserInfosJSONArray = RunUtil.getSharedTeacherUserInfos(run, workgroupService);
 		
+		//get the run info
+		JSONObject runInfoJSONObject = RunUtil.getRunInfo(run);
+		
 		//set the JSON objects to request attributes so the vlewrapper servlet can access them
 		request.setAttribute("myUserInfo", myUserInfoJSONObject.toString());		
 		request.setAttribute("classmateUserInfos", classmateUserInfosJSONArray.toString());
 		request.setAttribute("teacherUserInfo", teacherUserInfoJSONObject.toString());
 		request.setAttribute("sharedTeacherUserInfos", sharedTeacherUserInfosJSONArray.toString());
+		request.setAttribute("runInfo", runInfoJSONObject.toString());
 	}
 	
 

@@ -1,5 +1,6 @@
 package org.telscenter.sail.webapp.presentation.web.controllers.run;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -101,10 +102,17 @@ public class RunUtil {
 						classmateJSONObject.put("workgroupId", ((WISEWorkgroup) workgroup).getId());
 						
 						if(((WISEWorkgroup) workgroup).getPeriod() != null) {
-							classmateJSONObject.put("periodId", ((WISEWorkgroup) workgroup).getPeriod().getId());	
+							classmateJSONObject.put("periodId", ((WISEWorkgroup) workgroup).getPeriod().getId());
+							classmateJSONObject.put("periodName", ((WISEWorkgroup) workgroup).getPeriod().getName());
 						} else {
 							classmateJSONObject.put("periodId", JSONObject.NULL);
 						}
+
+						//get the student logins as a string delimited by ':'
+						String loginsFromWorkgroup = getLoginsFromWorkgroup(workgroup);
+						
+						//put the student logins string into the json object
+						classmateJSONObject.put("studentLogins", loginsFromWorkgroup);
 						
 						//add the student to the list of classmates array
 						classmateUserInfosJSONArray.put(classmateJSONObject);	
@@ -202,6 +210,39 @@ public class RunUtil {
 		return sharedTeacherUserInfos;
 	}
 	
+	/**
+	 * Get the run info for the run and put it into a JSON object
+	 * @param run the run to obtain info for
+	 * @return a JSONObject that contains the run info
+	 */
+	public static JSONObject getRunInfo(Run run) {
+		JSONObject runInfo = new JSONObject();
+		
+		try {
+			Long runId = run.getId();
+			runInfo.put("runId", runId);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			//get the date the run was created
+			Date startTime = run.getStarttime();
+			runInfo.put("startTime", startTime);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			//get the date the run was archived or null if never archived
+			Date endTime = run.getEndtime();
+			runInfo.put("endTime", endTime);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return runInfo;
+	}
 	
 	/**
 	 * Obtain the first name, last name, and login for the user
@@ -254,6 +295,41 @@ public class RunUtil {
 			
 			//add the first name last name and login for this user
 			userNames.append(firstNameLastNameLogin);
+		}
+		
+		//return the : delimited user names that are in this workgroup
+		return userNames.toString();
+	}
+	
+	/**
+	 * Get the student logins as a string delimited by ':"
+	 * @param workgroup the workgroup id to obtain logins for
+	 * @return a string containing the student logins delimited by ':'
+	 */
+	public static String getLoginsFromWorkgroup(Workgroup workgroup) {
+		//the string buffer to maintain the user names
+		StringBuffer userNames = new StringBuffer();
+		
+		//get the members of the group in an iterator
+		Set<User> members = workgroup.getMembers();
+		Iterator<User> iterator = members.iterator();
+		
+		//loop through each member
+		while(iterator.hasNext()) {
+			//get a member
+			User user = iterator.next();
+
+			//get the login
+			net.sf.sail.webapp.domain.authentication.MutableUserDetails userDetails = user.getUserDetails();
+			String username = userDetails.getUsername();
+			
+			//separate the names with a :
+			if(userNames.length() != 0) {
+				userNames.append(":");
+			}
+			
+			//add the first name last name and login for this user
+			userNames.append(username);
 		}
 		
 		//return the : delimited user names that are in this workgroup
