@@ -3,6 +3,9 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -68,8 +71,12 @@ public class PreviewProjectController extends AbstractController {
 		User user = ControllerUtil.getSignedInUser();
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
+		 Set<String> tagNames = new TreeSet<String>();
+		 tagNames.add("tels");
+		 tagNames.add("library");
 		
-		if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
+		if(project.hasTags(tagNames) || 
+				project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
 			PreviewProjectParameters params = new PreviewProjectParameters();
 			params.setProject(project);
 			params.setHttpServletRequest(request);

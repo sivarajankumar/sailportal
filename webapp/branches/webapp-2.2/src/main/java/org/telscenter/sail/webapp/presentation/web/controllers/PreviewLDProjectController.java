@@ -23,6 +23,8 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,9 +60,13 @@ public class PreviewLDProjectController extends AbstractController {
 		User user = ControllerUtil.getSignedInUser();
 		String projectId = request.getParameter("projectId");
 		Project project = this.projectService.getById(Long.parseLong(projectId));
-		
+		Set<String> tagNames = new TreeSet<String>();
+		tagNames.add("tels");
+		tagNames.add("library");
+		 
 		if(projectId != null && project != null){
-			if(project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
+			if(project.hasTags(tagNames) || 
+					project.getFamilytag().equals(FamilyTag.TELS) || this.projectService.canReadProject(project, user)){
 				String portalurl = ControllerUtil.getBaseUrlString(request);
 				String vleConfigUrl = portalurl + "/webapp/request/info.html" + "?projectId=" + request.getParameter("projectId") + "&action=getVLEConfig&requester=portalpreview";
 
