@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <title>Loading Sample PAS Project to Virtual Learning Environment</title>
 
 <script type="text/javascript">
