@@ -249,77 +249,14 @@ public interface ProjectService {
 	public String minifyProject(Project project);
 	
 	/**
-	 * Give a <code>Project</code> and a <code>String</code> versionId, returns 
-	 * <code>JSONObject</code> the project metadata from the file, if it exists, 
-	 * returns null otherwise.
-	 * 
-	 * @param project
-	 * @return JSONObject - project metadata
-	 */
-	public JSONObject getProjectMetadataFile(Project project, String versionId);
-	
-	/**
-	 * Give a <code>Project</code> returns <code>JSONObject</code> the project metadata 
-	 * from the active version of the file, if it exists, returns null otherwise.
-	 * 
-	 * @param project
-	 * @return JSONObject - project metadata
-	 */
-	public JSONObject getProjectMetadataFile(Project project);
-	
-	/**
-	 * Given a <code>Project</code> project, attempts to retrieve and return the
-	 * <code>String</code> currently active version of the project from the version
-	 * master. Returns the active version if successful, null otherwise.
-	 * 
-	 * @param project
-	 * @return String activeVersion
-	 */
-	public String getActiveVersion(Project project);
-	
-	/**
-	 * Given a <code>String</code> projectIDPaths - a | delimited list of ~ delimited
-	 * project IDs, project paths and returns <code>String</code> a | delimited list of
-	 * ~ delimited project IDs, version id.
-	 * 
-	 * @param projects
-	 * @return String
-	 */
-	public String getActiveVersions(String projectIDPaths);
-	
-	/**
-	 * Given a <code>Project</code> project, a <code>String</code> username, and a
-	 * <code>String</code> snapshotName, attempts to create a snapshot of the given
-	 * version of the project. If successful, returns <code>String</code> the versionId
-	 * of the snapshot, returns "failed" otherwise.
-	 * 
-	 * @param project
-	 * @param username
-	 * @param snapshotName
-	 * @return String versionId
-	 */
-	public String takeSnapshot(Project project, String username, String snapshotName);
-	
-	/**
-	 * Given a <code>Project</code> and the <code>ProjectMetadata</code> metadata updates the
-	 * metadata in the database.
-	 * 
-	 * @param project
-	 * @param metadata
-	 * @return ProjectMetadata
-	 */
-	public ProjectMetadata updateMetadata(ProjectMetadata metadata);
-	
-	/**
-	 * Given a <code>Long</code> projectId and a <code>String</code> versionId, returns the
+	 * Given a <code>Long</code> projectId returns the
 	 * <code>ProjectMetadata</code> that is associated with that projectId and versionId, if
 	 * one exists, returns null otherwise.
 	 * 
 	 * @param projectId
-	 * @param versionId
 	 * @return
 	 */
-	public ProjectMetadata getMetadata(Long projectId, String versionId);
+	public ProjectMetadata getMetadata(Long projectId);
 	
 	/**
 	 * Given a <code>Project</code> project and <code>User</code> user, returns
@@ -451,14 +388,4 @@ public interface ProjectService {
 	 * @return boolean
 	 */
 	public boolean isAuthorizedToCreateTag(User user, String name);
-	
-	/**
-	 * Retrieves and returns a <code>Project</code> from the data store without
-	 * populating its metadata. This method should only be called when the use of
-	 * the project will not require metadata.
-	 * 
-	 * @param Long - id
-	 * @return Project - project
-	 */
-	public Project getProjectWithoutMetadata(Long projectId);
 }

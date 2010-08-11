@@ -32,7 +32,6 @@ import net.sf.sail.webapp.dao.impl.AbstractHibernateDao;
 import net.sf.sail.webapp.domain.User;
 
 import org.telscenter.sail.webapp.dao.project.ProjectDao;
-import org.telscenter.sail.webapp.dao.project.ProjectMetadataDao;
 import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
@@ -49,8 +48,6 @@ import edu.emory.mathcs.backport.java.util.Collections;
 public class HibernateProjectDao extends AbstractHibernateDao<Project> implements
 		ProjectDao<Project> {
 	
-		private ProjectMetadataDao metadataDao;
-
     	private static final String FIND_ALL_QUERY = "from ProjectImpl";
 
 	/**
@@ -66,7 +63,7 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		if (projects == null)
 			throw new ObjectNotFoundException(familytag, this
 					.getDataObjectClass());
-		return this.metadataDao.addMetadataToProjects(projects);
+		return projects;
 	}
 	
 	/**
@@ -82,7 +79,7 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		if (projects == null)
 			throw new ObjectNotFoundException(projectinfotag, this
 					.getDataObjectClass());
-		return this.metadataDao.addMetadataToProjects(projects);
+		return projects;
 	}
 	
 	/**
@@ -117,14 +114,14 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 	public List<Project> getProjectListByUAR(User user, String role){
 		String q = "select project from ProjectImpl project inner join project." +
 			role + "s " + role + " where " + role + ".id='" + user.getId() + "'";
-		return this.metadataDao.addMetadataToProjects(this.getHibernateTemplate().find(q));
+		return this.getHibernateTemplate().find(q);
 	}
 	
 	/**
 	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#getProjectList(java.lang.String)
 	 */
 	public List<Project> getProjectList(String query){
-		return this.metadataDao.addMetadataToProjects(this.getHibernateTemplate().find(query));
+		return this.getHibernateTemplate().find(query);
 	}
 
 	/**
@@ -133,7 +130,7 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Project> getList() {
-		return this.metadataDao.addMetadataToProjects(this.getHibernateTemplate().find(this.getFindAllQuery()));
+		return this.getHibernateTemplate().find(this.getFindAllQuery());
 	}
 	
 	/**
@@ -154,13 +151,6 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 		
 		return object;
 		//return this.metadataDao.addMetadataToProject(object);
-	}
-	
-	/**
-	 * @param metadataDao the metadataDao to set
-	 */
-	public void setMetadataDao(ProjectMetadataDao metadataDao) {
-		this.metadataDao = metadataDao;
 	}
 
 	/**

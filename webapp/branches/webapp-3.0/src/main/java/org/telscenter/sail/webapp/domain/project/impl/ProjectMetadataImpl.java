@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.domain.project.impl;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -90,6 +91,15 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Transient
 	public final static String COLUMN_NAME_VERSION_ID = "version_id";
 	
+	@Transient
+	public final static String COLUMN_NAME_LAST_CLEANED = "last_cleaned";
+	
+	@Transient
+	public final static String COLUMN_NAME_LAST_EDITED = "last_edited";
+	
+	@Transient
+	public final static String COLUMN_NAME_POST_LEVEL = "post_level";
+	
 	@Column(name = COLUMN_NAME_TITLE)
 	private String title;
 
@@ -128,6 +138,15 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Column(name = COLUMN_NAME_VERSION_ID)
 	private String versionId;
+	
+	@Column(name = COLUMN_NAME_LAST_CLEANED)
+	private Date lastCleaned;
+	
+	@Column(name = COLUMN_NAME_LAST_EDITED)
+	private Date lastEdited;
+	
+	@Column(name = COLUMN_NAME_POST_LEVEL)
+	private Long postLevel;
 	
 	public String getGradeRange() {
 		return gradeRange;
@@ -263,5 +282,29 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	 */
 	public Long getProjectId() {
 		return projectId;
+	}
+
+	public void setLastCleaned(Date lastCleaned) {
+		this.lastCleaned = lastCleaned;
+	}
+
+	public Date getLastCleaned() {
+		return lastCleaned;
+	}
+
+	public void setLastEdited(Date lastEdited) {
+		this.lastEdited = lastEdited;
+	}
+
+	public Date getLastEdited() {
+		return lastEdited;
+	}
+	
+	public Long getPostLevel() {
+		return postLevel;
+	}
+
+	public void setPostLevel(Long postLevel) {
+		this.postLevel = postLevel;
 	}
 }

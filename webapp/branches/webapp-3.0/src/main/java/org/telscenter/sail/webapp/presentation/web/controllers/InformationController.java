@@ -333,7 +333,7 @@ public class InformationController extends AbstractController{
 		String projectIdStr = request.getParameter("projectId");
 		String runId = request.getParameter("runId");
 		String requester = request.getParameter("requester");
-		String versionId = request.getParameter("versionId");
+		//String versionId = request.getParameter("versionId");
 		
 		String portalurl = ControllerUtil.getBaseUrlString(request);
 		String infourl = portalurl + "/webapp/request/info.html";
@@ -345,14 +345,15 @@ public class InformationController extends AbstractController{
 		String rawProjectUrl = null;
 		String portalVLEControllerUrl = null;
 		
-		/* if projectId provided, get project url from project */
+		// if projectId provided, this is a request for preview
 		if(projectIdStr != null){
 			Project project = projectService.getById(projectIdStr);
 			
-			/* get the url for the project content file */
+			/* get the url for the project content file 
 			if(versionId == null || versionId.equals("")){
 				versionId = this.projectService.getActiveVersion(project);
 			}
+			*/
 			
 			rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 			
@@ -364,7 +365,7 @@ public class InformationController extends AbstractController{
 		if(runId != null){
 			Run run = this.runService.retrieveById(Long.parseLong(runId));
 			rawProjectUrl = (String) run.getProject().getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-			versionId = run.getVersionId();
+			//versionId = run.getVersionId();
 			
 			portalVLEControllerUrl = portalurl + "/webapp/student/vle/vle.html?runId=" + run.getId();
 			
@@ -446,12 +447,15 @@ public class InformationController extends AbstractController{
 		}
 		
 		/* The polishedProjectUrl is the project url with the version id inserted into the project filename
-		 * If null or empty string is returned, we want to use the rawUrl */
+		 * If null or empty string is returned, we want to use the rawUrl 
 		if(versionId==null || versionId.equals("")){
 			polishedProjectUrl = rawProjectUrl;
 		} else {
 			polishedProjectUrl = rawProjectUrl.replace(".project.json", ".project." + versionId + ".json");
 		}
+		*/
+		
+		polishedProjectUrl = rawProjectUrl;
 		
 		/* set the content url */
 		String getContentUrl = curriculumBaseWWW + polishedProjectUrl;

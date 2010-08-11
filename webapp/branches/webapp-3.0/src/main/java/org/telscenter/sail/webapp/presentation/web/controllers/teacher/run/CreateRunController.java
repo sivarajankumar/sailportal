@@ -61,6 +61,7 @@ import org.telscenter.sail.webapp.domain.brainstorm.answer.impl.RevisionImpl;
 import org.telscenter.sail.webapp.domain.impl.DefaultPeriodNames;
 import org.telscenter.sail.webapp.domain.impl.RunParameters;
 import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
@@ -279,27 +280,15 @@ public class CreateRunController extends AbstractWizardFormController {
 			 * have been resolved. Add relevant data to the model. */
 			boolean forceCleaning = false;
 			boolean isAllowedToClean = (project.getOwners().contains(user) || project.getSharedowners().contains(user));
-			JSONObject projectMeta = this.projectService.getProjectMetadataFile(project);
-			if(projectMeta != null){
-				try{
-					JSONObject lastCleaned = projectMeta.getJSONObject("lastCleaned");
-					
-					try{
-						Long lcTime = lastCleaned.getLong("timestamp");
-						Long lastEdited = projectMeta.getLong("lastEdited");
-						
-						/* if it has been edited since it was last cleaned, we need to force cleaning */
-						if(lcTime < lastEdited){
-							forceCleaning = true;
-						}
-					} catch (JSONException e){
-						/* something is wrong with lastCleaned data, since we cannot verify it - force cleaning */
-						e.printStackTrace();
-						forceCleaning = true;
-					}
-				} catch (JSONException e){
-					/* this means that the project has never been cleaned so force cleaning */
-					e.printStackTrace();
+			ProjectMetadata metadata = project.getMetadata();
+
+			if(metadata != null){
+				Date lastCleaned = metadata.getLastCleaned();
+				//Long lcTime = lastCleaned.getLong("timestamp");
+				Date lastEdited = metadata.getLastEdited();
+				
+				/* if it has been edited since it was last cleaned, we need to force cleaning */
+				if(lastCleaned.before(lastEdited)) {
 					forceCleaning = true;
 				}
 			}
@@ -359,19 +348,15 @@ public class CreateRunController extends AbstractWizardFormController {
 	 * @return
 	 */
 	private Long getMinPostLevel(Project project){
-		JSONObject meta = this.projectService.getProjectMetadataFile(project);
+		Long level = 1l;
 		
-		if(meta == null){//metadata does not exist, so must not have been set by author
-			return 1l;
-		} else {
-			try{
-				Long level = meta.getLong("postLevel");
-				return level;
-			} catch (JSONException e){//postLevel must not exist in metadata so was not set by author
-				e.printStackTrace();
-				return 1l;
-			}
+		ProjectMetadata metadata = project.getMetadata();
+		
+		if(metadata != null) {
+			level = metadata.getPostLevel();
 		}
+		
+		return level;
 	}
 	
 	/**

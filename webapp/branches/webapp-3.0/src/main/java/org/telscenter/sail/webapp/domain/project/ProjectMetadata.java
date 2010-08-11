@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.domain.project;
 
+import java.util.Date;
+
 /**
  * @author patrick lawler
  * @version $Id:$
@@ -167,4 +169,16 @@ public interface ProjectMetadata{
 	 * @return the projectId
 	 */
 	public Long getProjectId();
+	
+	public void setLastCleaned(Date lastCleaned);
+
+	public Date getLastCleaned();
+
+	public void setLastEdited(Date lastEdited);
+
+	public Date getLastEdited();
+	
+	public Long getPostLevel();
+
+	public void setPostLevel(Long postLevel);
 }

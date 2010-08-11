@@ -66,7 +66,6 @@
         </property>
     </bean>
     
-    
     <bean id="studentUserDetails" scope="prototype"
         class="org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails">
     </bean>
@@ -97,26 +96,17 @@
     <bean id="projectDao"
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateProjectDao">
        <property name="sessionFactory" ref="sessionFactory" />
-       <property name="metadataDao" ref="projectMetadataDao"/>
     </bean>
 	
 	<bean id="externalProjectDao"
         class="org.telscenter.sail.webapp.dao.project.impl.HibernateExternalProjectDao">
        <property name="sessionFactory" ref="sessionFactory" />
-       <property name="metadataDao" ref="projectMetadataDao"/>
     </bean>
 
 	<bean id="projectMetadata"
 		class="org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl">
 	</bean>
 	
-	<bean id="projectMetadataDao"
-		class="org.telscenter.sail.webapp.dao.project.impl.HibernateProjectMetadataDao">
-		<property name="sessionFactory" ref="sessionFactory" />
-		<property name="projectService" ref="projectService"/>
-        <property name="portalProperties" ref="portalproperties" />
-	</bean>
-
     <bean id="module"
         class="org.telscenter.sail.webapp.domain.impl.ModuleImpl">
     </bean>
@@ -317,7 +307,6 @@
         <property name="runService" ref="runService" />
         <property name="userService" ref="userService"/>
         <property name="portalProperties" ref="portalproperties" />
-        <property name="metadataDao" ref="projectMetadataDao"/>
         <property name="tagService" ref="tagService"/>
 	</bean>
  	

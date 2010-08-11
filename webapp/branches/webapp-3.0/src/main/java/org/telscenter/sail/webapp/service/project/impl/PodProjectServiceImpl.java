@@ -694,22 +694,7 @@ public class PodProjectServiceImpl implements ProjectService {
 		return null;
 	}
 
-	public ProjectMetadata getMetadata(Long projectId, String versionId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ProjectMetadata updateMetadata(ProjectMetadata metadata) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public JSONObject getProjectMetadataFile(Project project, String versionId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getActiveVersions(String projectIDPaths) {
+	public ProjectMetadata getMetadata(Long projectId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -719,15 +704,6 @@ public class PodProjectServiceImpl implements ProjectService {
 		
 	}
 	
-	/**
-	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectWithoutMetadata(java.lang.Long)
-	 */
-	public Project getProjectWithoutMetadata(Long projectId){
-		Project project = this.projectDao.getProjectWithoutMetadata(projectId);
-		project.populateProjectInfo();
-		return project;
-	}
-
 	public Long addTagToProject(Tag tag, Long projectId) {
 		// TODO Auto-generated method stub
 		return null;

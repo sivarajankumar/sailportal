@@ -114,7 +114,8 @@ public class AuthorProjectController extends AbstractController {
 		
 		Project project;
 		if(projectIdStr != null && !projectIdStr.equals("") && !projectIdStr.equals("none")){
-			project = projectService.getProjectWithoutMetadata(Long.parseLong(projectIdStr));
+			//project = projectService.getProjectWithoutMetadata(Long.parseLong(projectIdStr));
+			project = projectService.getById(Long.parseLong(projectIdStr));
 		} else {
 			project = null;
 		}
@@ -376,16 +377,18 @@ public class AuthorProjectController extends AbstractController {
 		String xmlList = "";
 		for(Project project : allAuthorableProjects){
 			if(project.getProjectType()==ProjectType.LD){
-				String versionId = this.projectService.getActiveVersion(project);
+				//String versionId = this.projectService.getActiveVersion(project);
 				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 				String polishedProjectUrl = null;
 				
+				polishedProjectUrl = rawProjectUrl;
+				/*
 				if(versionId == null || versionId.equals("")){
 					polishedProjectUrl = rawProjectUrl;
 				} else {
 					polishedProjectUrl = rawProjectUrl.replace(".project.json", ".project." + versionId + ".json");
 				}
-				
+				*/
 				String title = null;
 				if(project.getMetadata() != null && project.getMetadata().getTitle() != null && !project.getMetadata().getTitle().equals("")){
 					title = project.getMetadata().getTitle();
@@ -412,23 +415,31 @@ public class AuthorProjectController extends AbstractController {
 	 */
 	private ModelAndView handlePublishMetadata(HttpServletRequest request, HttpServletResponse response) throws ObjectNotFoundException, IOException{
 		Long projectId = Long.parseLong(request.getParameter("projectId"));
-		String versionId = request.getParameter("versionId");
+		//String versionId = request.getParameter("versionId");
+		String metadataString = request.getParameter("metadata");
+		JSONObject metadata = null;
+		
+		try {
+			metadata = new JSONObject(metadataString);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
 		
 		Project project = this.projectService.getById(projectId);
 		User user = ControllerUtil.getSignedInUser();
 		
 		/* retrieve the metadata from the file */
-		JSONObject metadata = this.projectService.getProjectMetadataFile(project, versionId);
+		//JSONObject metadata = this.projectService.getProjectMetadataFile(project, versionId);
 		
 		/* set the fields in the ProjectMetadata where appropriate */
 		if(metadata != null){
-			ProjectMetadata pMeta = this.projectService.getMetadata(projectId, versionId);
+			//ProjectMetadata pMeta = this.projectService.getMetadata(projectId, versionId);
+			ProjectMetadata pMeta = project.getMetadata();
 			
 			/* if no previous metadata exists for this project, then we want to create one
 			 * and set it in the project */
 			if(pMeta == null){
 				pMeta = new ProjectMetadataImpl();
-				pMeta.setVersionId(versionId);
 				pMeta.setProjectId(projectId);
 				project.setMetadata(pMeta);
 			}

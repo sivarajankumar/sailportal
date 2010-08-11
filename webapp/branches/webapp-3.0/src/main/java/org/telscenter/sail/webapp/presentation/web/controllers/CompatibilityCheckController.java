@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -50,10 +51,11 @@ public class CompatibilityCheckController extends AbstractController {
 		String versionId = request.getParameter("versionId");
 		
 		
-		if(projectId != null && versionId != null) {
-			//get the metadata for the project/version 
-			ProjectMetadata metadata = projectService.getMetadata(new Long(projectId), versionId);
-			
+		if(projectId != null) {
+			//get the metadata for the project/version
+			Project project = projectService.getById(projectId);
+			ProjectMetadata metadata = project.getMetadata();
+ 
 			if(metadata != null) {
 				String projectTechReqs = null;
 				

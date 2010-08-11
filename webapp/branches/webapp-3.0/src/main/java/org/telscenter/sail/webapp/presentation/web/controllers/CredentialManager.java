@@ -200,13 +200,19 @@ public final class CredentialManager extends AbstractController{
 		/* if there is a project id parameter, set access level to the project dir */
 		if(idStr != null && !idStr.equals("") && !idStr.equals("none")){
 			try{
-				Project project = projectService.getProjectWithoutMetadata(Long.parseLong(idStr));
+				Project project = projectService.getById(Long.parseLong(idStr));
 				String projectPath = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 				if(projectPath != null){
 					File accessFile = new File(accessPath + projectPath);
 					accessPath = accessFile.getParentFile().getCanonicalPath();
 				}
 			} catch(IOException e){
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ObjectNotFoundException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

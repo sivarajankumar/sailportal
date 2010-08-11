@@ -88,7 +88,7 @@ public class TaggerController extends AbstractController {
 			String projectId = request.getParameter("projectId");
 			
 			if(projectId != null){
-				Project p = this.projectService.getProjectWithoutMetadata(Long.parseLong(projectId));
+				Project p = this.projectService.getById(Long.parseLong(projectId));
 				if(p != null){
 					String tagString = "";
 					for(Tag t : p.getTags()){
