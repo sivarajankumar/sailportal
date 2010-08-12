@@ -181,4 +181,6 @@ public interface ProjectMetadata{
 	public Long getPostLevel();
 
 	public void setPostLevel(Long postLevel);
+	
+	public String toJSONString();
 }

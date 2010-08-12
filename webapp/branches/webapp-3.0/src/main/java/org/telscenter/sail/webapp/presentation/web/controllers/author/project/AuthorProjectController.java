@@ -194,6 +194,12 @@ public class AuthorProjectController extends AbstractController {
 			} else if(command.equals("createTag") || command.equals("updateTag") || 
 					command.equals("removeTag") || command.equals("retrieveProjectTags")){
 				return this.tagger.handleRequest(request, response);
+			} else if(command.equals("getMetadata")) {
+				request.setAttribute("project", project);
+				return handleGetMetadata(request, response);
+			} else if(command.equals("postMetadata")) {
+				request.setAttribute("project", project);
+				return handlePostMetadata(request, response);
 			}
 		}
 		
@@ -579,6 +585,49 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleGetUsername(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		response.getWriter().write(user.getUserDetails().getUsername());
+		return null;
+	}
+	
+	private ModelAndView handleGetMetadata(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Project project = (Project) request.getAttribute("project");
+		User user = ControllerUtil.getSignedInUser();
+		ProjectMetadata metadata = project.getMetadata();
+		
+		if(metadata == null) {
+			metadata = new ProjectMetadataImpl();
+			project.setMetadata(metadata);
+			try {
+				projectService.updateProject(project, user);
+			} catch (NotAuthorizedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		response.getWriter().write(metadata.toJSONString());
+		return null;
+	}
+	
+	private ModelAndView handlePostMetadata(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Project project = (Project) request.getAttribute("project");
+		User user = ControllerUtil.getSignedInUser();
+		String metadataStr = request.getParameter("metadata");
+		JSONObject metadataJSON = new JSONObject();
+		try {
+			metadataJSON = new JSONObject(metadataStr);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		ProjectMetadata metadata = null;
+		metadata = new ProjectMetadataImpl(metadataJSON);
+		
+		project.setMetadata(metadata);
+		try {
+			projectService.updateProject(project, user);
+		} catch (NotAuthorizedException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 	

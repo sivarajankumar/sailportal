@@ -34,6 +34,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.presentation.util.json.JSONException;
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 
 /**
  * @author patrick lawler
@@ -147,6 +149,60 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Column(name = COLUMN_NAME_POST_LEVEL)
 	private Long postLevel;
+	
+	public ProjectMetadataImpl() {
+		
+	}
+
+	public ProjectMetadataImpl(JSONObject metadataJSON) {
+		try {
+			if(metadataJSON.has("title")) {
+				setTitle(metadataJSON.getString("title"));	
+			}
+			
+			if(metadataJSON.has("author")) {
+				setAuthor(metadataJSON.getString("author"));
+			}
+			
+			if(metadataJSON.has("subject")) {
+				setSubject(metadataJSON.getString("subject"));	
+			}
+			
+			if(metadataJSON.has("summary")) {
+				setSummary(metadataJSON.getString("summary"));	
+			}
+			
+			if(metadataJSON.has("grade_range")) {
+				setGradeRange(metadataJSON.getString("grade_range"));	
+			}
+			
+			if(metadataJSON.has("total_time")) {
+				setTotalTime(metadataJSON.getLong("total_time"));	
+			}
+			
+			if(metadataJSON.has("comp_time")) {
+				setCompTime(metadataJSON.getLong("comp_time"));	
+			}
+			
+			if(metadataJSON.has("contact")) {
+				setContact(metadataJSON.getString("contact"));	
+			}
+			
+			if(metadataJSON.has("tech_reqs")) {
+				setTechReqs(metadataJSON.getString("tech_reqs"));	
+			}
+			
+			if(metadataJSON.has("lesson_plan")) {
+				setLessonPlan(metadataJSON.getString("lesson_plan"));				
+			}
+
+			if(metadataJSON.has("keywords")) {
+				setKeywords(metadataJSON.getString("keywords"));			
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public String getGradeRange() {
 		return gradeRange;
@@ -306,5 +362,11 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 
 	public void setPostLevel(Long postLevel) {
 		this.postLevel = postLevel;
+	}
+	
+	public String toJSONString() {
+		JSONObject metadata = new JSONObject(this);
+		
+		return metadata.toString();
 	}
 }
