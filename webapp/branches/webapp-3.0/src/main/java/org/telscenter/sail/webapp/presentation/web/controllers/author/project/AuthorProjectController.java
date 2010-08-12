@@ -618,9 +618,14 @@ public class AuthorProjectController extends AbstractController {
 			e.printStackTrace();
 		}
 		
-		ProjectMetadata metadata = null;
-		metadata = new ProjectMetadataImpl(metadataJSON);
 		
+		ProjectMetadata metadata = project.getMetadata();
+		if (metadata == null) {
+			metadata = new ProjectMetadataImpl(metadataJSON);
+		} else {
+			metadata.populateFromJSON(metadataJSON);
+		}
+				
 		project.setMetadata(metadata);
 		try {
 			projectService.updateProject(project, user);

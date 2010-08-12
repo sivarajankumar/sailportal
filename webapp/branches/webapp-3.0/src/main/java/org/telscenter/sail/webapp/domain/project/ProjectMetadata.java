@@ -24,12 +24,19 @@ package org.telscenter.sail.webapp.domain.project;
 
 import java.util.Date;
 
+import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+
 /**
  * @author patrick lawler
  * @version $Id:$
  */
 public interface ProjectMetadata{
-
+	
+	/**
+	 * Populates this metadata object using values from the specified JSON obj.
+	 */
+	public void populateFromJSON(JSONObject metadataJSON);
+	
 	/**
 	 * @return <code>String</code> the title to get
 	 */

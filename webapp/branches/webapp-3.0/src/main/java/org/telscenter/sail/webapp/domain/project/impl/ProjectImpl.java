@@ -126,7 +126,7 @@ public class ProjectImpl implements Project {
     
     @Transient
     private static final String BOOKMARKERS_JOIN_COLUMN_NAME = "bookmarkers";
-    
+
     @Transient
     private static final String ISPUBLIC_COLUMN_NAME = "ispublic";
     
@@ -142,14 +142,19 @@ public class ProjectImpl implements Project {
     @Transient
     private static final String PROJECT_JOIN_COLUMN_NAME = "project_fk";
 
+    @Transient
+    private static final String COLUMN_NAME_METADATA_FK = "metadata_fk";
+
 	@Transient
 	public ProjectInfo projectinfo = new ProjectInfoImpl();
 	
 	@Column(name = COLUMN_NAME_PROJECT_NAME)
 	protected String name;
 	
-	@Transient
-	protected ProjectMetadata metadata = null;
+	@OneToOne(targetEntity = ProjectMetadataImpl.class, fetch = FetchType.EAGER)
+	@Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+    @JoinColumn(name = COLUMN_NAME_METADATA_FK, nullable = true, unique = true)
+    protected ProjectMetadata metadata = null;
 
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = CurnitImpl.class, fetch = FetchType.LAZY)
     @Cascade( { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
