@@ -692,6 +692,7 @@ window.onload=resizeCaller
 
 </div>
 
+<!--  
 		<div class="panelStyleCommunity">
 				<div id="headerTeacherHome">Community Tools</div>
 				<ul>
@@ -702,7 +703,7 @@ window.onload=resizeCaller
 						<li>Launch <a href="#" class="lineThrough">Professional Development Forum</a></li>
 				</ul>
 		</div>
-
+-->
 
 </div>
 
