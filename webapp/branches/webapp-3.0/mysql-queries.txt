@@ -62,5 +62,11 @@ delete FROM sail_database.premadecomments;
 
 update projects set projecttype=2 where projecttype is null;
 
-
 ### 2010.06.11 End
+
+### 2010.08.13 BEGIN
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `last_cleaned` DATETIME AFTER `version_id`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `last_edited` DATETIME AFTER `last_cleaned`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `post_level` BIGINT(20) AFTER `last_edited`;
+ALTER TABLE `sail_database`.`projects` ADD COLUMN `metadata_fk` BIGINT(20) AFTER `datecreated`;
+### 2010.08.13 END
