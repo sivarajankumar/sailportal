@@ -189,6 +189,7 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 	public Run createRun(RunParameters runParameters)
 			throws ObjectNotFoundException {
 		Project project = runParameters.getProject();
+		//Project projectCopy = projectService.copyProject(project);
 		Run run = new RunImpl();
 		run.setEndtime(null);
 		run.setStarttime(Calendar.getInstance().getTime());

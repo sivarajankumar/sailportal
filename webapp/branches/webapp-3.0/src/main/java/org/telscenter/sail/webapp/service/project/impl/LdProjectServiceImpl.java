@@ -219,6 +219,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		//TODO -- isCurrent being set here may need to be removed
 		project.setFamilytag(FamilyTag.OTHER);
 		project.setCurrent(true);
+		project.setParentProjectId(projectParameters.getParentProjectId());
 		this.projectDao.save(project);
 		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		 
 		return project;

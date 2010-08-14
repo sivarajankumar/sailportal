@@ -102,7 +102,10 @@ public class ProjectImpl implements Project {
 
 	@Transient
 	public static final String COLUMN_NAME_JNLP_FK = "jnlp_fk";
-	
+
+	@Transient
+	public static final String COLUMN_NAME_PARENT_PROJECT_ID = "parentprojectid";
+
 	@Transient
 	public static final String COLUMN_NAME_PREVIEWOFFERING_FK = "run_fk";
 
@@ -191,6 +194,9 @@ public class ProjectImpl implements Project {
     @Column(name = ProjectImpl.COLUMN_NAME_PROJECTTYPE, nullable = true)
     protected ProjectType projectType;
 	
+    @Column(name = ProjectImpl.COLUMN_NAME_PARENT_PROJECT_ID, nullable = true)
+    private Long parentProjectId;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id = null;
@@ -515,5 +521,19 @@ public class ProjectImpl implements Project {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * @return the parentProjectId
+	 */
+	public Long getParentProjectId() {
+		return parentProjectId;
+	}
+
+	/**
+	 * @param parentProjectId the parentProjectId to set
+	 */
+	public void setParentProjectId(Long parentProjectId) {
+		this.parentProjectId = parentProjectId;
 	}
 }

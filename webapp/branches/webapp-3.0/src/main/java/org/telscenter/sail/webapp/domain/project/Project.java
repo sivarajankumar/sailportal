@@ -218,4 +218,12 @@ public interface Project extends Persistable {
 	 * @return
 	 */
 	public boolean hasTags(Set<String> tagnames);
+
+	/**
+	 * Sets this project's parent project id where the project was copied from
+	 * if this is the original project, this value is null.
+	 * 
+	 * @param parentProjectId
+	 */
+	public void setParentProjectId(Long parentProjectId);
 }

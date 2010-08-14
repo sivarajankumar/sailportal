@@ -219,6 +219,7 @@ public class AuthorProjectController extends AbstractController {
 		if(this.hasAuthorPermissions(user)){
 			String path = request.getParameter("param1");
 			String name = request.getParameter("param2");
+			String parentProjectId = request.getParameter("parentProjectId");
 			Set<User> owners = new HashSet<User>();
 			owners.add(user);
 			
@@ -235,6 +236,7 @@ public class AuthorProjectController extends AbstractController {
 			pParams.setProjectname(name);
 			pParams.setMetadata(metadata);
 			pParams.setProjectType(ProjectType.LD);
+			pParams.setParentProjectId(Long.valueOf(parentProjectId));
 			
 			Project project = projectService.createProject(pParams);
 			response.getWriter().write(project.getId().toString());

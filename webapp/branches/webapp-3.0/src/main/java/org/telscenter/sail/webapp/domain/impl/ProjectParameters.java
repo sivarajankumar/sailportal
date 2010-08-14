@@ -51,11 +51,14 @@ public class ProjectParameters implements Serializable {
 	
 	private Long jnlpId;
 	
+	private Long parentProjectId;
+
 	private ProjectType projectType;
 	
 	private Set<User> owners = new HashSet<User>();
 	
 	private ProjectMetadata metadata;
+	
 	
 	/**
 	 * @return the curnitId
@@ -139,5 +142,16 @@ public class ProjectParameters implements Serializable {
 	 */
 	public void setMetadata(ProjectMetadata metadata) {
 		this.metadata = metadata;
+	}
+
+	/**
+	 * @param parentProjectId
+	 */
+	public void setParentProjectId(Long parentProjectId) {
+		this.parentProjectId = parentProjectId;
+	}
+
+	public Long getParentProjectId() {
+		return this.parentProjectId;
 	}
 }
