@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.group.Group;
+import net.sf.sail.webapp.domain.impl.CurnitGetCurnitUrlVisitor;
 import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
@@ -288,7 +289,7 @@ public class CreateRunController extends AbstractWizardFormController {
 				Date lastEdited = metadata.getLastEdited();
 				
 				/* if it has been edited since it was last cleaned, we need to force cleaning */
-				if(lastCleaned.before(lastEdited)) {
+				if(lastCleaned != null && lastEdited != null && lastCleaned.before(lastEdited)) {
 					forceCleaning = true;
 				}
 			}
@@ -331,7 +332,22 @@ public class CreateRunController extends AbstractWizardFormController {
 			model.put("minPostLevel", this.getMinPostLevel(project));
 			break;
 		case 4:
+			try {
+				project = (Project) this.projectService.getById(projectId);
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
+		    String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
+			String relativeProjectFilePath = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());  // looks like this: "/109/new.project.json"
+			int ndx = relativeProjectFilePath.lastIndexOf("/");
+			String srcProjectRootFolder = curriculumBaseDir + "/" + relativeProjectFilePath.substring(0, ndx);  // looks like this: "/users/hiroki/..../curriculum/109/"
+			String projectJSONFilename = relativeProjectFilePath.substring(ndx + 1, relativeProjectFilePath.length());  // looks like this: "new.project.json"
 			model.put("projectId", projectId);
+			model.put("projectType", project.getProjectType());
+			model.put("projectName", project.getName());
+			model.put("srcProjectRootFolder", srcProjectRootFolder);
+			model.put("projectJSONFilename", projectJSONFilename);
+			model.put("curriculumBaseDir", curriculumBaseDir);
 			break;
 		default:
 			break;
@@ -352,10 +368,10 @@ public class CreateRunController extends AbstractWizardFormController {
 		
 		ProjectMetadata metadata = project.getMetadata();
 		
-		if(metadata != null) {
+		if(metadata != null && metadata.getPostLevel() != null) {
 			level = metadata.getPostLevel();
 		}
-		
+				
 		return level;
 	}
 	
@@ -378,6 +394,11 @@ public class CreateRunController extends AbstractWizardFormController {
     	// answer: yes
 		Run run = null;
     	try {
+    		// get newProjectId from request and use that to set up the run
+    		String newProjectId = request.getParameter("newProjectId");
+    		Project newProject = projectService.getById(new Long(newProjectId));
+    		runParameters.setProject(newProject);
+    		
 			run = this.runService.createRun(runParameters);
 			
 			// create a workgroup for the owners of the run (teacher)

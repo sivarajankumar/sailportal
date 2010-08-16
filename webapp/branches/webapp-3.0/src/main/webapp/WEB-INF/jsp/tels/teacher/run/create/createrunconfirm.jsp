@@ -175,6 +175,7 @@
 
 		YAHOO.util.Connect.asyncRequest('POST', '/webapp/message.html?action=compose', callback, postData);
 	};
+
 </script>
 
 </head>
@@ -307,6 +308,11 @@
 		<div id='cleaningDisplayDiv' class='cleaner'></div>
 	</div>
 </div>
+
+<!-- 
+FOR MON:
+BEFORE MOVING ON TO THE FINAL PAGE, MAKE REQUEST TO COPY PROJECT SYNCHRONOUSLY. IF SUCCESS, MOVE ON. ELSE, FAIL.
+ -->
 
 <div align="center">
 <form method="post" align="center">

@@ -424,7 +424,7 @@
         							scope:this
         						};
 
-        						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&param1=' + portalPath + '&param2=Copy of ' + name);
+        						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&parentProjectId='+pID+'&param1=' + portalPath + '&param2=Copy of ' + name);
         					},
         					failure:function(o){alert('Could not copy project folder, aborting copy.');},
         					scope:this
@@ -557,6 +557,8 @@ function minifyProject(id){
 						<c:set var="projectName" value="${project.name}"/>
 					</c:otherwise>
 				</c:choose>
+				<c:set var="projectName" value="${project.name}"/>
+				
 					<table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">

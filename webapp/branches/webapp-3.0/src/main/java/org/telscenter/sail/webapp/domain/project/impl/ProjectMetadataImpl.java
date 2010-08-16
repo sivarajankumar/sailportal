@@ -158,6 +158,10 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 		this.populateFromJSON(metadataJSON);
 	}
 
+	public ProjectMetadataImpl(String metadataJSONString) throws JSONException {
+		this.populateFromJSON(new JSONObject(metadataJSONString));
+	}
+
 	public String getGradeRange() {
 		return gradeRange;
 	}
@@ -336,28 +340,28 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 				setSummary(metadataJSON.getString("summary"));	
 			}
 			
-			if(metadataJSON.has("grade_range")) {
-				setGradeRange(metadataJSON.getString("grade_range"));	
+			if(metadataJSON.has("gradeRange")) {
+				setGradeRange(metadataJSON.getString("gradeRange"));	
 			}
 			
-			if(metadataJSON.has("total_time")) {
-				setTotalTime(metadataJSON.getLong("total_time"));	
+			if(metadataJSON.has("totalTime")) {
+				setTotalTime(metadataJSON.getLong("totalTime"));	
 			}
 			
-			if(metadataJSON.has("comp_time")) {
-				setCompTime(metadataJSON.getLong("comp_time"));	
+			if(metadataJSON.has("compTime")) {
+				setCompTime(metadataJSON.getLong("compTime"));	
 			}
 			
 			if(metadataJSON.has("contact")) {
 				setContact(metadataJSON.getString("contact"));	
 			}
 			
-			if(metadataJSON.has("tech_reqs")) {
-				setTechReqs(metadataJSON.getString("tech_reqs"));	
+			if(metadataJSON.has("techReqs")) {
+				setTechReqs(metadataJSON.getString("techReqs"));	
 			}
 			
-			if(metadataJSON.has("lesson_plan")) {
-				setLessonPlan(metadataJSON.getString("lesson_plan"));				
+			if(metadataJSON.has("lessonPlan")) {
+				setLessonPlan(metadataJSON.getString("lessonPlan"));				
 			}
 
 			if(metadataJSON.has("keywords")) {

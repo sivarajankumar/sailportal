@@ -227,17 +227,30 @@ public class AuthorProjectController extends AbstractController {
 			cParams.setUrl(path);
 			Curnit curnit = curnitService.createCurnit(cParams);
 			
-			ProjectMetadata metadata = new ProjectMetadataImpl();
 			ProjectParameters pParams = new ProjectParameters();
 			
-			metadata.setTitle(name);
 			pParams.setCurnitId(curnit.getId());
 			pParams.setOwners(owners);
 			pParams.setProjectname(name);
-			pParams.setMetadata(metadata);
 			pParams.setProjectType(ProjectType.LD);
-			pParams.setParentProjectId(Long.valueOf(parentProjectId));
-			
+			if (parentProjectId != null) {
+				Project parentProject = projectService.getById(parentProjectId);
+				if (parentProject != null) {
+					pParams.setParentProjectId(Long.valueOf(parentProjectId));
+					// get the project's metadata from the parent
+					ProjectMetadata parentProjectMetadata = parentProject.getMetadata();
+					if (parentProjectMetadata != null) {
+						// copy into new metadata object
+						ProjectMetadata newProjectMetadata = new ProjectMetadataImpl(parentProjectMetadata.toJSONString());
+						pParams.setMetadata(newProjectMetadata);
+					}
+				}
+			} else {
+				// if this is new original project, set a new fresh metadata object
+				ProjectMetadata metadata = new ProjectMetadataImpl();
+				metadata.setTitle(name);
+				pParams.setMetadata(metadata);
+			}
 			Project project = projectService.createProject(pParams);
 			response.getWriter().write(project.getId().toString());
 			return null;

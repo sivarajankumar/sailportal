@@ -43,68 +43,120 @@
 <script type="text/javascript" src="../../javascript/tels/superfish.js"></script>
 
 <script type="text/javascript">
-    
-            // initialise plugins
-            jQuery(function(){
-                jQuery('ul.sf-menu').superfish();
-            });
 
-        	//preload image if browser is not IE because animated gif will just freeze if user is using IE
-        	if(navigator.appName != "Microsoft Internet Explorer") {
-        		loadingImage = new Image();
-        		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
-        	}
-        	
-            YAHOO.namespace("example.container");
+        // initialise plugins
+        jQuery(function(){
+            jQuery('ul.sf-menu').superfish();
+        });
 
-            function init() {
+    	//preload image if browser is not IE because animated gif will just freeze if user is using IE
+    	if(navigator.appName != "Microsoft Internet Explorer") {
+    		loadingImage = new Image();
+    		loadingImage.src = "/webapp/themes/tels/default/images/rel_interstitial_loading.gif";
+    	}
+    	
+        YAHOO.namespace("example.container");
 
-                if (!YAHOO.example.container.wait) {
+        function init() {
 
-                    // Initialize the temporary Panel to display while waiting for external content to load
+            if (!YAHOO.example.container.wait) {
 
-                    YAHOO.example.container.wait = 
-                            new YAHOO.widget.Panel("wait",  
-                                                            { width: "240px", 
-                                                              fixedcenter: true, 
-                                                              close: false, 
-                                                              draggable: false, 
-                                                              zindex:4,
-                                                              modal: true,
-                                                              visible: false
-                                                            } 
-                                                        );
+                // Initialize the temporary Panel to display while waiting for external content to load
 
-                    //YAHOO.example.container.wait.setHeader("Loading, please wait...");
-                    YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
-                    YAHOO.example.container.wait.render(document.body);
+                YAHOO.example.container.wait = 
+                        new YAHOO.widget.Panel("wait",  
+                                                        { width: "240px", 
+                                                          fixedcenter: true, 
+                                                          close: false, 
+                                                          draggable: false, 
+                                                          zindex:4,
+                                                          modal: true,
+                                                          visible: false
+                                                        } 
+                                                    );
 
-                }
+                //YAHOO.example.container.wait.setHeader("Loading, please wait...");
+                YAHOO.example.container.wait.setBody("<table><tr align='center'>Loading, please wait...</tr><tr align='center'><img src=/webapp/themes/tels/default/images/rel_interstitial_loading.gif /></tr><table>");
+                YAHOO.example.container.wait.render(document.body);
 
-                // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
-
-
-
-                var callback = {
-                    success : function(o) {
-                        //content.innerHTML = o.responseText;
-                        //content.style.visibility = "visible";
-                        YAHOO.example.container.wait.hide();
-                    },
-                    failure : function(o) {
-                        //content.innerHTML = o.responseText;
-                        //content.style.visibility = "visible";
-                        //content.innerHTML = "CONNECTION FAILED!";
-                        YAHOO.example.container.wait.hide();
-                    }
-                }
-            
-                // Show the Panel
-                YAHOO.example.container.wait.show();
-                
-                // Connect to our data source and load the data
-                //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
             }
+
+            // Define the callback object for Connection Manager that will set the body of our content area when the content has loaded
+
+
+
+            var callback = {
+                success : function(o) {
+                    //content.innerHTML = o.responseText;
+                    //content.style.visibility = "visible";
+                    YAHOO.example.container.wait.hide();
+                },
+                failure : function(o) {
+                    //content.innerHTML = o.responseText;
+                    //content.style.visibility = "visible";
+                    //content.innerHTML = "CONNECTION FAILED!";
+                    YAHOO.example.container.wait.hide();
+                }
+            }
+        
+            // Show the Panel
+            YAHOO.example.container.wait.show();
+            
+            // Connect to our data source and load the data
+            //var conn = YAHOO.util.Connect.asyncRequest("GET", "assets/somedata.php?r=" + new Date().getTime(), callback);
+        };
+        
+    	// copies project and then create run with the new project
+    	// returns true iff project was successfully copied.	
+    	function createRun(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir) {
+        	alert('create Run, type:' + type);
+    		var result = copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir);
+    		if (!result) {
+        		alert('There was an error creating the run. Please contact WISE.');
+    		}
+    		return result;
+    	};
+    	
+    	// asynchronously copies project
+        function copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir){
+            alert('copy');
+            var isSuccess = false;
+            var newProjectId = null;
+   			if(type=='LD'){
+   	   			$.ajax({
+   	   	   				url: '/webapp/author/authorproject.html',
+   	   	   	   			async: false,
+   	   	   	   			type:"POST",
+   	   	   	   			data:'forward=filemanager&projectId=' + pID + '&command=copyProject&param1=' + srcProjectRootFolder + '&param2=' + curriculumBaseDir,
+   	   	   	   			success: function(returnData){
+	   						var newProjectFullPath = returnData;
+   							var relativeProjectFilePath = newProjectFullPath.substring(curriculumBaseDir.length, newProjectFullPath.length) + '/' + projectJSONFilename;   // e.g. "/109/new.project.json"
+   							$.ajax({
+   	   							url:"/webapp/author/authorproject.html",
+   	   							async:false,
+   	   							type:"POST",
+   	   							data:'command=createProject&parentProjectId='+pID+'&param1=' + relativeProjectFilePath + '&param2=' + projectName,
+   	   							success:function(returnData){
+   	   								isSuccess = true;
+   	   								newProjectId = returnData;
+   	   								$("#newProjectId").attr("value", newProjectId);
+									//alert('The LD project has been successfully copied with the name Copy of ' + projectName + '. The project can be found in the My Projects section.');
+								},
+   	   	   						error:function(returnData){alert('Project files were copied but the project was not successfully registered in the portal.');}
+   							});
+   						},
+   	   	   	   	   		error:function(returnData){alert('Could not copy project folder.');}
+   	   			});
+   	   			alert('returning isSuccess:' + isSuccess);
+			    return isSuccess;   	   			
+   			} else {
+   				var callback = {
+   					success:function(o){alert(o.responseText);},
+   					failure:function(o){alert('copy: failed update to server');}
+   				};
+   				YAHOO.util.Connect.asyncRequest('GET', 'copyproject.html?projectId=' + pID, callback);
+   			};
+    	};
 </script>
 
 </head>
@@ -140,10 +192,11 @@ This help area includes tips on setting up your classroom computers, having stud
 	<h5>To complete the creation of your Project Run click <em>DONE</em> below.</h5>
 </div>
 
-<form method="post" class="center">
+<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','${projectName}','${projectJSONFilename}','${srcProjectRootFolder}','${curriculumBaseDir}')">
 <input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />
+<input type="hidden" id="newProjectId" name="newProjectId" value="" />
 </form>
 
 <div>

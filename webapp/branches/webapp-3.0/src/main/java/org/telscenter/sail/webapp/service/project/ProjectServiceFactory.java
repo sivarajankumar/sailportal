@@ -80,7 +80,7 @@ public class ProjectServiceFactory {
 		try{
 			curnit = moduleService.getById(project.getCurnit().getId());
 		}catch(Exception e){
-			System.out.println(e);
+			//System.out.println(e);
 		}
 		if (curnit instanceof RooloOtmlModuleImpl) {
 			if (project.getProjectType()==ProjectType.ROLOO){
