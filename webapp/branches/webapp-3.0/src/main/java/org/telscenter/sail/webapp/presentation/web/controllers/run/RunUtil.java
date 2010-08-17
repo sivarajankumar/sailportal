@@ -321,15 +321,17 @@ public class RunUtil {
 
 			//get the login
 			net.sf.sail.webapp.domain.authentication.MutableUserDetails userDetails = user.getUserDetails();
-			String username = userDetails.getUsername();
+
+			//get the wise student id
+			Long wiseStudentId = user.getUserDetails().getId();
 			
 			//separate the names with a :
 			if(userNames.length() != 0) {
 				userNames.append(":");
 			}
 			
-			//add the first name last name and login for this user
-			userNames.append(username);
+			//add the wise student id for this user
+			userNames.append(wiseStudentId);
 		}
 		
 		//return the : delimited user names that are in this workgroup

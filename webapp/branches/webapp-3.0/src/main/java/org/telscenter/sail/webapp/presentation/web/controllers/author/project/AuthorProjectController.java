@@ -233,7 +233,7 @@ public class AuthorProjectController extends AbstractController {
 			pParams.setOwners(owners);
 			pParams.setProjectname(name);
 			pParams.setProjectType(ProjectType.LD);
-			if (parentProjectId != null) {
+			if (parentProjectId != null && !parentProjectId.equals("undefined")) {
 				Project parentProject = projectService.getById(parentProjectId);
 				if (parentProject != null) {
 					pParams.setParentProjectId(Long.valueOf(parentProjectId));
