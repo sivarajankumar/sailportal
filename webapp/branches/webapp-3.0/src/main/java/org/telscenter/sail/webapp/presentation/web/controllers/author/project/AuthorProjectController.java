@@ -403,19 +403,7 @@ public class AuthorProjectController extends AbstractController {
 				String polishedProjectUrl = null;
 				
 				polishedProjectUrl = rawProjectUrl;
-				/*
-				if(versionId == null || versionId.equals("")){
-					polishedProjectUrl = rawProjectUrl;
-				} else {
-					polishedProjectUrl = rawProjectUrl.replace(".project.json", ".project." + versionId + ".json");
-				}
-				*/
-				String title = null;
-				if(project.getMetadata() != null && project.getMetadata().getTitle() != null && !project.getMetadata().getTitle().equals("")){
-					title = project.getMetadata().getTitle();
-				} else {
-					title = project.getName();
-				}
+				String title = project.getName();
 				xmlList += curriculumBaseDir + polishedProjectUrl + "~" + project.getId() + "~" + title + "|";
 			}
 		}
