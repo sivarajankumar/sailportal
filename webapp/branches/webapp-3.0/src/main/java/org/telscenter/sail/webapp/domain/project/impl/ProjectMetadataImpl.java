@@ -85,6 +85,9 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	public final static String COLUMN_NAME_KEYWORDS = "keywords";
 	
 	@Transient
+	public final static String COLUMN_NAME_LANGUAGE = "language";
+
+	@Transient
 	private static final long serialVersionUID = 1L;
 	
 	@Transient
@@ -135,6 +138,9 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Column(name = COLUMN_NAME_KEYWORDS)
 	private String keywords;
 	
+	@Column(name = COLUMN_NAME_LANGUAGE)
+	private String language;
+
 	@Column(name = COLUMN_NAME_PROJECT_FK)
 	private Long projectId;
 	
@@ -271,6 +277,20 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	}
 
 	/**
+	 * @return the language
+	 */
+	public String getLanguage() {
+		return language;
+	}
+
+	/**
+	 * @param language the language to set
+	 */
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	/**
 	 * @param projectId the projectId to set
 	 */
 	public void setProjectId(Long projectId) {
@@ -366,6 +386,10 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 
 			if(metadataJSON.has("keywords")) {
 				setKeywords(metadataJSON.getString("keywords"));			
+			}
+
+			if(metadataJSON.has("language")) {
+				setLanguage(metadataJSON.getString("language"));			
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -606,7 +606,7 @@ function minifyProject(id){
 								<td class="dataCell">${project.metadata.gradeRange}</td>              
 								<td class="dataCell">${project.metadata.totalTime}</td>              
 								<td class="dataCell">${project.metadata.compTime}</td> 
-								<td class="dataCell">[English]</td> 
+								<td class="dataCell">${project.metadata.language}</td> 
 								<td class="dataCell">[Flash, Java]</td> 
 								<td class="dataCell">${usageMap[project.id]}</td>
 							</tr>

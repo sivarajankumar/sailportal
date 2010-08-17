@@ -158,10 +158,20 @@ public interface ProjectMetadata{
 	public void setKeywords(String keywords);
 	
 	/**
+	 * @param <code>String</code> language
+	 */
+	public String getLanguage();
+	
+	/**
+	 * @return <code>String</code> language
+	 */
+	public void setLanguage(String language);
+	
+	/**
 	 * @param projectId the projectId to set
 	 */
 	public void setProjectId(Long projectId);
-
+	
 	/**
 	 * @return the versionId
 	 */

@@ -507,7 +507,12 @@ public class AuthorProjectController extends AbstractController {
 			if(keywords != null){
 				pMeta.setKeywords((String) keywords);
 			}
-			
+
+			Object language = this.getJSONFieldValue(metadata, "language");
+			if(language != null){
+				pMeta.setLanguage((String) language);
+			}
+
 			/* save the project */
 			try{
 				this.projectService.updateProject(project, user);

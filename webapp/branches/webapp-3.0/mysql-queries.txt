@@ -71,3 +71,7 @@ ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `post_level` BIGINT(20
 ALTER TABLE `sail_database`.`projects` ADD COLUMN `metadata_fk` BIGINT(20) AFTER `datecreated`;
 ALTER TABLE `sail_database`.`projects` ADD COLUMN `parentProjectId` BIGINT(20) AFTER `metadata_fk`;
 ### 2010.08.13 END
+
+### 2010.08.17 BEGIN
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `language` varchar(50) AFTER `keywords`;
+### 2010.08.17 END
