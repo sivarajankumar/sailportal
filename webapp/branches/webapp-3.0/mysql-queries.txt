@@ -74,4 +74,5 @@ ALTER TABLE `sail_database`.`projects` ADD COLUMN `parentProjectId` BIGINT(20) A
 
 ### 2010.08.17 BEGIN
 ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `language` varchar(50) AFTER `keywords`;
+update project_metadata set tech_reqs=null where tech_reqs is null or tech_reqs = 'null' or tech_reqs = ''
 ### 2010.08.17 END

@@ -396,6 +396,34 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 		}
 	}
 	
+	public String getTechDetailsString() {
+		if (this.techReqs != null) {
+			String soFar = "";
+			try {
+				JSONObject techReqsJSON;
+				techReqsJSON = new JSONObject(this.techReqs);
+				if (techReqsJSON.getBoolean("java")) {
+					soFar += "Java, ";
+				}
+				if (techReqsJSON.getBoolean("flash")) {
+					soFar += "Flash, ";
+				}
+				if (techReqsJSON.getBoolean("quickTime")) {
+					soFar += "QuickTime, ";
+				}
+				if (techReqsJSON.getString("techDetails") != null && techReqsJSON.getString("techDetails") != "") {
+					soFar += " " + techReqsJSON.getString("techDetails");
+				}
+				return soFar;
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return soFar;
+			}
+
+		}
+		return "";
+	}
+
 	public String toJSONString() {
 		JSONObject metadata = new JSONObject(this);
 		
