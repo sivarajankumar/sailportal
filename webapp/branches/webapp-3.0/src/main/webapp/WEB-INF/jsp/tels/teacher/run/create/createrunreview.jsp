@@ -109,7 +109,6 @@
     	// copies project and then create run with the new project
     	// returns true iff project was successfully copied.	
     	function createRun(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir) {
-        	alert('create Run, type:' + type);
     		var result = copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir);
     		if (!result) {
         		alert('There was an error creating the run. Please contact WISE.');
@@ -119,7 +118,6 @@
     	
     	// asynchronously copies project
         function copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir){
-            alert('copy');
             var isSuccess = false;
             var newProjectId = null;
    			if(type=='LD'){
@@ -147,7 +145,6 @@
    						},
    	   	   	   	   		error:function(returnData){alert('Could not copy project folder.');}
    	   			});
-   	   			alert('returning isSuccess:' + isSuccess);
 			    return isSuccess;   	   			
    			} else {
    				var callback = {
