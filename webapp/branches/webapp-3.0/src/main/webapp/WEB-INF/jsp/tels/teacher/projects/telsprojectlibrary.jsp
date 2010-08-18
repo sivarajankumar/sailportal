@@ -78,7 +78,7 @@
 							scope:this
 						};
 
-						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&param1=' + portalPath + '&param2=' + name);
+						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&parentProjectId='+pID+'&param1=' + portalPath + '&param2=' + name);
 					},
 					failure:function(o){alert('Could not copy project folder, aborting copy.');},
 					scope:this

@@ -456,7 +456,9 @@ public class AuthorProjectController extends AbstractController {
 			Object title = this.getJSONFieldValue(metadata, "title");
 			if(title != null){
 				pMeta.setTitle((String) title);
-				project.setName((String) title);
+				if (((String) title) != "") {
+					project.setName((String) title);
+				}
 			}
 			
 			Object author = this.getJSONFieldValue(metadata, "author");
@@ -638,7 +640,10 @@ public class AuthorProjectController extends AbstractController {
 		// get and set the name of the project.
 		if(metadataJSON.has("title")) {
 			try {
-				project.setName(metadataJSON.getString("title"));
+				String title = metadataJSON.getString("title");
+				if (title != null && title != "") {
+					project.setName(title);
+				}
 			} catch (JSONException e) {
 			}	
 		}
