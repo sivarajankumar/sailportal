@@ -344,7 +344,9 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	public void populateFromJSON(JSONObject metadataJSON) {
 		try {
-			if(metadataJSON.has("title")) {
+			if(metadataJSON.has("title")
+					&& metadataJSON.get("title") != null
+					&& metadataJSON.get("title") != "") {
 				setTitle(metadataJSON.getString("title"));	
 			}
 			
@@ -364,12 +366,24 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 				setGradeRange(metadataJSON.getString("gradeRange"));	
 			}
 			
-			if(metadataJSON.has("totalTime")) {
-				setTotalTime(metadataJSON.getLong("totalTime"));	
+			if(metadataJSON.has("totalTime") 
+					&& metadataJSON.get("totalTime") != null
+					&& metadataJSON.get("totalTime") != "") {
+				try {
+					setTotalTime(metadataJSON.getLong("totalTime"));	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
-			if(metadataJSON.has("compTime")) {
-				setCompTime(metadataJSON.getLong("compTime"));	
+			if(metadataJSON.has("compTime") 
+					&& metadataJSON.get("compTime") != null
+					&& metadataJSON.get("compTime") != "") {
+				try {
+					setCompTime(metadataJSON.getLong("compTime"));	
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			
 			if(metadataJSON.has("contact")) {

@@ -186,10 +186,6 @@
 				          </c:forEach>
 				        </table>
 				        
-						<ul id="actionList3" >
-					    	<li class="addremoveLink"><a style="text-decoration:line-through;" href="#">Add/Remove Periods</a></li>
-						</ul>
-
 				     </td> 
 				    <td style="vertical-align:top; padding:1px 0;">
 					    <ul id="actionList1">
@@ -205,14 +201,14 @@
 					                  <li>Period Reports: <c:forEach var="periodInRun" items="${run.periods}"><a href="report.html?runId=${run.id}&groupId=${periodInRun.id}">${periodInRun.name}</a>&nbsp;</c:forEach></li>
 					               </c:when>
 					               <c:otherwise>
-					        <li><a href="editrun.html?runId=${run.id}" target="_top">Edit Run</a></li>
 					        <li>
-					        	Project:<a href="../../previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank"> View</a>
+					        	Project:<a href="../../previewproject.html?projectId=${run.project.id}&versionId=${run.versionId}" target="_blank"> Preview</a>
+				    			&nbsp;|&nbsp;<a href="../projects/projectinfo.html?projectId=${run.project.id}" target="_top"> Info</a>
 					        	<sec:accesscontrollist domainObject="${run.project}" hasPermission="16">
-					        		&nbsp;|&nbsp;<a href="#" onclick="if(confirm('You will be editing a snapshot of the project that is used for this run. If students have already started work, this may have undesirable effects for their work. Are you sure you wish to proceed?')){window.top.location='../../author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;">Edit</a>
+					        		&nbsp;|&nbsp;<a href="#" onclick="if(confirm('You will be editing the project that is used for this run. If students have already started work on this run, this may have undesirable effects for their work. Are you sure you wish to proceed?')){window.top.location='../../author/authorproject.html?projectId=${run.project.id}&versionId=${run.versionId}';} return true;">Edit</a>
 					        	</sec:accesscontrollist>
 					        </li>
-				    		<li><a href="../projects/projectinfo.html?projectId=${run.project.id}" target="_top">Review Project Info</a></li>
+					        <li><a href="editrun.html?runId=${run.id}" target="_top">Edit Run Info</a></li>
 							<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
 		                    <li><a style="text-decoration:line-through;" href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary" target="_top">Scores Summary</a></li>
