@@ -938,7 +938,7 @@
 			<plugin>
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<groupId>org.codehaus.mojo</groupId>
-				<version>2.0-SNAPSHOT</version>
+				<version>20-SNAPSHOT</version>
 			</plugin>
 		</plugins>
 	</reporting>
@@ -966,7 +966,7 @@
 	</profiles>
 
 	<properties>
-		<scy.version>9.8.0.CYPRUS</scy.version>
+		<scy.version>23-SNAPSHOT</scy.version>
 		<startup.listeners></startup.listeners>
         <slf4j.version>1.5.5</slf4j.version>
 	</properties>
