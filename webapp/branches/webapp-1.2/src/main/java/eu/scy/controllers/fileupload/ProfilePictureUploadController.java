@@ -3,6 +3,7 @@ package eu.scy.controllers.fileupload;
 import eu.scy.core.FileService;
 import eu.scy.core.UserService;
 import eu.scy.core.model.*;
+import eu.scy.server.controllers.*;
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +32,19 @@ public class ProfilePictureUploadController extends SimpleFormController {
     private UserService userService;
     private FileService fileService;
 
+    @Override
+    protected ModelAndView showForm(HttpServletRequest request, HttpServletResponse response, BindException errors) throws Exception {
+        log.info("*********************************************************************************************************************************************************");
+        return super.showForm(request, response, errors);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        log.info("*********************************************************************************************************************************************************");
+        return super.handleRequestInternal(request, response);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    
 
     @Override
     protected Map referenceData(HttpServletRequest request) throws Exception {
@@ -45,12 +59,28 @@ public class ProfilePictureUploadController extends SimpleFormController {
         return dataMap;
     }
 
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        log.info("*********************** HANDLE REQUEST");
+        ModelAndView modelAndView = super.handleRequest(request, response);
+        modelAndView.addObject("username", getCurrentUserName(request));
+
+        User user = getUserService().getUser(getCurrentUserName(request));
+        StudentUserDetails details = (StudentUserDetails) user.getUserDetails();
+
+        modelAndView.addObject("userDetails", details);
+
+
+        return modelAndView;
+    }
+
+
 
     protected ModelAndView onSubmit(
             HttpServletRequest request,
             HttpServletResponse response,
             Object command,
             BindException errors) throws Exception {
+        log.info("ON SUBMIT");
         FileUploadBean bean = (FileUploadBean) command;
 
         User user = getUserService().getUser(getCurrentUserName(request));

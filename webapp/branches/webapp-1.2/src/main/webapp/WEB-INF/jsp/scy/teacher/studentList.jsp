@@ -10,23 +10,23 @@
         
 
         <c:choose>
-            <c:when test="${fn:length(students) > 0}">
+            <c:when test="${fn:length(users) > 0}">
                 <table id="teachersTable">
-                    <h1>Students</h1>
+                    <h1>Users</h1>
                     <tr>
                         <th></th>
                         <th>User name</th>
                         <th>First name</th>
                         <th>Last name</th>
                     </tr>
-                    <c:forEach var="student" items="${students}">
+                    <c:forEach var="student" items="${users}">
                         <tr  class="${oddEven.oddEven}">
                             <td><img
                                     src="/webapp/common/filestreamer.html?username=${student.userDetails.username}&showIcon"/>
                             </td>
                             <td><a href="viewStudentDetails.html?username=${student.userDetails.username}">${student.userDetails.username}</a></td>
-                            <td>${student.userDetails.firstname} </td>
-                            <td>${student.userDetails.lastname}</td>
+                            <td>${student.userDetails.firstName} </td>
+                            <td>${student.userDetails.lastName}</td>
                         </tr>
                     </c:forEach>
                     <tr>

@@ -6,15 +6,41 @@
 
     <tiles:putAttribute name="main">
 
-        <h1>Student Details</h1>
+        <h1>User Details</h1>
 
-        <div id="user_details">
-            <img src="/webapp/common/filestreamer.html?username=${student.userDetails.username}&showIcon"/>&nbsp;<strong>${student.userDetails.firstname}&nbsp;${student.userDetails.lastname}</strong>
-        </div>
+       <table>
+           <tr>
+               <td width="50%">
+                   <table width="100%">
+                       <tr>
+                           <td colspan="2">
+                               <img src="/webapp/common/filestreamer.html?username=${student.userDetails.username}&showIcon"/>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td><strong>First name</strong></td>
+                           <td><s:ajaxTextField model="${student.userDetails}" property="firstName"/></td>
+                       </tr>
+                       <tr>
+                           <td><strong>Last name</strong></td>
+                           <td><s:ajaxTextField model="${student.userDetails}" property="lastName"/></td>
+                       </tr>
+
+                   </table>
+
+               </td>
+               <td>
+                    <s:editUserRoles user="${student}" availableAuthorities="${availableAuthorities}" successView="/teacher/viewStudentDetails.html"/>           
+               </td>
+           </tr>
+       </table>
+
 
         <a href="selectPedagogicalPlanForStudent.html?username=${student.userDetails.username}">Select mission to assign</a> <br/>
 
         <a href="viewStudentDetails.html?username=${student.userDetails.username}&pedPlan=published">Assign published mission</a>
+
+
 
         <c:choose>
             <c:when test="${fn:length(studentPlans) > 0}">

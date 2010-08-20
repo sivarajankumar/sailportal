@@ -1,10 +1,7 @@
 package eu.scy.controllers.teacher;
 
 import eu.scy.controllers.AbstractSCYController;
-import eu.scy.core.AssignedPedagogicalPlanService;
-import eu.scy.core.PedagogicalPlanPersistenceService;
-import eu.scy.core.StudentPedagogicalPlanPersistenceService;
-import eu.scy.core.StudentPedagogicalPlanPersistenceServiceImpl;
+import eu.scy.core.*;
 import eu.scy.core.model.User;
 import eu.scy.core.model.pedagogicalplan.PedagogicalPlan;
 import eu.scy.server.pedagogicalplan.StudentPedagogicalPlanService;
@@ -27,11 +24,14 @@ public class StudentDetailsController extends AbstractSCYController {
     private StudentPedagogicalPlanPersistenceService studentPedagogicalPlanPersistenceService;
     private PedagogicalPlanPersistenceService pedagogicalPlanPersistenceService;
     private AssignedPedagogicalPlanService assignedPedagogicalPlanService;
+    private UserService userService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
         String username = request.getParameter("username");
         User student = getUserService().getUser(username);
+
+
 
         String assignPedPlan = request.getParameter("pedPlan");
         if(assignPedPlan != null && assignPedPlan.equals("published")) {
@@ -57,7 +57,7 @@ public class StudentDetailsController extends AbstractSCYController {
 
         modelAndView.addObject("studentPlans", getStudentPedagogicalPlanPersistenceService().getStudentPlans(student));
         modelAndView.addObject("assignedPedagogicalPlans", getAssignedPedagogicalPlanService().getAssignedPedagogicalPlans(student));
-
+        modelAndView.addObject("availableAuthorities", getUserService().getGrantedAuthorities());
 
 
         return modelAndView;
@@ -95,5 +95,13 @@ public class StudentDetailsController extends AbstractSCYController {
 
     public void setAssignedPedagogicalPlanService(AssignedPedagogicalPlanService assignedPedagogicalPlanService) {
         this.assignedPedagogicalPlanService = assignedPedagogicalPlanService;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

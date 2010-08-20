@@ -24,8 +24,8 @@ public class StudentListController extends AbstractSCYController {
         ModelAndView modelAndView = new ModelAndView();
         provideUserInfo(modelAndView, httpServletRequest);
 
-        List students = getUserService().getStudents();
-        modelAndView.addObject("students", students);
+        List users = getUserService().getUsers();
+        modelAndView.addObject("users", users);
 
         return modelAndView;
     }
