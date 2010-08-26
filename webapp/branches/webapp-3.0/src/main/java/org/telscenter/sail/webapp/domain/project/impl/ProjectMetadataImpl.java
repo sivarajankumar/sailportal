@@ -368,6 +368,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 			
 			if(metadataJSON.has("totalTime") 
 					&& metadataJSON.get("totalTime") != null
+					&& !metadataJSON.isNull("totalTime")					
 					&& metadataJSON.get("totalTime") != "") {
 				try {
 					setTotalTime(metadataJSON.getLong("totalTime"));	
@@ -378,6 +379,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 			
 			if(metadataJSON.has("compTime") 
 					&& metadataJSON.get("compTime") != null
+					&& !metadataJSON.isNull("compTime")
 					&& metadataJSON.get("compTime") != "") {
 				try {
 					setCompTime(metadataJSON.getLong("compTime"));	
@@ -411,7 +413,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	}
 	
 	public String getTechDetailsString() {
-		if (this.techReqs != null) {
+		if (this.techReqs != null && this.techReqs != "" && !this.techReqs.equals("null")) {
 			String soFar = "";
 			try {
 				JSONObject techReqsJSON;
@@ -440,7 +442,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 
 	public String toJSONString() {
 		JSONObject metadata = new JSONObject(this);
-		
+			
 		return metadata.toString();
 	}
 }

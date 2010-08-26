@@ -158,10 +158,10 @@ public class LdProjectServiceImpl implements ProjectService {
 		if(command != null && command != ""){
 			mav.addObject("command", command);
 		}
-
+		User author = params.getAuthor();
 		Project project = params.getProject();
 		if(project != null){
-			if(this.aclService.hasPermission(project, BasePermission.WRITE, params.getAuthor()) ||
+			if(author.isAdmin() || this.aclService.hasPermission(project, BasePermission.WRITE, params.getAuthor()) ||
 					this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, params.getAuthor())){
 				String title = null;
 				if(project.getMetadata() != null && project.getMetadata().getTitle() != null && !project.getMetadata().getTitle().equals("")){
@@ -381,7 +381,7 @@ public class LdProjectServiceImpl implements ProjectService {
 	 */
 	@Transactional()
 	public void updateProject(Project project, User user) throws NotAuthorizedException{
-		if(this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
+		if(user.isAdmin() || this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) ||
 				this.aclService.hasPermission(project, BasePermission.WRITE, user)){
 			this.projectDao.save(project);
 		} else {
