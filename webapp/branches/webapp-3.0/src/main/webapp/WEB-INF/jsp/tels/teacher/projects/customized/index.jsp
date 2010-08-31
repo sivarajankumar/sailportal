@@ -408,6 +408,7 @@
 
             
             function copy(pID, type, name, filename, url, base){
+                var escapedName = escape(name);
         		var yes = confirm("Copying a project may take some time. If you proceed, please" +
         			" do not click the 'make copy' button again. A message will be displayed when" +
         			" the copy has completed.");
@@ -419,13 +420,13 @@
         						var portalPath = fullPath.substring(base.length, fullPath.length) + '/' + filename;
         						var callback = {
         							success:function(o){
-        								alert('The project has been successfully copied with the name Copy of ' + name + '. The project can be found in the My Projects section. If you are already on My Projects page, please refresh the page.');
+        								alert('Successfully copied the project\n\n' + name + '\n\nThe copy can be found in the My Projects section. If you are already on My Projects page, please refresh the page.');
         							},
         							failure:function(o){alert('Project files were copied but the project was not successfully registered in the portal.');},
         							scope:this
         						};
 
-        						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&parentProjectId='+pID+'&param1=' + portalPath + '&param2=' + name);
+        						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&parentProjectId='+pID+'&param1=' + portalPath + '&param2=' + escapedName);
         					},
         					failure:function(o){alert('Could not copy project folder, aborting copy.');},
         					scope:this
@@ -550,16 +551,8 @@ function minifyProject(id){
 		<c:otherwise>
 		    <div id="customProjectInstructions">You own the Custom projects listed below.</div>
 			<c:forEach var="project" items="${currentOwnedProjectsList}">
-				<c:choose>
-					<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
-						<c:set var="projectName" value="${project.metadata.title}"/>
-					</c:when>
-					<c:otherwise>
-						<c:set var="projectName" value="${project.name}"/>
-					</c:otherwise>
-				</c:choose>
-				<c:set var="projectName" value="${project.name}"/>
-				
+				<c:set var="projectName" value="${projectNameMap[project.id]}" />
+				<c:set var="projectNameEscaped" value="${projectNameEscapedMap[project.id]}" />
 					<table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
@@ -584,7 +577,7 @@ function minifyProject(id){
 										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
 										<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
 										<li><a href="shareproject.html?projectId=${project.id}">Share</a>
-										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
+										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','<c:out value="${projectNameEscaped}" />','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
 										<li><a href="#" style="color:#666;">Archive</a>
 										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
 									</ul>
@@ -679,104 +672,104 @@ function minifyProject(id){
 
 	<table id="projectOverviewTable">
 							<c:forEach var="project" items="${currentSharedProjectsList}">
-							<c:choose>
-								<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
-									<c:set var="projectName" value="${project.metadata.title}"/>
-								</c:when>
-								<c:otherwise>
-									<c:set var="projectName" value="${project.name}"/>
-								</c:otherwise>
-							</c:choose>
-							<tr id="row1">
-							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${projectName}</a>
-									<c:if test="${fn:length(project.sharedowners) > 0}">
-										<div id="sharedNamesContainerOwned">
-											Project OWNER is:
-											<div id="sharedNames">
-												<c:forEach var="projectowner" items="${project.owners}">
-					  							<c:out value="${projectowner.userDetails.firstname}" />
-					  							<c:out value="${projectowner.userDetails.lastname}" />
-				 								</c:forEach>
+								<c:set var="projectName" value="${projectNameMap[project.id]}" />
+								<c:set var="projectNameEscaped" value="${projectNameEscapedMap[project.id]}" />
+								<tr id="row1">
+								<td id="titleCell" colspan="3">
+										<a href="../projectinfo.html?projectId=${project.id}"><c:out value="${projectName}" /></a>
+										<c:if test="${fn:length(project.sharedowners) > 0}">
+											<div id="sharedNamesContainerOwned">
+												Project OWNER is:
+												<div id="sharedNames">
+													<c:forEach var="projectowner" items="${project.owners}">
+						  							<c:out value="${projectowner.userDetails.firstname}" />
+						  							<c:out value="${projectowner.userDetails.lastname}" />
+					 								</c:forEach>
+												</div>
 											</div>
-										</div>
-									</c:if>
-
-							</td>
-							<td class="actions" colspan="8"> 
-									<ul>
-
-
-										<li><a href="../../../previewproject.html?projectId=${project.id}">Preview Project</a></li>
-										<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
-										<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
-										<sec:accesscontrollist domainObject="${project}" hasPermission="2">	
-											<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
-										</sec:accesscontrollist>		
-										<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
-										<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
-											<li><a href="shareproject.html?projectId=${project.id}">Share</a></li>
-										</sec:accesscontrollist>										
-										<li><a href="#" style="color:#666;">Archive</a>
-										<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
-									</ul>
-							</tr>
-								<tr id="row2">
-								<th id="title1" style="width:60px;">Project ID</th>
-								<th id="title2" style="width:90px;">Project Family</th>
-								<th id="title3" style="width:280px;" >Subject</th>
-								<th id="title4" style="width:70px;">Grade Level</th>
-								<th id="title5" style="width:105px;">Total Hours</th>
-								<th id="title6" style="width:110px;">Computer Hours</th>
-								<th id="title7" style="width:72px;">Language</th>
-								<th id="title8" style="width:82px;">Tech Needs</th>
-								<th id="title9" style="width:60px;">Usage</th>
-							</tr>
-							<tr id="row3">
-								<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
-								<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
-								<td class="dataCell">${project.metadata.gradeRange}</td>              
-								<td class="dataCell">${project.metadata.totalTime}</td>              
-								<td class="dataCell">${project.metadata.compTime}</td> 
-								<td class="dataCell">[English]</td> 
-								<td class="dataCell">[Flash, Java]</td> 
-								<td class="dataCell">${usageMap[project.id]}</td>
-							</tr>
-							<tr id="row4">  
-								<td colspan="9">
-									<a id="hideShowLink" href="#" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
-									<div id="details_${project.id}"> 
-										<table id="detailsTable">
-											<tr>
-												<th>Summary:</th>
-												<td class="summary">${project.metadata.summary}</td>
-											</tr>
-											<tr>
-												<th>Keywords:</th>
-												<td class="keywords">[List of comma-separated keywords go here]</td>
-											</tr>
-
-											<tr>
-												<th>Tech Details:</th>
-												<td>[This project requires Flash for Steps x,y,z and requires Java for steps a,b,c.]</td>
-											</tr>
-											<tr>
-												<th>Created On:</th>
-												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
-											</tr>
-											<tr> 
-												<th>Original Author:</th>
-												<td>[Name goes here]</td>
-											</tr>
-											<tr>
-												<th>Contact Info:</th>
-												<td>[Name and Email goes here]</td>
-											</tr>
-										</table>
-									</div>
+										</c:if>
+	
 								</td>
-							</tr>
+								<td class="actions" colspan="8"> 
+										<ul>
+	
+	
+											<li><a href="../../../previewproject.html?projectId=${project.id}">Preview Project</a></li>
+											<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
+											<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
+											<sec:accesscontrollist domainObject="${project}" hasPermission="2">	
+												<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
+											</sec:accesscontrollist>		
+											<li><a href="#" onclick="copy('${project.id}','${project.projectType}','<c:out value="${projectNameEscaped}" />','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
+											<sec:accesscontrollist domainObject="${project}" hasPermission="16">												
+												<li><a href="shareproject.html?projectId=${project.id}">Share</a></li>
+											</sec:accesscontrollist>										
+											<li><a href="#" style="color:#666;">Archive</a>
+											<!-- input type='checkbox' id='public_${project.id}' onclick='changePublic("${project.id}")'/> Is Public</li>-->
+										</ul>
+								</tr>
+									<tr id="row2">
+									<th id="title1" style="width:60px;">Project ID</th>
+									<th id="title2" style="width:90px;">Project Family</th>
+									<th id="title3" style="width:280px;" >Subject</th>
+									<th id="title4" style="width:70px;">Grade Level</th>
+									<th id="title5" style="width:105px;">Total Hours</th>
+									<th id="title6" style="width:110px;">Computer Hours</th>
+									<th id="title7" style="width:72px;">Language</th>
+									<th id="title9" style="width:60px;">Usage</th>
+								</tr>
+								<tr id="row3">
+									<td class="dataCell libraryProjectSmallText">${project.id}</td>       		   
+									<td class="dataCell libraryProjectSmallText">${project.familytag}</td>       		   
+									<td class="dataCell libraryProjectSmallText">${project.metadata.subject}</td>
+									<td class="dataCell">${project.metadata.gradeRange}</td>              
+									<td class="dataCell">${project.metadata.totalTime}</td>              
+									<td class="dataCell">${project.metadata.compTime}</td> 
+									<td class="dataCell">${project.metadata.language}</td>
+									<td class="dataCell">${usageMap[project.id]}</td>
+								</tr>
+								<tr id="row4">  
+									<td colspan="9">
+										<a id="hideShowLink" href="#" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
+										<div id="details_${project.id}"> 
+											<table id="detailsTable">
+												<tr>
+													<th>Summary:</th>
+													<td class="summary">${project.metadata.summary}</td>
+												</tr>
+												<tr>
+													<th>Keywords:</th>
+													<td class="keywords">${project.metadata.keywords}</td>
+												</tr>
+	
+												<tr>
+													<th>Tech Details:</th>
+													<td>${project.metadata.techDetailsString}</td>
+												</tr>
+												<tr>
+													<th>Created On:</th>
+													<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
+												</tr>
+												<!--  
+												<tr> 
+													<th>Original Author:</th>
+													<td></td>
+												</tr>
+												-->
+												<tr>
+													<th>Contact Info:</th>
+													<td>${project.metadata.contact}</td>
+												</tr>
+												<c:if test='${project.parentProjectId != null}'>
+													<tr>
+														<th>Copy of:</th>
+														<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${project.parentProjectId}'>project ${project.parentProjectId}</a></td>
+													</tr>
+												</c:if>
+											</table>
+										</div>
+									</td>
+								</tr>
 							</c:forEach>
 	</table>
 

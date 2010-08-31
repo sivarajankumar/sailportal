@@ -96,45 +96,72 @@ public class CustomizedIndexController extends AbstractController {
 	     Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
 	     Map<Long,String> urlMap = new TreeMap<Long,String>();
 	     Map<Long,String> filenameMap = new TreeMap<Long,String>();
+	     
+	     //a map to contain projectId to project name
+	     Map<Long,String> projectNameMap = new TreeMap<Long,String>();
+	     
+	     //a map to contain projectId to escaped project name
+	     Map<Long,String> projectNameEscapedMap = new TreeMap<Long,String>();
+	     
 	     String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 	     for (Project p: ownedProjectsList) {
-			 if (p.isCurrent()){
-				 String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-				 	if(url != null && url != ""){
-						int ndx = url.lastIndexOf("/");
-						if(ndx == -1){
-							urlMap.put((Long) p.getId(), curriculumBaseDir);
-							filenameMap.put((Long) p.getId(), url);
-						} else {
-							urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
-							filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
-						}
-					}
-				 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
-			 }
-		 }
+	    	 if (p.isCurrent()){
+	    		 String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+	    		 
+	    		 //get the project name and put it into the map
+	    		 String projectName = p.getName();
+	    		 projectNameMap.put((Long) p.getId(), projectName);
+	    		 
+	    		 //replace ' with \' in the project name and put it into the map
+	    		 projectName = projectName.replaceAll("\\'", "\\\\'");
+	    		 projectNameEscapedMap.put((Long) p.getId(), projectName);
+
+	    		 if(url != null && url != ""){
+	    			 int ndx = url.lastIndexOf("/");
+	    			 if(ndx == -1){
+	    				 urlMap.put((Long) p.getId(), curriculumBaseDir);
+	    				 filenameMap.put((Long) p.getId(), url);
+	    			 } else {
+	    				 urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+	    				 filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+	    			 }
+	    		 }
+	    		 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+	    	 }
+	     }
 	     
 	     for (Project p: sharedProjectsList) {
-			 if (p.isCurrent()){
-				 String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-				 	if(url != null && url != ""){
-						int ndx = url.lastIndexOf("/");
-						if(ndx == -1){
-							urlMap.put((Long) p.getId(), curriculumBaseDir);
-							filenameMap.put((Long) p.getId(), url);
-						} else {
-							urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
-							filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
-						}
-					}
-				 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
-			 }
-		 }
+	    	 if (p.isCurrent()){
+	    		 String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+
+	    		 //get the project name and put it into the map
+	    		 String projectName = p.getName();
+	    		 projectNameMap.put((Long) p.getId(), projectName);
+	    		 
+	    		 //replace ' with \' in the project name and put it into the map
+	    		 projectName = projectName.replaceAll("\\'", "\\\\'");
+	    		 projectNameEscapedMap.put((Long) p.getId(), projectName);
+	    		 
+	    		 if(url != null && url != ""){
+	    			 int ndx = url.lastIndexOf("/");
+	    			 if(ndx == -1){
+	    				 urlMap.put((Long) p.getId(), curriculumBaseDir);
+	    				 filenameMap.put((Long) p.getId(), url);
+	    			 } else {
+	    				 urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+	    				 filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+	    			 }
+	    		 }
+	    		 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+	    	 }
+	     }
 
 	     modelAndView.addObject("usageMap", usageMap);
 	     modelAndView.addObject("urlMap", urlMap);
 	     modelAndView.addObject("filenameMap", filenameMap);
 	     modelAndView.addObject("curriculumBaseDir", curriculumBaseDir);
+	     modelAndView.addObject("projectNameMap", projectNameMap);
+	     modelAndView.addObject("projectNameEscapedMap", projectNameEscapedMap);
 		 return modelAndView;
 	}
 	
