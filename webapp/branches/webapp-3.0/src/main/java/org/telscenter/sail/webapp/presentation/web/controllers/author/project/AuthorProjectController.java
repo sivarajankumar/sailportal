@@ -496,12 +496,12 @@ public class AuthorProjectController extends AbstractController {
 			
 			Object totaltime = this.getJSONFieldValue(metadata, "totaltime");
 			if(totaltime != null && !((String) totaltime).equals("")){
-				pMeta.setTotalTime(Long.parseLong((String) totaltime));
+				pMeta.setTotalTime((String) totaltime);
 			} 
 			
 			Object comptime = this.getJSONFieldValue(metadata, "comptime");
 			if(comptime != null && !((String) comptime).equals("")){
-				pMeta.setCompTime(Long.parseLong((String) comptime));
+				pMeta.setCompTime((String) comptime);
 			}
 			
 			Object keywords = this.getJSONFieldValue(metadata, "keywords");

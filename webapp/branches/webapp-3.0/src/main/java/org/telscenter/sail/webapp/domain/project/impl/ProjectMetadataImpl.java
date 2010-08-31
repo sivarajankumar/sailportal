@@ -121,10 +121,10 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	private String gradeRange;
 	
 	@Column(name = COLUMN_NAME_TOTAL_TIME)
-	private Long totalTime;
+	private String totalTime;
 	
 	@Column(name = COLUMN_NAME_COMP_TIME)
-	private Long compTime;
+	private String compTime;
 	
 	@Column(name = COLUMN_NAME_CONTACT)
 	private String contact;
@@ -176,19 +176,19 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 		this.gradeRange = gradeRange;
 	}
 
-	public Long getTotalTime() {
+	public String getTotalTime() {
 		return totalTime;
 	}
 
-	public void setTotalTime(Long totalTime) {
+	public void setTotalTime(String totalTime) {
 		this.totalTime = totalTime;
 	}
 
-	public Long getCompTime() {
+	public String getCompTime() {
 		return compTime;
 	}
 
-	public void setCompTime(Long compTime) {
+	public void setCompTime(String compTime) {
 		this.compTime = compTime;
 	}
 
@@ -343,105 +343,238 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	}
 	
 	public void populateFromJSON(JSONObject metadataJSON) {
+		//check that the title exists and is not null
+		if(metadataJSON.has("title") && !metadataJSON.isNull("title")) {
+			
+			try {
+				String title = metadataJSON.getString("title");
+				if(title.equals("null")) {
+					title = "";
+				}
+				setTitle(title);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the author exists and is not null
+		if(metadataJSON.has("author") && !metadataJSON.isNull("author")) {
+			try {
+				String author = metadataJSON.getString("author");
+				if(author.equals("null")) {
+					author = "";
+				}
+				setAuthor(author);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the subject exists and is not null
+		if(metadataJSON.has("subject") && !metadataJSON.isNull("subject")) {
+			try {
+				String subject = metadataJSON.getString("subject");
+				if(subject.equals("null")) {
+					subject = "";
+				}
+				setSubject(subject);	
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the summary exists and is not null
+		if(metadataJSON.has("summary") && !metadataJSON.isNull("summary")) {
+			try {
+				String summary = metadataJSON.getString("summary");
+				if(summary.equals("null")) {
+					summary = "";
+				}
+				setSummary(summary);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the grade range exists and is not null
+		if(metadataJSON.has("gradeRange") && !metadataJSON.isNull("gradeRange")) {
+			try {
+				String gradeRange = metadataJSON.getString("gradeRange");
+				if(gradeRange.equals("null")) {
+					gradeRange = "";
+				}
+				setGradeRange(gradeRange);		
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the total time exists and is not null
+		if(metadataJSON.has("totalTime")  && !metadataJSON.isNull("totalTime")) {
+			try {
+				String totalTime = metadataJSON.getString("totalTime");
+				
+				if(totalTime.equals("null")) {
+					totalTime = "";
+				}
+				setTotalTime(totalTime);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the comp time exists and is not null
+		if(metadataJSON.has("compTime") && !metadataJSON.isNull("compTime")) {
+			try {
+				String compTime = metadataJSON.getString("compTime");
+				
+				if(compTime.equals("null")) {
+					compTime = "";
+				}
+				setCompTime(compTime);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the contact exists and is not null
+		if(metadataJSON.has("contact") && !metadataJSON.isNull("contact")) {
+			try {
+				String contact = metadataJSON.getString("contact");
+				if(contact.equals("null")) {
+					contact = "";
+				}
+				setContact(contact);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the tech reqs exists and is not null
+		if(metadataJSON.has("techReqs") && !metadataJSON.isNull("techReqs")) {
+			try {
+				JSONObject techReqs = metadataJSON.getJSONObject("techReqs");
+				if(techReqs.equals("null")) {
+					techReqs = new JSONObject();
+				}
+				setTechReqs(techReqs.toString());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//check that the lesson plan exists and is not null
+		if(metadataJSON.has("lessonPlan") && !metadataJSON.isNull("lessonPlan")) {
+			try {
+				String lessonPlan = metadataJSON.getString("lessonPlan");
+				if(lessonPlan.equals("null")) {
+					lessonPlan = "";
+				}
+				setLessonPlan(lessonPlan);		
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		//check that the keywords exists and is not null
+		if(metadataJSON.has("keywords") && !metadataJSON.isNull("keywords")) {
+			try {
+				String keywords = metadataJSON.getString("keywords");
+				if(keywords.equals("null")) {
+					keywords = "";
+				}
+				setKeywords(keywords);	
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		//check that the language exists and is not null
+		if(metadataJSON.has("language") && !metadataJSON.isNull("language")) {
+			try {
+				String language = metadataJSON.getString("language");
+				if(language.equals("null")) {
+					language = "";
+				}
+				setLanguage(language);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * Returns a human readable string that lists the tech requirements
+	 * as well as the tech details. This is used in the portal when we
+	 * display the meta data for a project.
+	 * @return a string with the tech reqs and tech details
+	 */
+	public String getTechDetailsString() {
+		String techReqsAndDetailsString = "";
+		String techReqs = getTechReqs();
+		
+		//check that the tech reqs is not null
+		if (techReqs != null && !techReqs.equals("") && !techReqs.equals("null")) {
+			
+			try {
+				//get the JSON object for the tech reqs
+				JSONObject techReqsJSON = new JSONObject(techReqs);
+				
+				if (techReqsJSON.getBoolean("java")) {
+					//java is required
+					techReqsAndDetailsString += "Java, ";
+				}
+				
+				if (techReqsJSON.getBoolean("flash")) {
+					//flash is required
+					techReqsAndDetailsString += "Flash, ";
+				}
+				
+				if (techReqsJSON.getBoolean("quickTime")) {
+					//quicktime is required
+					techReqsAndDetailsString += "QuickTime, ";
+				}
+				
+				if (techReqsJSON.getString("techDetails") != null && techReqsJSON.getString("techDetails") != "") {
+					//add the tech details
+					techReqsAndDetailsString += " " + techReqsJSON.getString("techDetails");
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return techReqsAndDetailsString;
+	}
+
+	/**
+	 * Gets the JSON string version of this ProjectMetadata object
+	 * @return a JSON string with the fields and values from this ProjectMetadata object 
+	 */
+	public String toJSONString() {
+		JSONObject metadata = new JSONObject(this);
+		
 		try {
-			if(metadataJSON.has("title")
-					&& metadataJSON.get("title") != null
-					&& metadataJSON.get("title") != "") {
-				setTitle(metadataJSON.getString("title"));	
-			}
+			/*
+			 * we will retrieve the techReqs JSON string and replace it with a JSON Object
+			 * so that the client does not need to parse the JSON string
+			 */
+			String techReqsString = metadata.getString("techReqs");
 			
-			if(metadataJSON.has("author")) {
-				setAuthor(metadataJSON.getString("author"));
-			}
-			
-			if(metadataJSON.has("subject")) {
-				setSubject(metadataJSON.getString("subject"));	
-			}
-			
-			if(metadataJSON.has("summary")) {
-				setSummary(metadataJSON.getString("summary"));	
-			}
-			
-			if(metadataJSON.has("gradeRange")) {
-				setGradeRange(metadataJSON.getString("gradeRange"));	
-			}
-			
-			if(metadataJSON.has("totalTime") 
-					&& metadataJSON.get("totalTime") != null
-					&& !metadataJSON.isNull("totalTime")					
-					&& metadataJSON.get("totalTime") != "") {
-				try {
-					setTotalTime(metadataJSON.getLong("totalTime"));	
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-			if(metadataJSON.has("compTime") 
-					&& metadataJSON.get("compTime") != null
-					&& !metadataJSON.isNull("compTime")
-					&& metadataJSON.get("compTime") != "") {
-				try {
-					setCompTime(metadataJSON.getLong("compTime"));	
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-			if(metadataJSON.has("contact")) {
-				setContact(metadataJSON.getString("contact"));	
-			}
-			
-			if(metadataJSON.has("techReqs")) {
-				setTechReqs(metadataJSON.getString("techReqs"));	
-			}
-			
-			if(metadataJSON.has("lessonPlan")) {
-				setLessonPlan(metadataJSON.getString("lessonPlan"));				
-			}
-
-			if(metadataJSON.has("keywords")) {
-				setKeywords(metadataJSON.getString("keywords"));			
-			}
-
-			if(metadataJSON.has("language")) {
-				setLanguage(metadataJSON.getString("language"));			
+			//check if the field is null or "null"
+			if(techReqsString != null && techReqsString != "null") {
+				//create the JSON object
+				JSONObject techReqsJSON = new JSONObject(techReqsString);
+				
+				//override the existing techReqs string with this JSON object
+				metadata.put("techReqs", techReqsJSON);	
+			} else {
+				//override the existing techReqs string with this empty JSON object
+				metadata.put("techReqs", new JSONObject());
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public String getTechDetailsString() {
-		if (this.techReqs != null && this.techReqs != "" && !this.techReqs.equals("null")) {
-			String soFar = "";
-			try {
-				JSONObject techReqsJSON;
-				techReqsJSON = new JSONObject(this.techReqs);
-				if (techReqsJSON.getBoolean("java")) {
-					soFar += "Java, ";
-				}
-				if (techReqsJSON.getBoolean("flash")) {
-					soFar += "Flash, ";
-				}
-				if (techReqsJSON.getBoolean("quickTime")) {
-					soFar += "QuickTime, ";
-				}
-				if (techReqsJSON.getString("techDetails") != null && techReqsJSON.getString("techDetails") != "") {
-					soFar += " " + techReqsJSON.getString("techDetails");
-				}
-				return soFar;
-			} catch (JSONException e) {
-				e.printStackTrace();
-				return soFar;
-			}
-
-		}
-		return "";
-	}
-
-	public String toJSONString() {
-		JSONObject metadata = new JSONObject(this);
 			
 		return metadata.toString();
 	}

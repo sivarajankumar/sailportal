@@ -100,22 +100,22 @@ public interface ProjectMetadata{
 	/**
 	 * @return <code>Long</code> the total time to get
 	 */
-	public Long getTotalTime();
+	public String getTotalTime();
 	
 	/**
 	 * @param <code>Long</code> the total time to set (in mins)
 	 */
-	public void setTotalTime(Long mins);
+	public void setTotalTime(String mins);
 	
 	/**
 	 * @return <code>Long</code> the comp time to get
 	 */
-	public Long getCompTime();
+	public String getCompTime();
 	
 	/**
 	 * @param <code>Long</code> the total time to set (in mins)
 	 */
-	public void setCompTime(Long mins);
+	public void setCompTime(String mins);
 	
 	/**
 	 * @return <code>String</code> the contact to get

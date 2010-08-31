@@ -170,6 +170,14 @@ public class LdProjectServiceImpl implements ProjectService {
 					title = project.getName();
 				}
 				
+				if(title != null) {
+					/*
+					 * replace " with \" because if we don't escape it, the " may
+					 * short circuit the parent string that we put the title in
+					 */
+					title = title.replaceAll("\"", "\\\\\"");					
+				}
+				
 				if(command == null){
 					mav.addObject("command", "editProject");
 				}
