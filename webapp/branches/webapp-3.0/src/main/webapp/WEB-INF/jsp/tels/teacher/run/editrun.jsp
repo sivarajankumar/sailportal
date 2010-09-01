@@ -16,6 +16,7 @@
 <script type='text/javascript'>
 	function updateRunTitle(runId){
 		var val = $('#editRunTitleInput').val();
+		val = escape(val);
 
 		/* validate user entered value */
 		if(!val || val==''){
@@ -64,7 +65,7 @@
 	<div id="editRunHeadDiv" class="editRunBlock">Edit Run</div>
 	<div id='errorMsgDiv'></div>
 	<div id="editRunTitleDiv" class="editRunBlock">
-		Run Title: <input id="editRunTitleInput" type="text" size="10" value="${run.name}"/><input type="button" value="update title" onclick="updateRunTitle('${run.id}')"/>
+		Run Title: <input id="editRunTitleInput" type="text" size="10" value="<c:out value='${run.name}' />"/><input type="button" value="update title" onclick="updateRunTitle('${run.id}')"/>
 	</div>
 	<div id="editRunPeriodsDiv" class="editRunBlock">
 		<div id="editRunPeriodsHeadDiv">Periods:</div>

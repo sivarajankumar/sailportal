@@ -148,11 +148,15 @@
 	 * Sends a cleaning message to the owners of the project
 	 */
 	function sendCleanMessage(){
+		/*
 		if('${project.metadata}' && '${project.metadata.title}'){
 			var projectName = '${project.metadata.title}';
 		} else {
 			var projectName = '${project.name}';
 		};
+		*/
+
+		var projectName = '<c:out value="${project.name}" />';
 		
 		var body = 'Hello, I am ${currentUsername} and would like to request a cleaning for the project ' + projectName +
 				' with project ID ${project.id} so that I may set up a run with this project. Thank you.';
@@ -216,7 +220,7 @@
 <table id="projectOverviewTable">
 							<tr id="row1">
 							<td id="titleCell" colspan="3">
-									<a href="../projectinfo.html?projectId=${project.id}">${project.name}</a>
+									<a href="../projects/projectinfo.html?projectId=${project.id}">${project.name}</a>
 									<c:if test="${fn:length(project.sharedowners) > 0}">
 										<div id="sharedNamesContainer">
 											This project is shared with:

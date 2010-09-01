@@ -118,6 +118,7 @@
     	
     	// asynchronously copies project
         function copy(pID, type, projectName, projectJSONFilename, srcProjectRootFolder, curriculumBaseDir){
+        	projectName = escape(projectName);
             var isSuccess = false;
             var newProjectId = null;
    			if(type=='LD'){
@@ -189,7 +190,7 @@ This help area includes tips on setting up your classroom computers, having stud
 	<h5>To complete the creation of your Project Run click <em>DONE</em> below.</h5>
 </div>
 
-<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','${projectName}','${projectJSONFilename}','${srcProjectRootFolder}','${curriculumBaseDir}')">
+<form method="post" class="center" onSubmit="return createRun('${projectId}','${projectType}','<c:out value="${projectName}" />','${projectJSONFilename}','${srcProjectRootFolder}','${curriculumBaseDir}')">
 <input type="submit" name="_target3" value="<spring:message code="navigate.back" />" />
 <input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
 <input type="submit" id="submit_form" name="_finish" value="<spring:message code="navigate.done" />" />

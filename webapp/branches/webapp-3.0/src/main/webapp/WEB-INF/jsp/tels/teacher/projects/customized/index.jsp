@@ -420,7 +420,7 @@
         						var portalPath = fullPath.substring(base.length, fullPath.length) + '/' + filename;
         						var callback = {
         							success:function(o){
-        								alert('Successfully copied the project\n\n' + name + '\n\nThe copy can be found in the My Projects section. If you are already on My Projects page, please refresh the page.');
+        								alert('Successfully copied the project\n\n' + name + '\n\nThe copy can be found in the View My Projects section. If you are already on the View My Projects page, please refresh the page.');
         							},
         							failure:function(o){alert('Project files were copied but the project was not successfully registered in the portal.');},
         							scope:this

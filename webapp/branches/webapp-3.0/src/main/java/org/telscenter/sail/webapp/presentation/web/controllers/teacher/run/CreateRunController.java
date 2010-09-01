@@ -342,9 +342,16 @@ public class CreateRunController extends AbstractWizardFormController {
 			int ndx = relativeProjectFilePath.lastIndexOf("/");
 			String srcProjectRootFolder = curriculumBaseDir + "/" + relativeProjectFilePath.substring(0, ndx);  // looks like this: "/users/hiroki/..../curriculum/109/"
 			String projectJSONFilename = relativeProjectFilePath.substring(ndx + 1, relativeProjectFilePath.length());  // looks like this: "new.project.json"
+			
+			//get the project name
+			String projectName = project.getName();
+			
+			//replace ' with \' so when the project name is displayed on the jsp page, it won't short circuit the string
+			projectName = projectName.replaceAll("\\'", "\\\\'");
+			
 			model.put("projectId", projectId);
 			model.put("projectType", project.getProjectType());
-			model.put("projectName", project.getName());
+			model.put("projectName", projectName);
 			model.put("srcProjectRootFolder", srcProjectRootFolder);
 			model.put("projectJSONFilename", projectJSONFilename);
 			model.put("curriculumBaseDir", curriculumBaseDir);

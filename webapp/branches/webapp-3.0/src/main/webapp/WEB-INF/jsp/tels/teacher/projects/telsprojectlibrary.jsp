@@ -61,6 +61,7 @@
 	};
 	
 	function copy(pID, type, name, filename, url, base){
+		var escapedName = escape(name);
 		var yes = confirm("Copying a project may take some time. If you proceed, please" +
 			" do not click the 'make copy' button again. A message will be displayed when" +
 			" the copy has completed.");
@@ -72,13 +73,13 @@
 						var portalPath = fullPath.substring(base.length, fullPath.length) + '/' + filename;
 						var callback = {
 							success:function(o){
-								alert('The LD project has been successfully copied with the name Copy of ' + name + '. The project can be found in the My Customized Projects section.');
+								alert('Successfully copied the project\n\n' + name + '\n\nThe project can be found in the View My Projects section.');
 							},
 							failure:function(o){alert('Project files were copied but the project was not successfully registered in the portal.');},
 							scope:this
 						};
 
-						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&parentProjectId='+pID+'&param1=' + portalPath + '&param2=' + name);
+						YAHOO.util.Connect.asyncRequest('POST', "/webapp/author/authorproject.html", callback, 'command=createProject&parentProjectId='+pID+'&param1=' + portalPath + '&param2=' + escapedName);
 					},
 					failure:function(o){alert('Could not copy project folder, aborting copy.');},
 					scope:this
@@ -148,14 +149,8 @@
 <div id="libraryInstructions"><br/>To see lesson plans and additional information for a project, click its Title.</div>
   
 <c:forEach var="project" items="${projectList}">
-		<c:choose>
-			<c:when test='${project.metadata != null && project.metadata.title != null && project.metadata.title != ""}'>
-				<c:set var="projectName" value="${project.metadata.title}"/>
-			</c:when>
-			<c:otherwise>
-				<c:set var="projectName" value="${project.name}"/>
-			</c:otherwise>
-		</c:choose>
+	<c:set var="projectName" value="${projectNameMap[project.id]}" />
+	<c:set var="projectNameEscaped" value="${projectNameEscapedMap[project.id]}" />
 	<table id="projectOverviewTable">
 		<tr id="row1">
 		<td id="titleCell" colspan="3"><a href="projectinfo.html?projectId=${project.id}">${projectName}</a></td>
@@ -164,7 +159,7 @@
 					<li><input type="checkbox" id="check_${project.id}" onclick="javascript:bookmark('${project.id}')"/><label for="check_${project.id}"><a href="#">Bookmark</a></label></li>
 					<li><a target=_blank href="<c:url value="../../previewproject.html"><c:param name="projectId" value="${project.id}"/></c:url>">Preview</a></li>
 					<li><a href="<c:url value="../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">SET UP PROJECT RUN</a></li>
-					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','${projectName}','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
+					<li><a href="#" onclick="copy('${project.id}','${project.projectType}','<c:out value="${projectNameEscaped}" />','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy to <i>My Projects</i></a></li>
 					<li><c:if test="${project.projectType=='ROLOO'}"><a href="../vle/vle.html?runId=${project.previewRun.id}&summary=true">Project Summary</a></c:if></li>
 				</ul>
 		</tr>

@@ -49,64 +49,81 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
  * @version $Id:$
  */
 public class TelsProjectLibraryController extends AbstractController{
-	
+
 	private ProjectService projectService;
-	
+
 	private RunService runService;
-	
+
 	private Properties portalProperties;
-	
+
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		 User user = ControllerUtil.getSignedInUser();
-		 Set<String> tagNames = new TreeSet<String>();
-		 tagNames.add("tels");
-		 tagNames.add("library");
-		 List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
-		 List<Project> currentProjectList = new ArrayList<Project>();
-		 
-		 
-		 Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
+
+		User user = ControllerUtil.getSignedInUser();
+		Set<String> tagNames = new TreeSet<String>();
+		tagNames.add("tels");
+		tagNames.add("library");
+		List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
+		List<Project> currentProjectList = new ArrayList<Project>();
+
+
+		Map<Long, Integer> usageMap = new TreeMap<Long, Integer>();
 		Map<Long,String> urlMap = new TreeMap<Long,String>();
 		Map<Long,String> filenameMap = new TreeMap<Long,String>();
+
+		//a map to contain projectId to project name
+		Map<Long,String> projectNameMap = new TreeMap<Long,String>();
+
+		//a map to contain projectId to escaped project name
+		Map<Long,String> projectNameEscapedMap = new TreeMap<Long,String>();
+
 		String curriculumBaseDir = this.portalProperties.getProperty("curriculum_base_dir");
 		if(projectList != null){
-			 for (Project p: projectList) {
-				 if (p.isCurrent()){
-					 currentProjectList.add(p);
-					 if (p.getProjectType().equals(ProjectType.LD)) {
-						 String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
-						 if(url != null && url != ""){
-							 int ndx = url.lastIndexOf("/");
-							 if(ndx == -1){
-								 urlMap.put((Long) p.getId(), curriculumBaseDir);
-								 filenameMap.put((Long) p.getId(), url);
-							 } else {
-								 urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
-								 filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
-							 }
-						 }
-						 usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
-					 }
-				 }
-			 }
+			for (Project p: projectList) {
+				if (p.isCurrent()){
+					//get the project name and put it into the map
+					String projectName = p.getName();
+					projectNameMap.put((Long) p.getId(), projectName);
+
+					//replace ' with \' in the project name and put it into the map
+					projectName = projectName.replaceAll("\\'", "\\\\'");
+					projectNameEscapedMap.put((Long) p.getId(), projectName);
+
+					currentProjectList.add(p);
+					if (p.getProjectType().equals(ProjectType.LD)) {
+						String url = (String) p.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+						if(url != null && url != ""){
+							int ndx = url.lastIndexOf("/");
+							if(ndx == -1){
+								urlMap.put((Long) p.getId(), curriculumBaseDir);
+								filenameMap.put((Long) p.getId(), url);
+							} else {
+								urlMap.put((Long) p.getId(), curriculumBaseDir + "/" + url.substring(0, ndx));
+								filenameMap.put((Long) p.getId(), url.substring(ndx + 1, url.length()));
+							}
+						}
+						usageMap.put((Long) p.getId(), this.runService.getProjectUsage((Long) p.getId()));
+					}
+				}
+			}
 		}
-		 
-		 ModelAndView modelAndView = new ModelAndView();
-	     modelAndView.addObject("projectList", currentProjectList);
-	     modelAndView.addObject("usageMap", usageMap);
-	     modelAndView.addObject("userId", user.getId());
-	     modelAndView.addObject("urlMap", urlMap);
-	     modelAndView.addObject("filenameMap", filenameMap);
-	     modelAndView.addObject("curriculumBaseDir", curriculumBaseDir);
-		 return modelAndView;
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("projectList", currentProjectList);
+		modelAndView.addObject("usageMap", usageMap);
+		modelAndView.addObject("userId", user.getId());
+		modelAndView.addObject("urlMap", urlMap);
+		modelAndView.addObject("filenameMap", filenameMap);
+		modelAndView.addObject("curriculumBaseDir", curriculumBaseDir);
+		modelAndView.addObject("projectNameMap", projectNameMap);
+		modelAndView.addObject("projectNameEscapedMap", projectNameEscapedMap);
+		return modelAndView;
 	}
-	
+
 	/**
 	 * @param projectService the projectService to set
 	 */
