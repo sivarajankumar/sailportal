@@ -54,8 +54,8 @@ public class UploadMultipleUsers implements FileUploadListener {
                 
                 User user = getUserService().createUser(suggestedUserName, suggestedPassword, "ROLE_STUDENT");
                 StudentUserDetails studentUserDetails = (StudentUserDetails) user.getUserDetails();
-                studentUserDetails.setFirstname(firstName);
-                studentUserDetails.setLastname(lastName);
+                studentUserDetails.setFirstName(firstName);
+                studentUserDetails.setLastName(lastName);
                 getUserService().save(user);
 
 

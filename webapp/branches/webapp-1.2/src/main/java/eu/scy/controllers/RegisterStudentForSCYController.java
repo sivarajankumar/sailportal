@@ -54,8 +54,8 @@ public class RegisterStudentForSCYController extends SimpleFormController {
             try {
                 user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "ROLE_STUDENT");
                 studentUserDetails = (SCYStudentUserDetails) user.getUserDetails();
-                if(userDetails.getFirstname() != null) studentUserDetails.setFirstname(userDetails.getFirstname());
-                if(userDetails.getLastname() != null) studentUserDetails.setLastname(userDetails.getLastname());
+                if(userDetails.getFirstName() != null) studentUserDetails.setFirstName(userDetails.getFirstName());
+                if(userDetails.getLastName() != null) studentUserDetails.setLastName(userDetails.getLastName());
                 userService.save(user);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -65,8 +65,8 @@ public class RegisterStudentForSCYController extends SimpleFormController {
 
         modelAndView.addObject("username", studentUserDetails.getUsername());
         modelAndView.addObject("password", studentUserDetails.getPassword());
-        modelAndView.addObject("firstname", studentUserDetails.getFirstname());
-        modelAndView.addObject("lastname", studentUserDetails.getLastname());
+        modelAndView.addObject("firstname", studentUserDetails.getFirstName());
+        modelAndView.addObject("lastname", studentUserDetails.getLastName());
 
         return modelAndView;
 

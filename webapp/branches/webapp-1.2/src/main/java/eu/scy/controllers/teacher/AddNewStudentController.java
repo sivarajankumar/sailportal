@@ -46,8 +46,8 @@ public class AddNewStudentController extends SimpleFormController {
         try {
             user = userService.createUser(userDetails.getUsername(), userDetails.getPassword(), "ROLE_STUDENT");
             studentUserDetails = (SCYStudentUserDetails) user.getUserDetails();
-            if (userDetails.getFirstname() != null) studentUserDetails.setFirstname(userDetails.getFirstname());
-            if (userDetails.getLastname() != null) studentUserDetails.setLastname(userDetails.getLastname());
+            if (userDetails.getFirstName() != null) studentUserDetails.setFirstName(userDetails.getFirstName());
+            if (userDetails.getLastName() != null) studentUserDetails.setLastName(userDetails.getLastName());
             userService.save(user);
         } catch (Exception e) {
             e.printStackTrace();
