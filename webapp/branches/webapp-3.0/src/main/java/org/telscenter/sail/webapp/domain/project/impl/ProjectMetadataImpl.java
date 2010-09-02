@@ -520,22 +520,22 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 				//get the JSON object for the tech reqs
 				JSONObject techReqsJSON = new JSONObject(techReqs);
 				
-				if (techReqsJSON.getBoolean("java")) {
+				if (techReqsJSON.has("java")  && techReqsJSON.getBoolean("java")) {
 					//java is required
 					techReqsAndDetailsString += "Java, ";
 				}
 				
-				if (techReqsJSON.getBoolean("flash")) {
+				if (techReqsJSON.has("flash") && techReqsJSON.getBoolean("flash")) {
 					//flash is required
 					techReqsAndDetailsString += "Flash, ";
 				}
 				
-				if (techReqsJSON.getBoolean("quickTime")) {
+				if (techReqsJSON.has("quickTime") && techReqsJSON.getBoolean("quickTime")) {
 					//quicktime is required
 					techReqsAndDetailsString += "QuickTime, ";
 				}
 				
-				if (techReqsJSON.getString("techDetails") != null && techReqsJSON.getString("techDetails") != "") {
+				if (techReqsJSON.has("techDetails") && techReqsJSON.getString("techDetails") != null && techReqsJSON.getString("techDetails") != "") {
 					//add the tech details
 					techReqsAndDetailsString += " " + techReqsJSON.getString("techDetails");
 				}
