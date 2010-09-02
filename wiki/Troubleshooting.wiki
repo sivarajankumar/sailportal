@@ -1,6 +1,6 @@
 #summary Troubleshooting portal
 
-= log4j startup error =
+= startup error =
 problem: 
 you see this error when you're starting up the server:
 {{{
@@ -99,10 +99,15 @@ SEVERE: Context [/webapp] startup failed due to previous errors
 }}}
 
 cause:
-It's likely that your eclipse configuration (ie class-loading lookup paths like org.eclipse.wst.common.component or .profile file) changed without you knowing.
+It's likely that your eclipse configuration (ie class-loading lookup paths like org.eclipse.wst.common.component or .profile file) changed without you knowing, or your tomcat publishing is not synchronized.
 
-solution:
-1. synchronize your webapp checkout. Right click on webapp project folder, Team->Synchronize....
-2. see if you see any files that eclipse has changed without your knowledge, like .settings/org.eclipse.jdt.core.prefs, .settings/org.eclipse.wst.common.component, or .project  
-3a. If yes, revert those changes. Right-click on the file and select "override and update". Restart the server.
-3b. If not, contact us in the googlecode mailinglist.
+solution #1:
+  # delete tomcat server
+  # add tomcat server and re-add the projects to the server.
+  # restart server.
+
+solution #2 (if solution #1 doesn't work):
+  # synchronize your webapp checkout. Right click on webapp project folder, Team->Synchronize....
+  # see if you see any files that eclipse has changed without your knowledge, like .settings/org.eclipse.jdt.core.prefs, .settings/org.eclipse.wst.common.component,.classpath or .project  
+  # If yes, revert those changes. Right-click on the file and select "override and update". clean project. Project->Clean. run "mvn clean; mvn compile; mvn resources:resources". Refresh project in Eclipse. Restart the server.
+  # If not, contact us in the googlecode mailinglist.
