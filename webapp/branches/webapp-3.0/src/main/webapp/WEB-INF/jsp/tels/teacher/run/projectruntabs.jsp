@@ -164,7 +164,17 @@
 				      				<th><spring:message code="teacher.run.myprojectruns.11"/></th>
 				      				<td>${run.project.id}</td>
 				      			</tr>
-				      			
+				      			<tr>
+				      				<th><spring:message code="teacher.run.myprojectruns.40"/></th>
+									<c:choose>
+									  <c:when test="${run.project.parentProjectId != null}">
+									    <td>${run.project.parentProjectId}</td>
+									  </c:when>
+									  <c:otherwise>
+									    <td>N/A</td>
+									  </c:otherwise>
+									 </c:choose>
+				      			</tr>
 						</table>
 				      	
 					</td>
