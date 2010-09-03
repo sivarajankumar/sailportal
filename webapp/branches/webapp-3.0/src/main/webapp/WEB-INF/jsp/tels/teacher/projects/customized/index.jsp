@@ -697,7 +697,7 @@ function minifyProject(id){
 											<li><a href="../../../previewproject.html?projectId=${project.id}">Preview Project</a></li>
 											<li><a href="../projectinfo.html?projectId=${project.id}">Project Info</a></li>
 											<li><a href="<c:url value="../../run/createRun.html"><c:param name="projectId" value="${project.id}"/></c:url>">Set up Project Run</a></li>
-											<sec:accesscontrollist domainObject="${project}" hasPermission="2">	
+											<sec:accesscontrollist domainObject="${project}" hasPermission="2,16">	
 												<li><a href="../../../author/authorproject.html?projectId=${project.id}">Edit/Author</a></li>
 											</sec:accesscontrollist>		
 											<li><a href="#" onclick="copy('${project.id}','${project.projectType}','<c:out value="${projectNameEscaped}" />','${filenameMap[project.id]}','${urlMap[project.id]}','${curriculumBaseDir}')" >Copy</a></li>
