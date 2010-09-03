@@ -47,6 +47,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
@@ -497,6 +499,19 @@ public class InformationController extends AbstractController{
 				config.put("runId", "");
 			} else {
 				config.put("runId", runId);
+			}
+			
+			// add userType {teacher, student, null}
+			User signedInUser = ControllerUtil.getSignedInUser();
+			if (signedInUser != null) {
+		        UserDetails userDetails = (UserDetails) signedInUser.getUserDetails();
+		        if (userDetails instanceof StudentUserDetails) {
+		        	config.put("userType", "student");
+		        } else if (userDetails instanceof TeacherUserDetails) {
+		        	config.put("userType", "teacher");
+		        }
+			} else {
+	        	config.put("userType", "none");
 			}
 		} catch (JSONException e){
 			e.printStackTrace();
