@@ -510,7 +510,7 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	 * @return a string with the tech reqs and tech details
 	 */
 	public String getTechDetailsString() {
-		String techReqsAndDetailsString = "";
+		StringBuffer techReqsAndDetailsStringBuf = new StringBuffer();
 		String techReqs = getTechReqs();
 		
 		//check that the tech reqs is not null
@@ -520,31 +520,46 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 				//get the JSON object for the tech reqs
 				JSONObject techReqsJSON = new JSONObject(techReqs);
 				
-				if (techReqsJSON.has("java")  && techReqsJSON.getBoolean("java")) {
+				if (techReqsJSON.has("java") && techReqsJSON.getBoolean("java")) {
 					//java is required
-					techReqsAndDetailsString += "Java, ";
+					techReqsAndDetailsStringBuf.append("Java");
 				}
 				
 				if (techReqsJSON.has("flash") && techReqsJSON.getBoolean("flash")) {
+					if(techReqsAndDetailsStringBuf.length() != 0) {
+						//add a comma to separate the previous text
+						techReqsAndDetailsStringBuf.append(", ");
+					}
+					
 					//flash is required
-					techReqsAndDetailsString += "Flash, ";
+					techReqsAndDetailsStringBuf.append("Flash");
 				}
 				
 				if (techReqsJSON.has("quickTime") && techReqsJSON.getBoolean("quickTime")) {
+					if(techReqsAndDetailsStringBuf.length() != 0) {
+						//add a comma to separate the previous text
+						techReqsAndDetailsStringBuf.append(", ");
+					}
+					
 					//quicktime is required
-					techReqsAndDetailsString += "QuickTime, ";
+					techReqsAndDetailsStringBuf.append("QuickTime");
 				}
 				
-				if (techReqsJSON.has("techDetails") && techReqsJSON.getString("techDetails") != null && techReqsJSON.getString("techDetails") != "") {
+				if (techReqsJSON.has("techDetails") && techReqsJSON.getString("techDetails") != null && !techReqsJSON.getString("techDetails").equals("")) {
+					if(techReqsAndDetailsStringBuf.length() != 0) {
+						//add a comma to separate the previous text
+						techReqsAndDetailsStringBuf.append(", ");
+					}
+					
 					//add the tech details
-					techReqsAndDetailsString += " " + techReqsJSON.getString("techDetails");
+					techReqsAndDetailsStringBuf.append(techReqsJSON.getString("techDetails"));
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 
 		}
-		return techReqsAndDetailsString;
+		return techReqsAndDetailsStringBuf.toString();
 	}
 
 	/**

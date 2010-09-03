@@ -177,6 +177,8 @@ public class AuthorProjectController extends AbstractController {
 				return this.handlePublishMetadata(request, response);
 			} else if(command.equals("getUsername")){
 				return this.handleGetUsername(request, response);
+			} else if(command.equals("getCurriculumBaseUrl")) {
+				return this.handleGetCurriculumBaseUrl(request, response);
 			} else if(command.equals("getEditors")){
 				if(this.projectService.canAuthorProject(project, user)){
 					return this.handleGetEditors(request, response);
@@ -594,6 +596,25 @@ public class AuthorProjectController extends AbstractController {
 	private ModelAndView handleGetUsername(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
 		response.getWriter().write(user.getUserDetails().getUsername());
+		return null;
+	}
+	
+	/**
+	 * Get the url to the curriculum base on the vlewrapper
+	 * e.g.
+	 * http://localhost:8080/vlewrapper/curriculum
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	private ModelAndView handleGetCurriculumBaseUrl(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		//get the curriculum_base_www variable from the portal.properties file
+		String vlewrapperBaseUrl = portalProperties.getProperty("curriculum_base_www");
+		
+		//write the curriculum base url to the response
+		response.getWriter().write(vlewrapperBaseUrl);
+		
 		return null;
 	}
 	
