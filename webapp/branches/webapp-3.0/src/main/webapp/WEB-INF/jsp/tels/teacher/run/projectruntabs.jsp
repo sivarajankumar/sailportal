@@ -100,6 +100,7 @@
 <body class="yui-skin-sam" onload="checkRuns()">
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div id="centeredDivDynamicFrame">
 
@@ -245,7 +246,7 @@
 					    	 -->		
 							<li><a href="../../contactwiseproject.html?projectId=${run.project.id}" target="_top"><spring:message code="teacher.run.myprojectruns.22"/></a></li>
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=${run.name}')">Archive Project</a></li>
+					    	  <li><a href="#" onclick="javascript:popup('manage/archiveRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')">Archive Project</a></li>
 					    	</sec:accesscontrollist>
 					    	
 					    </ul>
@@ -339,7 +340,7 @@
 					        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>		
 		                    <sec:accesscontrollist domainObject="${run}" hasPermission="16">					    	
-					    	  <li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}&runName=${run.name}')">Restore to <i>My Current Project Runs</i> Tab</a></li>
+					    	  <li><a href="#" onclick="javascript:popup('manage/startRun.html?runId=${run.id}&runName=<c:out value="${fn:escapeXml(run.name)}" />')">Restore to <i>My Current Project Runs</i> Tab</a></li>
 					    	</sec:accesscontrollist>							
 			
 					    </ul>
