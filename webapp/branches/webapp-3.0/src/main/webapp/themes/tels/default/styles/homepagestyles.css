@@ -105,11 +105,12 @@
 	}
 
 #parastyleTable {
+	color:#000000;
+	float:left;
 	font-size:0.8em;
-	color:black;
+	margin:5px 0 0;
+	padding:0 10px 5px 15px;
 	text-align:left;
-	padding: 0px 10px 5px 15px;
-	margin: 5px 0 0px 0;
 }
 
 #welcomeTextLinks {
@@ -168,9 +169,7 @@
 	}
 	
 #welcomeBulletContainer {
-	position:absolute;
-	top:26px;  
-	left:182px;
+	
 }
 
 .welcomeBulletHeader {
@@ -198,12 +197,10 @@
 	}
 	
 #welcomeButtonPosTable {
-	position:absolute;
-	right:0;
-	top:50;
-	padding:2px;
+	float:right;
 	list-style-type:none;
-	margin:12px 10px 0 2px;
+	margin-right:10px;
+	padding:2px;
 	}	
 	
 #welcomeButtonPosTable li{

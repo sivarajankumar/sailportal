@@ -714,7 +714,7 @@ window.onload=resizeCaller
 				<div id="headerTeacherHome">My Project Runs</div>
 
 				<iframe id="dynamicFrame" name="dynamicFrame" src="run/projectruntabs.html" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"
-						vspace="0" hspace="0" style="overflow: visible;	overflow-y: visible;	width: 100%; display: none;	margin-top: 5px;"></iframe>
+						vspace="0" hspace="0" style="overflow: auto; width: 100%; display: none; margin-top: 5px;"></iframe>
 
 				</div>
 </div>
