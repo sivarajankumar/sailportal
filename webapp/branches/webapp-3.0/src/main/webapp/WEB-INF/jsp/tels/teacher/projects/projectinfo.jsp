@@ -107,7 +107,6 @@
 								<th id="title5" style="width:105px;">Total Hours</th>
 								<th id="title6" style="width:110px;">Computer Hours</th>
 								<th id="title7" style="width:72px;">Language</th>
-								<th id="title8" style="width:82px;">Tech Needs</th>
 								<th id="title9" style="width:60px;">Usage</th>
 							</tr>
 							<tr id="row3">
@@ -117,8 +116,7 @@
 								<td class="dataCell">${project.metadata.gradeRange}</td>              
 								<td class="dataCell">${project.metadata.totalTime}</td>              
 								<td class="dataCell">${project.metadata.compTime}</td> 
-								<td class="dataCell">[English]</td> 
-								<td class="dataCell">[Flash, Java]</td> 
+								<td class="dataCell">${project.metadata.language}</td>
 								<td class="dataCell">${usageMap[project.id]}</td>
 							</tr>
 							<tr id="row4">  
@@ -133,24 +131,37 @@
 											</tr>
 											<tr>
 												<th>Keywords:</th>
-												<td class="keywords">[List of comma-separated keywords go here]</td>
+												<td class="keywords">${project.metadata.keywords}</td>
 											</tr>
 
 											<tr>
 												<th>Tech Details:</th>
-												<td>[This project requires Flash for Steps x,y,z and requires Java for steps a,b,c.]</td>
+												<td>${project.metadata.techDetailsString}</td>
 											</tr>
 											<tr>
 												<th>Created On:</th>
 												<td class="keywords"><fmt:formatDate value="${project.dateCreated}" type="both" dateStyle="short" timeStyle="short" /></td>
 											</tr>
+											<!-- 
 											<tr> 
 												<th>Original Author:</th>
 												<td>[Name goes here]</td>
 											</tr>
+											-->
 											<tr>
 												<th>Contact Info:</th>
-												<td>[Name and Email goes here]</td>
+												<td>${project.metadata.contact}</td>
+											</tr>
+											<tr>
+												<th>Copy of Project ID:</th>
+												<c:choose>
+											  		<c:when test="${project.parentProjectId != null}">
+											    		<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${project.parentProjectId}'>${project.parentProjectId}</a></td>
+											  		</c:when>
+											  		<c:otherwise>
+											    		<td>N/A</td>
+											  		</c:otherwise>
+											 	</c:choose>
 											</tr>
 										</table>
 									</div>

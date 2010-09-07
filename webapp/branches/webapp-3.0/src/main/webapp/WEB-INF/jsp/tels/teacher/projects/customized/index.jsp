@@ -630,15 +630,16 @@ function minifyProject(id){
 											</tr>
 											-->
 											<tr>
-												<th>Contact Info:</th>
-												<td>${project.metadata.contact}</td>
+												<th>Copy of Project ID:</th>
+												<c:choose>
+											  		<c:when test="${project.parentProjectId != null}">
+											    		<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${project.parentProjectId}'>${project.parentProjectId}</a></td>
+											  		</c:when>
+											  		<c:otherwise>
+											    		<td>N/A</td>
+											  		</c:otherwise>
+											 	</c:choose>
 											</tr>
-											<c:if test='${project.parentProjectId != null}'>
-												<tr>
-													<th>Copy of:</th>
-													<td><a href='/webapp/teacher/projects/projectinfo.html?projectId=${project.parentProjectId}'>project ${project.parentProjectId}</a></td>
-												</tr>
-											</c:if>
 										</table>
 									</div>
 								</td>
