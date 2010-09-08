@@ -45,9 +45,12 @@ import org.springframework.security.acls.domain.BasePermission;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
+import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtil;
+import org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
@@ -80,8 +83,24 @@ public class BridgeController extends AbstractController {
 		}
 		boolean authorized = authorize(request);
 		if (!authorized) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
-			return null;
+			// if request is for posting unsaved data and the user is not the same user as the one that should be posting it,
+			// forward them to the homepage
+			if (request.getRequestURI().equals("/webapp/bridge/postdata.html")) {
+				User signedInUser = ControllerUtil.getSignedInUser();
+				if (signedInUser.getUserDetails() instanceof TeacherUserDetails) {
+					response.sendRedirect("/webapp" + TelsAuthenticationProcessingFilter.TEACHER_DEFAULT_TARGET_PATH);
+					return null;
+				} else if (signedInUser.getUserDetails() instanceof StudentUserDetails) {
+					response.sendRedirect("/webapp" + TelsAuthenticationProcessingFilter.STUDENT_DEFAULT_TARGET_PATH);
+					return null;
+				} else {
+					response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
+					return null;
+				}
+			} else {
+				response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You are not authorized to access this page");
+				return null;
+			}
 		}
 		String method = request.getMethod();
 		if (method.equals("GET")) {
