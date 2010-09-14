@@ -27,7 +27,7 @@ href="http://java.sun.com/getjava/download.html">http://java.sun.com/getjava/dow
 
 <li>Click the
 following link to run an automated script that will test your computer's
-compatibility with WISE4 <a href="http://telscenter.org/check.html">http://telscenter.org/check.html</a></li>
+compatibility with WISE4: <a href="/webapp/check.html">WISE4 Compatibility Test</a></li>
 
 </ol>
 
@@ -115,6 +115,10 @@ teacher or class they are in</li>
 
 <li>Feel free to explore the project from the student’s perspective by clicking on "Run Project"</li>
 </ol>
+
+<h3>FAQ</h3>
+For Frequently-Asked Questions by WISE teacher, please see here: 
+<a href="teacherfaq.html">teacher FAQ</a>.
 
 <h3>Additional help</h3>
 <p>If you have
