@@ -185,7 +185,7 @@
 							</tr>
 							<tr id="row4">  
 								<td colspan="9">
-									<a id="hideShowLink" href="#" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
+									<a id="hideShowLink" onclick="toggleDetails(${project.id})">Hide/Show project details</a>
 									<div id="details_${project.id}" style="display:none;">
 										<table id="detailsTable">
 											<tr>
