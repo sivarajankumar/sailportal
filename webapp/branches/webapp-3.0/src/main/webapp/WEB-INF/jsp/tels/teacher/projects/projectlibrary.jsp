@@ -138,6 +138,7 @@
 			<li><a href="#" onclick="javascript:projectTopic1();">Life Science</a></li>
 			<li><a href="#" onclick="javascript:projectTopic2();">Physical Science</a></li>
 			<li><a href="#" onclick="javascript:projectTopic3();">Earth Science</a></li>
+			<li><a href="#" onclick="javascript:projectTopic7();">GeneralScience Science</a></li>
 			<li><a href="#" onclick="javascript:projectTopic4();">Biology</a></li>
 			<li><a href="#" onclick="javascript:projectTopic5();">Chemistry</a></li>
 			<li><a href="#" onclick="javascript:projectTopic6();">Physics</a></li>
