@@ -43,20 +43,29 @@
 <div id="adminTitle">User Management</div>
 	<div style="margin:0 0 0 25px;"> 
 		<h5>List: <a href="manageusers.html?userType=teacher">All Teachers</a> | 
-				  <a href="manageusers.html?userType=student">All Students</a> |
+				  <a href="manageusers.html?userType=student">All Students</a> 
+				   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+				   |
 				  <a href="manageusers.html?onlyShowLoggedInUser=true">All Currently-Logged In Users</a> |
 				  <a href="manageusers.html?onlyShowUsersWhoLoggedInToday=true">All Users Who Logged in Today</a>
+		   	 	  </sec:authorize>
 				  
 		</h5>
 		<h5>Search: <a href="lookupteacher.html">Teacher</a> | <a href="lookupstudent.html">Student</a></h5>
 		<!-- <h5><a href="lookupuser.html">Look up User</a></h5>-->
 	</div>
 
+	   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+
 <div id="adminTitle">Project Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="manageallprojects.html">Manage All Projects</a></h5>
 		<h5><a href="../author/publishproject.html">Publish A Project</a></h5>
 	</div>
+
+
+	 	</sec:authorize>
+
 	
 <div id="adminTitle">Project Run Management</div>
 	<div style="margin:0 0 0 25px;">
@@ -70,6 +79,8 @@
 		<h5>View: Runs run (<a href="runstats.html?command=today">today</a> | <a href="runstats.html?command=week">this week</a> | <a href="runstats.html?command=month">this month</a>) | <a href="runstats.html?command=activity">runs by activity</a></h5>
 	</div>
 
+
+<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 <div id="adminTitle">News Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="managenewsitems.html">Work with News Items</a></h5>
@@ -87,6 +98,7 @@
 	</div>
 </div>
 
+</sec:authorize>
 	
 </body>
 </html>

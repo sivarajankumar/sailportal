@@ -24,6 +24,9 @@
 	   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 	   	  <span id="signOutBannerHome"><a href="admin/index.html"><spring:message code="header.admin"/></a></span>
 	 	</sec:authorize>
+	   <sec:authorize ifAllGranted="ROLE_RESEARCHER">
+	   	  <span id="signOutBannerHome"><a href="admin/index.html"><spring:message code="header.researcher"/></a></span>
+	 	</sec:authorize>
      </sec:authorize>
   </div>
 </div>

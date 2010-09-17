@@ -61,6 +61,7 @@
         <property name="basenames">
             <list>
                 <value>messages/tels/ui-html</value>
+                <value>messages/tels/ui-html_ja</value>
             </list>
         </property>
     </bean>

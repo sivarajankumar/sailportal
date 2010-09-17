@@ -29,7 +29,6 @@ import javax.servlet.ServletException;
 
 import net.sf.sail.webapp.presentation.web.filters.PasAuthenticationProcessingFilter;
 import net.sf.sail.webapp.service.authentication.AuthorityNotFoundException;
-import net.sf.sail.webapp.service.authentication.UserDetailsService;
 
 import org.springframework.security.Authentication;
 import org.springframework.security.GrantedAuthority;
@@ -38,6 +37,7 @@ import org.springframework.util.StringUtils;
 import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 
 /**
  * Custom AuthenticationProcessingFilter that subclasses Acegi Security. This
@@ -54,6 +54,7 @@ public class TelsAuthenticationProcessingFilter extends
 	//private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/vle/vle.html?runId=65";
 	public static final String TEACHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
 	public static final String ADMIN_DEFAULT_TARGET_PATH = "/admin/index.html";
+	public static final String RESEARCHER_DEFAULT_TARGET_PATH = "/admin/index.html";
 
 	private UserDetailsService userDetailsService;
 	
@@ -75,7 +76,21 @@ public class TelsAuthenticationProcessingFilter extends
         }
         else if (userDetails instanceof TeacherUserDetails) {
 	   		this.setDefaultTargetUrl(TEACHER_DEFAULT_TARGET_PATH);
-	        
+
+        	GrantedAuthority researcherAuth = null;
+        	try {
+        		researcherAuth = userDetailsService.loadAuthorityByName(UserDetailsService.RESEARCHER_ROLE);
+			} catch (AuthorityNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			GrantedAuthority authorities[] = userDetails.getAuthorities();
+        	for (int i = 0; i < authorities.length; i++) {
+        		if (researcherAuth.equals(authorities[i])) {
+        			this.setDefaultTargetUrl(RESEARCHER_DEFAULT_TARGET_PATH);
+        		}
+        	}
+	   		
         	GrantedAuthority adminAuth = null;
         	try {
 				adminAuth = userDetailsService.loadAuthorityByName(UserDetailsService.ADMIN_ROLE);
@@ -83,7 +98,6 @@ public class TelsAuthenticationProcessingFilter extends
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			GrantedAuthority authorities[] = userDetails.getAuthorities();
         	for (int i = 0; i < authorities.length; i++) {
         		if (adminAuth.equals(authorities[i])) {
         			this.setDefaultTargetUrl(ADMIN_DEFAULT_TARGET_PATH);
