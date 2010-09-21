@@ -51,9 +51,22 @@
 		   	 	  </sec:authorize>
 				  
 		</h5>
-		<h5>Search: <a href="lookupteacher.html">Teacher</a> | <a href="lookupstudent.html">Student</a></h5>
+		<h5>Find: <a href="lookupteacher.html">Teacher</a> | <a href="lookupstudent.html">Student</a></h5>
 		<!-- <h5><a href="lookupuser.html">Look up User</a></h5>-->
 	</div>
+	
+<div id="adminTitle">Project Run Management</div>
+	<div style="margin:0 0 0 25px;">
+		<h5>List Runs run (<a href="runstats.html?command=today">today</a> | <a href="runstats.html?command=week">this week</a> | <a href="runstats.html?command=month">this month</a>) | <a href="runstats.html?command=activity">runs by activity</a></h5>
+	
+		<h5>Manage Project Runs: <a href="manageallprojectruns.html?q=current">Current</a> | 
+								 <a href="manageallprojectruns.html?q=archived">Archived</a>
+								 </h5>
+		<h5>Find Project Runs by 
+			<a href="findprojectrunsbyteacher.html">Teacher</a> | <a href='findprojectrunsbyprojectid.html'>Project Id</a> | <a href='findprojectrunsbyrunid.html'>Run Id</a>
+		</h5>
+	</div>
+
 
 	   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 
@@ -65,19 +78,6 @@
 
 
 	 	</sec:authorize>
-
-	
-<div id="adminTitle">Project Run Management</div>
-	<div style="margin:0 0 0 25px;">
-		<h5>Manage Project Runs: <a href="manageallprojectruns.html?q=current">Current</a> | 
-								 <a href="manageallprojectruns.html?q=archived">Archived</a>
-								 </h5>
-		<h5>Find Project Runs by {
-			<a href="findprojectrunsbyteacher.html">Teacher</a> | <a href='findprojectrunsbyprojectid.html'>Project Id</a> | <a href='findprojectrunsbyrunid.html'>Run Id</a>
-		}</h5>
-		
-		<h5>View: Runs run (<a href="runstats.html?command=today">today</a> | <a href="runstats.html?command=week">this week</a> | <a href="runstats.html?command=month">this month</a>) | <a href="runstats.html?command=activity">runs by activity</a></h5>
-	</div>
 
 
 <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">

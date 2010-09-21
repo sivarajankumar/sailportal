@@ -42,6 +42,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.workgroup.WISEWorkgroupService;
 import org.telscenter.sail.webapp.domain.Run;
@@ -134,7 +135,9 @@ public class ViewMyStudentsController extends AbstractController{
 		Run run = runService.retrieveById(runId);
 
 		/* Ensure that the user has permission for this run */
-		if(this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||
+		if(user.isAdmin() || 
+				user.getUserDetails().hasGrantedAuthority(UserDetailsService.RESEARCHER_ROLE) ||
+				this.aclService.hasPermission(run, BasePermission.ADMINISTRATION, user) ||
 				this.aclService.hasPermission(run, BasePermission.READ, user)){
 			Set<Workgroup> allworkgroups = this.runService.getWorkgroups(runId);
 			String workgroupsWithoutPeriod = "";

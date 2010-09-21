@@ -109,7 +109,7 @@ public interface RunService extends OfferingService {
      * 
      * @return <code>List</code> of <code>Run</code>
      */
-    @Secured( { "ROLE_ADMINISTRATOR" })
+    @Secured( { "ROLE_ADMINISTRATOR", "ROLE_RESEARCHER" })
     public List<Run> getAllRunList();
 
     /**

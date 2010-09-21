@@ -1694,8 +1694,12 @@ div.replyFeedbackDiv {
 }
 
 #runStatsTable tbody td {
-	width:25%;
 	border:1px solid black;
+}
+
+#runStatsTable tbody td ul {
+	list-style: none;
+	padding-left: 0;
 }
 
 .existingTagsDiv, .createTagsDiv {
