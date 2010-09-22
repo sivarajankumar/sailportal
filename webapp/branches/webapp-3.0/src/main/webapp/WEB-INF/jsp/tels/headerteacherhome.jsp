@@ -96,6 +96,12 @@
 
 	<div id="usernameSignOutBoxTeacher">
 		<div id="usernameBannerTeacher"><sec:authentication property="principal.username" /> </div>
+ 	    <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+	   	  <span id="signOutBannerHome"><a href="/webapp/admin/index.html"><spring:message code="header.admin"/></a></span>
+	 	</sec:authorize>
+ 	    <sec:authorize ifAllGranted="ROLE_RESEARCHER">
+	   	  <span id="signOutBannerHome"><a href="/webapp/admin/index.html"><spring:message code="header.researcher"/></a></span>
+	 	</sec:authorize>
 		<div id="signOutBannerTeacher"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a></div> 
 	</div>
 

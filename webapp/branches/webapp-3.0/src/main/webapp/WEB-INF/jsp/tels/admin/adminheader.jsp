@@ -8,9 +8,15 @@
      </a>
    </div>
 
+
 <div id="usernameSignOutBoxTeacher">
 		<div id="usernameBannerTeacher"><sec:authentication property="principal.username" /> </div>
-		<div id="signOutBannerTeacher"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a></div> 
+		<div id="signOutBannerTeacher">
+		   <sec:authorize ifAllGranted="ROLE_TEACHER">
+	   		   <span id="signOutBannerHome"><a href="/webapp/teacher/index.html"><spring:message code="header.teacher"/></a></span>
+	   	   </sec:authorize>
+		   <a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a>
+		</div> 
 	</div>
 	
 </div>

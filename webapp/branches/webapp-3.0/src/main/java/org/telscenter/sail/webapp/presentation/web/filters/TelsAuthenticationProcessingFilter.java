@@ -54,7 +54,7 @@ public class TelsAuthenticationProcessingFilter extends
 	//private static final String STUDENT_DEFAULT_TARGET_PATH = "/student/vle/vle.html?runId=65";
 	public static final String TEACHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
 	public static final String ADMIN_DEFAULT_TARGET_PATH = "/admin/index.html";
-	public static final String RESEARCHER_DEFAULT_TARGET_PATH = "/admin/index.html";
+	public static final String RESEARCHER_DEFAULT_TARGET_PATH = "/teacher/index.html";
 
 	private UserDetailsService userDetailsService;
 	

@@ -69,8 +69,8 @@
 			<li><a href="" style="color:#999;">View Student RealTime Progress Monitor</a></li>
             <li><a href="" style="color:#999;">Print/Export Student Work</a></li>
             <li><a href="" style="color:#999;">Manage Extra Teachers</a></li>
-            <li><a href="/webapp/teacher/management/updatemyaccount.html">Update My Account</a></li>
             -->
+            <li><a href="/webapp/teacher/management/updatemyaccount.html">Update My Account</a></li>
             <li><a href="/webapp/teacher/management/overview.html">Overview</a></li>
         </ul>
 		</li>
@@ -92,7 +92,15 @@
 
 	<div id="usernameSignOutBoxTeacher">
 		<div id="usernameBannerTeacher"><sec:authentication property="principal.username" /> </div>
-		<div id="signOutBannerTeacher"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a></div> 
+		<div id="signOutBannerTeacher">
+		  <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+	   	    <span id="signOutBannerHome"><a href="/webapp/admin/index.html"><spring:message code="header.admin"/></a></span>
+	 	  </sec:authorize>
+ 	      <sec:authorize ifAllGranted="ROLE_RESEARCHER">
+	   	    <span id="signOutBannerHome"><a href="/webapp/admin/index.html"><spring:message code="header.researcher"/></a></span>
+	 	  </sec:authorize>
+		  <a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="log.out"/></a>
+		</div> 
 	</div>
 
  
