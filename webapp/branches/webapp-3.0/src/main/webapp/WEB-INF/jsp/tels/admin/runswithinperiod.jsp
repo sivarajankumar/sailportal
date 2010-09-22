@@ -21,7 +21,7 @@
 <h3>Runs run ${period} (${fn:length(runs)} runs)</h3>
 <table id="runStatsTable">
 	<thead>
-		<tr><td>Run ID</td><td>Run Name</td><td>Last Access Time</td><td>Owners (click to login as user)</td><td>Actions</td></tr>
+		<tr><td>Run ID</td><td>Run Name</td><td>Last Access Time</td><td>Total access count</td><td>Owners (click to login as user)</td><td>Actions</td></tr>
 	</thead>
 	<tbody>
 		<tr></tr>
@@ -30,6 +30,7 @@
 				<td>${run.id}</td>
 				<td>${run.name}</td>
 				<td><fmt:formatDate value="${run.lastRun}" type="both" dateStyle="short" timeStyle="short" /></td>
+				<td>${run.timesRun}</td>
 				<td>
 					<c:forEach var="owner" items="${run.owners}">
 						<a href="../j_acegi_switch_user?j_username=${owner.userDetails.username}">${owner.userDetails.username}</a>&nbsp;
