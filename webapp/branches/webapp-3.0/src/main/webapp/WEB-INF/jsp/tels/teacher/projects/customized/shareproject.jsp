@@ -58,7 +58,7 @@ function autocomplete(username) {
 	if (username.length > 0) {
 		var resultArray = findStringsContaining(username, teacherUsernames);
 		for (k=0; k < resultArray.length; k++) {
-			var matchedUsernameLI = document.createElement("<li>");
+			var matchedUsernameLI = document.createElement("li");
 			matchedUsernameLI.innerHTML = "<a onclick='updateInputBox(\""+resultArray[k]+"\")'>" + resultArray[k] + "</a>";
 			matchedUsernameUL.appendChild(matchedUsernameLI);
 		}
