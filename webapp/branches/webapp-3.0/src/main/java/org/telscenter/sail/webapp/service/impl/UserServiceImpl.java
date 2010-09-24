@@ -3,15 +3,23 @@
  */
 package org.telscenter.sail.webapp.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+
+import javax.mail.MessagingException;
+
 import net.sf.sail.webapp.dao.sds.HttpStatusCodeException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.domain.authentication.MutableUserDetails;
 import net.sf.sail.webapp.domain.sds.SdsUser;
+import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.service.authentication.DuplicateUsernameException;
 import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
+import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
@@ -23,6 +31,11 @@ import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 public class UserServiceImpl extends
 		net.sf.sail.webapp.service.impl.UserServiceImpl {
 
+	private IMailFacade javaMail = null;
+
+	private Properties emaillisteners = null;
+
+	
 	/**
 	 * @throws DuplicateUsernameException 
 	 * @see net.sf.sail.webapp.service.UserService#createUser(net.sf.sail.webapp.domain.authentication.MutableUserDetails)
@@ -53,7 +66,11 @@ public class UserServiceImpl extends
 		for (;;) {   // loop until a unique username can be found
 			try {
 				details.setUsername(coreUsername + suffixes[index]);
-				return super.createUser(details);
+				User createdUser = super.createUser(details);
+				NewAccountEmailService newAccountEmailService = new NewAccountEmailService(createdUser);
+				Thread thread = new Thread(newAccountEmailService);
+				thread.start();
+				return createdUser;
 			}
 			catch (DuplicateUsernameException e) {
 				if (index >= suffixes.length) {
@@ -108,7 +125,72 @@ public class UserServiceImpl extends
 			return null;
 		}
 		return user;
-	}
-
+	}	
 	
+	  class NewAccountEmailService implements Runnable {
+
+	    	private User newUser;
+	    	
+			public NewAccountEmailService(User newUser) {
+				this.newUser = newUser;
+			}
+
+			public void run() {
+				this.sendEmail();
+			}
+
+			/**
+		     * Sends a welcome email to the new user with WISE4 resources
+		     * On exception sending the email, ignore.
+		     */
+			private void sendEmail() {
+				
+				TeacherUserDetails newUserDetails = 
+					(TeacherUserDetails) newUser.getUserDetails();
+				String userUsername = newUserDetails.getUsername();
+				String userEmailAddress = newUserDetails.getEmailAddress();
+								
+				String[] recipients = {userEmailAddress, emaillisteners.getProperty("uber_admin")};
+				
+				String subject = "Welcome to WISE4!";	
+				String message =
+					"Your username is: " + userUsername + "\n\n" +					
+					"Welcome to our new WISE4 learning environment. Our research over the past many " +
+					"years demonstrates that students have significant learning gains when using WISE " +
+					"projects. We are still actively developing WISE4 so you may notice some teacher support " +
+					"links that are not yet available, these will not limit your use of the program with students. " +
+					"The following resource link will be of help to you: \"Teacher Information Sheet\" at " +
+					"http://wise4.telscenter.org/webapp/pages/gettingstarted.html. Be sure to let us know if you " +
+					"have any problems or questions.\n\n" +
+					"WISE Team";					
+
+				
+				String fromEmail = emaillisteners.getProperty("portalemailaddress");
+				
+				try {
+					//sends the email to the recipients
+					javaMail.postMail(recipients, subject, message, fromEmail);
+				} catch (MessagingException e) {
+					// do nothing, no notification to uber_admin required.
+					e.printStackTrace();
+				}
+			}
+	    }
+	  
+
+		/**
+		 * @param emaillisteners the emaillisteners to set
+		 */
+		public void setEmaillisteners(Properties emaillisteners) {
+			this.emaillisteners = emaillisteners;
+		}
+		
+		/**
+		 * @param javaMail the javaMail to set
+		 */
+		public void setJavaMail(IMailFacade javaMail) {
+			this.javaMail = javaMail;
+		}
 }
+
+

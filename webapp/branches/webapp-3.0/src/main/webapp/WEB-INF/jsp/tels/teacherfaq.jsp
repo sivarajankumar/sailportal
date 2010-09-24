@@ -132,11 +132,11 @@ We recommend that you go through the project and select a few steps that you thi
 
 Confirm that your are using the Firefox web browser, with Javascript set to on in the preferences panel.   WISE4 does not currently work with Internet Explorer.
 
-<h4>Can I run my WISE 2.0 projects in the new WISE 3.0 format?</h4>
+<h4>Can I run my WISE 2.0 projects in the new WISE 4.0 format?</h4>
 <ul>
     <li>At the present time if you are running a WISE 2.0 project you will need to user the older WISE 2.0 environment.  (wise.berkeley.edu)</li>
-    <li>You can also contact Doug Kirkpatrick ([email]) (510) 643-0392  to request a conversion of your WISE2 project into the new WISE 4 format.</li>
-    <li>By Fall 2010 we hope to offer an automated tool that will allow WISE2 users to convert their projects to the WISE4 format.</li>
+    <li>You can also contact us <a href="contactwisegeneral.html">here</a> to request a conversion of your WISE2 project into the new WISE 4 format.</li>
+    <li>By Spring 2011 we hope to offer an automated tool that will allow WISE2 users to convert their projects to the WISE4 format.</li>
 </ul>
 <h4>How many computers do I need to run WISE?</h4>
 
