@@ -208,7 +208,7 @@ public class ProjectImpl implements Project {
     @Column(name = ProjectImpl.ISPUBLIC_COLUMN_NAME)
     protected boolean isPublic;
     
-    @Column(name = ProjectImpl.COLUMN_NAME_DATE_CREATED)
+    @Column(name = ProjectImpl.COLUMN_NAME_DATE_CREATED, nullable=false)
     protected Date dateCreated;
     
     @ManyToMany(targetEntity = TagImpl.class, fetch = FetchType.EAGER)
