@@ -98,6 +98,7 @@
     	<property name="mappings">
     		<value>
     			/request/info.html=informationController
+    			/metadata.html=projectMetadataController
     		    /index.html=urlFilenameViewController
     		    /accessdenied.html=accessDeniedController
     		    /router.html=routerController

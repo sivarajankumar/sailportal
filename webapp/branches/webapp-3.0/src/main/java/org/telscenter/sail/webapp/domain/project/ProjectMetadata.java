@@ -195,9 +195,17 @@ public interface ProjectMetadata{
 
 	public Date getLastEdited();
 	
+	public void setLastMinified(Date lastMinified);
+	
+	public Date getLastMinified();
+	
 	public Long getPostLevel();
 
 	public void setPostLevel(Long postLevel);
+	
+	public String getMaxScores();
+
+	public void setMaxScores(String maxScores);
 	
 	public String toJSONString();
 }

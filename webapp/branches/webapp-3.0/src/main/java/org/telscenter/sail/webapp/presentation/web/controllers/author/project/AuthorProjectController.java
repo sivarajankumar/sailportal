@@ -24,6 +24,7 @@ package org.telscenter.sail.webapp.presentation.web.controllers.author.project;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -123,15 +124,20 @@ public class AuthorProjectController extends AbstractController {
 		/* catch forwarding requests, authenticate and forward request upon successful authentication */
 		if(forward != null && !forward.equals("")){
 			ServletContext servletContext = this.getServletContext().getContext("/vlewrapper");
+			
+			//get the command
+			String command = request.getParameter("command");
+			
 			if(forward.equals("filemanager") || forward.equals("assetmanager")){
+				
 				if((this.isProjectlessRequest(request, forward) || this.projectService.canAuthorProject(project, user)) ||
-						("copyProject".equals(request.getParameter("command")) && project.getFamilytag().equals(FamilyTag.TELS))){
+						("copyProject".equals(command) && project.getFamilytag().equals(FamilyTag.TELS))){
 					
-					if("createProject".equals(request.getParameter("command")) && !this.hasAuthorPermissions(user)){
+					if("createProject".equals(command) && !this.hasAuthorPermissions(user)){
 						return new ModelAndView(new RedirectView("accessdenied.html"));
 					}
 					
-					if("copyProject".equals(request.getParameter("command")) && 
+					if("copyProject".equals(command) && 
 							(project == null || 
 									(!project.getFamilytag().equals(FamilyTag.TELS) && !this.projectService.canAuthorProject(project, user)))){
 						return new ModelAndView(new RedirectView("accessdenied.html"));
@@ -139,6 +145,20 @@ public class AuthorProjectController extends AbstractController {
 					
 					CredentialManager.setRequestCredentials(request, user);
 					servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
+					
+					if(command.equals("updateFile")) {
+						//we have updated a file in a project so we will update the project edited timestamp
+						
+						/*
+						 * set the project into the request so the handleProjectEdited 
+						 * function doesn't have to retrieve it again
+						 */
+						request.setAttribute("project", project);
+						
+						//update the project edited timestamp
+						handleProjectEdited(request, response);						
+					}
+					
 					return null;
 				} else {
 					return new ModelAndView(new RedirectView("accessdenied.html"));
@@ -179,6 +199,8 @@ public class AuthorProjectController extends AbstractController {
 				return this.handleGetUsername(request, response);
 			} else if(command.equals("getCurriculumBaseUrl")) {
 				return this.handleGetCurriculumBaseUrl(request, response);
+			} else if(command.equals("getConfig")) {
+				return this.handleGetConfig(request, response);
 			} else if(command.equals("getEditors")){
 				if(this.projectService.canAuthorProject(project, user)){
 					return this.handleGetEditors(request, response);
@@ -618,6 +640,47 @@ public class AuthorProjectController extends AbstractController {
 		return null;
 	}
 	
+	/**
+	 * Get the config for the authoring tool
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	private ModelAndView handleGetConfig(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		//get the user
+		User user = (User) request.getSession().getAttribute(User.CURRENT_USER_SESSION_KEY);
+		
+		//get the username
+		String username = user.getUserDetails().getUsername();
+		
+		//get the portal url
+		String portalUrl = ControllerUtil.getBaseUrlString(request);
+		
+		//get the url to get and post metadata
+		String projectMetaDataUrl = portalUrl + "/webapp/metadata.html";
+		
+		//get the curriculum_base_www variable from the portal.properties file
+		String vlewrapperBaseUrl = portalProperties.getProperty("curriculum_base_www");
+		
+		//create a JSONObject to contain the config params
+		JSONObject config = new JSONObject();
+		
+		try {
+			//set the config variables
+			config.put("username", username);
+			config.put("projectMetaDataUrl", projectMetaDataUrl);
+			config.put("vlewrapperBaseUrl", vlewrapperBaseUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		//set the string value of the JSON object in the response
+		response.getWriter().write(config.toString());
+		
+		return null;
+	}
+	
 	private ModelAndView handleGetMetadata(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Project project = (Project) request.getAttribute("project");
 		User user = ControllerUtil.getSignedInUser();
@@ -673,6 +736,41 @@ public class AuthorProjectController extends AbstractController {
 			projectService.updateProject(project, user);
 		} catch (NotAuthorizedException e) {
 			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Update the project edited timestamp
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	private ModelAndView handleProjectEdited(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		//get the user
+		User user = ControllerUtil.getSignedInUser();
+		
+		//get the project
+		Project project = (Project) request.getAttribute("project");
+		
+		if(project != null) {
+			//get the project metadata
+			ProjectMetadata metadata = project.getMetadata();
+			
+			//create a new timestamp with the current time
+			Date lastEdited = new Date();
+			
+			//set the last edited time
+			metadata.setLastEdited(lastEdited);	
+			
+			try {
+				//update the project in the db
+				projectService.updateProject(project, user);
+			} catch (NotAuthorizedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return null;

@@ -1481,4 +1481,9 @@
 		class="org.telscenter.sail.webapp.presentation.web.controllers.CompatibilityCheckController">
 		<property name="projectService" ref="projectService"/>
 	</bean>
+	
+	<bean id="projectMetadataController"
+		class="org.telscenter.sail.webapp.presentation.web.controllers.ProjectMetadataController">
+		<property name="projectService" ref="projectService"/>
+	</bean>
 </beans>

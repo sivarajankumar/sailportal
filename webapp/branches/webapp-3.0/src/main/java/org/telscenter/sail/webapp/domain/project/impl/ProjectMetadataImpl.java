@@ -101,9 +101,15 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	
 	@Transient
 	public final static String COLUMN_NAME_LAST_EDITED = "last_edited";
+
+	@Transient
+	public final static String COLUMN_NAME_LAST_MINIFIED = "last_minified";
 	
 	@Transient
 	public final static String COLUMN_NAME_POST_LEVEL = "post_level";
+	
+	@Transient
+	public final static String COLUMN_NAME_MAX_SCORES = "max_scores";
 	
 	@Column(name = COLUMN_NAME_TITLE)
 	private String title;
@@ -153,8 +159,14 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 	@Column(name = COLUMN_NAME_LAST_EDITED)
 	private Date lastEdited;
 	
+	@Column(name = COLUMN_NAME_LAST_MINIFIED)
+	private Date lastMinified;
+
 	@Column(name = COLUMN_NAME_POST_LEVEL)
 	private Long postLevel;
+	
+	@Column(name = COLUMN_NAME_MAX_SCORES)
+	private String maxScores;
 	
 	public ProjectMetadataImpl() {
 		
@@ -334,12 +346,28 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 		return lastEdited;
 	}
 	
+	public void setLastMinified(Date lastMinified) {
+		this.lastMinified = lastMinified;
+	}
+	
+	public Date getLastMinified() {
+		return lastMinified;
+	}
+	
 	public Long getPostLevel() {
 		return postLevel;
 	}
 
 	public void setPostLevel(Long postLevel) {
 		this.postLevel = postLevel;
+	}
+	
+	public String getMaxScores() {
+		return maxScores;
+	}
+
+	public void setMaxScores(String maxScores) {
+		this.maxScores = maxScores;
 	}
 	
 	public void populateFromJSON(JSONObject metadataJSON) {
@@ -497,6 +525,18 @@ public class ProjectMetadataImpl implements ProjectMetadata, Serializable{
 					language = "";
 				}
 				setLanguage(language);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(metadataJSON.has("maxScores") && !metadataJSON.isNull("maxScores")) {
+			try {
+				String maxScores = metadataJSON.getString("maxScores");
+				if(maxScores.equals("null")) {
+					maxScores = "";
+				}
+				setMaxScores(maxScores);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

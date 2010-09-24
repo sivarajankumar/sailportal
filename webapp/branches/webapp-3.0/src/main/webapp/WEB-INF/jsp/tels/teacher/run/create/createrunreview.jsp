@@ -122,6 +122,7 @@
             var isSuccess = false;
             var newProjectId = null;
    			if(type=='LD'){
+   	   			//calls filemanager to copy project folder contents
    	   			$.ajax({
    	   	   				url: '/webapp/author/authorproject.html',
    	   	   	   			async: false,
@@ -130,6 +131,8 @@
    	   	   	   			success: function(returnData){
 	   						var newProjectFullPath = returnData;
    							var relativeProjectFilePath = newProjectFullPath.substring(curriculumBaseDir.length, newProjectFullPath.length) + '/' + projectJSONFilename;   // e.g. "/109/new.project.json"
+
+   							//call to make the project on the portal with the new folder
    							$.ajax({
    	   							url:"/webapp/author/authorproject.html",
    	   							async:false,

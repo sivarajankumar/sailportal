@@ -81,3 +81,8 @@ update project_metadata set tech_reqs=null where tech_reqs is null or tech_reqs 
 ALTER TABLE `sail_database`.`project_metadata` MODIFY COLUMN `total_time` VARCHAR(255) DEFAULT NULL,
  MODIFY COLUMN `comp_time` VARCHAR(255) DEFAULT NULL;
 ### 2010.08.30 END
+
+### 2010.09.24 BEGIN
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `last_minified` DATETIME DEFAULT NULL AFTER `last_edited`;
+ALTER TABLE `sail_database`.`project_metadata` ADD COLUMN `max_scores` TEXT DEFAULT NULL AFTER `post_level`;
+### 2010.09.24 END

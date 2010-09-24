@@ -377,9 +377,6 @@ public class InformationController extends AbstractController{
 			//get the url for the run info
 			String getRunInfoUrl = portalVLEControllerUrl + "&action=getRunInfo";
 			
-			//get the url for the run extras
-			String getRunExtrasUrl = portalVLEControllerUrl + "&action=getRunExtras";
-			
 			//get the url to get student data
 			String getStudentDataUrl = portalurl + "/webapp/bridge/getdata.html";
 			
@@ -431,7 +428,6 @@ public class InformationController extends AbstractController{
 				config.put("getStudentDataUrl", getStudentDataUrl);
 				config.put("postStudentDataUrl", postStudentDataUrl);
 				config.put("getRunInfoUrl", getRunInfoUrl);
-				config.put("getRunExtrasUrl", getRunExtrasUrl);
 				config.put("postMaxScoreUrl", postMaxScoreUrl);
 				config.put("gradingType", gradingType);
 				config.put("getPeerReviewUrl", getPeerReviewUrl);
@@ -472,7 +468,7 @@ public class InformationController extends AbstractController{
 		}
 		
 		/* get the url for the *.project.meta.json file */
-		String getProjectMetadataUrl = this.resolveMetadataFilename(getContentUrl);
+		String projectMetaDataUrl = portalurl + "/webapp/metadata.html";
 		
 		/* set the contentbase based on the contenturl */
 		String getContentBaseUrl = getContentUrl.substring(0, lastIndexOfSlash) + "/";
@@ -485,8 +481,26 @@ public class InformationController extends AbstractController{
 		}
 		
 		try {
+			if(projectIdStr == null) {
+				/*
+				 * look for the project id in the run if project id was not
+				 * provided in the request
+				 */
+				Run run = runService.retrieveById(new Long(runId));
+				
+				if(run != null) {
+					//get the project
+					Project project = run.getProject();
+					if(project != null) {
+						//get the project id as a string
+						projectIdStr = project.getId() + "";
+					}
+				}
+			}
+			
 			config.put("mode", requester);
-			config.put("getProjectMetadataUrl", getProjectMetadataUrl);
+			config.put("projectId", projectIdStr);
+			config.put("projectMetaDataUrl", projectMetaDataUrl);
 			config.put("getUserInfoUrl", getUserInfoUrl);
 			config.put("getContentUrl", getContentUrl);
 			config.put("getProjectPath", getProjectPath);

@@ -171,7 +171,7 @@ public class RunImpl extends OfferingImpl implements Run {
     @JoinTable(name = OWNERS_JOIN_TABLE_NAME, joinColumns = { @JoinColumn(name =  RUNS_JOIN_COLUMN_NAME, nullable = false) }, inverseJoinColumns = @JoinColumn(name = OWNERS_JOIN_COLUMN_NAME, nullable = false))
     private Set<User> owners = new TreeSet<User>();
     
-    @ManyToOne(targetEntity = ProjectImpl.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = ProjectImpl.class, fetch = FetchType.EAGER)
     @JoinColumn(name = PROJECTS_JOIN_COLUMN_NAME, nullable = false, unique = false)
     private Project project;
     
