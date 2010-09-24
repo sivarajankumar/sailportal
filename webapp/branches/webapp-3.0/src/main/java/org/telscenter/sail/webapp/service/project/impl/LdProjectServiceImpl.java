@@ -25,6 +25,7 @@ package org.telscenter.sail.webapp.service.project.impl;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -228,6 +229,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setFamilytag(FamilyTag.OTHER);
 		project.setCurrent(true);
 		project.setParentProjectId(projectParameters.getParentProjectId());
+		project.setDateCreated(new Date());
 		this.projectDao.save(project);
 		this.aclService.addPermission(project, BasePermission.ADMINISTRATION);		 
 		return project;

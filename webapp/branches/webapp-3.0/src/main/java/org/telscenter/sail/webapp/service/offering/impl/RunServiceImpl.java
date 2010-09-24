@@ -198,13 +198,8 @@ public class RunServiceImpl extends OfferingServiceImpl implements RunService {
 		run.setMaxWorkgroupSize(runParameters.getMaxWorkgroupSize());
 		run.setProject(project);
 		
-		/* if metadata exists, use the title from the project metadata because it is the most
-		 * recent that the project author has specified */
-		if(runParameters.getProject().getMetadata() != null){
-			run.setName("" + runParameters.getProject().getMetadata().getTitle());
-		} else {
-			run.setName("" + runParameters.getProject().getName());
-		}
+		//use the project name for the run name
+		run.setName("" + runParameters.getProject().getName());
 		
 		Calendar reminderCal = Calendar.getInstance();
 		reminderCal.add(Calendar.DATE, 30);
