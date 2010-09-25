@@ -408,9 +408,17 @@ public class AuthorProjectController extends AbstractController {
 		return null;
 	}
 	
+	/**
+	 * Returns a list of projects that the signed in user can author
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	private ModelAndView handleProjectList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<Project> allAuthorableProjects = new ArrayList<Project>();
-		List<Project> projects = projectService.getProjectList(ControllerUtil.getSignedInUser());
+		User signedInUser = ControllerUtil.getSignedInUser();
+		List<Project> projects = projectService.getProjectList(signedInUser);
 		List<Project> sharedProjects = projectService.getSharedProjectList(ControllerUtil.getSignedInUser());
 
 		// in the future, we'll want to filter this allAuthorableProjects list even further by what kind of
@@ -421,7 +429,8 @@ public class AuthorProjectController extends AbstractController {
 		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 		String xmlList = "";
 		for(Project project : allAuthorableProjects){
-			if(project.getProjectType()==ProjectType.LD){
+			if(project.getProjectType()==ProjectType.LD &&
+					projectService.canAuthorProject(project, signedInUser)){
 				//String versionId = this.projectService.getActiveVersion(project);
 				String rawProjectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
 				String polishedProjectUrl = null;

@@ -226,7 +226,7 @@ public class LdProjectServiceImpl implements ProjectService {
 		project.setProjectType(projectParameters.getProjectType());
 		project.setMetadata(projectParameters.getMetadata());
 		//TODO -- isCurrent being set here may need to be removed
-		project.setFamilytag(FamilyTag.OTHER);
+		project.setFamilytag(FamilyTag.TELS);
 		project.setCurrent(true);
 		project.setParentProjectId(projectParameters.getParentProjectId());
 		project.setDateCreated(new Date());
@@ -543,11 +543,16 @@ public class LdProjectServiceImpl implements ProjectService {
 	
 	/**
 	 * @see org.telscenter.sail.webapp.service.project.ProjectService#canCreateRun(org.telscenter.sail.webapp.domain.project.Project, net.sf.sail.webapp.domain.User)
+	 * Project cannot have a "review" tag to it.
 	 */
 	public boolean canCreateRun(Project project, User user) {
-		return FamilyTag.TELS.equals(project.getFamilytag()) || 
+		Set<String> unallowed_tagnames = new HashSet<String>();
+		unallowed_tagnames.add("review");
+		return 
+			!project.hasTags(unallowed_tagnames) &&
+			(FamilyTag.TELS.equals(project.getFamilytag()) || 
 			this.aclService.hasPermission(project, BasePermission.ADMINISTRATION, user) || 
-			this.aclService.hasPermission(project, BasePermission.READ, user);
+			this.aclService.hasPermission(project, BasePermission.READ, user));
 	}
 	
 	/**
