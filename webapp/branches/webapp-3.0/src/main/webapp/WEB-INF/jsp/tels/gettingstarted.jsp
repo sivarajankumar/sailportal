@@ -88,7 +88,7 @@ area.)</li>
 account so that you are familiar with the process you will be leading your
 students through when they start a project run.</li>
 
-<li>Click on the WISE logo in the top left corner (or got to WISE 4
+<li>Click on the WISE logo in the top left corner (or go to WISE 4
 home page)</li>
 
 <li>Click on &quot;Create WISE Account&quot; and choose &quot;Student
@@ -113,7 +113,7 @@ teacher or class they are in</li>
 
 <li>After logging in as a student, you are presented with the WISE 4 student homepage</li>
 
-<li>Feel free to explore the project from the student’s perspective by clicking on "Run Project"</li>
+<li>Feel free to explore the project from the student's perspective by clicking on "Run Project"</li>
 </ol>
 
 <h3>FAQ</h3>
