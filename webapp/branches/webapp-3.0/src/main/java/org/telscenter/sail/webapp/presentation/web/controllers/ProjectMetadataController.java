@@ -59,7 +59,8 @@ public class ProjectMetadataController extends AbstractController {
 	}
 
 	/**
-	 * Handles the saving of max score POSTs
+	 * Handles the saving of max score POSTs. Only a user with author permission on the
+	 * project can change max scores.
 	 * @param request
 	 * @param response
 	 * @return
@@ -69,106 +70,112 @@ public class ProjectMetadataController extends AbstractController {
 			//get the project id
 			String projectIdStr = request.getParameter("projectId");
 			
-			//get the project
-			Project project = projectService.getById(new Long(projectIdStr));
+			Project project = null;
 			
-			//get the signed in user
-			User user = ControllerUtil.getSignedInUser();
-			
-			//check if the user can author the project
-			if(this.projectService.canAuthorProject(project, user)) {
-				//the user has permission to author the project
-				
-				//get the nodeId
-				String nodeId = request.getParameter("nodeId");
-				
-				//get the new max score value
-				String maxScoreValue = request.getParameter("maxScoreValue");
-				
-				int maxScore = 0;
-				
-				//check if a max score value was provided
-				if(maxScoreValue != null && !maxScoreValue.equals("")) {
-					//parse the new max score value
-					maxScore = Integer.parseInt(maxScoreValue);	
-				}
-				
-				/*
-				 * the string that we will use to return the new max score JSON object
-				 * once we have successfully updated it on the server. this is so
-				 * that the client can retrieve confirmation that the new max
-				 * score has been saved and that it can then update its local copy.
-				 */
-				String maxScoreReturnJSON = "";
+			if(projectIdStr != null) {
+				//get the project
+				project = projectService.getById(new Long(projectIdStr));
 				
 				if(project != null) {
-					ProjectMetadata projectMetadata = project.getMetadata();
+					//get the signed in user
+					User user = ControllerUtil.getSignedInUser();
 					
-					if(projectMetadata != null) {
-						String maxScoresString = projectMetadata.getMaxScores();
-						JSONArray maxScoresJSONArray = null;
+					//check if the user can author the project
+					if(user != null && this.projectService.canAuthorProject(project, user)) {
+						//the user has permission to author the project
 						
-						if(maxScoresString == null || maxScoresString.equals("")) {
-							maxScoresJSONArray = new JSONArray();
-						} else {
-							maxScoresJSONArray = new JSONArray(maxScoresString);
+						//get the nodeId
+						String nodeId = request.getParameter("nodeId");
+						
+						//get the new max score value
+						String maxScoreValue = request.getParameter("maxScoreValue");
+						
+						int maxScore = 0;
+						
+						//check if a max score value was provided
+						if(maxScoreValue != null && !maxScoreValue.equals("")) {
+							//parse the new max score value
+							maxScore = Integer.parseInt(maxScoreValue);	
 						}
 						
-						boolean maxScoreUpdated = false;
+						/*
+						 * the string that we will use to return the new max score JSON object
+						 * once we have successfully updated it on the server. this is so
+						 * that the client can retrieve confirmation that the new max
+						 * score has been saved and that it can then update its local copy.
+						 */
+						String maxScoreReturnJSON = "";
 						
-						for(int x=0; x<maxScoresJSONArray.length(); x++) {
-							//get a max score entry
-							JSONObject maxScoreObj = (JSONObject) maxScoresJSONArray.get(x);
+						if(project != null) {
+							ProjectMetadata projectMetadata = project.getMetadata();
 							
-							//get the node id
-							String maxScoreObjNodeId = (String) maxScoreObj.get("nodeId");
-							
-							//check if the node id matches the one new one we need to save
-							if(nodeId.equals(maxScoreObjNodeId)) {
-								//it matches so we will update the score
-								maxScoreObj.put("maxScoreValue", maxScore);
+							if(projectMetadata != null) {
+								String maxScoresString = projectMetadata.getMaxScores();
+								JSONArray maxScoresJSONArray = null;
 								
-								/*
-								 * generate the json string for the updated max score entry
-								 * so we can send it back in the response
-								 */
-								maxScoreReturnJSON = maxScoreObj.toString();
+								if(maxScoresString == null || maxScoresString.equals("")) {
+									maxScoresJSONArray = new JSONArray();
+								} else {
+									maxScoresJSONArray = new JSONArray(maxScoresString);
+								}
 								
-								maxScoreUpdated = true;
+								boolean maxScoreUpdated = false;
+								
+								for(int x=0; x<maxScoresJSONArray.length(); x++) {
+									//get a max score entry
+									JSONObject maxScoreObj = (JSONObject) maxScoresJSONArray.get(x);
+									
+									//get the node id
+									String maxScoreObjNodeId = (String) maxScoreObj.get("nodeId");
+									
+									//check if the node id matches the one new one we need to save
+									if(nodeId.equals(maxScoreObjNodeId)) {
+										//it matches so we will update the score
+										maxScoreObj.put("maxScoreValue", maxScore);
+										
+										/*
+										 * generate the json string for the updated max score entry
+										 * so we can send it back in the response
+										 */
+										maxScoreReturnJSON = maxScoreObj.toString();
+										
+										maxScoreUpdated = true;
+									}
+								}
+								
+								//check if we were able to find an existing entry to update it
+								if(!maxScoreUpdated) {
+									/*
+									 * we did not find an existing entry to update so we will
+									 * create a new entry
+									 */
+									JSONObject newMaxScore = new JSONObject();
+									
+									//set the values
+									newMaxScore.put("nodeId", nodeId);
+									
+									//set the max score
+									newMaxScore.put("maxScoreValue", maxScore);	
+									
+									/*
+									 * generate the json string for the updated max score entry
+									 * so we can send it back in the response
+									 */
+									maxScoreReturnJSON = newMaxScore.toString();
+									
+									//put the new entry back into the maxScores JSON object
+									maxScoresJSONArray.put(newMaxScore);
+								}
+
+								//save the run extras back
+								//runService.setExtras(run, jsonExtras.toString());
+								projectMetadata.setMaxScores(maxScoresJSONArray.toString());
+								projectService.updateProject(project, user);
+								
+								//send the new max score entry back to the client
+								response.getWriter().print(maxScoreReturnJSON);
 							}
 						}
-						
-						//check if we were able to find an existing entry to update it
-						if(!maxScoreUpdated) {
-							/*
-							 * we did not find an existing entry to update so we will
-							 * create a new entry
-							 */
-							JSONObject newMaxScore = new JSONObject();
-							
-							//set the values
-							newMaxScore.put("nodeId", nodeId);
-							
-							//set the max score
-							newMaxScore.put("maxScoreValue", maxScore);	
-							
-							/*
-							 * generate the json string for the updated max score entry
-							 * so we can send it back in the response
-							 */
-							maxScoreReturnJSON = newMaxScore.toString();
-							
-							//put the new entry back into the maxScores JSON object
-							maxScoresJSONArray.put(newMaxScore);
-						}
-
-						//save the run extras back
-						//runService.setExtras(run, jsonExtras.toString());
-						projectMetadata.setMaxScores(maxScoresJSONArray.toString());
-						projectService.updateProject(project, user);
-						
-						//send the new max score entry back to the client
-						response.getWriter().print(maxScoreReturnJSON);
 					}
 				}
 			}
