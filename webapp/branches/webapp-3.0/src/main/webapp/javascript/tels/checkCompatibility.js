@@ -699,4 +699,16 @@ function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision)
 			}
 		}
 	}	
+};
+
+/**
+ * If browser is not WISE4 compatible, alert the user
+ * Currently, if the user is not using Firefox, alert the user
+ */
+function alertBrowserCompatibility() {
+	if (getBrowserName() != "Firefox") {
+		alert("WISE has detected that you are not using Firefox.\n\n" +
+				"Some things may not work properly. For best results, please use " +
+				"Firefox 3.5 or 3.6.");
+	};
 }

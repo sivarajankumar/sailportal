@@ -30,7 +30,10 @@
 
 <link rel="stylesheet" type="text/css" href=".././themes/tels/default/styles/teacher/superfish.css" media="screen">
 <script type="text/javascript" src=".././javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src=".././javascript/tels/jquerycookie.js"></script>
 <script type="text/javascript" src=".././javascript/tels/superfish.js"></script>
+<script type="text/javascript" src=".././javascript/tels/browserdetect.js"></script>
+<script type="text/javascript" src=".././javascript/tels/checkCompatibility.js"></script>
 
 <script type="text/javascript">
     
@@ -38,10 +41,12 @@
             jQuery(function(){
                 jQuery('ul.sf-menu').superfish();
             });
-    
+    // only alert user about browser comptibility issue once.
+    if ($.cookie("hasBeenAlertedBrowserCompatibility") != "true") {
+    	alertBrowserCompatibility();
+    }
+	$.cookie("hasBeenAlertedBrowserCompatibility","true");           
 </script>
-
-</style>
 
 <!-- Core + Skin CSS --> 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.1/build/menu/assets/skins/sam/menu.css"> 

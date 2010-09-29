@@ -10,6 +10,10 @@
 
 <%@ include file="styles.jsp"%>
 
+<script type="text/javascript" src=".././javascript/tels/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src=".././javascript/tels/jquerycookie.js"></script>
+<script type="text/javascript" src=".././javascript/tels/browserdetect.js"></script>
+<script type="text/javascript" src=".././javascript/tels/checkCompatibility.js"></script>
 <script src=".././javascript/tels/general.js" type="text/javascript" > </script>
 
 
@@ -18,6 +22,14 @@
               _visibility: inherit;
 }
 </style>
+
+<script type="text/javascript">
+// only alert user about browser comptibility issue once.
+if ($.cookie("hasBeenAlertedBrowserCompatibility") != "true") {
+	alertBrowserCompatibility();
+}
+$.cookie("hasBeenAlertedBrowserCompatibility","true");           
+</script>
 
 <script language="JavaScript">
 	function popup(URL) {
