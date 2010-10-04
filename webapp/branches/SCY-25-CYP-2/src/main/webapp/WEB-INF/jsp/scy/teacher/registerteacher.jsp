@@ -73,7 +73,7 @@
 
                     <!--This unusually placed script gets the cursor into the First Name field immediately on page load (MattFish)-->
                     <script type="text/javascript">
-                        document.getElementById('firstname').focus();
+                        document.getElementById('firstName').focus();
                     </script>
 
 

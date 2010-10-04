@@ -9,12 +9,12 @@
             </tr>
             <tr>
                 <td>First name</td>
-                <td>${user.userDetails.firstname}</td>
+                <td>${user.userDetails.firstName}</td>
 
             </tr>
             <tr>
                 <td>Lase name</td>
-                <td>${user.userDetails.lastname}</td>
+                <td>${user.userDetails.lastName}</td>
 
             </tr>
         </table>

@@ -29,7 +29,7 @@
                                 <spring:message code="student.registerstudent.4"/>
                             </td>
                             <td>
-                                <form:input path="firstname" id="firstname" size="25" maxlength="25" tabindex="1"/>
+                                <form:input path="firstName" id="firstName" size="25" maxlength="25" tabindex="1"/>
                             </td>
                         </tr>
                         <tr>
@@ -37,7 +37,7 @@
                                 Last name
                             </td>
                             <td>
-                                <form:input path="lastname" id="lastname" size="25" maxlength="25" tabindex="1"/>
+                                <form:input path="lastName" id="lastName" size="25" maxlength="25" tabindex="1"/>
                             </td>
                         </tr>
                         <tr>
@@ -74,7 +74,7 @@
 
                     <!--This unusually placed script gets the cursor into the First Name field immediately on page load (MattFish)-->
                     <script type="text/javascript">
-                        document.getElementById('firstname').focus();
+                        document.getElementById('firstName').focus();
                     </script>
 
 
