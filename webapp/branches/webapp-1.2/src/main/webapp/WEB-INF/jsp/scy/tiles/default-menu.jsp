@@ -5,6 +5,10 @@
 		<li><a href="/webapp/app/feedback/ScyFeedbackIndex.html">SCYFeedback</a></li>
 	</sec:authorize>
 
+	<sec:authorize ifAllGranted="ROLE_STUDENT">
+		<li><a href="/webapp/app/eportfolio/EPortfolioIndex.html">SCYEportfolio</a></li>
+	</sec:authorize>
+
 	<sec:authorize ifAllGranted="ROLE_TEACHER">
 		<li><a href="/webapp/teacher/studentList.html">Student list</a></li>
 	</sec:authorize>

@@ -236,14 +236,14 @@
 									<outputDirectory>target</outputDirectory>
 									<includes>**/*.*</includes>
 								</artifactItem>
-								<!--artifactItem>
+								<artifactItem>
 									<groupId>eu.scy.server</groupId>
-									<artifactId>scy-playful</artifactId>
+									<artifactId>scy-eportfolio</artifactId>
 									<type>jar</type>
 									<overWrite>false</overWrite>
 									<outputDirectory>target</outputDirectory>
 									<includes>**/*.*</includes>
-								</artifactItem-->
+								</artifactItem>
 								<artifactItem>
 									<groupId>eu.scy.server</groupId>
 									<artifactId>scy-feedback</artifactId>
@@ -832,6 +832,12 @@
 			</exclusions>
 		</dependency>
 
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <version>1.1</version>
+        </dependency>
+
 		<dependency>
 			<groupId>eu.scy.server</groupId>
 			<artifactId>scy-server-utils</artifactId>
@@ -865,6 +871,12 @@
 		<dependency>
 			<groupId>eu.scy.server</groupId>
 			<artifactId>scy-feedback</artifactId>
+			<version>${scy.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.scy.server</groupId>
+			<artifactId>scy-eportfolio</artifactId>
 			<version>${scy.version}</version>
 		</dependency>
 
@@ -966,7 +978,7 @@
 	</profiles>
 
 	<properties>
-		<scy.version>24-SNAPSHOT</scy.version>
+		<scy.version>25-SNAPSHOT</scy.version>
 		<startup.listeners></startup.listeners>
         <slf4j.version>1.5.5</slf4j.version>
 	</properties>
