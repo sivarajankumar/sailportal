@@ -44,7 +44,7 @@
 		</tr>
 		<c:forEach var="teacher" items="${teachers}">
 			<tr>
-				<td>${teacher.userDetails.firstname} ${teacher.userDetails.lastname}</td>
+				<td>${teacher.userDetails.firstName} ${teacher.userDetails.lastName}</td>
 				<td><a href="#"
 					   onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${teacher.userDetails.username}');">Change
 					Password</a></td>
@@ -72,7 +72,7 @@
 		</tr>
 		<c:forEach var="student" items="${students}">
 			<tr>
-				<td>${student.userDetails.firstname} ${student.userDetails.lastname}</td>
+				<td>${student.userDetails.firstName} ${student.userDetails.lastName}</td>
 				<td><a href="#"
 					   onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${student.userDetails.username}');">Change
 					Password</a></td>
@@ -100,7 +100,7 @@
 		</tr>
 		<c:forEach var="admin" items="${admins}">
 			<tr>
-				<td>${admin.userDetails.firstname} ${admin.userDetails.lastname}</td>
+				<td>${admin.userDetails.firstName} ${admin.userDetails.lastName}</td>
 				<td><a href="#"
 					   onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${admin.userDetails.username}');">Change
 					Password</a></td>
@@ -124,7 +124,7 @@
 		</tr>
 		<c:forEach var="user" items="${other}">
 			<tr>
-				<td>${user.userDetails.firstname} ${user.userDetails.lastname}</td>
+				<td>${user.userDetails.firstName} ${user.userDetails.lastName}</td>
 				<td><a href="#"
 					   onclick="javascript:popup640('../teacher/management/changestudentpassword.html?userName=${user.userDetails.username}');">Change
 					Password</a></td>

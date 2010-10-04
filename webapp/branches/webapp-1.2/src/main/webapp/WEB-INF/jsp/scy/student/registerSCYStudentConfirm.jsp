@@ -7,11 +7,11 @@
             <table>
                 <tr>
                     <td>First name</td>
-                    <td>${firstname}</td>
+                    <td>${firstName}</td>
                 </tr>
                 <tr>
                     <td>Last name</td>
-                    <td>${lastname}</td>
+                    <td>${lastName}</td>
                 </tr>
                 <tr>
                     <td>Username</td>

@@ -6,7 +6,7 @@
 
     <tiles:putAttribute name="main">
 
-        <h1>Select mission for ${student.userDetails.firstname}</h1>
+        <h1>Select mission for ${student.userDetails.firstName}</h1>
 
         <c:choose>
             <c:when test="${fn:length(pedagogicalPlans) > 0}">

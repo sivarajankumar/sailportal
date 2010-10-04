@@ -25,11 +25,11 @@
                 <table>
                     <tr>
                         <td>First name</td>
-                        <td align="right">${firstname}</td>
+                        <td align="right">${firstName}</td>
                     </tr>
                     <tr>
                         <td>Last name</td>
-                        <td align="right">${lastname}</td>
+                        <td align="right">${lastName}</td>
                     </tr>
                     <tr>
                         <td>Username</td>
