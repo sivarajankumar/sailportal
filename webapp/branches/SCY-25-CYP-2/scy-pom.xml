@@ -236,14 +236,14 @@
 									<outputDirectory>target</outputDirectory>
 									<includes>**/*.*</includes>
 								</artifactItem>
-								<!--artifactItem>
+								<artifactItem>
 									<groupId>eu.scy.server</groupId>
 									<artifactId>scy-eportfolio</artifactId>
 									<type>jar</type>
 									<overWrite>false</overWrite>
 									<outputDirectory>target</outputDirectory>
 									<includes>**/*.*</includes>
-								</artifactItem-->
+								</artifactItem>
 								<artifactItem>
 									<groupId>eu.scy.server</groupId>
 									<artifactId>scy-feedback</artifactId>
@@ -874,11 +874,11 @@
 			<version>${scy.version}</version>
 		</dependency>
 
-		<!--dependency>
+		<dependency>
 			<groupId>eu.scy.server</groupId>
 			<artifactId>scy-eportfolio</artifactId>
 			<version>${scy.version}</version>
-		</dependency-->
+		</dependency>
 
 		<dependency>
 			<groupId>eu.scy.server</groupId>
