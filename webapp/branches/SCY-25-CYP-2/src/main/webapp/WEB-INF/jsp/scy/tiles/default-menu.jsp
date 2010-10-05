@@ -10,7 +10,7 @@
 	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_TEACHER">
-		<li><a href="/webapp/teacher/studentList.html">Student list</a></li>
+		<li><a href="/webapp/teacher/studentList.html">User list</a></li>
 	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
@@ -33,13 +33,6 @@
 		<li><a href="/webapp/app/scyauthorruntime/ScyAuthorRuntimeIndex.html">SCYAuthor Runtime</a></li>
 	</sec:authorize>
 
-	<sec:authorize ifAllGranted="ROLE_TEACHER">
-		<li><a href="/webapp/app/tools/Toolbank.html">Tools</a></li>
-	</sec:authorize>
-
-	<sec:authorize ifAllGranted="ROLE_TEACHER">
-		<li><a href="/webapp/app/agents/agentBank.html">Agents</a></li>
-	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_USER">
 		<li><a href="/webapp/student/profile.html">Profile</a></li>
