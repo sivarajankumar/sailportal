@@ -153,6 +153,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+
     <!--
              - Dispatcher servlet definition for HTTP remoting via Hessian, Burlap, and
              - Spring's HTTP invoker (see remoting-servlet.xml for the controllers).
@@ -178,6 +179,13 @@
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.swf</url-pattern>
+        <url-pattern>*.png</url-pattern>
     </servlet-mapping>
 
 
