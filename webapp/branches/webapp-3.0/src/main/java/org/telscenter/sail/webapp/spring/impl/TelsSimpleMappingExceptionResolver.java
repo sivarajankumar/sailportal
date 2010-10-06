@@ -65,7 +65,7 @@ public class TelsSimpleMappingExceptionResolver extends
 
 	private static final String HANDLE_EXCEPTION_PROPERTY_KEY = "handle_exception";
 	
-	private static final String HANDLE_EXCEPTION_MAIL_SUBJECT = "WISE 3.0 Exception Report";
+	private static final String HANDLE_EXCEPTION_MAIL_SUBJECT = "WISE 4.0 Exception Report";
 	
 	private static final String HANDLE_EXCEPTION_FROM_EMAIL = "telsportal@gmail.com";
 
@@ -162,7 +162,7 @@ public class TelsSimpleMappingExceptionResolver extends
 	    }
 		
 		String message = 
-			"The following exception was thrown in the WISE 3.0 Portal on " +
+			"The following exception was thrown in the WISE 4.0 Portal on " +
 			time.toString() + "\n\n" +
 			"username: " + username + "\n" +
 			"url: " + fullUrl + "\n\n" +
