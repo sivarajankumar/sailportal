@@ -698,6 +698,12 @@
 			<groupId>net.sf.sail</groupId>
 			<artifactId>sail-core</artifactId>
 			<version>0.4.5-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xstream</groupId>
+                    <artifactId>xstream</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.sail</groupId>
