@@ -94,7 +94,7 @@
 		<tr><td colspan="2">Total number of students:</td><td>${totalnumstudentsinrun} registered</td></tr>
 	  </table>
 	</td>
-    <td><c:forEach var="owner" items="${run.owners}"><a href="../j_acegi_switch_user?j_username=${owner.userDetails.username}">${owner.userDetails.username}</a> (${owner.userDetails.schoolname})</c:forEach></td>
+    <td><c:forEach var="owner" items="${run.owners}"><a href="../j_acegi_switch_user?j_username=${owner.userDetails.username}">${owner.userDetails.username}</a><br/>(${owner.userDetails.schoolname}, ${owner.userDetails.city}, ${owner.userDetails.state},${owner.userDetails.country})</c:forEach></td>
     <td><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><ul>

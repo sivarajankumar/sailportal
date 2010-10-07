@@ -33,7 +33,8 @@
 				<td>${run.timesRun}</td>
 				<td>
 					<c:forEach var="owner" items="${run.owners}">
-						<a href="../j_acegi_switch_user?j_username=${owner.userDetails.username}">${owner.userDetails.username}</a>&nbsp;
+						<a href="../j_acegi_switch_user?j_username=${owner.userDetails.username}">${owner.userDetails.username}</a><br/>
+						(${owner.userDetails.schoolname}, ${owner.userDetails.city}, ${owner.userDetails.state},${owner.userDetails.country})
 					</c:forEach>
 				</td>
 			    <td>
