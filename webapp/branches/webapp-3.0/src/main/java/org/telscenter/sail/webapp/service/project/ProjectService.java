@@ -388,4 +388,11 @@ public interface ProjectService {
 	 * @return boolean
 	 */
 	public boolean isAuthorizedToCreateTag(User user, String name);
+	
+	/**
+	 * Given a project id, returns projects that are copies of the project
+	 * @param projectId
+	 * @return
+	 */
+	public List<Project> getProjectCopies(Long projectId);
 }

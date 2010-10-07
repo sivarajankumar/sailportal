@@ -743,4 +743,9 @@ public class PodProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<Project> getProjectCopies(Long projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

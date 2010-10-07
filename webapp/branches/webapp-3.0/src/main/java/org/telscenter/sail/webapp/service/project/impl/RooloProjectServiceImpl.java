@@ -486,4 +486,9 @@ public class RooloProjectServiceImpl implements ProjectService{
 		return null;
 	}
 
+	public List<Project> getProjectCopies(Long projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -448,4 +448,9 @@ public class ExternalProjectServiceImpl implements ExternalProjectService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<Project> getProjectCopies(Long projectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

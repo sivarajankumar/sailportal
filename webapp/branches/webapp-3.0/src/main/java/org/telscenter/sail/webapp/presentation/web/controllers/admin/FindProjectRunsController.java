@@ -37,7 +37,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.impl.FindProjectParameters;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.service.offering.RunService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author patrick lawler
@@ -48,6 +50,8 @@ public class FindProjectRunsController extends SimpleFormController{
 	private final static String VIEW = "admin/manageallprojectruns";
 	
 	private RunService runService;
+	
+	private ProjectService projectService;
 	
 	private UserService userService;
 
@@ -91,12 +95,18 @@ public class FindProjectRunsController extends SimpleFormController{
     private List<Run> getRunListByProjectId(Long projectId){
 		List<Run> runList = new ArrayList<Run>();
     	List<Run> run_list = runService.getAllRunList();
+    	List<Project> projectCopies = projectService.getProjectCopies(projectId);
 		for(Run run: run_list){
-			if(run.getProject().getId().equals(projectId)){
+			if(run.getProject().getId().equals(projectId)) {
 				runList.add(run);
+			} else {
+				for (Project project : projectCopies) {
+					if (run.getProject().getId().equals(project.getId())) {
+						runList.add(run);
+					}
+				}
 			}
-		}
-		
+		}		
     	return runList;
     }
     
@@ -152,5 +162,12 @@ public class FindProjectRunsController extends SimpleFormController{
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 }

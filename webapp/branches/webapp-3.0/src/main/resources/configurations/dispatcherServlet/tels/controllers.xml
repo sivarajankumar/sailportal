@@ -1047,17 +1047,19 @@
 		<property name="formView" value="admin/uploadotml" />
     </bean>
 
+<!-- 
     <bean id="uploadProjectController"
-        class="org.telscenter.sail.webapp.presentation.web.controllers.teacher.project.UploadProjectController" >
+        class="org.telscenter.sail.webapp.presentation.web.controllers.admin.UploadProjectController" >
         <property name="projectService" ref="projectService" />
+		<property name="portalProperties" ref="portalproperties" />
 		<property name="sessionForm" value="true"/>
 		<property name="commandName" value="projectFile"/>
 		<property name="commandClass"
 			value="org.telscenter.sail.webapp.domain.project.ProjectUpload" />
 		<property name="successView" value="manageallprojects.html" />
-		<property name="formView" value="teacher/uploadproject" />
+		<property name="formView" value="admin/project/uploadproject" />
     </bean>
-    
+-->    
     <bean id="xmlFileUpload"
     	class="org.telscenter.sail.webapp.domain.admin.XMLFileUpload">
     </bean>
@@ -1085,6 +1087,7 @@
 			value="org.telscenter.sail.webapp.domain.impl.FindProjectParameters" />
         <property name="runService" ref="runService" />
         <property name="userService" ref="userService"/>
+        <property name="projectService" ref="projectService"/>
         <property name="validator" ref="findProjectParametersValidator"/>
     </bean>
     

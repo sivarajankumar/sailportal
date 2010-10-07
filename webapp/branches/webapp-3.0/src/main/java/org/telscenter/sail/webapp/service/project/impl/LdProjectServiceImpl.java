@@ -725,4 +725,11 @@ public class LdProjectServiceImpl implements ProjectService {
 	public void setTagService(TagService tagService) {
 		this.tagService = tagService;
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.service.project.ProjectService#getProjectCopies(java.lang.Long)
+	 */
+	public List<Project> getProjectCopies(Long projectId) {
+		return this.projectDao.getProjectCopies(projectId);
+	}
 }

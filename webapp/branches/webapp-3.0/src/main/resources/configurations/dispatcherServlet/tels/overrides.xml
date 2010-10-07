@@ -254,6 +254,7 @@
 				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
 				/author/project/postproject.html=postProjectController
 				/author/brainstorm/authorbrainstorm.html=authorBrainstormController
+				<!-- /admin/uploadproject.html=uploadProjectController  -->
 				/admin/manageusers.html=viewAllUsersController
 				/admin/lookupuser.html=lookupUserController
 				/admin/manageallprojects.html=manageAllProjectsController
@@ -293,7 +294,6 @@
 				/teacher/projects/bookmark.html=bookmarkController
 				/teacher/projects/customized/public.html=publicController
 				/teacher/projects/copyproject.html=copyProjectController
-				/teacher/projects/uploadproject.html=uploadProjectController
 				/teacher/projects/minifyproject.html=minifyProjectController
 				/teacher/run/manage/extendremindertime.html=extendReminderTimeController
 				/student/viewannouncements.html=viewAnnouncementsController

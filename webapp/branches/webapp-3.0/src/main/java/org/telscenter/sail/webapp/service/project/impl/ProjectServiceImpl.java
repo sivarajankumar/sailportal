@@ -396,4 +396,10 @@ public class ProjectServiceImpl implements ProjectService {
 		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
 		return projectService.getProjectListByTagNames(tagNames);
 	}
+	
+	@Transactional
+	public List<Project> getProjectCopies(Long projectId) {
+		ProjectService projectService = this.projectServiceFactory.getProjectService(ProjectType.LD);
+		return projectService.getProjectCopies(projectId);
+	}
 }

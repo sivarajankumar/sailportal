@@ -52,6 +52,7 @@
   <thead>
     <tr>
       <th>Project Run Id</th>
+	  <th>Project Id</th>      
       <th>Project Run Name</th>
       <th>Overview</th>
       <th>Student Information</th>
@@ -64,6 +65,12 @@
   <c:forEach var="run" items="${runList}">
   <tr>
     <td>${run.id}</td>
+    <td>
+    	${run.project.id}
+    	<c:if test="${run.project.parentProjectId != null}">
+    	   (copy of ${run.project.parentProjectId})
+    	</c:if>
+    </td>
     <td>${run.name}</td>
     <td><a href="../teacher/projects/projectinfo.html?projectId=${run.project.id}">See Project Overview</a></td>
     <td>

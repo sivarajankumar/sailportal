@@ -20,7 +20,7 @@
  * ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
  * REGENTS HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.telscenter.sail.webapp.presentation.web.controllers.teacher.project;
+package org.telscenter.sail.webapp.presentation.web.controllers.admin;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -41,40 +42,42 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
-import org.telscenter.sail.webapp.domain.Module;
-import org.telscenter.sail.webapp.domain.admin.OtmlFileUpload;
-import org.telscenter.sail.webapp.domain.impl.ModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.OtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.impl.RooloOtmlModuleImpl;
-import org.telscenter.sail.webapp.domain.project.Project;
-import org.telscenter.sail.webapp.domain.project.ProjectUpload;
-import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
- * For letting teachers upload projects.
+ * Admin tool for uploading a zipped LD project.
+ * Unzips to curriculum_base_dir and registers the project (ie creates project in DB).
+ * 
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class UploadProjectController extends SimpleFormController {
 
-	private ProjectService projectService;
+	//private ProjectService projectService;
 
+	//private Properties portalProperties;
+	
 	/**
 	 * @override @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
 	 */
-	@Override
+	//@Override
+	/*
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
+		// probably should do some kind of virus check. but for now, it's only
+		// accessible to admin.
+		
 		ProjectUpload bean = (ProjectUpload) command;
 		MultipartFile file = bean.getFile();
 		
-		// upload the zipfile
-		String uploadDirStr = getServletContext().getRealPath("/upload");
-		File uploadDir = new File(uploadDirStr);
+		// upload the zipfile to curriculum_base_dir
+		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+
+		//String uploadDirStr = getServletContext().getRealPath("/upload");
+		File uploadDir = new File(curriculumBaseDir);
 		uploadDir.mkdirs();
 		String sep = System.getProperty("file.separator");
-		String newFilename = uploadDirStr + sep + file.getOriginalFilename();
+		String newFilename = curriculumBaseDir + sep + file.getOriginalFilename();
 		File uploadedFile = new File(newFilename);
 		uploadedFile.createNewFile();
 		FileCopyUtils.copy(file.getBytes(),uploadedFile);
@@ -93,13 +96,13 @@ public class UploadProjectController extends SimpleFormController {
 		          // Assume directories are stored parents first then children.
 		          System.err.println("Extracting directory: " + entry.getName());
 		          // This is not robust, just for demonstration purposes.
-		          (new File(uploadDirStr + sep + entry.getName())).mkdir();
+		          //(new File(uploadDirStr + sep + entry.getName())).mkdir();
 		          continue;
 		        }
 
 		        System.err.println("Extracting file: " + entry.getName());
-		        copyInputStream(zipFile.getInputStream(entry),
-		           new BufferedOutputStream(new FileOutputStream(uploadDirStr + sep + entry.getName())));
+		        //copyInputStream(zipFile.getInputStream(entry),
+		           //new BufferedOutputStream(new FileOutputStream(uploadDirStr + sep + entry.getName())));
 		      }
 
 		      zipFile.close();
@@ -124,12 +127,24 @@ public class UploadProjectController extends SimpleFormController {
 	    in.close();
 	    out.close();
 	  }
-
+	*/
+	
 	/**
 	 * @param projectService the projectService to set
 	 */
+	/*
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
+	*/
 	
+	/**
+	 * @param portalProperties the portalProperties to set
+	 */
+	/*
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
+	}
+	*/
+
 }

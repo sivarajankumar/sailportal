@@ -120,4 +120,14 @@ public interface ProjectDao<T extends Project> extends SimpleDao<T> {
 	 * @return Project - project
 	 */
 	public Project getProjectWithoutMetadata(Long projectId);
+
+
+	/**
+	 * Retrieves and returns a list of projects that are copies of the 
+	 * specified project (has projectId as parentfk)
+	 * 
+	 * @param projectId
+	 * @return
+	 */
+	public List<Project> getProjectCopies(Long projectId);
 }

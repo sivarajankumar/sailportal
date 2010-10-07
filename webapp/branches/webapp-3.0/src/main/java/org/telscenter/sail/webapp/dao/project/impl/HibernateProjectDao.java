@@ -182,4 +182,16 @@ public class HibernateProjectDao extends AbstractHibernateDao<Project> implement
 			return null;
 		}
 	}
+
+	/**
+	 * @see org.telscenter.sail.webapp.dao.project.ProjectDao#getProjectCopies(java.lang.Long)
+	 */
+	public List<Project> getProjectCopies(Long projectId) {
+		List<Project> projects = this
+		.getHibernateTemplate()
+		.findByNamedParam(
+				"from ProjectImpl as project where project.parentProjectId = :parentProjectId",
+				"parentProjectId", projectId);
+		return projects;
+	}
 }
