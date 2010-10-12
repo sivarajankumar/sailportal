@@ -184,8 +184,12 @@ public class StudentUserDetails extends PersistentUserDetails implements
 		if (birthdate <= 9) {
 			birthdateString = "0" + birthdateString;
 		}
-		return firstname + lastnameInitial +
+		
+		String username = firstname + lastnameInitial +
 		birthmonthString + birthdateString;
+		username = username.replaceAll("[^a-zA-Z0-9]", "");
+
+		return username;
 	}
 	/**
 	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getUsernameSuffixes()

@@ -245,7 +245,10 @@ public class TeacherUserDetails extends PersistentUserDetails implements
 	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getCoreUsername()
 	 */
 	public String getCoreUsername() {
-		return firstname + lastname;
+		// firstname + lastname, but make sure it's alphanumeric
+		String username = firstname + lastname;
+		username = username.replaceAll("[^a-zA-Z0-9]", "");
+		return username;
 	}
 	/**
 	 * @see org.telscenter.sail.webapp.domain.authenticationMutableUserDetails.getUsernameSuffixes()

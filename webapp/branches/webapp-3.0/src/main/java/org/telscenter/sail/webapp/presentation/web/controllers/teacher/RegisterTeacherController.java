@@ -91,8 +91,11 @@ public class RegisterTeacherController extends SignupController {
 		String domainWithPort = domain + ":" + request.getLocalPort();
 		String referrer = request.getHeader("referer");
 		String registerUrl = "/webapp/teacher/registerteacher.html";
+		String updateAccountInfoUrl = "/webapp/teacher/management/updatemyaccountinfo.html";
 		
-		if(referrer.contains(domain + registerUrl) || referrer.contains(domainWithPort + registerUrl)){
+		if(referrer.contains(domain + registerUrl) || 
+				referrer.contains(domainWithPort + registerUrl) ||
+				referrer.contains(domainWithPort + updateAccountInfoUrl)){
 			TeacherAccountForm accountForm = (TeacherAccountForm) command;
 			TeacherUserDetails userDetails = (TeacherUserDetails) accountForm.getUserDetails();
 	
