@@ -1,17 +1,21 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.NotAuthorizedException;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
@@ -51,7 +55,10 @@ public class ProjectMetadataController extends AbstractController {
 				} else if(command.equals("postMaxScore")) {
 					//request is to post a max score
 					handlePostMaxScore(request, response);
-				}		
+				} else if(command.equals("postLastMinified")) {
+					//request is to post last minified time
+					handlePostLastMinified(request, response);
+				}
 			}			
 		}
 		
@@ -186,6 +193,77 @@ public class ProjectMetadataController extends AbstractController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return null;
+	}
+	
+	/**
+	 * Handles the saving of the lastMinified timestamp
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	private ModelAndView handlePostLastMinified(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			//get the signed in user
+			User user = ControllerUtil.getSignedInUser();
+			
+			//get the project id
+			String projectId = request.getParameter("projectId");
+			
+			//get the last minified timestamp in milliseconds
+			String lastMinifiedStr = request.getParameter("lastMinified");
+			
+			//convert the string to a long
+			long lastMinifiedMilliseconds = Long.parseLong(lastMinifiedStr);
+			
+			//create a Date object from the milliseconds
+			Date lastMinified = new Date(lastMinifiedMilliseconds);
+			
+			Project project = null;
+			
+			if(projectId != null) {
+				//get the project
+				project = projectService.getById(new Long(projectId));
+
+				if(project != null) {
+					//get the project metadata
+					ProjectMetadata metadata = project.getMetadata();
+					
+					if(metadata == null) {
+						//create a metadata object for the project if it does not have any
+						metadata = new ProjectMetadataImpl();
+						project.setMetadata(metadata);
+					}
+					
+					//set the last minified value
+					metadata.setLastMinified(lastMinified);
+					
+					//check if last edited is null
+					if(metadata.getLastEdited() == null) {
+						/*
+						 * last edited is null so we will set it to 1 second before
+						 * we last minified. this is for time comparison purposes
+						 * when we compare the lastEdited to the lastMinified timestamp
+						 * in the future to determine if we need to minify it again
+						 * to keep the -min version of the project up to date.
+						 */
+						Date lastEdited = new Date(lastMinified.getTime() - 1000); 
+						metadata.setLastEdited(lastEdited);
+					}
+					
+					//push the changes back to the db table
+					projectService.updateProject(project, user);
+				}
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		} catch (NotAuthorizedException e) {
+			e.printStackTrace();
+		}
+
 		
 		return null;
 	}

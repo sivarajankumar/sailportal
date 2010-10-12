@@ -22,6 +22,8 @@
  */
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
+import java.util.Date;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +33,10 @@ import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * @author patrick lawler
@@ -40,6 +45,8 @@ import org.telscenter.sail.webapp.service.authentication.UserDetailsService;
 public class RouterController extends AbstractController{
 
 	private final static String FORWARD = "forward";
+	
+	private static ProjectService projectService;
 	
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -64,6 +71,35 @@ public class RouterController extends AbstractController{
 				ServletContext servletContext = this.getServletContext().getContext("/vlewrapper");
 				CredentialManager.setRequestCredentials(request, user);
 				if(forward.equals("convert") || forward.equals("minifier")){
+					
+					//if this is a minify request we need to set some attributes into the request
+					if(forward.equals("minifier")) {
+						//get the project id
+						String projectId = request.getParameter("projectId");
+						
+						if(projectId != null) {
+							//get the project
+							Project project = projectService.getById(new Long(projectId));
+							
+							if(project != null) {
+								//get the project metadata
+								ProjectMetadata metadata = project.getMetadata();
+								
+								if(metadata != null) {
+									//get the last edited and last modified timestamps
+									Date lastEdited = metadata.getLastEdited();
+									Date lastMinified = metadata.getLastMinified();
+									
+									/*
+									 * set the timestamps into the request so that we
+									 * have access to them in the vlewrapper controller 
+									 */
+									request.setAttribute("lastEdited", lastEdited);
+									request.setAttribute("lastMinified", lastMinified);						
+								}
+							}
+						}
+					}
 					servletContext.getRequestDispatcher("/util/" + forward + ".html").forward(request, response);
 					return null;
 				} else if(forward.equals("filemanager")){
@@ -75,6 +111,13 @@ public class RouterController extends AbstractController{
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param projectService the projectService to set
+	 */
+	public void setProjectService(ProjectService projectService) {
+		this.projectService = projectService;
 	}
 
 }
