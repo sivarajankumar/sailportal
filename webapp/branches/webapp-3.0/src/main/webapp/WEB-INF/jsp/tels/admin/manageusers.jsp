@@ -64,7 +64,7 @@ Teachers who logged in today (${fn:length(teachersWhoLoggedInSinceYesterday)}):
 			in as this user</a></td>
 			<td><a href="#"
 				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
-			<td>${user.userDetails.schoolname}</td>
+			<td>${user.userDetails.schoolname},${user.userDetails.city},${user.userDetails.state},${user.userDetails.country}</td>
 		</tr>
 	</c:forEach>
 </table>
