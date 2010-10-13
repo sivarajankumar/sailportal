@@ -45,8 +45,7 @@
 <%@ include file="adminheader.jsp"%>
 
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
-<h5>Manage Project Runs: <a href="manageallprojectruns.html?q=current">Current</a> | 
-								 <a href="manageallprojectruns.html?q=archived">Archived</a></h5>
+
 <h4>Number of runs: ${fn:length(runList)}</h4>
 <table id="adminManageRunsTable">
   <thead>
