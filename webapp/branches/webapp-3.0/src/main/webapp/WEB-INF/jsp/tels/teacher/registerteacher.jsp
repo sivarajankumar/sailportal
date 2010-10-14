@@ -206,7 +206,7 @@ function MM_swapImage() { //v3.0
       <div>&nbsp;</div> 
       <dt><label for="password" id="password1"><spring:message code="signup.password" /></label>
 </dt>
-	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="2" tabindex="11"/> <span class="hint"><spring:message code="teacher.registerteacher.27"/><span class="hint-pointer"></span></span> </dd>
+	  <dd><form:password path="userDetails.password" id="password" size="25" maxlength="20" tabindex="11"/> <span class="hint"><spring:message code="teacher.registerteacher.27"/><span class="hint-pointer"></span></span> </dd>
 
 	  <dt><label for="repeatedPassword" id="repeatedPassword2"><spring:message code="signup.password.verify" /></label></dt>
 	  <dd><form:password path="repeatedPassword" id="repeatedPassword" size="25" maxlength="20" tabindex="12"/>  <span class="hint"><spring:message code="teacher.registerteacher.28"/><span class="hint-pointer"></span></span></dd>
