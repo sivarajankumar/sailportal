@@ -59,7 +59,6 @@
 		<th> familytag</th>
 		<th> Tags </th>
 		<th> Edit Project with Authoring tool</th>
-		<th> Upload Otml File</th>
 		<th> Edit Project Metadata</th>		
 		<th> Other Actions </th>				
 	</tr>
@@ -92,20 +91,12 @@
 			</div>
 		</td>
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
-		<c:choose>
-		    	<c:when test="${project.projectType == potrunk}">  <!--  if this is a POTrunk project, we can get the otml -->
-		    	   <td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>
-		    	</c:when>
-		    	<c:otherwise>
-		    	    <td>Not available for this project.</td>
-		    	</c:otherwise>
-		</c:choose>
-		</td>				
 		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
 		<td>
 		    <ul>
 		        <li><a href="../previewproject.html?projectId=${project.id}">Preview</a></li>
 		        <li><a href="../teacher/projects/customized/shareproject.html?projectId=${project.id}">Manage Ownership/Shared Teachers</a></li>
+		        <li><a href="project/exportproject.html?projectId=${project.id}">Export project as Zip</a></li>
 		    </ul>
 		</td>		
 	</tr>
@@ -121,7 +112,6 @@
 		<th> IsCurrent?</th>
 		<th> familytag</th>
 		<th> Edit Project with Authoring tool</th>
-		<th> Upload Otml File</th>
 		<th> Edit Project Metadata</th>		
 		<th> Preview Project</th>				
 	</tr>
@@ -132,14 +122,6 @@
 		<td>${project.current }</td>
 		<td>${project.familytag} (${project.projectType})</td>
 		<td><a href="../author/authorproject.html?projectId=${project.id}">Edit Project (Authoring tool)</a></td>		
-				<c:choose>
-		    	<c:when test="${project.projectType == potrunk}">
-		    	   <td><a href="../admin/uploadotml.html?projectId=${project.id}">Upload Otml File</a></td>
-		    	</c:when>
-		    	<c:otherwise>
-		    	    <td>Not available for this project.</td>
-		    	</c:otherwise>
-		</c:choose>
 		<td><a href="editproject.html?projectId=${project.id}">Edit Project Metadata</a></td>
 		<td><a href="../previewproject.html?projectId=${project.id}">Preview</a></td>		
 	</tr>

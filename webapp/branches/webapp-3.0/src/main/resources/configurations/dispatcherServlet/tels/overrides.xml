@@ -254,7 +254,8 @@
 				/author/brainstorm/editpreparedanswer.html=editPreparedAnswerController
 				/author/project/postproject.html=postProjectController
 				/author/brainstorm/authorbrainstorm.html=authorBrainstormController
-				<!-- /admin/uploadproject.html=uploadProjectController  -->
+				/admin/project/uploadproject.html=uploadProjectController
+				/admin/project/exportproject.html=exportProjectController
 				/admin/manageusers.html=viewAllUsersController
 				/admin/lookupuser.html=lookupUserController
 				/admin/manageallprojects.html=manageAllProjectsController

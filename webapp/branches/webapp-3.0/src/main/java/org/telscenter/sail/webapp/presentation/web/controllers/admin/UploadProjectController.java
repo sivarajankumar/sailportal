@@ -28,13 +28,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.sail.webapp.domain.Curnit;
+import net.sf.sail.webapp.domain.User;
+import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
+import net.sf.sail.webapp.service.curnit.CurnitService;
 
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindException;
@@ -42,6 +50,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.telscenter.sail.webapp.domain.impl.CreateUrlModuleParameters;
+import org.telscenter.sail.webapp.domain.impl.ProjectParameters;
+import org.telscenter.sail.webapp.domain.project.Project;
+import org.telscenter.sail.webapp.domain.project.ProjectMetadata;
+import org.telscenter.sail.webapp.domain.project.ProjectUpload;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectMetadataImpl;
+import org.telscenter.sail.webapp.domain.project.impl.ProjectType;
+import org.telscenter.sail.webapp.service.project.ProjectService;
 
 /**
  * Admin tool for uploading a zipped LD project.
@@ -52,99 +68,143 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class UploadProjectController extends SimpleFormController {
 
-	//private ProjectService projectService;
-
-	//private Properties portalProperties;
+	private ProjectService projectService;
 	
+	private CurnitService curnitService;
+
+	private Properties portalProperties;
+
 	/**
 	 * @override @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
 	 */
-	//@Override
-	/*
+	@Override
 	protected ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+	throws Exception {
 		// probably should do some kind of virus check. but for now, it's only
 		// accessible to admin.
-		
-		ProjectUpload bean = (ProjectUpload) command;
-		MultipartFile file = bean.getFile();
-		
+
+		// uploaded file must be a zip file and have a .zip extension
+
+		ProjectUpload projectUpload = (ProjectUpload) command;
+		MultipartFile file = projectUpload.getFile();
+
 		// upload the zipfile to curriculum_base_dir
 		String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
 
-		//String uploadDirStr = getServletContext().getRealPath("/upload");
 		File uploadDir = new File(curriculumBaseDir);
-		uploadDir.mkdirs();
+		if (!uploadDir.exists()) {
+			throw new Exception("curriculum upload directory does not exist.");
+		}
+
+		// save the upload zip file in the curriculum folder.
 		String sep = System.getProperty("file.separator");
-		String newFilename = curriculumBaseDir + sep + file.getOriginalFilename();
-		File uploadedFile = new File(newFilename);
+		long timeInMillis = Calendar.getInstance().getTimeInMillis();
+		String zipFilename = file.getOriginalFilename();
+		String filename = zipFilename.substring(0, zipFilename.indexOf(".zip"));
+		String newFilename = filename + "-" + timeInMillis; // add a date time in milliseconds to the filename to make it unique
+		String newFileFullPath = curriculumBaseDir + sep + newFilename + ".zip"; 
+		
+		// copy the zip file inside curriculum_base_dir temporarily
+		File uploadedFile = new File(newFileFullPath);
 		uploadedFile.createNewFile();
 		FileCopyUtils.copy(file.getBytes(),uploadedFile);
-		
-		
+
+		// make a new folder where the contents of the zip should go
+		String newFileFullDir = curriculumBaseDir + sep + newFilename;
+		File newFileFullDirFile = new File(newFileFullDir);
+		newFileFullDirFile.mkdir();
+
 		// unzip the zip file
-		 try {
-		      ZipFile zipFile = new ZipFile(newFilename);
+		try {
+			ZipFile zipFile = new ZipFile(newFileFullPath);
+			Enumeration entries = zipFile.entries();
 
-		      Enumeration entries = zipFile.entries();
+			while(entries.hasMoreElements()) {
+				ZipEntry entry = (ZipEntry)entries.nextElement();
 
-		      while(entries.hasMoreElements()) {
-		        ZipEntry entry = (ZipEntry)entries.nextElement();
+				if(entry.isDirectory()) {
+					// Assume directories are stored parents first then children.
+					System.err.println("Extracting directory: " + entry.getName());
+					// This is not robust, just for demonstration purposes.
+					(new File(entry.getName().replace(filename, newFileFullDir))).mkdir();
+					continue;
+				}
 
-		        if(entry.isDirectory()) {
-		          // Assume directories are stored parents first then children.
-		          System.err.println("Extracting directory: " + entry.getName());
-		          // This is not robust, just for demonstration purposes.
-		          //(new File(uploadDirStr + sep + entry.getName())).mkdir();
-		          continue;
-		        }
+				System.err.println("Extracting file: " + entry.getName() );
+				copyInputStream(zipFile.getInputStream(entry),
+						new BufferedOutputStream(new FileOutputStream(entry.getName().replace(filename, newFileFullDir))));
+			}
 
-		        System.err.println("Extracting file: " + entry.getName());
-		        //copyInputStream(zipFile.getInputStream(entry),
-		           //new BufferedOutputStream(new FileOutputStream(uploadDirStr + sep + entry.getName())));
-		      }
+			zipFile.close();
+		} catch (IOException ioe) {
+			System.err.println("Unhandled exception:");
+			ioe.printStackTrace();
+		}
 
-		      zipFile.close();
-		    } catch (IOException ioe) {
-		      System.err.println("Unhandled exception:");
-		      ioe.printStackTrace();
-		    }
-				
-		ModelAndView modelAndView = new ModelAndView(new RedirectView(getSuccessView()));		
+		// remove the temp zip file
+		uploadedFile.delete();
+		
+		// now create a project in the db with the new path
+		String path = sep +  newFilename + sep + "wise4.project.json";
+		String name = projectUpload.getName();
+		User signedInUser = ControllerUtil.getSignedInUser();
+		Set<User> owners = new HashSet<User>();
+		owners.add(signedInUser);
+		
+		CreateUrlModuleParameters cParams = new CreateUrlModuleParameters();
+		cParams.setUrl(path);
+		Curnit curnit = curnitService.createCurnit(cParams);
+		
+		ProjectParameters pParams = new ProjectParameters();
+		pParams.setCurnitId(curnit.getId());
+		pParams.setOwners(owners);
+		pParams.setProjectname(name);
+		pParams.setProjectType(ProjectType.LD);
+		// since this is new original project, set a new fresh metadata object
+		ProjectMetadata metadata = new ProjectMetadataImpl();
+		metadata.setTitle(name);
+		pParams.setMetadata(metadata);
+		
+		Project project = projectService.createProject(pParams);
+
+		ModelAndView modelAndView = new ModelAndView(getSuccessView());		
+		modelAndView.addObject("msg", "Upload project complete, new projectId is: " + project.getId());
 		return modelAndView;
 	}
-	
-	  public static final void copyInputStream(InputStream in, OutputStream out)
-	  throws IOException
-	  {
-	    byte[] buffer = new byte[1024];
-	    int len;
 
-	    while((len = in.read(buffer)) >= 0)
-	      out.write(buffer, 0, len);
+	public static final void copyInputStream(InputStream in, OutputStream out)
+	throws IOException
+	{
+		byte[] buffer = new byte[1024];
+		int len;
 
-	    in.close();
-	    out.close();
-	  }
-	*/
-	
+		while((len = in.read(buffer)) >= 0)
+			out.write(buffer, 0, len);
+
+		in.close();
+		out.close();
+	}
+
+
 	/**
 	 * @param projectService the projectService to set
 	 */
-	/*
 	public void setProjectService(ProjectService projectService) {
 		this.projectService = projectService;
 	}
-	*/
-	
+
+	/**
+	 * @param curnitService the curnitService to set
+	 */
+	public void setCurnitService(CurnitService curnitService) {
+		this.curnitService = curnitService;
+	}
+
 	/**
 	 * @param portalProperties the portalProperties to set
 	 */
-	/*
 	public void setPortalProperties(Properties portalProperties) {
 		this.portalProperties = portalProperties;
 	}
-	*/
-
 }

@@ -17,19 +17,45 @@
 </head>
 <body>
 
+<c:out value="${msg}" />
+
+<p>
+NOTE:
+<ol>
+  <li>File must be a zip file, and must have a .zip extension</li>
+  <li>ZipFile name must be the same as the root folder inside it</li>
+  <li>File must contain a wise4.project.json file in the top/root level</li>
+</ol>
+<pre>
+example.zip
+
+unzipped:
+  + example/
+    + assets/
+      - car.jpg
+      - cup.png
+    - wise4.project.json
+    - intro.ht
+    - intro.html
+    ...    
+</pre>
+</p>
 
 <form:form method="post" action="uploadproject.html" 
-	commandName="project" id="editproject" enctype="multipart/form-data" autocomplete='off'>
+	commandName="projectZipFile" id="editproject" enctype="multipart/form-data" autocomplete='off'>
 
-	<label for="otmlFile">otml</label><br/>
-	<input type="file" name="file" id="projectfile"/>
+	<label for="projectname">Project Name</label><br/>
+	<input type="text" size="25" name="name" id="projectName"/>
+    <br/><br/>
+
+	<div>Project Zip File</div>
+	<input type="file" name="file" id="projectZipFile"/>
     <br/><br/>
     
     <input type="submit" value="Save" />
     <a href="manageallprojects.html"><input type="button" value="Cancel"></input></a>
 </form:form>
-    <p>Note: If the project is current and is a TELS project, it will show up in the Instant Preview page and the
-       Project Library page. Otherwise, it will not show up in either of those pages. This might change at a later time as more types of projects are defined in the portal.</p>
+
 
 
 </body>

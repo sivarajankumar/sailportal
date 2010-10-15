@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * Simple bean to upload project file, used as form backing object
  * @author hirokiterashima
- * @version $Id:$
+ * @version $Id$
  */
 public class ProjectUpload implements Serializable {
 
@@ -37,11 +37,27 @@ public class ProjectUpload implements Serializable {
 
 	private MultipartFile file;
 	
+	private String name;  // project name
+	
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
 
 	public MultipartFile getFile() {
 		return file;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }
