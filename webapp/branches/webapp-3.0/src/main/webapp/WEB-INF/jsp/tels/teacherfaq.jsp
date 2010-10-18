@@ -99,6 +99,16 @@ In general students will benefit from some pre-teaching of the topic covered in 
     <li>WISE4 is a web-based learning environments, so students can sign in from a computer at school or at home.  This means that students can complete the project from any home or community based computer, per the teacher's discretion.</li>
 </ul>
 
+<h4>I do not remember my teacher access code that students need to create their account for my new students.</h4>
+To get the project run code for students you will find it when you login and look at your list of project runs. It is one of the pieces of information given for each run you have set up.
+Remember that you must first set up a run before having your students create a new account.
+
+<h4>Often the navigation bar on the left side of the page is disappearing on students' screens. What are they doing that is making this happen, and how do I get it back?</h4>
+
+When the students are running the project there is a button at the top of the page labeled "Full Screen".
+When you click on it the project page takes the the full area doing away with the navigation bar. 
+The students then use the green arrows (top left) to navigate. Clicking on it again will bring back the navigation bar. 
+
 <h2>Assessment of Student Work</h2>
 
 <h4>Where do I find my students' work?</h4>
@@ -131,12 +141,14 @@ We recommend that you go through the project and select a few steps that you thi
 <h4>The WISE 4 web site won't load on my web browser.  What do I do?</h4>
 
 Confirm that your are using the Firefox web browser, with Javascript set to on in the preferences panel.   WISE4 does not currently work with Internet Explorer.
+Click the following link to run an automated script that will test your computer's
+compatibility with WISE4: <a href="/webapp/check.html">WISE4 Compatibility Test</a>
 
 <h4>Can I run my WISE 2.0 projects in the new WISE 4.0 format?</h4>
 <ul>
     <li>At the present time if you are running a WISE 2.0 project you will need to user the older WISE 2.0 environment.  (wise.berkeley.edu)</li>
     <li>You can also contact us <a href="contactwisegeneral.html">here</a> to request a conversion of your WISE2 project into the new WISE 4 format.</li>
-    <li>By Spring 2011 we hope to offer an automated tool that will allow WISE2 users to convert their projects to the WISE4 format.</li>
+    <li>We hope to offer an automated tool that will allow WISE2 users to convert their projects to the WISE4 format.</li>
 </ul>
 <h4>How many computers do I need to run WISE?</h4>
 
@@ -144,8 +156,8 @@ We strongly recommend one computer for each two students. We know from research 
 
 <h4>What if I have trouble logging in?</h4>
 <ul>
-    <li>If you do not remember your Username or password click the Lost Username or Password?link and follow the instructions.  Note that your Username does not include a space between first and last name (unlike WISE 2). </li>
-    <li>You will also want to turn off any firewall software that may be blocking your access to the site.  Note that most school firewalls should not interfere with your WISE 3 downloads.</li>
+    <li>If you do not remember your Username or password click the Lost Username or Password link and follow the instructions.  Note that your Username does not include a space between first and last name (unlike WISE 2). </li>
+    <li>You will also want to turn off any firewall software that may be blocking your access to the site.</li>
 </ul>
 <h4>Who do I contact when I have a problem I can't solve?</h4>
 
