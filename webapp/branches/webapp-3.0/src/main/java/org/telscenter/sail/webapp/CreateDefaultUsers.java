@@ -192,6 +192,7 @@ public class CreateDefaultUsers {
         createRole(applicationContext, UserDetailsService.TEACHER_ROLE);
         createRole(applicationContext, UserDetailsService.STUDENT_ROLE);
         createRole(applicationContext, UserDetailsService.AUTHOR_ROLE);
+        createRole(applicationContext, UserDetailsService.RESEARCHER_ROLE);
     }
 
     private void createRole(ApplicationContext applicationContext, String role)

@@ -212,6 +212,19 @@
 <!--
 	<antcall target="_mvn.recompile"/>
 -->
+        <replace file="${basedir}/target/classes/hibernate.properties" token="org.hibernate.dialect.HSQLDialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+        <java classname="net.sf.sail.webapp.DbSchemaExporter" fork="true" failonerror="true" newenvironment="true">
+            <arg value="org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl" />
+            <arg value="${dir.src.main.resources}/tels/wise4-createtables.sql" />
+            <classpath refid="runtime.classpath" />
+        </java>
+    </target>
+    	
+    <target name="db.schema-export-old" description="Generate the database schema from annotated persistent classes in the production code.">
+        <property name="portal.config" value="tels"/>
+<!--
+	<antcall target="_mvn.recompile"/>
+-->
         <mkdir dir="${dir.src.db}/hsqldb"/>
         <mkdir dir="${dir.src.db}/mysql"/>
         
@@ -237,7 +250,7 @@
             <arg value="org.telscenter.sail.webapp.spring.impl.SpringConfigurationImpl" />
             <arg value="${dir.src.db}/mysql/hibernate-tels.sql" />
             <classpath refid="runtime.classpath" />
-        </java>        
+        </java>
     </target>
 
 	<target name="db.migrate" depends="_set.properties.jdbc, _input.portal.config" description="Generate the database schema from annotated persistent classes in the production code.">
@@ -309,7 +322,7 @@
     <!-- ================================= 
           target: db.init
          ================================= -->
-    <target name="db.init" depends="db.create" description="Initialize a production database with user role and default administrator account.">
+    <target name="db.init" depends="_set.properties.jdbc, _input.portal.config" description="Initialize a production database with user role and default administrator account.">
         <java classname="${init.classname}" fork="true" failonerror="true" newenvironment="true">
             <arg value="${settings.profiles.profile.properties.context.config.class}" />
             <classpath refid="runtime.classpath" />

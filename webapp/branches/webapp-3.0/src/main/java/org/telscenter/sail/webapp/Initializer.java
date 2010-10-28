@@ -86,7 +86,7 @@ public class Initializer {
 			// BEGIN: CREATES OFFERINGS USING LD-BASED PROJECTS
 			OfferingInitializer offeringInitializer = 
 				new OfferingInitializer(applicationContext);
-			offeringInitializer.createDefaultOfferings(adminUser);
+			//offeringInitializer.createDefaultOfferings(adminUser);
 			// END: CREATES OFFERINGS USING LD-BASED PROJECTS
 
 			
