@@ -34,10 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.telscenter.sail.webapp.domain.portal.Portal;
-import org.telscenter.sail.webapp.service.portal.PortalService;
-
-import net.sf.sail.webapp.dao.ObjectNotFoundException;
 import net.sf.sail.webapp.domain.User;
 import net.sf.sail.webapp.mail.IMailFacade;
 import net.sf.sail.webapp.presentation.web.controllers.ControllerUtil;
@@ -61,7 +57,7 @@ public class TelsSimpleMappingExceptionResolver extends
 
 	private Properties emaillisteners;
 	
-	private PortalService portalService;
+	private Properties portalProperties;
 
 	private static final String HANDLE_EXCEPTION_PROPERTY_KEY = "handle_exception";
 	
@@ -76,26 +72,22 @@ public class TelsSimpleMappingExceptionResolver extends
 	public ModelAndView resolveException(
 			HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) {
 		// send email to programmers
-		Portal portal;
-		try {
-			portal = portalService.getById(new Long(1));
+		String sendEmailOnExceptionStr = portalProperties.getProperty("send_email_on_exception");
+		boolean sendEmailOnException = sendEmailOnExceptionStr.equalsIgnoreCase("true");
 
-			if (portal.isSendMailOnException()) {
-				String[] recipients = {emaillisteners.getProperty(HANDLE_EXCEPTION_PROPERTY_KEY)};
-				String subject = HANDLE_EXCEPTION_MAIL_SUBJECT + ": (" + portal.getPortalName() + ")";
-				String fromEmail = HANDLE_EXCEPTION_FROM_EMAIL;
-				String message = getHandleExceptionMessage(request, response, handler, exception);
+		if (sendEmailOnException) {
+			String portalName = portalProperties.getProperty("portal.name");
+			String[] recipients = {emaillisteners.getProperty(HANDLE_EXCEPTION_PROPERTY_KEY)};
+			String subject = HANDLE_EXCEPTION_MAIL_SUBJECT + ": (" + portalName + ")";
+			String fromEmail = HANDLE_EXCEPTION_FROM_EMAIL;
+			String message = getHandleExceptionMessage(request, response, handler, exception);
 
-				ExceptionEmailSender emailSender = 
-					new ExceptionEmailSender(recipients,subject,fromEmail,message);
-				Thread thread = new Thread(emailSender);
-				thread.start();
-			}
-			return super.resolveException(request, response, handler, exception);
-		} catch (ObjectNotFoundException e1) {
-			e1.printStackTrace();
-			return null;
+			ExceptionEmailSender emailSender = 
+				new ExceptionEmailSender(recipients,subject,fromEmail,message);
+			Thread thread = new Thread(emailSender);
+			thread.start();
 		}
+		return super.resolveException(request, response, handler, exception);
 	}
 	
 	/**
@@ -189,9 +181,9 @@ public class TelsSimpleMappingExceptionResolver extends
 	}
 	
 	/**
-	 * @param portalService the portalService to set
+	 * @param portalProperties the portalProperties to set
 	 */
-	public void setPortalService(PortalService portalService) {
-		this.portalService = portalService;
+	public void setPortalProperties(Properties portalProperties) {
+		this.portalProperties = portalProperties;
 	}
 }
