@@ -30,7 +30,7 @@
 
 </head>
 
-<body>
+<body onload="document.getElementById('userName').focus()">
 <%@ include file="adminheader.jsp"%>
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
@@ -47,7 +47,7 @@
 
 <form:form method="post" commandName="findProjectParameters" id="search" autocomplete='off'>
 	<form:label path="userName">Enter the username of the Teacher: </form:label>
-	<form:input path="userName" id="userName"/>
+	<form:input path="userName" id="userName" />
 	
 	<input type="image" id="save" src="../<spring:theme code="register_save" />" 
     	onmouseover="swapSaveImage('save',1)"onmouseout="swapSaveImage('save',0)"   />

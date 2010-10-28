@@ -86,7 +86,8 @@ public class GradeWorkController extends AbstractController {
 				User user = ControllerUtil.getSignedInUser();
 				
 				//check that the user has read or write permission on the run
-				if(this.runService.hasRunPermission(run, user, BasePermission.WRITE) ||
+				if(user.isAdmin() ||
+						this.runService.hasRunPermission(run, user, BasePermission.WRITE) ||
 						this.runService.hasRunPermission(run, user, BasePermission.READ)){
 					String portalurl = ControllerUtil.getBaseUrlString(request);
 	

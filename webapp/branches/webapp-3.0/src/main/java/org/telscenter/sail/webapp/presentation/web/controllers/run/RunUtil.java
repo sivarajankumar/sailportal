@@ -30,46 +30,51 @@ public class RunUtil {
 	 */
 	public static JSONObject getMyUserInfo(Run run, WorkgroupService workgroupService) {
 		JSONObject myUserInfoJSONObject = new JSONObject();
-	
+
 		//get the singed in user
 		User signedInUser = ControllerUtil.getSignedInUser();
-		
+
 		//get the workgroup
 		List<Workgroup> workgroupListByOfferingAndUser = workgroupService.getWorkgroupListByOfferingAndUser(run, signedInUser);
-		Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
-
-		//get the workgroup id
-		Long workgroupId = workgroup.getId();
-		
-		//get name of the users in the workgroup
-		String userNamesFromWorkgroup = getUserNamesFromWorkgroup(workgroup);
-		
-		try {
-			//put all the username and workgroup id into the JSONObject
-			myUserInfoJSONObject.put("userName", userNamesFromWorkgroup);
-			myUserInfoJSONObject.put("workgroupId", workgroupId);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		//get the period the user is in
-		Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
-		
-		//check if the workgroup has a period (teacher's do not have a period)
-		if(periodGroup != null) {
-			//get the period name and id
-			String periodName = periodGroup.getName();
-			String periodId = periodGroup.getId().toString();
+		if (workgroupListByOfferingAndUser.size()==0 && signedInUser.isAdmin()) {
+			// an admin user is trying to run or view grades for a run
 			
+		} else {
+			Workgroup workgroup = workgroupListByOfferingAndUser.get(0);
+
+			//get the workgroup id
+			Long workgroupId = workgroup.getId();
+
+			//get name of the users in the workgroup
+			String userNamesFromWorkgroup = getUserNamesFromWorkgroup(workgroup);
+
 			try {
-				//put the period name and id into the JSONObject
-				myUserInfoJSONObject.put("periodName", periodName);
-				myUserInfoJSONObject.put("periodId", periodId);
+				//put all the username and workgroup id into the JSONObject
+				myUserInfoJSONObject.put("userName", userNamesFromWorkgroup);
+				myUserInfoJSONObject.put("workgroupId", workgroupId);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+
+			//get the period the user is in
+			Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
+
+			//check if the workgroup has a period (teacher's do not have a period)
+			if(periodGroup != null) {
+				//get the period name and id
+				String periodName = periodGroup.getName();
+				String periodId = periodGroup.getId().toString();
+
+				try {
+					//put the period name and id into the JSONObject
+					myUserInfoJSONObject.put("periodName", periodName);
+					myUserInfoJSONObject.put("periodId", periodId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		
+
 		return myUserInfoJSONObject;
 	}
 	

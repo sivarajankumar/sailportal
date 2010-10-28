@@ -97,9 +97,12 @@
     <td><fmt:formatDate value="${run.starttime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><fmt:formatDate value="${run.endtime}" type="both" dateStyle="short" timeStyle="short" /></td>
     <td><ul>
-    		<li><a href="../teacher/run/shareprojectrun.html?runId=${run.id}">Manage shared teachers</a></li>
+    <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+    		<li><a href="../teacher/grading/gradework.html?runId=${run.id}&gradingType=step">View/Grade/Export Work</a></li>    		
+    </sec:authorize>
+    		<li><a href="../teacher/run/shareprojectrun.html?runId=${run.id}">Manage shared teachers</a></li>    		
     		<li><a href="../teacher/management/viewmystudents.html?runId=${run.id}">Manage students</a></li>
-    	<c:choose>
+    	<c:choose>    	
     		<c:when test="${run.endtime == null}">
     			<li><a href="#" onclick="javascript:popup('../teacher/run/manage/archiveRun.html?runId=${run.id}&runName=${run.name}');">Archive run</a></li>
     		</c:when>

@@ -144,14 +144,20 @@ public class InformationController extends AbstractController{
 		//the period number that you would regularly think of as a period
 		String periodName = "";
 		
+		User loggedInUser = ControllerUtil.getSignedInUser();
+		
+		Long workgroupId = null;
+
 		//get the period
 		if(workgroup instanceof WISEWorkgroup && !((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
 			//the logged in user is a student
 			Group periodGroup = ((WISEWorkgroup) workgroup).getPeriod();
 			periodName = periodGroup.getName();
 			periodId = periodGroup.getId().toString();
-		} else if(((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
-			//the logged in user is a teacher
+			workgroupId = workgroup.getId();
+		} else if( (workgroup != null && ((WISEWorkgroup) workgroup).isTeacherWorkgroup())
+				|| (workgroup == null && loggedInUser.isAdmin())) {
+			//the logged in user is a teacher or is of admin-role
 			
 			//string buffers to maintain : delimited values
 			StringBuffer periodIds = new StringBuffer();
@@ -186,15 +192,20 @@ public class InformationController extends AbstractController{
 		}
 		
 		//obtain the user name in the format like "Geoffrey Kwan (GeoffreyKwan)"
-		String userNames = getUserNamesFromWorkgroup(workgroup);
+		String userNames = "";
+		if (workgroup != null) {
+			userNames = getUserNamesFromWorkgroup(workgroup);
+		} else if (workgroup == null && loggedInUser.isAdmin()) {
+			userNames = ((MutableUserDetails) loggedInUser.getUserDetails()).getCoreUsername();
+		}
+			 
 		
 		// add this user's info:
 		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + userNames + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
 		//userInfoString.append("<myUserInfo><workgroupId>" + workgroup.getId() + "</workgroupId><userName>" + workgroup.getGroup().getName().trim() + "</userName><periodId>" + periodId + "</periodId><periodName>" + periodName + "</periodName></myUserInfo>");
-		
 		JSONObject myUserInfo = new JSONObject();
 		try {
-			myUserInfo.put("workgroupId", workgroup.getId());
+			myUserInfo.put("workgroupId", workgroupId);
 			myUserInfo.put("userName", userNames);
 			myUserInfo.put("periodId", periodId);
 			myUserInfo.put("periodName", periodName);
@@ -236,7 +247,7 @@ public class InformationController extends AbstractController{
 			// otherwise get all classmates (excluding teacher)
 			for (Workgroup classmateWorkgroup : workgroups) {
 				if (classmateWorkgroup.getMembers().size() > 0 
-						&& classmateWorkgroup.getId() != workgroup.getId() 
+						&& (workgroup == null || classmateWorkgroup.getId() != workgroup.getId())  // workgroup==null check is in case the logged in user is an admin, then the admin would not be in a workgroup for this run.
 						&& !((WISEWorkgroup) classmateWorkgroup).isTeacherWorkgroup()
 						&& ((WISEWorkgroup) classmateWorkgroup).getPeriod() != null) {   // only include classmates, not yourself.
 					//get the xml for the classmate and append it

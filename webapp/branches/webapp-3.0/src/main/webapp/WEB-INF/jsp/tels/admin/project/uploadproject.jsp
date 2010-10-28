@@ -5,17 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-
-    
 <script type="text/javascript" src="../../javascript/tels/general.js"></script>
-<script type="text/javascript" src="../../javascript/tels/effects.js"></script>
-<script type="text/javascript" src=".././javascript/tels/general.js"></script>
     
 <title>Edit Project Page</title>
 
-<script type='text/javascript' src='/webapp/dwr/engine.js'></script>
 </head>
 <body>
+
+<h5 style="color:#0000CC;"><a href="../index.html">Return to Main Menu</a></h5>
 
 <c:out value="${msg}" />
 
