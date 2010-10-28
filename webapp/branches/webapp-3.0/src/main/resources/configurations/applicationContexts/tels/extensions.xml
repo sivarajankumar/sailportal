@@ -28,7 +28,7 @@
         location="classpath:messages/tels/ui-html.properties" />
 
 	<util:properties id="emaillisteners" 
-        location="classpath:emaillisteners" />
+        location="classpath:portal.properties" />
         
     <util:properties id="portalproperties" 
         location="classpath:portal.properties" />
