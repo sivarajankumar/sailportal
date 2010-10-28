@@ -158,6 +158,10 @@ public class InformationController extends AbstractController{
 		} else if( (workgroup != null && ((WISEWorkgroup) workgroup).isTeacherWorkgroup())
 				|| (workgroup == null && loggedInUser.isAdmin())) {
 			//the logged in user is a teacher or is of admin-role
+			// if teacher, include workgroupId:
+			if(workgroup != null && ((WISEWorkgroup) workgroup).isTeacherWorkgroup()) {
+				workgroupId = workgroup.getId();
+			}
 			
 			//string buffers to maintain : delimited values
 			StringBuffer periodIds = new StringBuffer();
