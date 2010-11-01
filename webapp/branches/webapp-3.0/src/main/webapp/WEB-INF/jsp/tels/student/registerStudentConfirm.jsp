@@ -47,9 +47,9 @@
 			<h4><spring:message code="student.registerstudentconfirm.2"/></h4>
 			<h4><spring:message code="student.registerstudentconfirm.3"/> <span id="usernameConfirm">${username}</span></h4>
 			<ul>
-		    <li>WRITE DOWN your Username and Password!</li>
+		    <li><b style="color:red;">WRITE DOWN your Username and Password!</b></li>
 		    <li>REMEMBER: your Username is your <b>FIRST</b> name, the <b>LETTER</b> of your last name, and your <b>BIRTHDAY</b> numbers. 
-				Example: <b style="color:red;">JohnD322</b> is the Username for John Doe with birthday on 3/22.</li>
+				Example:<b>JohnD0322</b> is the Username for John Doe with birthday on 3/22.</li>
 			</ul>
 </div>
 
