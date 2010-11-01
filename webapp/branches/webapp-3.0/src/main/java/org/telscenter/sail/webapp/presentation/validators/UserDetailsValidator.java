@@ -31,7 +31,7 @@ import org.telscenter.sail.webapp.domain.authentication.MutableUserDetails;
  * Validator for TELS UserDetails
  *
  * @author Hiroki Terashima
- * @version $Id: $
+ * @version $Id$
  */
 public class UserDetailsValidator extends
 		net.sf.sail.webapp.presentation.validators.UserDetailsValidator {
@@ -66,13 +66,23 @@ public class UserDetailsValidator extends
 	    	errors.rejectValue("signupdate", "error.signupdate-not-specified");
 	    	return;
 	    }
-		
+
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname", 
 				"error.firstname-not-specified");
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastname", 
 				"error.lastname-not-specified");
-		
+
+		if (!StringUtils.isAlphanumeric(userDetails.getFirstname())) {
+			errors.rejectValue("firstname", "error.firstname-illegal-characters");
+			return;
+		}
+
+		if (!StringUtils.isAlphanumeric(userDetails.getLastname())) {
+			errors.rejectValue("lastname", "error.lastname-illegal-characters");
+			return;
+		}
+
 		if (errors.hasErrors())
 			userDetails.setPassword("");
 	}

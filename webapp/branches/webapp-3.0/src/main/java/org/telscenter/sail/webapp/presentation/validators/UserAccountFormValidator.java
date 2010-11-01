@@ -90,6 +90,18 @@ public class UserAccountFormValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userDetails.lastname", 
 		"error.lastname-not-specified");
 		
+		if (!StringUtils.isAlphanumeric(userDetails.getFirstname()) ||
+				!StringUtils.isAsciiPrintable(userDetails.getFirstname())) {
+			errors.rejectValue("userDetails.firstname", "error.firstname-illegal-characters");
+			return;
+		}
+
+		if (!StringUtils.isAlphanumeric(userDetails.getLastname()) ||
+				!StringUtils.isAsciiPrintable(userDetails.getLastname())) {
+			errors.rejectValue("userDetails.lastname", "error.lastname-illegal-characters");
+			return;
+		}
+		
 		if (errors.hasErrors())
 			userDetails.setPassword("");
 	}

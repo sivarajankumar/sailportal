@@ -67,9 +67,11 @@ public class UserServiceImpl extends
 			try {
 				details.setUsername(coreUsername + suffixes[index]);
 				User createdUser = super.createUser(details);
-				NewAccountEmailService newAccountEmailService = new NewAccountEmailService(createdUser);
-				Thread thread = new Thread(newAccountEmailService);
-				thread.start();
+				if (createdUser.getUserDetails() instanceof TeacherUserDetails) {
+					NewAccountEmailService newAccountEmailService = new NewAccountEmailService(createdUser);
+					Thread thread = new Thread(newAccountEmailService);
+					thread.start();
+				}
 				return createdUser;
 			}
 			catch (DuplicateUsernameException e) {
