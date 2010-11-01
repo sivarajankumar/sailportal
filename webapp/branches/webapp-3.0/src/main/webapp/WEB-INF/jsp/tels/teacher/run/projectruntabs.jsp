@@ -222,7 +222,7 @@
 					        <li><a href="editrun.html?runId=${run.id}" target="_top">Edit Run Info</a></li>
 							<li><a href="../grading/gradework.html?runId=${run.id}&gradingType=step" target="_top"><spring:message code="teacher.run.myprojectruns.16"/></a></li>
    	                        <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top"><spring:message code="teacher.run.myprojectruns.17"/></a></li>				    	
-		                    <li><a style="text-decoration:line-through;" href="../grading/currentscore.html?runId=${run.id}" id="studentScoreSummary" target="_top">Scores Summary</a></li>
+		                    <li><a href="../grading/gradework.html?runId=${run.id}&gradingType=team" target="_top">Scores Summary</a></li>
 					               </c:otherwise>
 					           </c:choose>
 					    </ul>
