@@ -3,8 +3,6 @@
  */
 package org.telscenter.sail.webapp.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
@@ -19,7 +17,6 @@ import net.sf.sail.webapp.service.authentication.UserNotFoundException;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
-import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
 import org.telscenter.sail.webapp.service.authentication.UserDetailsService;

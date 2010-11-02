@@ -66,7 +66,6 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 	private static final String ACCOUNT_QUESTION = "accountQuestion";
 	private static final String USERNAME = "username";
 	protected UserService userService = null;
-	private User user;
 
 	/**
 	 * Constructor - Specify the pages in the wizard - Specify the command name
@@ -118,7 +117,7 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 						break;
 					} else {
 						username = StringUtils.trimToNull(username);
-						user = userService.retrieveUserByUsername(username);
+						User user = userService.retrieveUserByUsername(username);
 						
 						/* check to see if user exists and ensure that user is a student */
 						if(user == null || !(user.getUserDetails() instanceof StudentUserDetails)){
@@ -146,7 +145,6 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 		
 			submittedAccountAnswer = StringUtils
 					.lowerCase(submittedAccountAnswer);
-			;
 		
 			if (!accountAnswer.equals(submittedAccountAnswer)) {
 				//TODO: archana needs to update these
@@ -165,8 +163,11 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors,
 					"newPassword", "error.verify-newpassword");
 			
-			String newPassword = reminderParameters
-			.getNewPassword();
+			if (errors.hasErrors()) {
+				break;
+			}
+			
+			String newPassword = reminderParameters.getNewPassword();
 
 			String verifyPassword = reminderParameters.getVerifyPassword();
 		
@@ -205,18 +206,22 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 		case 0:
 			break;
 		case 1:
+			String username = reminderParameters.getUsername();
 			
-					StudentUserDetails userDetails = (StudentUserDetails) user
-							.getUserDetails();
+			username = StringUtils.trimToNull(username);
+			User user = userService.retrieveUserByUsername(username);
 
-					model.put(USERNAME, userDetails.getUsername());
-					model.put(ACCOUNT_QUESTION, userDetails
-							.getAccountQuestion());
+			StudentUserDetails userDetails = (StudentUserDetails) user
+			.getUserDetails();
 
-					reminderParameters.setAccountQuestion(userDetails
-							.getAccountQuestion());
-					reminderParameters.setAccountAnswer(userDetails
-							.getAccountAnswer());
+			model.put(USERNAME, userDetails.getUsername());
+			model.put(ACCOUNT_QUESTION, userDetails
+					.getAccountQuestion());
+
+			reminderParameters.setAccountQuestion(userDetails
+					.getAccountQuestion());
+			reminderParameters.setAccountAnswer(userDetails
+					.getAccountAnswer());
 			break;
 		default:
 			break;
@@ -244,6 +249,12 @@ public class PasswordReminderWizardController extends AbstractWizardFormControll
 
 		String newPassword = params.getNewPassword();
 
+		String username = params.getUsername();
+		
+		username = StringUtils.trimToNull(username);
+		User user = userService.retrieveUserByUsername(username);
+
+		
 		if (newPassword != null) {
 			userService.updateUserPassword(user, newPassword);
 		}

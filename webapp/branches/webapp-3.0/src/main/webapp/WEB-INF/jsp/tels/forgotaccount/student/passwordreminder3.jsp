@@ -68,11 +68,15 @@
 			<td><label id="passwordform2" for="answer"><spring:message code="lostpassword.student.verify-password" /></label></td>
 			<td><input id="verifyPassword" name="verifyPassword" type="password" size="25" tabindex="2" /></td>
 		</tr>
+		<tr>
+			<td></td>
+			<td>		
+				<div id="finalPasswordReminderButtons">
+				<input type="submit" name="_finish" value="SUBMIT" /> 
+				</div>
+			</td>
+		</tr>
 		</table>		
-		<div id="finalPasswordReminderButtons">
-  			<input type="submit" name="_cancel" value="<spring:message code="navigate.cancel" />" />
-			<input type="submit" name="_finish" value="SUBMIT" /> 
-		</div>
 	</form>
 
 </div>
