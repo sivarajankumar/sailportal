@@ -19,11 +19,11 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 
+import roolo.api.IRepository;
 import roolo.elo.ELOMetadataKeys;
 import roolo.elo.api.IELO;
 import roolo.elo.api.IMetadata;
 import roolo.elo.api.IMetadataValueContainer;
-import roolo.elo.api.IRepository;
 
 
 public class RooloLOROtmlModuleDao extends AbstractHibernateDao<Module>

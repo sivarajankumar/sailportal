@@ -26,9 +26,9 @@ import java.net.URI;
 
 import org.telscenter.sail.webapp.service.repository.RepositoryService;
 
+import roolo.api.IRepository;
 import roolo.elo.api.IELO;
 import roolo.elo.api.IMetadata;
-import roolo.elo.api.IRepository;
 
 public class RooloLORRepositoryServiceImpl implements RepositoryService {
 

@@ -39,7 +39,6 @@ import org.telscenter.sail.webapp.service.module.ModuleService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
 import roolo.elo.api.IELO;
-import roolo.elo.content.StringContent;
 
 /**
  * @author patrick lawler
@@ -96,7 +95,7 @@ public class AuthorRooloProjectController extends SimpleFormController {
     	
     	RooloOtmlModuleImpl mod = (RooloOtmlModuleImpl) this.moduleService.getById(params.getCurnitId());
     	IELO elo = this.moduleService.getEloForModule(mod);
-    	elo.setContent(new StringContent(params.getXml()));
+    	//elo.setContent(new StringContent(params.getXml()));
     	mod.setElo(elo);
     	this.moduleService.updateCurnit(mod);
     	this.projectService.updateProject(project);

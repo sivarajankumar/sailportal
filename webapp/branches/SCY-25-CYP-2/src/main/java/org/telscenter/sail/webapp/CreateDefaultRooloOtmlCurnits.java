@@ -41,16 +41,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
 
+import roolo.api.IRepository;
 import roolo.elo.BasicELO;
 import roolo.elo.ELOMetadataKeys;
-import roolo.elo.RepositoryJcrImpl;
+
 import roolo.elo.api.I18nType;
 import roolo.elo.api.IContent;
 import roolo.elo.api.IELO;
 import roolo.elo.api.IMetadata;
 import roolo.elo.api.IMetadataKey;
 import roolo.elo.api.IMetadataValueContainer;
-import roolo.elo.api.IRepository;
 import roolo.elo.api.metadata.MetadataValueCount;
 import roolo.elo.metadata.keys.LongMetadataKey;
 
@@ -312,7 +312,7 @@ public class CreateDefaultRooloOtmlCurnits {
 	}
 	
 	public void createDefaultCurnits(ConfigurableApplicationContext applicationContext) {
-		// Create repository
+		/*// Create repository
 		rep = new RepositoryJcrImpl();
 		IELO airbagsCurnit = createAirbagsCurnit();
 		rep.addELO(airbagsCurnit);
@@ -343,7 +343,7 @@ public class CreateDefaultRooloOtmlCurnits {
 		IELO diyCurnit = createDiyCurnit();
 		rep.addELO(diyCurnit);
 		saveToLocalDb(applicationContext, diyCurnit);
-
+       */
 	}
 
 	/**

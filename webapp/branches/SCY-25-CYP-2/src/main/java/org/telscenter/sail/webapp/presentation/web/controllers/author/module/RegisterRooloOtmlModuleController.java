@@ -31,8 +31,8 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.telscenter.sail.webapp.dao.module.impl.RooloOtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloOtmlModuleParameters;
+import roolo.api.IRepository;
 
-import roolo.elo.api.IRepository;
 
 /**
  * Controller for registering a new RooloOtmlModule with the portal.

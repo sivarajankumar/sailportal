@@ -41,7 +41,6 @@ import org.telscenter.sail.webapp.service.project.ProjectService;
 
 import roolo.elo.api.IContent;
 import roolo.elo.api.IELO;
-import roolo.elo.content.StringContent;
 
 /**
  * @author patrick lawler
@@ -83,7 +82,7 @@ public class UploadXMLProjectController extends SimpleFormController {
 			Project project = this.projectService.getById(Long.parseLong(request.getParameter(PROJECTID)));
 			RooloOtmlModuleImpl mod = (RooloOtmlModuleImpl)this.moduleService.getById(project.getCurnit().getId());
 			IELO elo = this.moduleService.getEloForModule(mod);
-			elo.setContent(new StringContent(xmlString));
+			//elo.setContent(new StringContent(xmlString));
 			mod.setElo(elo);
 			this.moduleService.updateCurnit(mod);
 			return new ModelAndView(new RedirectView(this.getSuccessView()));

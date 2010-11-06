@@ -39,11 +39,11 @@ import org.telscenter.sail.webapp.domain.project.FamilyTag;
 import org.telscenter.sail.webapp.domain.project.ProjectInfo;
 import org.telscenter.sail.webapp.domain.project.impl.ProjectInfoImpl;
 
+import roolo.api.IRepository;
 import roolo.elo.ELOMetadataKeys;
 import roolo.elo.api.IELO;
 import roolo.elo.api.IMetadata;
 import roolo.elo.api.IMetadataValueContainer;
-import roolo.elo.api.IRepository;
 import roolo.elo.api.exceptions.ELODoesNotExistException;
 
 /**
@@ -103,7 +103,7 @@ public class RooloOtmlModuleDao extends AbstractHibernateDao<Module>
 			this.rooloClientCurnitRepository.updateELO(((RooloOtmlModuleImpl)module).getElo());
 		} catch(ELODoesNotExistException e){  
 			//if this is thrown, then add it to repository
-			this.rooloClientCurnitRepository.addELO(((RooloOtmlModuleImpl)module).getElo());
+			//this.rooloClientCurnitRepository.addELO(((RooloOtmlModuleImpl)module).getElo());
 		}
 	}
 	

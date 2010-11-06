@@ -55,7 +55,6 @@ import roolo.elo.api.IMetadata;
 import roolo.elo.api.IMetadataKey;
 import roolo.elo.api.IMetadataValueContainer;
 import roolo.elo.api.metadata.MetadataValueCount;
-import roolo.elo.content.StringContent;
 import roolo.elo.metadata.keys.LongMetadataKey;
 import roolo.elo.metadata.value.containers.MetadataSingleUniversalValueContainer;
 
@@ -104,7 +103,7 @@ public class CreateRooloProjectController extends SimpleFormController{
     	Long id = ((ModuleService) this.curnitService).getLatestId() + 1;
     	URI uri = new URI("roolootmlmod." + id);
     	
-    	elo.setContent(new StringContent(xml));
+/*    	elo.setContent(new StringContent(xml));
 		IMetadata metadata = elo.getMetadata();
 		
 		IMetadataKey uriKey = this.createLongMetadataKey();
@@ -114,7 +113,7 @@ public class CreateRooloProjectController extends SimpleFormController{
 		metadata.addMetadataPair(uriKey, container);
 		((BasicELO)elo).setUriKey(uriKey);
 		setContainersEssentialKeys(metadata, container);
-		
+*/		
 		params.setElo(elo);
 		params.setRoolouri(elo.getUri().toString());
 		params.setRooloRepositoryUrl(REP_URL);

@@ -40,13 +40,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.telscenter.sail.webapp.dao.module.impl.RooloLOROtmlModuleDao;
 import org.telscenter.sail.webapp.domain.impl.CreateRooloLOROtmlModuleParameters;
 
+import roolo.api.IRepository;
 import roolo.elo.BasicELO;
 import roolo.elo.ELOMetadataKeys;
 import roolo.elo.api.IContent;
 import roolo.elo.api.IELO;
 import roolo.elo.api.IMetadata;
 import roolo.elo.api.IMetadataValueContainer;
-import roolo.elo.api.IRepository;
+
 
 /**
  * Adds default otml-curnits into Roolo repository.
@@ -135,7 +136,7 @@ public class CreateDefaultRooloLOROtmlCurnits {
 		// Create repository
 		//rep = rep = new RooloEnlaceLOR(WS_URL, WS_USER, WS_PASS);
 		IELO airbagsCurnit = createAirbagsCurnit();
-		rep.addELO(airbagsCurnit);
+		//rep.addELO(airbagsCurnit);
 		saveToLocalDb(applicationContext, airbagsCurnit);
 		
 //		LearningObject chemicalReactionsCurnit = createChemicalReactionsCurnit();
