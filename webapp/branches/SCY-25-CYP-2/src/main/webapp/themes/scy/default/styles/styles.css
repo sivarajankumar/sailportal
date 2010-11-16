@@ -8,18 +8,18 @@ body, html {
 }
 
 body {
-    background-image:url(../images/mainBg.png);
-    background-repeat:repeat-x;
+    background-image:url(../images/scybackground.png);
+    /*background-repeat:repeat-x;*/
 }
 
 th{
 	font-weight: bold;
-    background-color:#2374bc;
+    background-color:#614693;
     color:#ffffff;
 }
 
 #breadcrumbs{
-    background-color:#d8ecff;
+    background-color:#8cc2d4;
     margin-right:2px;
     /*margin:2px;
     padding:2px;*/
@@ -38,7 +38,7 @@ h1 {
     padding-top:4px;
     padding-left:5px;
     color:#ffffff;
-    background-color:#0097ff;
+    background-color:#614693;
     width:70%;
     height:26px;
     background-image:url(../images/scySmall.png);
@@ -65,14 +65,14 @@ p {
 }
 
 .logo {
-	height: 162px;
-	background-image: url("../images/scyLogo.png");
+	height: 100px;
+	background-image: url("../images/headerimage.png");
     background-repeat:no-repeat;
-    background-position:left bottom;
+   /* background-position:left bottom;
     margin-bottom:5px;
 
     margin-left:29px;
-/*	margin-top: 0.8em;
+	margin-top: 0.8em;
 	margin-bottom: 1em;*/
 }
 
@@ -81,7 +81,7 @@ p {
     top:0;
     bottom:0;
     overflow:auto;
-    padding: 2em;
+    /*padding: 2em;*/
     left:0;
     right:0;
 }
@@ -92,40 +92,43 @@ p {
     margin-left:auto;
     margin-right:auto;
     /*padding-top:11px;*/
-    background-image:url(../images/contentsBgTop.png);
-    background-repeat:no-repeat;
+    /*background-image:url(../images/contentsBgTop.png);
+    background-repeat:no-repeat;*/
+    background-color:#ffffff;
     height:100%;
+    border:4px solid #3733ef;
 }
 
 #hd{
-    height:220px;
-    width:812px;
-    margin-left:12px;
+    height:144px;
+    width:834px;
+   /* margin-left:12px;*/
     /*padding-top:17px;*/
-    background-image:url(../images/bannerBg.png);
-    background-repeat:no-repeat;
+    /*background-image:url(../images/bannerBg.png);
+    background-repeat:no-repeat;*/
     position:relative;
     top:0;
-    background-position:left 11px;
+   /* background-position:left 11px;*/
 }
 
 #bd{
-    background-image:url(../images/contentsBg.png);
-    background-repeat:repeat-y;
+    /*background-image:url(../images/contentsBg.png);
+    background-repeat:repeat-y;*/
     /*margin-top:1px;*/
     position:absolute;
-    width:100%;
-
-    top:230px;
+    width:820px;
+    margin-left:7px;
+    
+    top:170px;
     bottom:21px;
     clear:both;
 }
 
 #ft{
     height: 21px;
-	background: url("../images/bottomBg.png");
+	/*background: url("../images/bottomBg.png");
     background-repeat:no-repeat;
-    background-position:top center;
+    background-position:top center;*/
     /*position:absolute;
     bottom:0;*/
     position:absolute;
@@ -151,7 +154,7 @@ ul.menu li a {
 	margin: 1px;
 	padding: 0 0.5em;
 	border: 0;
-	color: #ffffff;
+	color: #03a5be;
 	text-decoration: none;
 	height: 31px;
 	line-height: 31px;
@@ -172,8 +175,9 @@ ul.menu li a.selected {
 }
 
 .menubar-wrapper {
-	background: url("../images/menuBg.png") repeat-x;
-	height: 42px;
+	background: url(../images/newmenubg.png);
+    background-repeat:no-repeat;
+	height: 44px;
 }
 
 
@@ -189,7 +193,7 @@ ul.menu li a.selected {
 
 /****** OPTIONS ******/
 .options {
-    padding-top:20px;
+    padding-top:65px;
 	text-align: right;
 	font-size: 0.9em;
     float:right;
@@ -357,13 +361,18 @@ table td{
 }
 
 .tablerow-even{
-    background-color:#ecf6ff;
+    background-color:#80a8bb;
     /*border-collapse:collapse;*/
 }
 
 .tablerow-odd{
-    background-color:#d8ecff;
+    background-color:#8cc2d4;
     /*border-collapse:collapse;*/
+}
+
+.tablerow-even a, .tablerow-odd a{
+    color:#000000;
+    text-decoration:none;
 }
 
 #loginTable{
