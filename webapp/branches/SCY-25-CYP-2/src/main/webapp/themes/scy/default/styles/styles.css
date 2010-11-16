@@ -9,7 +9,7 @@ body, html {
 
 body {
     background-image:url(../images/scybackground.png);
-    /*background-repeat:repeat-x;*/
+    
 }
 
 th{
@@ -68,12 +68,7 @@ p {
 	height: 100px;
 	background-image: url("../images/headerimage.png");
     background-repeat:no-repeat;
-   /* background-position:left bottom;
-    margin-bottom:5px;
 
-    margin-left:29px;
-	margin-top: 0.8em;
-	margin-bottom: 1em;*/
 }
 
 #centeredDiv{
@@ -91,9 +86,6 @@ p {
 
     margin-left:auto;
     margin-right:auto;
-    /*padding-top:11px;*/
-    /*background-image:url(../images/contentsBgTop.png);
-    background-repeat:no-repeat;*/
     background-color:#ffffff;
     height:100%;
     border:4px solid #3733ef;
@@ -102,19 +94,12 @@ p {
 #hd{
     height:144px;
     width:834px;
-   /* margin-left:12px;*/
-    /*padding-top:17px;*/
-    /*background-image:url(../images/bannerBg.png);
-    background-repeat:no-repeat;*/
     position:relative;
     top:0;
-   /* background-position:left 11px;*/
+
 }
 
 #bd{
-    /*background-image:url(../images/contentsBg.png);
-    background-repeat:repeat-y;*/
-    /*margin-top:1px;*/
     position:absolute;
     width:820px;
     margin-left:7px;
@@ -126,11 +111,7 @@ p {
 
 #ft{
     height: 21px;
-	/*background: url("../images/bottomBg.png");
-    background-repeat:no-repeat;
-    background-position:top center;*/
-    /*position:absolute;
-    bottom:0;*/
+
     position:absolute;
     bottom:0;
     width:100%;
