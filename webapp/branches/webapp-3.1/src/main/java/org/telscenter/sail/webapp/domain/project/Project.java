@@ -226,4 +226,6 @@ public interface Project extends Persistable {
 	 * @param parentProjectId
 	 */
 	public void setParentProjectId(Long parentProjectId);
+	
+	public Long getParentProjectId();
 }

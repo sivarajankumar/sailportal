@@ -33,6 +33,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -143,6 +144,29 @@ public class AuthorProjectController extends AbstractController {
 						return new ModelAndView(new RedirectView("accessdenied.html"));
 					}
 					
+					//command is review update project or to update project
+					if("reviewUpdateProject".equals(command) || "updateProject".equals(command)) {
+						//get the curriculum base directory
+						String curriculumBaseDir = portalProperties.getProperty("curriculum_base_dir");
+						
+						//get the project url
+						String projectUrl = (String) project.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+						
+						//get the parent project id
+						Long parentProjectId = project.getParentProjectId();
+						
+						//get the parent project
+						Project parentProject = projectService.getById(parentProjectId);
+						
+						//get the parent project url
+						String parentProjectUrl = (String) parentProject.getCurnit().accept(new CurnitGetCurnitUrlVisitor());
+						
+						//set the attributes so that FileManager.java can access these values in the vlewrapper
+						request.setAttribute("curriculumBaseDir", curriculumBaseDir);
+						request.setAttribute("projectUrl", projectUrl);
+						request.setAttribute("parentProjectUrl", parentProjectUrl);
+					}
+					
 					CredentialManager.setRequestCredentials(request, user);
 					servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
 					
@@ -224,6 +248,10 @@ public class AuthorProjectController extends AbstractController {
 			} else if(command.equals("postMetadata")) {
 				request.setAttribute("project", project);
 				return handlePostMetadata(request, response);
+			} else if(command.equals("reviewUpdateProject")) {
+				return handleReviewUpdateProject(request, response);
+			} else if(command.equals("updateProject")) {
+				return handleUpdateProject(request, response);
 			}
 		}
 		
@@ -780,6 +808,57 @@ public class AuthorProjectController extends AbstractController {
 			} catch (NotAuthorizedException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Handle the review update project
+	 */
+	private ModelAndView handleReviewUpdateProject(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		return handleReviewOrUpdateProject(request, response);
+	}
+	
+	/**
+	 * Handle the update project
+	 */
+	private ModelAndView handleUpdateProject(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		return handleReviewOrUpdateProject(request, response);
+	}
+	
+	/**
+	 * Handle the review update project or update project 
+	 */
+	private ModelAndView handleReviewOrUpdateProject(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		try {
+			//get the service we will forward to, this should be "filemanager"
+			String forward = request.getParameter("forward");
+			
+			//get the project id
+			String projectId = request.getParameter("projectId");
+			
+			//get the project
+			Project project = this.projectService.getById(projectId);
+			
+			//get the signed in user
+			User user = ControllerUtil.getSignedInUser();
+			
+			//make sure the signed in user has write access
+			if(this.projectService.canAuthorProject(project, user)) {
+				//get the vlewrapper context
+				ServletContext servletContext = this.getServletContext().getContext("/vlewrapper");
+				CredentialManager.setRequestCredentials(request, user);
+				
+				//forward the request to the vlewrapper
+				servletContext.getRequestDispatcher("/vle/" + forward + ".html").forward(request, response);
+				
+				//TODO: update the project edited timestamp
+			}
+		} catch (ObjectNotFoundException e) {
+			e.printStackTrace();
+		} catch (ServletException e) {
+			e.printStackTrace();
 		}
 		
 		return null;
