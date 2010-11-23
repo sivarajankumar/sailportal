@@ -30,8 +30,8 @@
 <link href="../<spring:theme code="registerstylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
 <script src="../javascript/tels/general.js" type="text/javascript" > </script>
-<script src="../javascript/tels/effects.js" type="text/javascript" > </script>
-<script src="../javascript/tels/scriptaculous.js" type="text/javascript" ></script>
+<!-- <script src="../javascript/tels/effects.js" type="text/javascript" > </script>
+<script src="../javascript/tels/scriptaculous.js" type="text/javascript" ></script> -->
 
 <!-- Dependency -->
 <script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js"></script>
@@ -54,13 +54,19 @@ function findPeriods() {
 		  	if (responseText == "not found" || responseText.length < 2) {
 		  		alert("The Access Code is invalid. Please talk with your teacher");
 		  	} else {
-  				periodSelect.innerHTML += "<option value='none'>Select your class period...</option>";
+			  	var op = document.createElement('option');
+			  	op.appendChild(document.createTextNode("Select your class period..."));
+			  	op.value = 'none';
+  				periodSelect.appendChild(op);
 			  	
 			  	var periodsArr = responseText.split(",");
 		  		for (var i=0; i < periodsArr.length; i++) {
 			  		var periodName = periodsArr[i];
 			  		if (periodName != "") {
-		  				periodSelect.innerHTML += "<option value='"+periodName+"'>"+periodName+"</option>";
+			  			var op = document.createElement('option');
+					  	op.appendChild(document.createTextNode(periodName));
+					  	op.value = periodName;
+		  				periodSelect.appendChild(op);
 			  		}
 		  		}
 		  		periodSelect.disabled = false;
@@ -222,7 +228,7 @@ document.getElementById('firstname').focus();
           <span class="hint">Get this code from your teacher and enter it.  Then click the <i>Show Class Periods</i> button and select your class period.<span class="hint-pointer"></span></span></dd>
 
 		<dt><label for="runCode_part1" id="runCode_part1_label"></label></dt>
-	  <dd ><a href="#" onclick="findPeriods();" class="periodLink">Show Class Periods</a></dd>
+	  <dd ><a onclick="findPeriods();" class="periodLink">Show Class Periods</a></dd>
 
 
       <dt><label for="runCode_part2" id="runCode_part2_label">Class Period:</label></dt>

@@ -73,16 +73,16 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
 
 	// Instantiate the Dialog
 	var addProjectDialog = new YAHOO.widget.Dialog("addProjectDialog", 
-																{ width : "720px",
-																  fixedcenter : true,
-																  visible : false, 
-																  iframe : true,
-																  //ie7 modal problem
-																  //modal:false,
-																  constraintoviewport : true,
-																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-																  buttons : [ {text:"CANCEL", handler:handleCancel,isDefault:true } ]
-																 } );
+			{ width : "720px",
+			  fixedcenter : true,
+			  visible : false, 
+			  iframe : true,
+			  //ie7 modal problem
+			  //modal:false,
+			  constraintoviewport : true,
+			  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+			  buttons : [ {text:"CANCEL", handler:handleCancel,isDefault:true } ]
+			 } );
 	
 	
     addProjectDialog.render();
@@ -150,18 +150,18 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
 
 	// Instantiate the Dialog
 	var changePeriodTeamDialog = new YAHOO.widget.Dialog("changePeriodTeamDialog", 
-																{ width : "700px",
-																//  height : "70%",
-																  fixedcenter : true,
-																  visible : false, 
-																  iframe : true,
-																  //ie7 modal problem
-																  //modal:false,
-																  constraintoviewport : true,
-																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-																  buttons : [ 
-																			  {text:"Close", handler:handleCancel,isDefault:true } ]
-																 } );
+		{ width : "700px",
+		//  height : "70%",
+		  fixedcenter : true,
+		  visible : false, 
+		  iframe : true,
+		  //ie7 modal problem
+		  //modal:false,
+		  constraintoviewport : true,
+		  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+		  buttons : [ 
+					  {text:"Close", handler:handleCancel,isDefault:true } ]
+		 } );
 	
 	
     changePeriodTeamDialog.render();
@@ -187,18 +187,18 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
 	
 	// Instantiate the Dialog
 	var changePasswordDialog = new YAHOO.widget.Dialog("changePasswordDialog", 
-																{ width : "700px",
-																  // height : "300px",
-																  fixedcenter : true,
-																  visible : false, 
-																  iframe : true,
-																  //ie7 modal problem
-																  //modal:false,
-																  constraintoviewport : true,
-																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-																  buttons : [ 
-																			  { text:"Close", handler:handleClosePassword,isDefault:true } ]
-																 } );
+		{ width : "700px",
+		  // height : "300px",
+		  fixedcenter : true,
+		  visible : false, 
+		  iframe : true,
+		  //ie7 modal problem
+		  //modal:false,
+		  constraintoviewport : true,
+		  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+		  buttons : [ 
+					  { text:"Close", handler:handleClosePassword,isDefault:true } ]
+		 } );
 	
 	
 	// Render the Dialog
@@ -226,18 +226,18 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
 	
 	// Instantiate the Dialog
 	var runProjectDialog = new YAHOO.widget.Dialog("runProjectDialog", 
-																{ width : "700px",
-																//  height : "70%",
-																  fixedcenter : true,
-																  visible : false, 
-																  iframe : true,
-																  //ie7 modal problem
-																  //modal:false,
-																  constraintoviewport : true,
-																  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
-																  buttons : [ 
-																			  { text:"Close", handler:handleCloseRun,isDefault:true } ]
-																 } );
+		{ width : "700px",
+		//  height : "70%",
+		  fixedcenter : true,
+		  visible : false, 
+		  iframe : true,
+		  //ie7 modal problem
+		  //modal:false,
+		  constraintoviewport : true,
+		  effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.25},
+		  buttons : [ 
+					  { text:"Close", handler:handleCloseRun,isDefault:true } ]
+		 } );
 	
 	// Render the Dialog
 	runProjectDialog.render();

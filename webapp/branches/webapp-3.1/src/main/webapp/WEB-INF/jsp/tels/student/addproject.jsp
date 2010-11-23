@@ -50,13 +50,19 @@ function findPeriods() {
 		  	if (responseText == "not found" || responseText.length < 2) {
 		  		alert("The Access Code is invalid. Please ask your teacher for help.");
 		  	} else {
-  				periodSelect.innerHTML += "<option value='none'>Select a Period...</option>";
-			  	
+  				var op = document.createElement('option');
+			  	op.appendChild(document.createTextNode("Select your class period..."));
+			  	op.value = 'none';
+  				periodSelect.appendChild(op);
+  				
 			  	var periodsArr = responseText.split(",");
 		  		for (var i=0; i < periodsArr.length; i++) {
 			  		var periodName = periodsArr[i];
 			  		if (periodName != "") {
-		  				periodSelect.innerHTML += "<option value='"+periodName+"'>"+periodName+"</option>";
+			  			var op = document.createElement('option');
+					  	op.appendChild(document.createTextNode(periodName));
+					  	op.value = periodName;
+		  				periodSelect.appendChild(op);
 			  		}
 		  		}
 		  		periodSelect.disabled = false;
@@ -120,19 +126,19 @@ function setup() {
 	  <form:input onblur="findPeriods();" path="runCode_part1" id="runCode_part1" size="25" maxlength="25" tabindex="1"/>
 
 			<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
-				It must appear immediately after the Input field in question  (MattFish)-->
+				It must appear immediately after the Input field in question  (MattFish)
 				<script type="text/javascript">
 				document.getElementById('runCode_part1').focus();
-				</script>
+				</script>-->
 
-	  <a href=#" class="viewPeriodsLink">SHOW PERIODS (after entering access code)</a>
+	  <a href="#" onclick="findPeriods();" class="viewPeriodsLink">SHOW PERIODS (after entering access code)</a>
 	 
       <label for="runCode_part2" id="runCode_part2_label">Period:</label>
 	  <form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>
       
       <form:hidden path="projectcode" id="projectcode"/>
      
-      <div id="addButtonContainer"><a id="addButton" onclick="save()">Add Project</a><div>
+      <div id="addButtonContainer"><a id="addButton" onclick="save();">Add Project</a></div>
      <!--  
    	 <input id="addProjectButton" onclick="save()" type="image" src="../<spring:theme code="student_add_this_project" />" 
     	onmouseover="swapImage('addProjectButton','../<spring:theme code="student_add_this_project_roll" />');" 

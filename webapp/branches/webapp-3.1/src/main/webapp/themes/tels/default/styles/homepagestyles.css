@@ -19,50 +19,37 @@
 /* CSS FOR THE MAIN HOME PAGE*/	
 
 /* TAGS FOR THE TABLE LAYOUT METHOD   */	
-		
-.panelColor1 {
-	background-image:url(../images/Gradient_blue_320.png);
+
+.panel {
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
 	background-position: top;
 	background-repeat:repeat-x;
 	background-color:#FFF;
 	border: 1px solid #999;  
-	border-bottom:2px solid #999; 
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	 		}
+	border-bottom:2px solid #999;
+}
+
+.panelColor1 {
+	background-image:url(../images/Gradient_blue_320.png);
+}
 
 .panelColor2 {
 	background-image:url(../images/Gradient_blue_200.png);
-	background-position: top;
-	background-repeat:repeat-x;
-	background-color:#FFF;
-	border: 1px solid #999;   
-	border-bottom:2px solid #999; 
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	 		}
+}
 	 		
 .panelColor3 {
 	background-image:url(../images/Gradient_blue_120.png);
-	background-position: top;
-	background-repeat:repeat-x;
-	background-color:#FFF;
-	border: 1px solid #999;   
-	border-bottom:2px solid #999; 
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	 		}
+}
 	 		
 .panelColorNifty {
 	background-color:#0033FF;
 	color:#000;
 			}
 			
-#tableTop {
-	border-collapse:collapse;
+#contentTop {
+	width:100%;
 	border:0px;
 	margin:0px;
 	padding: 0px;
@@ -80,10 +67,14 @@
 
 #tableBottom td {vertical-align:top;	}
 
-#header {	
-	-moz-border-radius-topleft:4px;
-	-moz-border-radius-topright:4px;
-	background:#FFce8e;
+.header {	
+	-moz-border-radius-topleft:5px;
+	-moz-border-radius-topright:5px;
+	-webkit-border-radius-topleft:5px;
+	-webkit-border-radius-topright:5px;
+	border-radius-topleft:5px;
+	border-radius-topright:5px;
+	background-color:#FFce8e;
 	background-image:url(../images/teacher/teacherSubHeader.png);
 	background-position: top;  
 	border-bottom:1px solid #999;
@@ -93,16 +84,15 @@
 	margin:0 0 12px;
 	padding:2px 10px;
 	text-align:left;
-	}
+}
 
-#boxTableWelcome {
+#boxWelcome {
 	width: 634px;
 	margin:0px;
 	padding:0;
-	min-height:302px;
  	position:relative;
-
-	}
+ 	display:inline-block;
+}
 
 #parastyleTable {
 	color:#000000;
@@ -125,10 +115,11 @@
 	}
 
 #welcomeTextLinks li {
-	margin: 0 0 9px 0; 
+	margin: 0 0 9px 0;
+	padding:0px;
 }
 
-#welcomeTextLinks li a:link, #welcomeTextLinks li a:visited {
+.welcomeLink {
 	display:block; 
 	color:#FFFFFF; 
 	text-decoration:none;
@@ -138,17 +129,15 @@
 	background-color:#6666FF;
 	border: 1px solid #333333;
 	padding:4px 3px 3px 5px;
+	cursor:pointer;
 	}
 	
-#welcomeTextLinks li a:hover { 
-	display:block;
+a.welcomeLink:hover, .welcomeLink:hover {
 	color:#000000;
 	text-decoration:none;
-	margin:0;
-	padding:1px;
 	background-color:#ffff33;
 	border: 1px solid #6666CC;
-	padding:4px 3px 3px 5px; 
+	cursor:pointer;
 	}
 
 #welcomeBullet1 a {
@@ -178,7 +167,7 @@
 	margin-bottom: 2px;
 	}
 		
-#welcomeBullet1, #welcomeBullet2, #welcomeBullet3, #welcomeBullet4, #welcomeBullet5, #welcomeBullet6, #welcomeBullet7 {
+.welcomeBullet {
 	font-family: "Trebuchet MS", "Lucida Grande", "Lucida San Unicode", "Gill Sans", Helvetica, Arial;	
 	float:left;
 	font-size:1em;
@@ -191,24 +180,22 @@
 	color:#000066;
 	}
 	
-#welcomeBullet1 p {
+.welcomeBullet p {
 	padding:0px;
 	margin:0px;
 	}
 	
-#welcomeButtonPosTable {
+#welcomeButtons {
+	display:block;
 	float:right;
 	list-style-type:none;
 	margin-right:10px;
 	padding:2px;
-	}	
+}	
 	
-#welcomeButtonPosTable li{
-	padding-top: 0;
-	padding-right: 0;
-	padding-bottom: 10px;
-	padding-left: 0;
-	}	
+#welcomeButtons li{
+	margin-bottom:10px;
+}	
 	
 #contactWiseLink {
 	font-variant:small-caps;
@@ -232,10 +219,10 @@
 	border:1px solid #666666;
 		}
 
-#boxTableSignInHome{
-	width:324px;
-	margin:0px;
+#signInHome{
+	float:right;
 	vertical-align:top;
+	width:310px;
 }
 
 #boxTableSignInFailedLogin {
@@ -244,38 +231,35 @@
 	vertical-align: text-top;
 }
 
-#boxTableSignInHome li, #boxTableSignInFailedLogin li {
+#signInHome li, #boxTableSignInFailedLogin li {
 	font-size:.70em;
 		}
 
-#signinDefinList {
-	margin:5px 0 0 20px;
-	padding:0px;
-		}
+#signinForm {
+	margin:5px 10px;
+	padding-right:10px;
+	text-align:right;
+}
 
-#signinDefinList dt {
-	float:left;
+#signinForm label {
 	font-size:.9em;
-	width:82px; 
-	 			}
+}
 		
-#signinDefinList input {
+#signinForm input {
 	font-size:.9em;
 	margin-bottom:4px;
-	width:162px;
+	width:190px;
 }	
 
 #signInButton {
-	position:relative;
-	margin: 5px 35px 5px 0;
+	margin: 5px 20px 5px 0;
 }
 
-#signInLinkPosition { 
-	position:relative;
+#signInLinkPosition {
 	text-align:right; 
-	margin:8px 30px 5px 0;
+	margin:8px 20px 5px 0;
 	list-style-type:none;
-		}
+}
 	
 #signInLinkPosition li {
 	padding-bottom:5px;
@@ -295,7 +279,7 @@
 	background-color:#ffff33;
 	border: 1px solid #6666CC;
 	}
-	
+
 .dataBoxStyle {
 	padding: 1px;
 	border-top-width: 1px;
@@ -312,13 +296,11 @@
 	border-left-style: solid;
 	}
 	
-#boxTableSignInSub2 {
+#signInSub2 {
 	margin-top:10px;
-	min-height:112px; 
-		}
+}
 	
 #researcherText {
-	padding:0 8px 0 0;
 	color:#000066; 
 	Font-size:.95em;   
 }
@@ -335,7 +317,7 @@
 
 #researcherText p {
 	line-height:1.4em;
-	margin: 14px 5px 5px 18px;
+	margin: 15px;
 	}
 	
 #boxWiseInAction{
@@ -528,14 +510,14 @@
 	margin:0px;
 		}
 
-#signOutBannerHome a:link, #signoutBannerHome a:visited {
+.signOutBannerHome a:link, #signoutBannerHome a:visited {
 	color:#FFFF66;
 	font-size:.7em;
 	text-decoration:none; 
 	border-bottom: 1px solid #FFFF66;
 				}
 				
-#signOutBannerHome a:hover {
+.signOutBannerHome a:hover {
 	color:#330066;
 	text-decoration:none;
 	border-bottom: 1px solid #330066;

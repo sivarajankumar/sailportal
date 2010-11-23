@@ -6,7 +6,14 @@ function swapImage(id,link){
 	if(document.images){
 		document.getElementById(id).src=link;
 	}
-}
+};
+
+function swapWelcomeMsg(index) {
+	$('.welcomeBullet').hide();
+	$('.welcomeBullet:eq('+ index +')').fadeIn('slow',function(){
+		$(this).removeAttr('filter');
+	});
+};
 
 function changeNavigationColor(id,link){
 	if(document.images){
@@ -55,7 +62,9 @@ function prepareInputsForHints() {
   var inputs = document.getElementsByTagName("input");
   for (var i=0; i<inputs.length; i++){
     inputs[i].onfocus = function () {
-      this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+    	if (this.parentNode.getElementsByTagName("span").length > 0) {
+    		this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+    	}
     }
     inputs[i].onblur = function () {
     	if (this.parentNode.getElementsByTagName("span").length > 0) {
@@ -66,10 +75,14 @@ function prepareInputsForHints() {
   var selects = document.getElementsByTagName("select");
   for (var k=0; k<selects.length; k++){
     selects[k].onfocus = function () {
-      this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+    	if (this.parentNode.getElementsByTagName("span").length > 0) {
+    		this.parentNode.getElementsByTagName("span")[0].style.display = "inline";
+    	}
     }
     selects[k].onblur = function () {
-      this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+    	if (this.parentNode.getElementsByTagName("span").length > 0) {
+    		this.parentNode.getElementsByTagName("span")[0].style.display = "none";
+    	}
     }
   }
 }

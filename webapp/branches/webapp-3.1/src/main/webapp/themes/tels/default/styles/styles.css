@@ -358,7 +358,7 @@
 	color:blue;
 	padding:2px;	
 	font-size:90%;
-	
+	cursor:pointer;
 }
 
 #addproject a:hover {

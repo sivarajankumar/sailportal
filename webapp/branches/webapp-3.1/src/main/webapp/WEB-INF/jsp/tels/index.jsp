@@ -21,34 +21,39 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" />
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset=utf-8"/>
+<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+	Remove this if you use the .htaccess -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 
-<script src="./javascript/tels/killautocomplete.js" type="text/javascript"></script>
+<!--<script src="./javascript/tels/killautocomplete.js" type="text/javascript"></script>-->
 
-<script src="./javascript/tels/general.js" type="text/javascript">
-	
-</script>
-<script src="./javascript/tels/prototype.js" type="text/javascript">
-	
-</script>
-<script src="./javascript/tels/effects.js" type="text/javascript">
-	
-</script>
-<script src="./javascript/tels/scriptaculous.js" type="text/javascript">
-	
-</script>
-<script src="./javascript/tels/rotator.js" type="text/javascript">
-	
-</script>
-<script src="./javascript/tels/rotatorT.js" type="text/javascript">
-	
+<script src="./javascript/tels/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="./javascript/tels/general.js" type="text/javascript"></script>
+<!--<script src="./javascript/tels/prototype.js" type="text/javascript"></script>-->
+<!--<script src="./javascript/tels/effects.js" type="text/javascript"></script>-->
+<!--<script src="./javascript/tels/scriptaculous.js" type="text/javascript"></script>-->
+<script src="./javascript/tels/rotator.js" type="text/javascript"></script>
+<!--<script src="./javascript/tels/rotatorT.js" type="text/javascript"></script>-->
+
+<script type="text/javascript">
+	// bind welcome text links to swap message function
+	$(document).ready(function(){
+		$('.welcomeLink').click(function(){
+			var index = $('.welcomeLink').index($(this));
+			swapWelcomeMsg(index);
+		});
+		
+		//focus cursor into the First Name field on page ready  
+		document.getElementById('j_username').focus();
+	});
 </script>
 
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" />
@@ -84,165 +89,140 @@ width: 100%;
 
 <div id="centeredDiv" class="homePageMask"> 
 
-<%@ include file="headermain.jsp"%>
-
-<table id="tableTop" cellpadding="0" cellspacing="0">
-		<tr>
-				<td>
-				<div id="boxTableWelcome" class="panelColor1">
-				<div id="header">Welcome to WISE</div>
-
-				<div id="parastyleTable">
-
+	<%@ include file="headermain.jsp"%>
+	
+	<div id="contentTop">
+		<div id="boxWelcome" class="panelColor1 panel">
+			<div class="header">Welcome to WISE</div>
+		
+			<div id="parastyleTable">
+		
 				<ul id="welcomeTextLinks">
-						<li><a href="#" onclick="javascript: fabulousTurnOff1();"><spring:message code="whatiswise" /></a></li>
-						<li><a href="#" onclick="javascript: fabulousTurnOff2();"><spring:message code="curriculumbased" /></a></li>
-						<li><a href="#" onclick="javascript: fabulousTurnOff3();"><spring:message code="inquiryprojects" /></a></li>
-						<li><a href="#" onclick="javascript: fabulousTurnOff4();"><spring:message code="studentengagement" /></a></li>
-						<li><a href="#" onclick="javascript: fabulousTurnOff5();"><spring:message code="interactivemodels" /></a></li>
-						<li><a href="#" onclick="javascript: fabulousTurnOff6();"><spring:message code="onlinegrading" /></a></li>
-						<li><a href="#" onclick="javascript: fabulousTurnOff7();"><spring:message code="freeandopensource" /></a></li>
+						<li><a class="welcomeLink"><spring:message code="whatiswise" /></a></li>
+						<li><a class="welcomeLink"><spring:message code="curriculumbased" /></a></li>
+						<li><a class="welcomeLink"><spring:message code="inquiryprojects" /></a></li>
+						<li><a class="welcomeLink"><spring:message code="studentengagement" /></a></li>
+						<li><a class="welcomeLink"><spring:message code="interactivemodels" /></a></li>
+						<li><a class="welcomeLink"><spring:message code="onlinegrading" /></a></li>
+						<li><a class="welcomeLink"><spring:message code="freeandopensource" /></a></li>
 				</ul>
-
+			
 				<p class="smallText"><spring:message code="clickabovefordetails" /></p>
-
-				</div>
-				
-				<div id="welcomeBulletContainer">
-					<div id="welcomeBullet1" style="">
+		
+			</div>
+			
+			<div id="welcomeBulletContainer">
+				<div class="welcomeBullet" style="">
 					<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
 					<p>The Web-based Inquiry Science Environment is a research-based digital learning platform that fosters exploration and science inquiry.  
 						Students observe, analyze, experiment, and reflect as they navigate WISE projects. 
 						Teachers guide and evaluate the process using a suite of classroom-based and online tools.</p><br/>
 					<p>This site hosts the latest and most powerful version of WISE &mdash; version 4.0.  Classic WISE can be accessed at <a href='http://wise.berkeley.edu' target='_blank'>http://wise.berkeley.edu</a>.</p>
-					</div>
-					
-					<div id="welcomeBullet2" style="display: none;">
+				</div>
+				
+				<div class="welcomeBullet" style="display: none;">
 					<div class="welcomeBulletHeader"><spring:message code="curriculumbasedheader" /></div>
 					<p><spring:message code="curriculumbasedbullet" /></p>
-					</div>
-	
-					<div id="welcomeBullet3" style="display: none;">
+				</div>
+		
+				<div class="welcomeBullet" style="display: none;">
 					<div class="welcomeBulletHeader"><spring:message code="inquiryprojectsheader" /></div>
 					<p><spring:message code="inquiryprojectsbullet" /></p>
-					</div>
-	
-					<div id="welcomeBullet4" style="display: none;">
+				</div>
+		
+				<div class="welcomeBullet" style="display: none;">
 					<div class="welcomeBulletHeader"><spring:message code="studentengagementheader" /></div>
 					<p><spring:message code="studentengagementbullet" /></p>
-					</div>
-	
-					<div id="welcomeBullet5" style="display: none;">
+				</div>
+		
+				<div class="welcomeBullet" style="display: none;">
 					<div class="welcomeBulletHeader"><spring:message code="interactivemodelsheader" /></div>
 					<p><spring:message code="interactivemodelsbullet" /></p>
-					</div>
-	
-					<div id="welcomeBullet6" style="display: none;">
+				</div>
+		
+				<div class="welcomeBullet" style="display: none;">
 					<div class="welcomeBulletHeader"><spring:message code="teachertoolsheader" /></div>
 					<p><spring:message code="teachertoolsbullet" /></p>
-					</div>
-	
-					<div id="welcomeBullet7" style="display: none;">
+				</div>
+		
+				<div class="welcomeBullet" style="display: none;">
 					<div class="welcomeBulletHeader"><spring:message code="freeandopensourceheader" /></div>
 					<p><spring:message code="freeandopensourcebullet" /></p>
-					</div>
 				</div>
-
-				<ul id="welcomeButtonPosTable">
+			</div>
+		
+			<ul id="welcomeButtons">
+				<li><a href="signup.html" title="New to WISE? Create a teacher or student account to enjoy the full array of learning tools offered by WISE."
+						onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateWiseAccountRoll.png',1)">
+					<img src="./themes/tels/default/images/CreateWiseAccount.png" width="145" height="33"
+						alt="<spring:message code="createnewwiseaccount"/>" class="imgNoBorder" id="create-account" /></a></li>
+				<li><a href="previewprojectlist.html" title="View instant previews of WISE inquiry projects across biology, chemistry, and physics topics."
+						onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/PreviewProjectRoll.png',1)">
+					<img src="./themes/tels/default/images/PreviewProject.png" width="145" height="33"
+						alt="<spring:message code="instantpreview"/>" class="imgNoBorder" id="preview-wise" /></a></li>
+				<li><a href="wiseoverview.html" title="Launch a brief Flash-based animated overview of the WISE system."
+						onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/AnimatedOverviewRoll.png',1)">
+					<img src="./themes/tels/default/images/AnimatedOverview.png" width="145" height="33"
+						alt="<spring:message code="animatedoverviewofwise"/>" class="imgNoBorder" id="wise-overview" /> </a></li>
+				<li><a href="./contactwisegeneral.html" title="Have a question or a problem with the WISE tools or curriculum projects? Write a message to the WISE team." onmouseout="MM_swapImgRestore()"
+						onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)">
+					<img src="./themes/tels/default/images/ContactWise.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
+						id="contact" /></a></li>
+				<li><a href="./check.html" title="Check if your computer can run Wise4." onmouseout="MM_swapImgRestore()"
+						onmouseover="MM_swapImage('checkCompatibilityButton','','./themes/tels/default/images/CheckCompatibilityButtonRoll.png',1)">
+					<img src="./themes/tels/default/images/CheckCompatibilityButton.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
+						id="checkCompatibilityButton" /></a></li>
+			</ul>
+		</div>
+		<!--    End of Welcome Box-->
 	
-							<li><a href="signup.html"
-									title="New to WISE? Create a teacher or student account to enjoy the full array of learning tools offered by WISE."
-									onmouseout="MM_swapImgRestore()"
-									onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateWiseAccountRoll.png',1)">
-							<img src="./themes/tels/default/images/CreateWiseAccount.png" width="145" height="33"
-									alt="<spring:message code="createnewwiseaccount"/>" class="imgNoBorder" id="Create Account Button" /></a></li>
-
-							<li><a href="previewprojectlist.html"
-									title="View instant previews of WISE inquiry projects across biology, chemistry, and physics topics."
-									onmouseout="MM_swapImgRestore()"
-									onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/PreviewProjectRoll.png',1)">
-							<img src="./themes/tels/default/images/PreviewProject.png" width="145" height="33"
-									alt="<spring:message code="instantpreview"/>" class="imgNoBorder" id="Preview of WISE Button" /></a></li>
-
-							<li><a href="wiseoverview.html" title="Launch a brief Flash-based animated overview of the WISE system."
-									onmouseout="MM_swapImgRestore()"
-									onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/AnimatedOverviewRoll.png',1)">
-							<img src="./themes/tels/default/images/AnimatedOverview.png" width="145" height="33"
-									alt="<spring:message code="animatedoverviewofwise"/>" class="imgNoBorder" id="Overview of WISE button" /> </a></li>
+		<div id="signInHome">
+			<div id="signInSub1" class="panelColor2 panel signinSub"><!--  SignIn Sub Box 1-->
+				<div class="header"><spring:message code="signinheader" /></div>
 	
-	
-							<li><a href="./contactwisegeneral.html"
-									title="Have a question or a problem with the WISE tools or curriculum projects? Write a message to the WISE team."
-									onmouseout="MM_swapImgRestore()"
-									onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)"> <img
-									src="./themes/tels/default/images/ContactWise.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
-									id="Contact Wise Button" /></a></li>
-							<li><a href="./check.html"
-									title="Check if your computer can run Wise 4."
-									onmouseout="MM_swapImgRestore()"
-									onmouseover="MM_swapImage('checkCompatibilityButton','','./themes/tels/default/images/CheckCompatibilityButtonRoll.png',1)"> <img
-									src="./themes/tels/default/images/CheckCompatibilityButton.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
-									id="checkCompatibilityButton" /></a></li>
-	
-					</ul>
-								</div>
-				</td>
-				<!--    End of Welcome Box-->
-
-				<td class="width15"></td>
-				<!--    Separator Column-->
-
-				<td id="boxTableSignInHome">
-				<div id="boxTableSignInSub1" class="panelColor2"><!--  SignIn Sub Box 1-->
-				<div id="header"><spring:message code="signinheader" /></div>
-
 				<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
-				<dl id="signinDefinList">
-						<dt><label for="username"><spring:message code="username" /></label></dt>
-						<dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" /></dd>
-
-						<!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
-									It must appear immediately after the Input field in question  (MattFish)-->
-						<script type="text/javascript">
-							document.getElementById('j_username').focus();
-						</script>
-
-						<dt><label for="password"><spring:message code="password" /></label></dt>
-						<dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></dd>
-				</dl>
-
-				<div class="alignRight"><input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png"
-						width="100" height="27" alt="Sign In Button"
-						onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/SignInRoll.png',1)"
-						onmouseout="MM_swapImgRestore()" onclick="Effect.toggle('waiting', 'appear')" /></div>
+					<div id="signinForm">
+						<div>
+							<label for="username"><spring:message code="username" /></label>
+							<input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" />
+						</div>
+						<div>
+							<label for="password"><spring:message code="password" /></label></dt>
+							<input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" />
+						</div>
+					</div>
+		
+					<div class="alignRight">
+						<input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png"	width="100" height="27"
+							alt="Sign In Button" onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/SignInRoll.png',1)"
+							onmouseout="MM_swapImgRestore()" onclick="Effect.toggle('waiting', 'appear')" />
+					</div>
 				</form>
-
+	
 				<ul id="signInLinkPosition">
-						<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">Forgot your Username or Password?</a>
-						</li>
-						<li><a href="signup.html" id="joinlink"><spring:message code="createanewwiseaccount" /></a></li>
+					<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink">Forgot your Username or Password?</a>
+					</li>
+					<li><a href="signup.html" id="joinlink"><spring:message code="createanewwiseaccount" /></a></li>
 				</ul>
-				</div>
-
-				<div id="boxTableSignInSub2" class="panelColor3"><!--  Researcher/Developer Sub Box 2-->
-				<div id="header"><spring:message code="researchdevelop1" /></div>
+			</div>
+	
+			<div id="signInSub2" class="panelColor3 panel signinSub"><!--  Researcher/Developer Sub Box 2-->
+				<div class="header"><spring:message code="researchdevelop1" /></div>
 				<div id="researcherText">
-				<p><spring:message code="researchdevelop2" />
-				<b><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="researchdevelopGettingStartedGuide" /></a></b>
-				<spring:message code="researchdevelop3" /></p>
+					<p><spring:message code="researchdevelop2" />
+					<b><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="researchdevelopGettingStartedGuide" /></a></b>
+					<spring:message code="researchdevelop3" /></p>
 				</div>
-				</div>
-
-				</td>
-				<!--    End of boxTableSignIn  x-->
-		</tr>
-</table>
+			</div>
+		</div>
+	</div>
+	<!--  End contentTop -->
 
 <table id="tableBottom" cellpadding="0" cellspacing="0">
 		<tr>
 				<td id="boxWiseInAction"> 
-				<div class="panelColor1">
-				<div id="header"><spring:message code="home.wiseinactionlabel" /></div>
+				<div class="panelColor1 panel">
+				<div class="header"><spring:message code="home.wiseinactionlabel" /></div>
 
 				<div class="alignCenter"><img id="rotator" src="./themes/tels/default/images/wiseInAction/AirBag.jpg" height="228" /></div>
 
@@ -270,9 +250,9 @@ width: 100%;
 				<!--    Separator Column-->
 
 				<td id="boxTestimonials" >
-				<div class="panelColor1">
+				<div class="panelColor1 panel">
 
-				<div id="header"><spring:message code="home.testimonialslabel" /></div>
+				<div class="header"><spring:message code="home.testimonialslabel" /></div>
 
 				<div class="alignCenter"><img class="dataBoxStyle" id="rotatorT"
 						src="./themes/tels/default/images/testimonial_1.png" height="228" /></div>
@@ -297,8 +277,8 @@ width: 100%;
 				<td class="width15"></td>
 
 				<td >
-				<div id="boxLatestNews"  class="panelColor1">
-				<div id="header">WISE News</div>
+				<div id="boxLatestNews"  class="panelColor1 panel">
+				<div class="header">WISE News</div>
 				<div id="newsContent">
 				<div id="newsContentHeader">${newsItem.title}</div>
 				${newsItem.news}</div>
