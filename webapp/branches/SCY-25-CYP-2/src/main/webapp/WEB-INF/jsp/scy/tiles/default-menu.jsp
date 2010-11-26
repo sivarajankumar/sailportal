@@ -26,7 +26,7 @@
 	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_TEACHER">
-		<li><a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor</a></li>
+		<li><a href="/webapp/app/scyauthor/ScyAuthorIndex.html">SCYAuthor Finetune</a></li>
 	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_TEACHER">

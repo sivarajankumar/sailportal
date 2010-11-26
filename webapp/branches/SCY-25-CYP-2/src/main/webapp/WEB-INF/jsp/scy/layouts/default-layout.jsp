@@ -224,7 +224,7 @@
                     title: lasObj.label,
                     style: "width:500px;height:300px;",
                     id: "dialog_" + lasId,
-                    content: "<div id='dialogContents_" + lasId + "'></div>",
+                    content: "<div id='dialogContents_" + lasId + "'></div>"
                               
 
 
