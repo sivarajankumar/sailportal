@@ -21,7 +21,7 @@
 
 
 </head>
-<body class="yui-skin-sam" style="height:100%">
+<body class="yui-skin-sam" style="height:100%; overflow-y:hidden;">
 <div id="wait"></div> 
 <iframe id="topifrm" src="${vleurl}?loadScriptsIndividually=true" name="topifrm" scrolling="auto"
  width="100%" height="100%" frameborder="0">

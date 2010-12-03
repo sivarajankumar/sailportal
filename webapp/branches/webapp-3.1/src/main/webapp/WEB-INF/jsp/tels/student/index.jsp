@@ -43,7 +43,7 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
   	}
 </script>
 
-<script><!--
+<script>
 
 	function init() {
 	    //create logger
@@ -256,7 +256,7 @@ $.cookie("hasBeenAlertedBrowserCompatibility","true");
 }
 
 YAHOO.util.Event.onDOMReady(init);
---></script>
+</script>
 
 
 <!--NOTE: the following scripts has CONDITIONAL items that only apply to IE (MattFish)-->

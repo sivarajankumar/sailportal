@@ -131,7 +131,7 @@ function setup() {
 				document.getElementById('runCode_part1').focus();
 				</script>-->
 
-	  <a href="#" onclick="findPeriods();" class="viewPeriodsLink">SHOW PERIODS (after entering access code)</a>
+	  <a href="#" onclick="findPeriods();" class="viewPeriodsLink">CLICK TO SHOW PERIODS (after entering access code)</a>
 	 
       <label for="runCode_part2" id="runCode_part2_label">Period:</label>
 	  <form:select path="runCode_part2" id="runCode_part2" tabindex="2" disabled="true"></form:select>

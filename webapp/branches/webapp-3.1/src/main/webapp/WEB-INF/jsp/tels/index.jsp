@@ -77,11 +77,13 @@ width: 100%;
 </style>
 <![endif]-->
 
-<!--[if lte IE 6]>
-<style>
-#welcomeTextLinks a {height: 1%;}
+<!--[if lt IE 8]>
+<style type="text/css">
+li a {display:inline-block;}
+li a {display:block;}
 </style>
 <![endif]-->
+
 
 </head>
 
