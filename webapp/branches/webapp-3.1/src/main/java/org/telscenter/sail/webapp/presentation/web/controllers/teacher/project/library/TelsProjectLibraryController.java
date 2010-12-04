@@ -65,7 +65,6 @@ public class TelsProjectLibraryController extends AbstractController{
 
 		User user = ControllerUtil.getSignedInUser();
 		Set<String> tagNames = new TreeSet<String>();
-		tagNames.add("tels");
 		tagNames.add("library");
 		List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
 		List<Project> currentProjectList = new ArrayList<Project>();

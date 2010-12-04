@@ -72,7 +72,6 @@ public class PreviewProjectController extends AbstractController {
 		String projectIdStr = request.getParameter(PROJECT_ID_PARAM_NAME);
 		Project project = projectService.getById(projectIdStr);
 		 Set<String> tagNames = new TreeSet<String>();
-		 tagNames.add("tels");
 		 tagNames.add("library");
 		
 		if(project.hasTags(tagNames) || 

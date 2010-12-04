@@ -54,7 +54,6 @@ public class PreviewProjectListController extends AbstractController {
 	protected ModelAndView handleRequestInternal(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		 Set<String> tagNames = new TreeSet<String>();
-		 tagNames.add("tels");
 		 tagNames.add("library");
 		 List<Project> projectList = this.projectService.getProjectListByTagNames(tagNames);
 

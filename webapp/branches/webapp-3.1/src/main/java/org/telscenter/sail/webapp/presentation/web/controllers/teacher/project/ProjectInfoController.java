@@ -68,7 +68,6 @@ public class ProjectInfoController extends AbstractController {
 		Project project = projectService.getById(projectIdStr);
 		User user = ControllerUtil.getSignedInUser();
 		Set<String> telslibrary = new TreeSet<String>();
-		telslibrary.add("tels");
 		telslibrary.add("library");
 
 		if(project != null){

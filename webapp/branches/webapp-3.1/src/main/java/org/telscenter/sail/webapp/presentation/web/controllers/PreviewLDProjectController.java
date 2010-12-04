@@ -61,7 +61,6 @@ public class PreviewLDProjectController extends AbstractController {
 		String projectId = request.getParameter("projectId");
 		Project project = this.projectService.getById(Long.parseLong(projectId));
 		Set<String> tagNames = new TreeSet<String>();
-		tagNames.add("tels");
 		tagNames.add("library");
 		 
 		if(projectId != null && project != null){
