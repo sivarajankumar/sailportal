@@ -54,6 +54,7 @@ import org.telscenter.sail.webapp.domain.workgroup.WISEWorkgroup;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONException;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
+import org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter;
 import org.telscenter.sail.webapp.service.offering.RunService;
 import org.telscenter.sail.webapp.service.project.ProjectService;
 
@@ -523,6 +524,8 @@ public class InformationController extends AbstractController{
 			config.put("theme", "WISE");
 			config.put("enableAudio", false);
 			config.put("runInfoRequestInterval", GET_RUNINFO_REQUEST_INTERVAL);
+			config.put("sessionTimeoutInterval", request.getSession().getMaxInactiveInterval() * 1000);			// add sessiontimeout interval, in milleseconds
+			config.put("sessionTimeoutCheckInterval", request.getSession().getMaxInactiveInterval() * 1000 / 5); // how often session should be checked
 			
 			if(runId==null){
 				config.put("runId", "");
@@ -536,8 +539,11 @@ public class InformationController extends AbstractController{
 		        UserDetails userDetails = (UserDetails) signedInUser.getUserDetails();
 		        if (userDetails instanceof StudentUserDetails) {
 		        	config.put("userType", "student");
+					config.put("indexUrl", ControllerUtil.getPortalUrlString(request) + TelsAuthenticationProcessingFilter.STUDENT_DEFAULT_TARGET_PATH);
+		        	
 		        } else if (userDetails instanceof TeacherUserDetails) {
 		        	config.put("userType", "teacher");
+					config.put("indexUrl", ControllerUtil.getPortalUrlString(request) + TelsAuthenticationProcessingFilter.TEACHER_DEFAULT_TARGET_PATH);
 		        }
 			} else {
 	        	config.put("userType", "none");
