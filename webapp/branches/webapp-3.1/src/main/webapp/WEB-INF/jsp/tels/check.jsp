@@ -93,6 +93,15 @@
 		<noscript><br><b>Compatibility Check Result: You can not run Wise 4</b><br><br><p class='checkCompatibilityWarning'>Warning: you must enable Javascript in order to run Wise 4, please click the "How to enable Javascript" link to find out how to enable Javascript.</p></noscript>
 		<div id='compatibilityCheckResult'></div>
 		<div id='compatibilityCheckMessages'></div>
+		<br/>
+		<h3 id='contentFilter'>Content Filter Check (Firewall/Proxy)</h3>
+		<div>You should not be behind firewall/proxy if possible when running WISE projects.  This section check if you are
+			restricted from accessing resources on the WISE server. If you see any X's below, please talk to your
+			server administrator.</div><br/>
+		<div id='contentFilterMessageSwf'>
+			<span>Can Retrieve Flash objects (.swf):</span><span id='contentFilterSwfRequirementSatisfied'></span><br/><br/>
+			<span>Can Retrieve Java archives (.jar):</span><span id='contentFilterJarRequirementSatisfied'></span>
+		</div>
 	</div>
 
 </div>   <!-- end of centered div-->

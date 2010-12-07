@@ -99,6 +99,8 @@ function checkCompatibility(specificRequirements) {
 	} else {
 		document.getElementById('compatibilityCheckResult').innerHTML = '<br><b>Compatibility Check Result: You can not run Wise 4</b>';
 	}
+	
+	checkContentFiltering();
 }
 
 /**
@@ -699,6 +701,49 @@ function DetectFlashVer(reqMajorVer, reqMinorVer, reqRevision)
 			}
 		}
 	}	
+};
+
+/**
+ * Check if user is behind a firewall that prevents them from viewing certain resources
+ * like .swf, .jar, etc
+ */
+function checkContentFiltering() {
+	// test loading of swf file
+	$.ajax({ 
+		url: "flash/tels/WISE_Slideshow.swf", 
+		context: document.body, 
+		complete:function(XMLHttpRequest, textStatus) {
+			var contentFilterSwfRequirementSatisfied=false;
+			if (XMLHttpRequest.status == '200' 
+					&& XMLHttpRequest.responseText != ''
+					&& XMLHttpRequest.responseText.length == 1998213) {
+				contentFilterSwfRequirementSatisfied = true;
+			} else {
+				contentFilterSwfRequirementSatisfied = false;
+			}
+			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(contentFilterSwfRequirementSatisfied);				
+			document.getElementById('contentFilterSwfRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
+		},
+	});
+
+	// test loading of jar file
+	$.ajax({ 
+		url: "library/jar/commons-logging-1.1.jar", 
+		context: document.body, 
+		complete:function(XMLHttpRequest, textStatus) {
+			var contentFilterRequirementSatisfied=false;
+			if (XMLHttpRequest.status == '200' 
+					&& XMLHttpRequest.responseText != ''
+					&& XMLHttpRequest.responseText.length == 49828) {
+				contentFilterRequirementSatisfied = true;
+			} else {
+				contentFilterRequirementSatisfied = false;
+			}
+			var requirementSatisfiedIcon = getRequirementSatisfiedIcon(contentFilterRequirementSatisfied);				
+			document.getElementById('contentFilterJarRequirementSatisfied').innerHTML = requirementSatisfiedIcon;
+		},
+	});
+
 };
 
 /**
