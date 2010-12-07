@@ -43,6 +43,9 @@ public class ProjectMetadataController extends AbstractController {
 				//get the metadata
 				ProjectMetadata metadata = project.getMetadata();
 				
+				//get the signed in user
+				User user = ControllerUtil.getSignedInUser();
+				
 				if(command.equals("getProjectMetaData")) {
 					if(metadata != null) {
 						//metadata exists so we will get the metadata as a JSON string
@@ -52,12 +55,22 @@ public class ProjectMetadataController extends AbstractController {
 						//metadata does not exist so we will just return an empty JSON object string
 						response.getWriter().write("{}");
 					}
-				} else if(command.equals("postMaxScore")) {
-					//request is to post a max score
-					handlePostMaxScore(request, response);
-				} else if(command.equals("postLastMinified")) {
-					//request is to post last minified time
-					handlePostLastMinified(request, response);
+				} else {
+					if(user == null) {
+						//the user is not logged in
+						response.getWriter().print("ERROR:LoginRequired");
+					} else if(!this.projectService.canAuthorProject(project, user)) {
+						//the user does not have write access to the proejct
+						response.getWriter().print("ERROR:NotAuthorized");
+					} else if(this.projectService.canAuthorProject(project, user)) {
+						if(command.equals("postMaxScore")) {
+							//request is to post a max score
+							handlePostMaxScore(request, response);
+						} else if(command.equals("postLastMinified")) {
+							//request is to post last minified time
+							handlePostLastMinified(request, response);
+						}
+					}
 				}
 			}			
 		}
