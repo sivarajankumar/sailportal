@@ -3,6 +3,10 @@
 /* NOTE: the min-height hack immediately below is a temporary measure, until we dynamically 
 resize the size of Projectruntabs.jsp when the user switches between Current or Archived tabs (MattFish Dec 2009) */
 
+table, td, th {
+	border:1px solid;
+}
+
 #currentrunWrapper {
 	background-color:#FFF;
 	min-height:480px;
@@ -40,7 +44,6 @@ resize the size of Projectruntabs.jsp when the user switches between Current or 
 
 #currentRunTable {
 	border-collapse:collapse;
-	border:0;
 	margin:5px 0;
 	background:#FFF;
 }
@@ -55,12 +58,13 @@ resize the size of Projectruntabs.jsp when the user switches between Current or 
 }
 
 .tableHeaderMain.archive {
-	background-color:#FF0000;
-	color:#FFF;
-	font-size:.8em;
-	padding: 2px 0px 2px 10px;
-	text-align:left;
-	letter-spacing:1.5px;
+	background-color: brown;
+    border-color: #000000;
+    color: #FFFFFF;
+    font-size: 0.8em;
+    letter-spacing: 1.5px;
+    padding: 2px 0 2px 10px;
+    text-align: left;
 }
 
 #runTitleRow {
@@ -130,7 +134,7 @@ resize the size of Projectruntabs.jsp when the user switches between Current or 
 	}
 
 #currentRunInfoTable {
-	border-collapse:collapse;
+	border:0 none;
 	margin:0px;
 	padding:0px;
 	width:100%;
@@ -138,15 +142,14 @@ resize the size of Projectruntabs.jsp when the user switches between Current or 
 		}
 	
 #currentRunInfoTable .tableInnerHeader {
-	font-size:.7em;
-	font-weight:bold;
-	text-align:center;
-	padding: 2px 1px;
-	border-top:0px;
-	border-bottom:0px;
-	border-right:1px solid #000;
-	background-color:#CCCCCC;
-	}
+	background-color: #CCCCCC;
+    border-left: 0 none;
+    border-top: 0 none;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 2px 1px;
+    text-align: center;
+}
 
 #currentRunInfoTable .tableInnerHeaderRight {
 	font-size:.7em;

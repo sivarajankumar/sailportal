@@ -30,8 +30,8 @@
 	Remove this if you use the .htaccess -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-<link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet" type="text/css" />
-<link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="globalstyles"/>" rel="stylesheet" type="text/css" />
+<link href="<spring:theme code="homepagestylesheet"/>" rel="stylesheet" type="text/css" />
 
 <!--<script src="./javascript/tels/killautocomplete.js" type="text/javascript"></script>-->
 
@@ -65,22 +65,19 @@
 <script defer type="text/javascript" src="./javascript/tels/iefixes.js"></script>
 <![endif]-->
 
+<!--[if lt IE 8]>
+<link href="<spring:theme code="ie7homestyles"/>" rel="stylesheet" type="text/css" />
+<![endif]-->
+
 <!--The next two conditional statements fix problems with the Display:Block navigation elements in older IE Browsers (MattFish)-->
 
 <!--[if IE 5]>
-<style>
+<style type="text/css">
 #welcomeTextLinks a {
 float: left;
 clear: both;
 width: 100%;
 }
-</style>
-<![endif]-->
-
-<!--[if lt IE 8]>
-<style type="text/css">
-li a {display:inline-block;}
-li a {display:block;}
 </style>
 <![endif]-->
 
@@ -95,7 +92,7 @@ li a {display:block;}
 	
 	<div id="contentTop">
 		<div id="boxWelcome" class="panelColor1 panel">
-			<div class="header">Welcome to WISE</div>
+			<div class="header"><spring:message code="welcometowise" /></div>
 		
 			<div id="parastyleTable">
 		
@@ -116,10 +113,8 @@ li a {display:block;}
 			<div id="welcomeBulletContainer">
 				<div class="welcomeBullet" style="">
 					<div class="welcomeBulletHeader"><spring:message code="whatiswiseheader" /></div>
-					<p>The Web-based Inquiry Science Environment is a research-based digital learning platform that fosters exploration and science inquiry.  
-						Students observe, analyze, experiment, and reflect as they navigate WISE projects. 
-						Teachers guide and evaluate the process using a suite of classroom-based and online tools.</p><br/>
-					<p>This site hosts the latest and most powerful version of WISE &mdash; version 4.0.  Classic WISE can be accessed at <a href='http://wise.berkeley.edu' target='_blank'>http://wise.berkeley.edu</a>.</p>
+					<p><spring:message code="whatiswisebullet" /></p><br/>
+					<p><spring:message code="whatiswisebullet2" htmlEscape="yes" /></p>
 				</div>
 				
 				<div class="welcomeBullet" style="display: none;">
@@ -154,25 +149,25 @@ li a {display:block;}
 			</div>
 		
 			<ul id="welcomeButtons">
-				<li><a href="signup.html" title="New to WISE? Create a teacher or student account to enjoy the full array of learning tools offered by WISE."
+				<li><a href="signup.html" title="<spring:message code="createaccounttitle"/>"
 						onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Create Account Button','','./themes/tels/default/images/CreateWiseAccountRoll.png',1)">
 					<img src="./themes/tels/default/images/CreateWiseAccount.png" width="145" height="33"
 						alt="<spring:message code="createnewwiseaccount"/>" class="imgNoBorder" id="create-account" /></a></li>
-				<li><a href="previewprojectlist.html" title="View instant previews of WISE inquiry projects across biology, chemistry, and physics topics."
+				<li><a href="previewprojectlist.html" title="<spring:message code="instantpreviewtitle"/>"
 						onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Preview of WISE Button','','./themes/tels/default/images/PreviewProjectRoll.png',1)">
 					<img src="./themes/tels/default/images/PreviewProject.png" width="145" height="33"
 						alt="<spring:message code="instantpreview"/>" class="imgNoBorder" id="preview-wise" /></a></li>
-				<li><a href="wiseoverview.html" title="Launch a brief Flash-based animated overview of the WISE system."
+				<li><a href="wiseoverview.html" title="<spring:message code="animatedoverviewtitle"/>"
 						onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Overview of WISE button','','./themes/tels/default/images/AnimatedOverviewRoll.png',1)">
 					<img src="./themes/tels/default/images/AnimatedOverview.png" width="145" height="33"
 						alt="<spring:message code="animatedoverviewofwise"/>" class="imgNoBorder" id="wise-overview" /> </a></li>
-				<li><a href="./contactwisegeneral.html" title="Have a question or a problem with the WISE tools or curriculum projects? Write a message to the WISE team." onmouseout="MM_swapImgRestore()"
+				<li><a href="./contactwisegeneral.html" title="<spring:message code="contacttitle"/>" onmouseout="MM_swapImgRestore()"
 						onmouseover="MM_swapImage('Contact Wise Button','','./themes/tels/default/images/ContactWiseRoll.png',1)">
-					<img src="./themes/tels/default/images/ContactWise.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
+					<img src="./themes/tels/default/images/ContactWise.png" width="145" height="33" alt="<spring:message code="contactwise"/>" class="imgNoBorder"
 						id="contact" /></a></li>
-				<li><a href="./check.html" title="Check if your computer can run Wise4." onmouseout="MM_swapImgRestore()"
+				<li><a href="./check.html" title="<spring:message code="checkcompatibilitytitle"/>" onmouseout="MM_swapImgRestore()"
 						onmouseover="MM_swapImage('checkCompatibilityButton','','./themes/tels/default/images/CheckCompatibilityButtonRoll.png',1)">
-					<img src="./themes/tels/default/images/CheckCompatibilityButton.png" width="145" height="33" alt="Contact WISE" class="imgNoBorder"
+					<img src="./themes/tels/default/images/CheckCompatibilityButton.png" width="145" height="33" alt="<spring:message code="checkcompatibility"/>" class="imgNoBorder"
 						id="checkCompatibilityButton" /></a></li>
 			</ul>
 		</div>
@@ -185,12 +180,10 @@ li a {display:block;}
 				<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
 					<div id="signinForm">
 						<div>
-							<label for="username"><spring:message code="username" /></label>
-							<input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" />
+							<label for="username"><spring:message code="username" /><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" /></label>
 						</div>
 						<div>
-							<label for="password"><spring:message code="password" /></label></dt>
-							<input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" />
+							<label for="password"><spring:message code="password" /><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>
 						</div>
 					</div>
 		
@@ -212,7 +205,7 @@ li a {display:block;}
 				<div class="header"><spring:message code="researchdevelop1" /></div>
 				<div id="researcherText">
 					<p><spring:message code="researchdevelop2" />
-					<b><a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="researchdevelopGettingStartedGuide" /></a></b>
+					<a href="/webapp/pages/gettingstarted.html" target="_blank"><spring:message code="researchdevelopGettingStartedGuide" /></a>
 					<spring:message code="researchdevelop3" /></p>
 				</div>
 			</div>
@@ -220,111 +213,106 @@ li a {display:block;}
 	</div>
 	<!--  End contentTop -->
 
-<table id="tableBottom" cellpadding="0" cellspacing="0">
-		<tr>
-				<td id="boxWiseInAction"> 
-				<div class="panelColor1 panel">
+	<div id="contentBottom">
+		<div id="boxWiseInAction"  class="bottomPanel first">
+			<div class="panelColor1 panel">
 				<div class="header"><spring:message code="home.wiseinactionlabel" /></div>
-
+	
 				<div class="alignCenter"><img id="rotator" src="./themes/tels/default/images/wiseInAction/AirBag.jpg" height="228" /></div>
-
-				<div id="actionNavTable" class="alignCenter"><img
-						src="./themes/tels/default/images/wiseInAction/Arrow_Previous.png" class="dynamicImage" id="actionPrevTable"
+	
+				<div id="actionNavTable" class="alignCenter">
+					<img src="./themes/tels/default/images/wiseInAction/Arrow_Previous.png" class="dynamicImage" id="actionPrevTable"
 						onmouseover="this.style.cursor='pointer';" onmousedown="this.style.cursor='pointer';"
 						onmouseup="this.style.cursor='pointer';" onmouseout="this.style.cursor='default';"
-						onclick="
-                        counter=proceedToPreviousImage(counter);
-                        changeText('actionImgLinkTable',counter);" />
-
-				<a id="actionImgLinkTable">1&nbsp;<spring:message code="home.wiseinactioncounter" />&nbsp;10</a> <img
-						id="actionNextTable" src="./themes/tels/default/images/wiseInAction/Arrow_Next.png"
+						onclick="counter=proceedToPreviousImage(counter); changeText('actionImgLinkTable',counter);" />
+	
+				<a id="actionImgLinkTable">1&nbsp;<spring:message code="home.wiseinactioncounter" />&nbsp;10</a>
+					<img id="actionNextTable" src="./themes/tels/default/images/wiseInAction/Arrow_Next.png"
 						onmouseover="this.style.cursor='pointer';" onmousedown="this.style.cursor='pointer';"
 						onmouseup="this.style.cursor='pointer';" onmouseout="this.style.cursor='default';"
-						onclick="
-                        counter=proceedToNextImage(counter);
-                        changeText('actionImgLinkTable',counter);" />
+						onclick="counter=proceedToNextImage(counter); changeText('actionImgLinkTable',counter);" />
 				</div>
-				</div>
-				</td>
-				<!--    End of boxWISEInAction  -->
+			</div>
+		</div>
+		<!--    End of boxWISEInAction  -->
 
-				<td class="width15"></td>
-				<!--    Separator Column-->
-
-				<td id="boxTestimonials" >
-				<div class="panelColor1 panel">
-
+		<div id="boxTestimonials"  class="bottomPanel">
+			<div class="panelColor1 panel">
 				<div class="header"><spring:message code="home.testimonialslabel" /></div>
-
 				<div class="alignCenter"><img class="dataBoxStyle" id="rotatorT"
 						src="./themes/tels/default/images/testimonial_1.png" height="228" /></div>
-
-				<div id="testimonialsNavTable" class="alignCenter"><img id="test_prev" class="dynamicImage"
+	
+				<div id="testimonialsNavTable" class="alignCenter">
+					<img id="test_prev" class="dynamicImage"
 						src="./themes/tels/default/images/wiseInAction/Arrow_Previous.png" onmouseover="this.style.cursor='pointer';"
-						onclick="counter_T=proceedToPreviousImage_T(counter_T);
-                            changeText_T('testimonialsImgLinkTable',counter_T);"
+						onclick="counter_T=proceedToPreviousImage_T(counter_T); changeText_T('testimonialsImgLinkTable',counter_T);"
 						onmousedown="this.style.cursor='pointer';" onmouseup="this.style.cursor='pointer';"
-						onmouseout="this.style.cursor='default';" /> <a id="testimonialsImgLinkTable">1 <spring:message
-						code="home.testimonialscounter" /> 5</a> <img id="test_next" class="dynamicImage"
+						onmouseout="this.style.cursor='default';" />
+					<a id="testimonialsImgLinkTable">1 <spring:message code="home.testimonialscounter" /> 5</a>
+					<img id="test_next" class="dynamicImage"
 						src="./themes/tels/default/images/wiseInAction/Arrow_Next.png" onmouseover="this.style.cursor='pointer';"
 						onmousedown="this.style.cursor='pointer';" onmouseup="this.style.cursor='pointer';"
 						onmouseout="this.style.cursor='default';"
-						onclick="
-                        		counter_T=proceedToNextImage_T(counter_T);
-                       			 changeText_T('testimonialsImgLinkTable',counter_T);" />
+						onclick="counter_T=proceedToNextImage_T(counter_T); changeText_T('testimonialsImgLinkTable',counter_T);" />
 				</div>
-				</div>
-				</td>
+			</div>
+		</div>
+		<!--    End of boxTestimonials  -->
 
-				<td class="width15"></td>
-
-				<td >
-				<div id="boxLatestNews"  class="panelColor1 panel">
-				<div class="header">WISE News</div>
+		<div id="boxLatestNews" class="bottomPanel last">
+			<div class="panelColor1 panel">
+				<div class="header"><spring:message code="home.latestnewslabel" /></div>
 				<div id="newsContent">
-				<div id="newsContentHeader">${newsItem.title}</div>
-				${newsItem.news}</div>
-
+					<div id="newsContentHeader">${newsItem.title}</div>${newsItem.news}
+				</div>
+	
 				<div class="alignCenter">
-				<p id="newsArchiveButton"><a href="./newsarchive.html" onmouseout="MM_swapImgRestore()"
-						onmouseover="MM_swapImage('News Archive','','./themes/tels/default/images/newsArchiveRoll.png',1)"> <img
-						class="imgNoBorder" src="./themes/tels/default/images/newsArchive.png" alt="Go to News Archive" width="93" height="23"
-						id="News Archive" /></a></p>
+					<p id="newsArchiveButton">
+						<a href="./newsarchive.html" onmouseout="MM_swapImgRestore()"
+							onmouseover="MM_swapImage('newsArchive','','./themes/tels/default/images/newsArchiveRoll.png',1)">
+							<img class="imgNoBorder" src="./themes/tels/default/images/newsArchive.png" alt="Go to News Archive"
+								width="93" height="23" id="newsArchive" />
+						</a>
+					</p>
 				</div>
-				</div>
-				</td>
-		</tr>
-</table>
+			</div>
+		</div>
+		<!--    End of boxLatestNews  -->
+	</div>
+	<!--  End of contentBottom -->
 
-<table id="footerTable" cellpadding="0" cellspacing="0">
-		<tr>
-				<td id="footerLogos"><a class="marginPushLeft" href="http://www.nsf.gov" title="National Science Foundation"><img
-						src="./themes/tels/default/images/NSF-Logo-50x50.png" width="50" height="50" alt="National Science Foundation" /></a> <a
-						href="http://www.telscenter.org/confluence/display/SAIL/Home" title="SAIL Technology"><img
-						src="./themes/tels/default/images/SAIL-Logo-Small.png" width="96" height="50" alt="SAIL Logo" /></a> <a
-						href="http://www.telscenter.org/" title="TELS Consortium"><img src="./themes/tels/default/images/tels_logo.png"
-						width="160" height="50" alt="SAIL Logo" /></a> <a href="#" title="WISE 4.0"><img
-						src="./themes/tels/default/images/WISE-Logo-Small-1.png" alt="WISE 4.0 Logo" /></a></td>
+	<div id="contentFooter">
+		<div id="footerLogos">
+			<a href="http://www.nsf.gov" title="National Science Foundation" target="_blank">
+				<img src="./themes/tels/default/images/NSF-Logo-50x50.png" width="50" height="50" alt="National Science Foundation" />
+			</a>
+			<a href="http://www.telscenter.org/confluence/display/SAIL/Home" title="SAIL Technology" target="_blank">
+				<img src="./themes/tels/default/images/SAIL-Logo-Small.png" width="96" height="50" alt="SAIL Logo" />
+			</a>
+			<a href="http://www.telscenter.org/" title="TELS Consortium" target="_blank">
+				<img src="./themes/tels/default/images/TELS-logo-sm.gif" width="70" height="50" alt="TELS Logo" />
+			</a>
+			<a href="index.html" title="WISE 4.0" target="_blank">
+				<img src="./themes/tels/default/images/WISE-Logo-Small-1.png" alt="WISE 4.0 Logo" />
+			</a>
+		</div>
+		<div id="footerText">
+			<ul>
+				<li class="first"><a href="signup.html"><spring:message code="footer.link1" /></a></li>
+				<li class="footerNav2"><a href="./contactwisegeneral.html"><spring:message code="footer.link2" /></a></li>
+				<li class="footerNav2"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="footer.link3" /></a></li>
+				<li class="footerNav2 last"><a href="credits.html"><spring:message code="footer.link4" /></a></li>
+			</ul>
 
-				<td id="footerText">
-				<ul>
-						<li><a href="signup.html"><spring:message code="footer.link1" /></a></li>
-						<li id="footerNav2"><a href="./contactwisegeneral.html"><spring:message code="footer.link2" /></a></li>
-						<li id="footerNav2"><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="footer.link3" /></a></li>
-						<li id="footerNav2"><a href="credits.html"><spring:message code="footer.link4" /></a></li>
-				</ul>
-
-				<p><spring:message code="footer.legal1" /></p>
-				<p><spring:message code="footer.legal2" /><a href="http://www.mozilla.com" title="Firefox web site">Firefox</a>
-				browser.</p>
-				<p><spring:message code="footer.legal3" /></p>
-				</td>
-		</tr>
-</table>
-<!--    End of footer Table -->
+			<p><spring:message code="footer.legal1" /></p>
+			<p><spring:message code="footer.legal2" /><a href="http://www.firefox.com" title="Firefox web site">Firefox</a>browser.</p>
+			<p><spring:message code="footer.legal3" /></p>
+		</div>
+	</div>
+	<!--    End of contentFooter -->
 
 </div>
-<!-- end of #centered div-->
+<!-- end of centeredDiv -->
 
 </body>
 

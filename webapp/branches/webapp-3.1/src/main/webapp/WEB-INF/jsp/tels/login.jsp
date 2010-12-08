@@ -20,7 +20,7 @@
 
 <!-- $Id$ -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "XHTML1-s.dtd" >
+<!DOCTYPE html>
 <html xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -29,10 +29,10 @@
 <link href="<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="<spring:theme code="homepagestylesheet"/>" media="screen" rel="stylesheet"  type="text/css" />
 
-<script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
+<!--  <script src="./javascript/tels/prototype.js" type="text/javascript" ></script>
 <script src="./javascript/tels/scriptaculous.js" type="text/javascript" ></script>
 <script src="./javascript/tels/general.js" type="text/javascript" ></script>
-<script src="./javascript/tels/rotator.js" type="text/javascript" ></script>
+<script src="./javascript/tels/rotator.js" type="text/javascript" ></script> -->
 
 <style type="text/css" media="screen">
   .inplaceeditor-saving {background: url(<spring:theme code="wait"/>) bottom right no-repeat; }
@@ -58,36 +58,31 @@
 </c:if>
 </div>
 
- <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor2">
-                    			<div id="header"><spring:message code="login.failed10"/></div>
-								<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
-                                <dl id="signinDefinList">
-                                    <dt><label for="username"><spring:message code="login.failed11"/></label> </dt>
-                                    <dd><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60"/></dd>
-                                    
-                                    <!--This unusually placed script gets the cursor into the First Name field immediately on page load.  
-									It must appear immediately after the Input field in question  (MattFish)-->
-									<script type="text/javascript">
-										document.getElementById('j_username').focus(); 
-									</script>
-									
-									<dt><label for="password"><spring:message code="login.failed12"/></label></dt>
-                                    <dd><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30"/></dd>
-                                    
-                                    <dd><input type='hidden' value='${redirect}' name='redirect'/></dd>
-                                </dl>
-                                                       
-                                <div class="alignRight"><input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png"
-						width="100" height="27" alt="Sign In Button"
-						onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/SignInRoll.png',1)"
-						onmouseout="MM_swapImgRestore()" onclick="Effect.toggle('waiting', 'appear')" /></div>
-                                </form>
-                                
-                                <ul id="signInLinkPosition">
-                                		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="login.failed13"/></a>  </li>
-                                		<li><a href="signup.html" id="joinlink"><spring:message code="login.failed14"/></a></li>
-                                		<li><a href="./index.html" id="joinlink"><spring:message code="login.failed15"/></a></li>
-                                </ul>
+ <div style="margin:25px auto 0 auto;" id="boxTableSignInFailedLogin" class="panelColor2 panel">
+    <div class="header"><spring:message code="login.failed10"/></div>
+	<form id="home" method="post" action="j_acegi_security_check" autocomplete="off">
+		<div id="signinForm">
+			<div>
+				<label for="username"><spring:message code="login.failed11"/><input class="dataBoxStyle" type="text" name="j_username" id="j_username" size="18" maxlength="60" /></label>
+			</div>
+			<div>
+				<label for="password"><spring:message code="login.failed12"/><input class="dataBoxStyle" type="password" name="j_password" id="j_password" size="18" maxlength="30" /></label>
+				</div>
+			</div>
+			<input type='hidden' value='${redirect}' name='redirect'/>
+			
+			<div class="alignRight">
+				<input type="image" id="signInButton" img src="./themes/tels/default/images/SignIn.png"	width="100" height="27"
+					alt="Sign In Button" onmouseover="MM_swapImage('signInButton','','./themes/tels/default/images/SignInRoll.png',1)"
+				onmouseout="MM_swapImgRestore()" onclick="Effect.toggle('waiting', 'appear')" />
+			</div>
+	</form>
+                         
+        <ul id="signInLinkPosition">
+        		<li><a href="forgotaccount/selectaccounttype.html" id="forgotlink"><spring:message code="login.failed13"/></a>  </li>
+        		<li><a href="signup.html" id="joinlink"><spring:message code="login.failed14"/></a></li>
+        		<li><a href="./index.html" id="joinlink"><spring:message code="login.failed15"/></a></li>
+        </ul>
                                 
  </div>   <!--    End of boxTableSignIn  x-->               
 

@@ -7,8 +7,8 @@
 	<div id="betaTag"><img src="themes/tels/default/images/WISE-Logo-betatag.png" alt="WISE4 Beta graphic" border="0" /></div>
 
     <a href="index.html" onmouseout="MM_swapImgRestore()"
-	      onmouseover="MM_swapImage('WISE Main Logo','','themes/tels/default/images/WISE-Logo-Large-v4.png',1)">
-       <img src="themes/tels/default/images/WISE-Logo-Large-v4.png" alt="WISE Large Logo" border="0" id="WISE Main Logo" />
+	      onmouseover="MM_swapImage('wise-logo','','themes/tels/default/images/WISE-Logo-Large-v4.png',1)">
+       <img src="themes/tels/default/images/WISE-Logo-Large-v4.png" alt="WISE Large Logo" border="0" id="wise-logo" />
      </a>
 
    <div id="usernameSignOutBoxHome">
