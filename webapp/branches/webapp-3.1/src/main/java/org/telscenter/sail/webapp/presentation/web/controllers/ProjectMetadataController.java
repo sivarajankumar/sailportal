@@ -50,7 +50,24 @@ public class ProjectMetadataController extends AbstractController {
 					if(metadata != null) {
 						//metadata exists so we will get the metadata as a JSON string
 						String metadataJSON = metadata.toJSONString();
-						response.getWriter().write(metadataJSON);
+						
+						//get the JSONObject for the metadata so we can add to it
+						JSONObject metadataJSONObj = new JSONObject(metadataJSON);
+						
+						//get the parent project id
+						Long parentProjectId = project.getParentProjectId();
+						
+						//add the project id and parent project id
+						metadataJSONObj.put("projectId", Long.parseLong(projectId));
+						
+						if(parentProjectId == null) {
+							//there is no parent project id so we will set it to null
+							metadataJSONObj.put("parentProjectId", JSONObject.NULL);	
+						} else {
+							metadataJSONObj.put("parentProjectId", parentProjectId);							
+						}
+						
+						response.getWriter().write(metadataJSONObj.toString());
 					} else {
 						//metadata does not exist so we will just return an empty JSON object string
 						response.getWriter().write("{}");
