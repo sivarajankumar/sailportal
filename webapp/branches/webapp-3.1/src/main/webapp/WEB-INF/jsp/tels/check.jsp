@@ -20,6 +20,21 @@
 
 <link rel="shortcut icon" href="./themes/tels/default/images/favicon_panda.ico" /> 
 
+<style type="text/css">
+table
+{
+border-spacing:2px;
+}
+table, td, th
+{
+border:1px solid black;
+}
+
+td, th
+{
+padding:2px;
+}
+</style>
 </head>
 
 <body onload='checkCompatibility(${specificRequirements})'>
@@ -30,7 +45,7 @@
 
 	<div align='center'>
 		<h3>Browser Compatibility Check</h3>
-		<table border='1'>
+		<table>
 			<tr>
 				<td>Resource</td>
 				<td>Status</td>
