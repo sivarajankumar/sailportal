@@ -1,6 +1,7 @@
 package eu.scy.controllers.app;
 
 import eu.scy.core.UserService;
+import eu.scy.core.roolo.RuntimeELOService;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
 import eu.scy.core.model.impl.SCYUserDetails;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AppIndexController extends AbstractController {
 
     private UserService userService;
+    private RuntimeELOService runtimeELOService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
@@ -43,6 +45,9 @@ public class AppIndexController extends AbstractController {
             modelAndView.addObject("showProfilePicture", false);
         }
 
+        modelAndView.addObject("runtimeELOService", getRuntimeELOService());
+        modelAndView.addObject("userService", getUserService());
+
         return modelAndView;
     }
 
@@ -59,5 +64,13 @@ public class AppIndexController extends AbstractController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public RuntimeELOService getRuntimeELOService() {
+        return runtimeELOService;
+    }
+
+    public void setRuntimeELOService(RuntimeELOService runtimeELOService) {
+        this.runtimeELOService = runtimeELOService;
     }
 }

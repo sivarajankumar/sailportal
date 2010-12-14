@@ -37,6 +37,12 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>
+                        <s:runtimeMissionController runtimeELOService="${runtimeELOService}" userService="${userService}"/>
+                    </td>
+                </tr>
+
             </table>
         </sec:authorize>
         <sec:authorize ifAllGranted="ROLE_TEACHER">
