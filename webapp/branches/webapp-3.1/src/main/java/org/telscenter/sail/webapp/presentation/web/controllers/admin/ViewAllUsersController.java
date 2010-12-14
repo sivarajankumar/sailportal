@@ -72,7 +72,9 @@ public class ViewAllUsersController extends AbstractController{
 
 	private static final String USERNAMES = "usernames";
 	
-	private static final String LOGGED_IN_USERNAMES = "loggedInUsernames";
+	private static final String LOGGED_IN_STUDENT_USERNAMES = "loggedInStudentUsernames";
+
+	private static final String LOGGED_IN_TEACHER_USERNAMES = "loggedInTeacherUsernames";
 
 	/**
 	 * @see org.springframework.web.servlet.mvc.AbstractController#handleRequestInternal(javax.servlet.http.HttpServletRequest,
@@ -94,11 +96,17 @@ public class ViewAllUsersController extends AbstractController{
 			HashMap<String, User> allLoggedInUsers = 
 				(HashMap<String, User>) servletRequest.getSession()
 					.getServletContext().getAttribute(PasSessionListener.ALL_LOGGED_IN_USERS);
-			ArrayList<String> loggedInUsernames = new ArrayList<String>();
+			ArrayList<String> loggedInStudentUsernames = new ArrayList<String>();
+			ArrayList<String> loggedInTeacherUsernames = new ArrayList<String>();
 			for (User loggedInUser : allLoggedInUsers.values()) {
-				loggedInUsernames.add(loggedInUser.getUserDetails().getUsername());
+				if (loggedInUser.getUserDetails() instanceof StudentUserDetails) {
+					loggedInStudentUsernames.add(loggedInUser.getUserDetails().getUsername());
+				} else {
+					loggedInTeacherUsernames.add(loggedInUser.getUserDetails().getUsername());					
+				}
 			}
-			modelAndView.addObject(LOGGED_IN_USERNAMES, loggedInUsernames);
+			modelAndView.addObject(LOGGED_IN_STUDENT_USERNAMES, loggedInStudentUsernames);
+			modelAndView.addObject(LOGGED_IN_TEACHER_USERNAMES, loggedInTeacherUsernames);
 		} else if (onlyShowUsersWhoLoggedInToday != null && onlyShowUsersWhoLoggedInToday.equals("true")) {
 			AdminJob adminJob = (AdminJob) this.getApplicationContext().getBean("adminjob");
 			adminJob.setUserDao((UserDao<User>) this.getApplicationContext().getBean("userDao"));

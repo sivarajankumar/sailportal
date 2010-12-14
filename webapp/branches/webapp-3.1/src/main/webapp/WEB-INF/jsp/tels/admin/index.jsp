@@ -40,7 +40,7 @@
 <h2 style="color:#0000CC;margin-bottom:40px;">Welcome to the WISE Administrator Page</h2>
 
 
-<div id="adminTitle">User Management</div>
+<div class="adminTitle">User Management</div>
 	<div style="margin:0 0 0 25px;"> 
 		<h5>List: <a href="manageusers.html?userType=teacher">All Teachers</a> | 
 				  <a href="manageusers.html?userType=student">All Students</a> 
@@ -55,7 +55,7 @@
 		<!-- <h5><a href="lookupuser.html">Look up User</a></h5>-->
 	</div>
 	
-<div id="adminTitle">Project Run Management</div>
+<div class="adminTitle">Project Run Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5>List Runs run (<a href="runstats.html?command=today">today</a> | <a href="runstats.html?command=week">this week</a> | <a href="runstats.html?command=month">this month</a>) | <a href="runstats.html?command=activity">runs by activity</a></h5>
 	
@@ -70,7 +70,7 @@
 
 	   <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
 
-<div id="adminTitle">Project Management</div>
+<div class="adminTitle">Project Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="manageallprojects.html">Manage All Projects</a></h5>
 		<h5><a href="project/uploadproject.html">Import A Project</a></h5>
@@ -81,17 +81,17 @@
 
 
 <sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
-<div id="adminTitle">News Management</div>
+<div class="adminTitle">News Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="managenewsitems.html">Work with News Items</a></h5>
 	</div>
 
-<div id="adminTitle">Portal Management</div>
+<div class="adminTitle">Portal Management</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="portal/manageportal.html">Configure Portal Settings (Beta)</a></h5>
 	</div>
 
-<div id="adminTitle">External Project Service (Beta)</div>
+<div class="adminTitle">External Project Service (Beta)</div>
 	<div style="margin:0 0 0 25px;">
 		<h5><a href="project/viewprojectcommunicators.html">Manage All External ProjectCommunicators (connect to other portals)</a></h5>	   
 		<h5><a href="project/getallexternalprojects.html">Get all External Projects (connect to other portals)</a></h5>

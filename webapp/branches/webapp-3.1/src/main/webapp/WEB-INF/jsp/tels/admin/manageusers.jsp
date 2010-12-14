@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
-<link href="../<spring:theme code="globalstyles"/>" media="screen" rel="stylesheet"  type="text/css" />
 <link href="../<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="teacherprojectstylesheet" />" media="screen" rel="stylesheet" type="text/css" />
 <link href="../<spring:theme code="teacherhomepagestylesheet" />" media="screen" rel="stylesheet" type="text/css" />
@@ -27,11 +26,27 @@
 <h5 style="color:#0000CC;"><a href="index.html">Return to Main Menu</a></h5>
 
 <c:choose>
-<c:when test="${fn:length(loggedInUsernames) > 0}">
+<c:when test="${fn:length(loggedInTeacherUsernames) > 0 || fn:length(loggedInStudentUsernames) > 0}">
 
-<div>Number of currently logged in Users: ${fn:length(loggedInUsernames)}</div>
+<div>Currently logged in teachers (${fn:length(loggedInTeacherUsernames)}):</div>
 <table id="teachersTable" border="2">
-	<c:forEach var="username" items="${loggedInUsernames}">
+	<c:forEach var="username" items="${loggedInTeacherUsernames}">
+		<tr>
+			<td>${username}</td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacher/management/changepassword.html?userName=${username}');">Change
+			Password</a></td>
+			<td><a href="../j_acegi_switch_user?j_username=${username}">Log
+			in as this user</a></td>
+			<td><a href="#"
+				onclick="javascript:popup640('../teacherinfo.html?userName=${username}');">info</a></td>
+		</tr>
+	</c:forEach>
+</table>
+<br/>
+<div>Currently logged in students (${fn:length(loggedInStudentUsernames)}):</div>
+<table id="studentsTable" border="2">
+	<c:forEach var="username" items="${loggedInStudentUsernames}">
 		<tr>
 			<td>${username}</td>
 			<td><a href="#"
