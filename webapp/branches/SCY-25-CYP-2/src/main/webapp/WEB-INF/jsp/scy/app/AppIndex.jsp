@@ -13,30 +13,11 @@
                 <img src="/webapp/common/filestreamer.html?username=${currentUser.userDetails.username}&showIcon"/>
             </c:if>                                                                               
 
-            <p>
-                <center>
-                    Click to start <a href="/extcomp/scy-lab.jnlp">SCYLab</a>
-                </center>
-            </p>
 
     <sec:authorize ifAllGranted="ROLE_USER">
         <sec:authorize ifAllGranted="ROLE_STUDENT">
-            <h2>What do you want to do?</h2>
+            <h2>Select mission</h2>
             <table>
-                <tr>
-                    <td><a href="/extcomp/scy-lab.jnlp">Start SCYLab</a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="/webapp/app/feedback/ScyFeedbackIndex.html">View ELOs</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <s:dialog url="/webapp/app/feedback/uploadELOForFeedbackForm.html?username=${currentUser.userDetails.username}" title="Upload ELO" dialogHeader="Upload ELO" width="600" />
-                    </td>
-                </tr>
-
                 <tr>
                     <td>
                         <s:runtimeMissionController runtimeELOService="${runtimeELOService}" userService="${userService}"/>
@@ -46,6 +27,12 @@
             </table>
         </sec:authorize>
         <sec:authorize ifAllGranted="ROLE_TEACHER">
+            <p>
+                <center>
+                    Click to start <a href="/extcomp/scy-lab.jnlp">SCYLab</a>
+                </center>
+            </p>
+            
             <h2>What do you want to do?</h2>
             <table>
                 <tr>
