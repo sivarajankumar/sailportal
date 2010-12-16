@@ -2,11 +2,13 @@ package eu.scy.controllers.app;
 
 import eu.scy.core.UserService;
 import eu.scy.core.roolo.RuntimeELOService;
+import eu.scy.core.roolo.MissionELOService;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
 import eu.scy.core.model.impl.SCYUserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import eu.scy.server.common.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ public class AppIndexController extends AbstractController {
 
     private UserService userService;
     private RuntimeELOService runtimeELOService;
+    private MissionELOService missionELOService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
@@ -48,6 +51,13 @@ public class AppIndexController extends AbstractController {
         modelAndView.addObject("runtimeELOService", getRuntimeELOService());
         modelAndView.addObject("userService", getUserService());
 
+        String username = getCurrentUserName(httpServletRequest);
+        modelAndView.addObject("missionTransporters", getMissionELOService().getWebSafeTransporters(getMissionELOService().getMissionSpecifications(username)));
+
+        modelAndView.addObject("oddEven", new OddEven());
+
+
+
         return modelAndView;
     }
 
@@ -72,5 +82,13 @@ public class AppIndexController extends AbstractController {
 
     public void setRuntimeELOService(RuntimeELOService runtimeELOService) {
         this.runtimeELOService = runtimeELOService;
+    }
+
+    public MissionELOService getMissionELOService() {
+        return missionELOService;
+    }
+
+    public void setMissionELOService(MissionELOService missionELOService) {
+        this.missionELOService = missionELOService;
     }
 }

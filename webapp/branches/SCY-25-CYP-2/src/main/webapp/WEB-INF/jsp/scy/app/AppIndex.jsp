@@ -27,23 +27,48 @@
             </table>
         </sec:authorize>
         <sec:authorize ifAllGranted="ROLE_TEACHER">
-            <p>
-                <center>
-                    Click to start <a href="/extcomp/scy-lab.jnlp">SCYLab</a>
-                </center>
-            </p>
-            
-            <h2>What do you want to do?</h2>
-            <table>
-                <tr>
-                    <td><a href="/extcomp/scy-lab.jnlp">Start SCYLab</a></td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="/webapp/app/feedback/ScyFeedbackIndex.html">View ELOs</a>
-                    </td>
-                </tr>
-            </table>        
+
+            <c:choose>
+            <c:when test="${fn:length(missionTransporters) > 0}">
+                <table id="pedagogicalPlansTable" width="100%">
+                    <tr >
+                        <th>
+                            Select which mission to work with
+                        </th>
+                        <th>
+                            Number of portfolios to assess
+                        </th>
+                        <th>
+                            Number of active students
+                        </th>
+                    </tr>
+                    <c:forEach var="missionTransporter" items="${missionTransporters}">
+                        <tr class="${oddEven.oddEven}">
+                            <td>
+                                <a href="/webapp/app/scyauthor/viewPedagogicalPlan.html?uri=${missionTransporter.uri}">${missionTransporter.elo.title}</a>
+                            </td>
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                15
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <br/>
+                <div class="createNewPedPlan">
+                    <a href="createnewPedplansteps/PedPlanNameController.html">Create new pedagogical plan</a>
+                </div>
+
+
+
+                <br>
+            </c:when>
+        </c:choose>
+
+
+
         </sec:authorize>
 	</sec:authorize>
 

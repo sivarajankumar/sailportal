@@ -67,6 +67,7 @@
     <bean id="appIndexController" class="eu.scy.controllers.app.AppIndexController">
         <property name="userService" ref="userService"/>
         <property name="runtimeELOService" ref="runtimeELOService"/>
+        <property name="missionELOService" ref="missionELOService"/>
     </bean>
     
     <bean id="userAdminIndexController" class="eu.scy.controllers.app.useradmin.UserAdminIndexController">
