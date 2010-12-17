@@ -252,6 +252,14 @@
                                     <outputDirectory>target</outputDirectory>
                                     <includes>**/*.*</includes>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>eu.scy.server</groupId>
+                                    <artifactId>server-external-resources</artifactId>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <outputDirectory>target</outputDirectory>
+                                    <includes>**/*.*</includes>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -909,6 +917,12 @@
         <dependency>
             <groupId>eu.scy.server</groupId>
             <artifactId>scy-eportfolio</artifactId>
+            <version>${scy.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.scy.server</groupId>
+            <artifactId>server-external-resources</artifactId>
             <version>${scy.version}</version>
         </dependency>
 

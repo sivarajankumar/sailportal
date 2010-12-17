@@ -71,6 +71,7 @@
             classpath:scyAuthorControllers.xml,
             classpath:scyFeedbackControllers.xml,
             classpath:scyEportfolioControllers.xml
+            classpath:scyServerExternalResourcesControllers.xml
         </param-value>
     </context-param>
 
