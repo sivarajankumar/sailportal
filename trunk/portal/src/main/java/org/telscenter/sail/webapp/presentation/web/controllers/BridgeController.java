@@ -23,6 +23,7 @@
 package org.telscenter.sail.webapp.presentation.web.controllers;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -47,6 +48,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.telscenter.sail.webapp.domain.Run;
 import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import org.telscenter.sail.webapp.domain.authentication.impl.TeacherUserDetails;
+import org.telscenter.sail.webapp.domain.project.Project;
 import org.telscenter.sail.webapp.presentation.util.json.JSONArray;
 import org.telscenter.sail.webapp.presentation.util.json.JSONObject;
 import org.telscenter.sail.webapp.presentation.web.controllers.run.RunUtil;
@@ -408,6 +410,22 @@ public class BridgeController extends AbstractController {
 		} else if (type.equals("peerreview")) {
 			RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/peerreview.html");
 			requestDispatcher.forward(request, response);
+		} else if(type.equals("ideaBasket")) {
+			try {
+				String runId = request.getParameter("runId");
+				Run run = runService.retrieveById(new Long(runId));
+				Project project = run.getProject();
+				Serializable projectId = project.getId();
+				
+				request.setAttribute("projectId", projectId);
+				
+				RequestDispatcher requestDispatcher = vlewrappercontext.getRequestDispatcher("/ideaBasket.html");
+				requestDispatcher.forward(request, response);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
