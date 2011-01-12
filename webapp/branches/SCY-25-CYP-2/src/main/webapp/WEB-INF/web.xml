@@ -62,6 +62,11 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>SCY JNLP FILTER</filter-name>
+        <filter-class>eu.scy.server.filters.JNLPFilter</filter-class>
+    </filter>
+
 
     <!--  Listeners -->
     <listener>

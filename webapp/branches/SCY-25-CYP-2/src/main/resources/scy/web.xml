@@ -111,6 +111,18 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>ScyJNLPFilter</filter-name>
+        <filter-class>eu.scy.server.filters.JNLPFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ScyJNLPFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
