@@ -5,7 +5,8 @@
 	default-autowire="byName">
 
 	<alias name="httpInvokerRepositoryProxy" alias="repository" />
-    <alias name="httpInvokerMetadataTypeManagerProxy" alias="metadataTypeManager" />
+    <!--alias name="httpInvokerMetadataTypeManagerProxy" alias="metadataTypeManager" /-->
+    <alias name="cachedMetadataTypeManager" alias="metadataTypeManager" />
 	<alias name="httpInvokerExtensionManagerProxy" alias="extensionManager" />
     <alias name="localEloFactory" alias="eloFactory"/>
 
@@ -26,6 +27,10 @@
         <property name="serviceInterface">
             <value>roolo.api.IRepository</value>
         </property>
+    </bean>
+
+    <bean name="cachedMetadataTypeManager" class="roolo.cms.cache.MetadataTypeManagerCache">
+        <constructor-arg index="0" ref="httpInvokerMetadataTypeManagerProxy"/>
     </bean>
 
     <bean id="httpInvokerMetadataTypeManagerProxy"
