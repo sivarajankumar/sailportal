@@ -58,7 +58,7 @@
                 </table>
                 <br/>
                 <div class="createNewPedPlan">
-                    <a href="createnewPedplansteps/PedPlanNameController.html">Create new pedagogical plan</a>
+                    <a href="/webapp/app/scyauthor/createnewPedplansteps/PedPlanNameController.html">Create new pedagogical plan</a>
                 </div>
 
 
