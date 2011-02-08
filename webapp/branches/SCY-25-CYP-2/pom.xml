@@ -1029,7 +1029,7 @@
     </profiles>
 
     <properties>
-        <scy.version>28-SNAPSHOT</scy.version>
+        <scy.version>31-SNAPSHOT</scy.version>
         <startup.listeners></startup.listeners>
         <slf4j.version>1.5.5</slf4j.version>
     </properties>
