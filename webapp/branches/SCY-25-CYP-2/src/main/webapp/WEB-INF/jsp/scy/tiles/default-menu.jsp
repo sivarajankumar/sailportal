@@ -2,7 +2,7 @@
 <sec:authorize ifAllGranted="ROLE_USER">
 
 	<sec:authorize ifAllGranted="ROLE_STUDENT">
-		<li><a href="/webapp/app/feedback/ScyFeedbackIndex.html">SCYFeedback</a></li>
+		<li><a href="/webapp/app/feedback/feedbackindex.html">SCYFeedback</a></li>
 	</sec:authorize>
 
 	<sec:authorize ifAllGranted="ROLE_STUDENT">
