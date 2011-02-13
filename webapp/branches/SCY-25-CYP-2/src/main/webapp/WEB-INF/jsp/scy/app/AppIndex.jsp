@@ -61,6 +61,10 @@
                     <a href="/webapp/app/scyauthor/createnewPedplansteps/PedPlanNameController.html">Create new pedagogical plan</a>
                 </div>
 
+                <!--div>
+                    <a href="/webapp/app/scyauthor/clearAllPortfolios.html">CLEAR ALL FREAKIN' PORTFOLIOS!</a>
+                </div-->
+
 
 
                 <br>
