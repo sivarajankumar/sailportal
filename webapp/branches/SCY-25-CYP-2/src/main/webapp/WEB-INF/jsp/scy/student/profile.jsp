@@ -22,8 +22,8 @@
             </form>
 
         </div>
+        
 
-        </div>  <!-- /* End of the CenteredDiv */-->
 
     </tiles:putAttribute>
 </tiles:insertDefinition>

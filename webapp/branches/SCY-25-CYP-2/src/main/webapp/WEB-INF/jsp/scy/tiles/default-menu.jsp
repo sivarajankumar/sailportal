@@ -35,6 +35,6 @@
 
 
 	<sec:authorize ifAllGranted="ROLE_USER">
-		<li><a href="/webapp/student/profile.html">Profile</a></li>
+		<li><a href="/webapp/editors/userProfileEditor.html">Profile</a></li>
 	</sec:authorize>
 </sec:authorize>

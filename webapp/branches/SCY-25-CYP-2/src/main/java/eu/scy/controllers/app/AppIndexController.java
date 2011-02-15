@@ -8,7 +8,7 @@ import eu.scy.core.model.impl.SCYStudentUserDetails;
 import eu.scy.core.model.impl.SCYUserDetails;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import eu.scy.server.common.*;
+import eu.scy.server.controllers.ui.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
