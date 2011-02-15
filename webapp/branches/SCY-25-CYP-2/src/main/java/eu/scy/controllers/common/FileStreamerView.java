@@ -5,6 +5,8 @@ import eu.scy.core.model.FileRef;
 import eu.scy.core.model.ImageRef;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
+import eu.scy.core.model.impl.SCYTeacherUserDetails;
+import eu.scy.core.model.impl.SCYUserDetails;
 import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.ServletOutputStream;
@@ -45,11 +47,16 @@ public class FileStreamerView extends AbstractView {
         try {
 
             User user = getUserService().getUser(userName);
-            if (user != null && user.getUserDetails() instanceof SCYStudentUserDetails) {
-                SCYStudentUserDetails userDetails = (SCYStudentUserDetails) user.getUserDetails();
+            if (user != null) {
+
                 ImageRef fileRef = null;
                 try {
-                    fileRef = userDetails.getProfilePicture();
+                    if(user.getUserDetails() instanceof SCYStudentUserDetails) {
+                        fileRef = ((SCYStudentUserDetails)user.getUserDetails()).getProfilePicture();
+                    } else {
+                        fileRef = ((SCYTeacherUserDetails)user.getUserDetails()).getProfilePicture();
+                    }
+
                     logger.info("loading image for " + user.getUserDetails().getUsername() + " image ref is  " + fileRef);
                 } catch (Exception e) {
                     logger.warn("ImageRef does not exist!");
