@@ -105,6 +105,7 @@
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /login.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
+                /usercredentials.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/**/*.html=ROLE_STUDENT,ROLE_TEACHER,ROLE_ADMINISTRATOR
                 /teacher/registerteacher.html=ROLE_ANONYMOUS,ROLE_USER

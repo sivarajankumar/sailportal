@@ -88,7 +88,7 @@ public class ProfilePictureUploadController extends SimpleFormController {
 
 
         MultipartFile file = bean.getFile();
-        File tmpFile = new File(file.getOriginalFilename());
+        File tmpFile = new File(Math.random() + file.getOriginalFilename());
         tmpFile.deleteOnExit();
         file.transferTo(tmpFile);
 
