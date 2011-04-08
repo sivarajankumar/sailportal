@@ -17,14 +17,7 @@
     <sec:authorize ifAllGranted="ROLE_USER">
         <sec:authorize ifAllGranted="ROLE_STUDENT">
             <h2>Select mission</h2>
-            <table>
-                <tr>
-                    <td>
-                        <s:runtimeMissionController runtimeELOService="${runtimeELOService}" userService="${userService}"/>
-                    </td>
-                </tr>
-
-            </table>
+            <s:runtimeMissionController runtimeELOService="${runtimeELOService}" userService="${userService}"/>
         </sec:authorize>
         <sec:authorize ifAllGranted="ROLE_TEACHER">
 
