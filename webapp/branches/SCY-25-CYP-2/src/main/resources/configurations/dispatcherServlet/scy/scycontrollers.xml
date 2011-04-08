@@ -103,6 +103,7 @@
         <property name="studentPedagogicalPlanPersistenceService" ref="studentPedagogicalPlanService"/>
         <property name="pedagogicalPlanPersistenceService" ref="pedagogicalPlanPersistenceService"/>
         <property name="assignedPedagogicalPlanService" ref="assignedPedagogicalPlanService"/>
+        <property name="runtimeELOService" ref="runtimeELOService"/>
     </bean>
 
     <bean id="selectPedagogicalPlanForStudentController" class="eu.scy.controllers.teacher.SelectPedagogicalPlanForStudent">

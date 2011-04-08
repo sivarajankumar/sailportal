@@ -18,7 +18,7 @@
                            </td>
                        </tr>
                        <tr>
-                           <td><strong>First name</strong></td>
+                           <td width="20%"><strong>First name</strong></td>
                            <td><s:ajaxTextField model="${student.userDetails}" property="firstName"/></td>
                        </tr>
                        <tr>
@@ -26,60 +26,41 @@
                            <td><s:ajaxTextField model="${student.userDetails}" property="lastName"/></td>
                        </tr>
 
+                       <tr>
+                           <td><strong>User name</strong></td>
+                           <td><strong>${student.userDetails.username}</strong></td>
+                       </tr>
+
+                       <tr>
+                           <td><strong>Password</strong></td>
+                           <td><s:ajaxPasswordField model="${student.userDetails}" property="password"/></td>
+                       </tr>
+                       <tr>
+                           <td>
+                               
+                           </td>
+                       </tr>
+
                    </table>
 
                </td>
                <td>
-                    <s:editUserRoles user="${student}" availableAuthorities="${availableAuthorities}" successView="/teacher/viewStudentDetails.html"/>           
                </td>
            </tr>
        </table>
+        <br/>
+        <h1>Roles</h1>
 
+        <table>
+            <tr>
+                <td>
+                    <s:editUserRoles user="${student}" availableAuthorities="${availableAuthorities}" successView="/teacher/viewStudentDetails.html"/>
+                </td>
+            </tr>
+        </table>
 
-        <a href="selectPedagogicalPlanForStudent.html?username=${student.userDetails.username}">Select mission to assign</a> <br/>
+        <a href="viewStudentDetails.html?username=${student.userDetails.username}&action=delete">Delete</a> |
+        <a href="studentBuddies.html?username=${student.userDetails.username}">Buddies</a>
 
-        <a href="viewStudentDetails.html?username=${student.userDetails.username}&pedPlan=published">Assign published mission</a>
-
-
-
-        <c:choose>
-            <c:when test="${fn:length(studentPlans) > 0}">
-                <table id="studentPlanTable" border="2">
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                    <c:forEach var="studentPlan" items="${studentPlans}">
-                        <tr>
-                            <td><a href="viewStudentPlan.html?studentPlanId=${studentPlan.id}">${studentPlan.pedagogicalPlan.name}</a></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-                <br>
-            </c:when>
-        </c:choose>
-
-        <c:choose>
-            <c:when test="${fn:length(assignedPedagogicalPlans) > 0}">
-                    <c:forEach var="assignedPedagogicalPlan" items="${assignedPedagogicalPlans}">
-                        <table border="2">
-                            <tr>
-                                <td><strong>Name</strong></td>
-                                <td>${assignedPedagogicalPlan.pedagogicalPlan.name}</td>
-                            </tr>
-                        <tr>
-                            <td><strong>Use criteria based assessment</strong></td>
-                            <td><s:ajaxCheckBox model="${assignedPedagogicalPlan}" property="useCriteriaBasedAssessment"/> </td>
-                        </tr>
-
-
-                    </c:forEach>
-            </c:when>
-        </c:choose>
-
-
-        <div>
-            <a href="studentBuddies.html?username=${student.userDetails.username}">Buddies</a>
-        </div>
-        
     </tiles:putAttribute>
 </tiles:insertDefinition>

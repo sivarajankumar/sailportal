@@ -5,6 +5,7 @@ import eu.scy.core.*;
 import eu.scy.core.model.User;
 import eu.scy.core.model.pedagogicalplan.PedagogicalPlan;
 import eu.scy.server.pedagogicalplan.StudentPedagogicalPlanService;
+import eu.scy.core.roolo.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -25,12 +26,20 @@ public class StudentDetailsController extends AbstractSCYController {
     private PedagogicalPlanPersistenceService pedagogicalPlanPersistenceService;
     private AssignedPedagogicalPlanService assignedPedagogicalPlanService;
     private UserService userService;
+    private RuntimeELOService runtimeELOService;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
         String username = request.getParameter("username");
         User student = getUserService().getUser(username);
 
+
+        if(request.getParameter("action") != null) {
+            if(request.getParameter("action").equals("delete")) {
+                //request.setP
+                return deleteUser(student, request, httpServletResponse);
+            }
+        }
 
 
         String assignPedPlan = request.getParameter("pedPlan");
@@ -60,6 +69,17 @@ public class StudentDetailsController extends AbstractSCYController {
         modelAndView.addObject("availableAuthorities", getUserService().getGrantedAuthorities());
 
 
+        return modelAndView;
+    }
+
+    protected ModelAndView deleteUser(User user, HttpServletRequest request, HttpServletResponse httpServletResponse) {
+        request.setAttribute("message", "User has been deleted");
+        getUserService().deleteUser(user);
+        getRuntimeELOService().deleteRuntimeElosForUser(user.getUserDetails().getUsername());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("message", "User has been deleted");
+        modelAndView.setViewName("forward:studentList.html");
+        //logger.info("I have set the following message: " + request.getSession().getAttribute("message"));
         return modelAndView;
     }
 
@@ -103,5 +123,13 @@ public class StudentDetailsController extends AbstractSCYController {
 
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    public RuntimeELOService getRuntimeELOService() {
+        return runtimeELOService;
+    }
+
+    public void setRuntimeELOService(RuntimeELOService runtimeELOService) {
+        this.runtimeELOService = runtimeELOService;
     }
 }

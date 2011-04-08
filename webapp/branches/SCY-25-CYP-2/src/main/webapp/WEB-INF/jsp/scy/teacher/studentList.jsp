@@ -13,6 +13,12 @@
             <c:when test="${fn:length(users) > 0}">
                 <table id="teachersTable">
                     <h1>Users</h1>
+
+                    <c:if test="${(message != 'null')}">
+                        <h2><strong style="color:#ff0000;">${message}</strong></h2> 
+                        <br/>
+                    </c:if>
+                    
                     <tr>
                         <th></th>
                         <th>User name</th>
