@@ -118,7 +118,7 @@
 
     <filter-mapping>
         <filter-name>ScyJNLPFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.jnlp</url-pattern>
     </filter-mapping>
 
     
