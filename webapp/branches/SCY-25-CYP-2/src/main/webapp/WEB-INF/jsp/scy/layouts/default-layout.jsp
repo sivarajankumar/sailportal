@@ -144,6 +144,11 @@
             dojo.require("dijit.form.TimeTextBox");
             dojo.require("dijit.form.NumberTextBox");
             dojo.require("dojox.gfx");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.Dialog");
+            dojo.require("dijit.layout.TabContainer");
+            dojo.require("dijit.layout.ContentPane");
+
 
 
         }
