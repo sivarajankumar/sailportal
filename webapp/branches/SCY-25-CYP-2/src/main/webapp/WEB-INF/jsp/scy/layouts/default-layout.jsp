@@ -148,7 +148,7 @@
             dojo.require("dijit.Dialog");
             dojo.require("dijit.layout.TabContainer");
             dojo.require("dijit.layout.ContentPane");
-            dojo.require("dojox.layout.ContentPanen");
+            dojo.require("dojox.layout.ContentPane");
 
 
 

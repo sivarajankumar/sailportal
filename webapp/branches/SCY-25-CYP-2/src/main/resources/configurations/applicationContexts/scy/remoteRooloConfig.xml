@@ -13,7 +13,7 @@
     <bean name="localEloFactory" class="roolo.elo.JDomBasicELOFactory">
         <constructor-arg index="0" ref="metadataTypeManager"/>
     </bean>
-    
+
 
     <import resource="remoteRooloMetadata.xml"/>
 
@@ -79,6 +79,6 @@
             </property>
         -->
     </bean>
-    
+
 
 </beans>
