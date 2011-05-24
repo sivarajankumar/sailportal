@@ -55,8 +55,7 @@
     <bean id="authenticationProcessingFilter"
         class="org.telscenter.sail.webapp.presentation.web.filters.TelsAuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager" />
-        <property name="authenticationFailureUrl"
-            value="/login.html?failed=true" />
+        <property name="authenticationFailureUrl" value="/login.html?failed=true" />
         <property name="alwaysUseDefaultTargetUrl" value="false" />
         <property name="defaultTargetUrl" value="/teacherindex.html" />
         <property name="filterProcessesUrl" value="/j_acegi_security_check" />
