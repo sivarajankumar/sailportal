@@ -44,7 +44,7 @@
                                 3
                             </td>
                             <td>
-                                15
+                                ${missionTransporter.numberOfActiveStudents}
                             </td>
                         </tr>
                     </c:forEach>
