@@ -12,6 +12,7 @@ import eu.scy.server.controllers.ui.*;
 import eu.scy.core.runtime.*;
 import eu.scy.core.roolo.*;
 import eu.scy.common.mission.*;
+import eu.scy.server.controllers.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.LinkedList;
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: Henrik
@@ -27,7 +29,7 @@ import java.util.LinkedList;
  * Time: 05:33:57
  * To change this template use File | Settings | File Templates.
  */
-public class AppIndexController extends AbstractController {
+public class AppIndexController extends BaseController {
 
     private UserService userService;
     private RuntimeELOService runtimeELOService;
@@ -35,9 +37,8 @@ public class AppIndexController extends AbstractController {
     private SessionService sessionService;
 
     @Override
-    protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    protected void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse response, ModelAndView modelAndView) {
         User user = getUserService().getUser(getCurrentUserName(httpServletRequest));
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("currentUser", user);
         if (user.getUserDetails().getUsername().contains("armin") || user.getUserDetails().getUsername().contains("Armin")) {
             modelAndView.addObject("rickRoll", true);
@@ -79,9 +80,6 @@ public class AppIndexController extends AbstractController {
         modelAndView.addObject("missionTransporters", missionTransporters);
 
         modelAndView.addObject("oddEven", new OddEven());
-
-
-        return modelAndView;
     }
 
     public String getCurrentUserName(HttpServletRequest request) {
