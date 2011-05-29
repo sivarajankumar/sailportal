@@ -17,9 +17,10 @@
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dijit/themes/soria/layout/Dialog.css" />
     <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dojox/form/resources/FileUploader.css" rel="stylesheet" />
 
-	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-
-	<script type="text/javascript">
+    <script type="text/javascript" src="/webapp/themes/scy/eportfolio/swfobject.js"></script>
+    <script type="text/javascript" src="http://www.intermedia.uio.no/www-data-public/app-scy/eportfolio/history/history.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
 
 
         function initUploader(){
