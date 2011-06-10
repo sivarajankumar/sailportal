@@ -759,19 +759,19 @@
         <dependency>
             <groupId>org.roolo</groupId>
             <artifactId>elo-api</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${scy.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.roolo</groupId>
             <artifactId>elo-impl</artifactId>
-            <version>0.7.0-SNAPSHOT</version>
+            <version>${scy.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.roolo</groupId>
             <artifactId>roolo-cache</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${scy.version}</version>
         </dependency>
 
         <dependency>
@@ -881,12 +881,12 @@
         <dependency>
             <groupId>org.roolo</groupId>
             <artifactId>roolo-api</artifactId>
-            <version>0.6.0-SNAPSHOT</version>
+            <version>${scy.version}</version>
         </dependency>
         <dependency>
             <groupId>org.roolo</groupId>
             <artifactId>roolo-impl-jpa</artifactId>
-            <version>0.7.0-SNAPSHOT</version>
+            <version>${scy.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jettison</groupId>
@@ -1054,11 +1054,11 @@
                         <properties>
                                 <version-name>-ut2</version-name>
                         </properties>
-	       </profile>
+	       </profile>              
     </profiles>
 
     <properties>
-        <scy.version>34-SNAPSHOT</scy.version>
+        <scy.version>35-SNAPSHOT</scy.version>
         <startup.listeners></startup.listeners>
         <slf4j.version>1.5.5</slf4j.version>
     </properties>

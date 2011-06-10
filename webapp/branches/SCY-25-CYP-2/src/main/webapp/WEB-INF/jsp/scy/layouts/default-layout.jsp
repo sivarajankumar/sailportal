@@ -434,7 +434,7 @@
 			<tiles:insertAttribute name="options"/>
 		</div>
 		<div class="logo"></div>
-		<div class="menubar-wrapper">
+		<!--div class="menubar-wrapper">
 			<div class="border-left">
 				<div class="border-right">
 					<ul class="menu">
@@ -443,7 +443,7 @@
 				</div>
 			</div>
 		</div>
-        <div id="breadcrumbs"><s:breadcrumbs/></div>
+        <div id="breadcrumbs"><s:breadcrumbs/></div-->
 
 	</div>
 
