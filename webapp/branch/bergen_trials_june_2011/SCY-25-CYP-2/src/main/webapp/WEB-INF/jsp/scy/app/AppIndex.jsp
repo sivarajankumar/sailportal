@@ -38,7 +38,7 @@
                     <c:forEach var="missionTransporter" items="${missionTransporters}">
                         <tr class="${oddEven.oddEven}">
                             <td>
-                                <a href="/webapp/app/scyauthor/viewPedagogicalPlan.html?uri=${missionTransporter.uri}">${missionTransporter.elo.title}</a>
+                                <a href="/webapp/app/scyauthor/viewPedagogicalPlan.html?eloURI=${missionTransporter.uri}">${missionTransporter.elo.title}</a>
                             </td>
                             <td>
                                 3
@@ -50,16 +50,6 @@
                     </c:forEach>
                 </table>
                 <br/>
-                <div class="createNewPedPlan">
-                    <a href="/webapp/app/scyauthor/createnewPedplansteps/PedPlanNameController.html">Create new pedagogical plan</a>
-                </div>
-
-                <!--div>
-                    <a href="/webapp/app/scyauthor/clearAllPortfolios.html">CLEAR ALL FREAKIN' PORTFOLIOS!</a>
-                </div-->
-
-
-
                 <br>
             </c:when>
         </c:choose>
