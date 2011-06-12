@@ -10,9 +10,7 @@
 
                 <h1 id="registrationTitle" class="blueText"><spring:message code="student.registerstudent.1"/></h1>
 
-                <div id="subtitleStudentReg"><spring:message code="student.registerstudent.2"/> <br/><spring:message
-                        code="student.registerstudent.3"/></div>
-
+                
                 <!-- Support for Spring errors object -->
                 <div id="regErrorMessages">
                     <spring:bind path="userDetails.*">
