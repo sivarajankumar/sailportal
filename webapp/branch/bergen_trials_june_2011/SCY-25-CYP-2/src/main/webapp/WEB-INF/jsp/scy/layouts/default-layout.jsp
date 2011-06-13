@@ -128,7 +128,7 @@
         function openPage(id , url) {
              var widget = dijit.byId(id);
                 if (widget) {
-                    alert("found widget!");
+                    //alert("found widget!");
                     dijit.byId(id).attr('href', url);
                 } else {
                     alert("Loading through xhr");
