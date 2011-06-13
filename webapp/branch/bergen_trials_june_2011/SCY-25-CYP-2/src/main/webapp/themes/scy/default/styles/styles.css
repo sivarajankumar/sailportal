@@ -342,12 +342,12 @@ table td{
 }
 
 .tablerow-even{
-    background-color:#80a8bb;
+    background-color:#F8F8FF;
     /*border-collapse:collapse;*/
 }
 
 .tablerow-odd{
-    background-color:#8cc2d4;
+    background-color:#E6E6FA;
     /*border-collapse:collapse;*/
 }
 
