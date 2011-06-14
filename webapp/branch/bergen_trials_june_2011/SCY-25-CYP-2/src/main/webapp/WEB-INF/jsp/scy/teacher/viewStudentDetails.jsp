@@ -36,9 +36,8 @@
                            <td><s:ajaxPasswordField model="${student.userDetails}" property="password"/></td>
                        </tr>
                        <tr>
-                           <td>
-                               
-                           </td>
+                           <td><strong>Language</strong></td>
+                           <td><s:ajaxTextField model="${student.userDetails}" property="locale"/></td>
                        </tr>
 
                    </table>
