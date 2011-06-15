@@ -28,24 +28,24 @@
                         <th>
                             Select which mission to work with
                         </th>
-                        <th>
+                        <!--th>
                             Number of portfolios to assess
                         </th>
                         <th>
                             Number of active students
-                        </th>
+                        </th-->
                     </tr>
                     <c:forEach var="missionTransporter" items="${missionTransporters}">
                         <tr class="${oddEven.oddEven}">
                             <td>
                                 <a href="/webapp/app/scyauthor/viewPedagogicalPlan.html?eloURI=${missionTransporter.uri}">${missionTransporter.elo.title}</a>
                             </td>
-                            <td>
+                            <!--td>
                                 3
                             </td>
                             <td>
                                 ${missionTransporter.numberOfActiveStudents}
-                            </td>
+                            </td--->
                         </tr>
                     </c:forEach>
                 </table>
