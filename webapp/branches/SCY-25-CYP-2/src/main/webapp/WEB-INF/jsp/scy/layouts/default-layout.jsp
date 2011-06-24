@@ -92,6 +92,74 @@
             postForm('ajaxSliderForm' + id);
         }
 
+        function openAlertPage(id, url) {
+            alert("Opening " + id  + " " + url);
+        }
+
+        function openStudentPage() {
+            openPage('viewStudents', '/webapp/useradmin/manageAssignedStudent.html?eloURI=${eloURI}&username=${user.userDetails.username}&action=clearPortfolios');
+        }
+
+        function initializeMenuBar() {
+            alert("initializing menu bar!");
+            ExampleMenu = new dijit.Menu({
+                id: "SampleM"
+            });
+            ExampleMenu.addChild(new dijit.MenuItem({
+                label: "Always Visible Menu",
+                disabled: true
+            }));
+            ExampleMenu.addChild(new dijit.MenuItem({
+                label: "Item #1",
+                onClick: openStudentPage(),
+                accelKey: "Shift+O"
+            }));
+            ExampleMenu.addChild(new dijit.MenuItem({
+                label: "Item #2",
+                onClick: fClickTwo,
+                disabled: true,
+                accelKey: "Shift+T"
+            }));
+            ExampleMenu.placeAt("menuBar");
+            ExampleMenu.startup();
+
+        }
+
+        function openPage(id , url) {
+             var widget = dijit.byId(id);
+                if (widget) {
+                    //alert("found widget!");
+                    dijit.byId(id).attr('href', url);
+                } else {
+                    alert("Loading through xhr");
+                    dojo.xhrGet({
+                        url:url,
+                        handleAs:"text",
+                        load: function(response){
+                            dojo.byId(id).innerHTML = response;
+                            evaluateJavascriptsInresponseAndLoadContentsInId(response);
+                        }
+                    });
+                    //Find my output node and write out I couldn't find the widget.
+                    //dojo.byId(id).innerHTML = "Could not locate my text box widget!";
+                }
+
+            //dijit.byId(id).attr('href', url);
+            /*dojo.xhrGet({
+                url:url,
+                handleAs:"text",
+                load: function(response){
+                    dojo.byId(id).innerHTML = response;
+                    evaluateJavascriptsInresponseAndLoadContentsInId(response);
+                }
+            });*/
+        }
+
+        function evaluateJavascriptsInresponseAndLoadContentsInId(response) {
+            alert("EVALUATING: " + response);
+            eval(response);
+        }
+
         function updateActivityStatus(statusid, username, missionURI){
             console.info("updating status....." + statusid);
             var targetNode = dojo.byId(statusid);
@@ -150,6 +218,12 @@
             dojo.require("dijit.layout.TabContainer");
             dojo.require("dijit.layout.ContentPane");
             dojo.require("dojox.layout.ContentPane");
+            
+            dojo.require("dijit.MenuBar");
+            dojo.require("dijit.PopupMenuBarItem");
+            dojo.require("dijit.Menu");
+            dojo.require("dijit.MenuItem");
+            dojo.require("dijit.PopupMenuItem");
 
 
 

@@ -70,7 +70,7 @@ public class AppIndexController extends BaseController {
             MissionSpecificationElo missionRuntimeElo = null;
             URI uri = eloWebSafeTransporter.getElo().getUri();
             missionRuntimeElo = MissionSpecificationElo.loadLastVersionElo(uri, getMissionELOService());
-            missionInfoWebSafeTransporter.setNumberOfActiveStudents(getSessionService().getActiveStudentsOnMission(missionRuntimeElo).size());
+            //missionInfoWebSafeTransporter.setNumberOfActiveStudents(getSessionService().getActiveStudentsOnMission(missionRuntimeElo).size());
 
 
             missionTransporters.add(missionInfoWebSafeTransporter);
