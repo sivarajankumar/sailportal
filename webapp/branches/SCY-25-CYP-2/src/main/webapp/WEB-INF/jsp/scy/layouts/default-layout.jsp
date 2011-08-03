@@ -278,16 +278,20 @@
             dojo.require("dijit.layout.TabContainer");
             dojo.require("dijit.layout.ContentPane");
             dojo.require("dojox.layout.ContentPane");
-            
+            dojo.require("dijit.layout.AccordionContainer");
+
             dojo.require("dijit.MenuBar");
             dojo.require("dijit.PopupMenuBarItem");
             dojo.require("dijit.Menu");
             dojo.require("dijit.MenuItem");
             dojo.require("dijit.PopupMenuItem");
-
+            dojo.require("dojo.io.script");
+            dojo.require("dojox.widget.FisheyeList");
 
 
         }
+
+        
 
       var lasMap = new Array();
       var eloMap = new Array();
