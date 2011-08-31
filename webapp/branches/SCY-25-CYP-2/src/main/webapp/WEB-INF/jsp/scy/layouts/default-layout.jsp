@@ -94,6 +94,11 @@
             }, "btn");
 
         }
+
+        function postFeedback(form, returnContainer){
+                postForm(form, returnContainer);
+            }
+
         function postForm(form, retId){
             var returnid = null;
             if(retId != null) returnid = retId.id;
@@ -105,10 +110,19 @@
                     },
 
                     load: function(data) {
+                        //dojo.byId(returnid).innerHTML = data;
                         if(returnid != null && document.getElementById(returnid)){
                             document.getElementById(returnid).innerHMTL = data;
                         } else {
-                            console.log("Return id does not exist!!");
+                            console.log("Return id does not exist!! will create a new div.");
+                            var returnDiv = document.createElement("div");
+                            returnDiv.id = returnid;
+
+                            var attachmentDomNode = form.parentNode;
+                            attachmentDomNode.appendChild(returnDiv);
+                            returnDiv.innerHTML = "tete" + data;
+                            
+
                         }
                         //dojo.byId("response").innerHTML = "Form posted.";
                         console.log("Form posted.");
