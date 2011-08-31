@@ -15,6 +15,7 @@ import eu.scy.core.model.ImageRef;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
 import eu.scy.core.model.impl.SCYTeacherUserDetails;
+import org.springframework.web.servlet.view.AbstractView;
 
 /**
  * Created by IntelliJ IDEA.
@@ -94,7 +95,8 @@ public class FileStreamerView extends AbstractView {
                     logger.debug("LOADING BUDDY ICON");
                     InputStream is = null;
                     if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
-                    else is = this.getClass().getResourceAsStream("buddyicon_online.png");
+                    else
+                        is = this.getClass().getResourceAsStream("buddy.png");
 
 
                     byte[] bytes = new byte[is.available()];
@@ -112,8 +114,7 @@ public class FileStreamerView extends AbstractView {
                 logger.info("LOADING BUDDY ICON");
                 InputStream is = null;
                 if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
-                else
-                    is = this.getClass().getResourceAsStream("buddy.png");
+                else is = this.getClass().getResourceAsStream("buddy.png");
 
 
                 byte[] bytes = new byte[is.available()];
