@@ -1,22 +1,20 @@
 package eu.scy.controllers.common;
 
-import eu.scy.core.UserService;
-import eu.scy.core.model.FileRef;
-import eu.scy.core.model.ImageRef;
-import eu.scy.core.model.User;
-import eu.scy.core.model.impl.SCYStudentUserDetails;
-import eu.scy.core.model.impl.SCYTeacherUserDetails;
-import eu.scy.core.model.impl.SCYUserDetails;
-import org.springframework.web.servlet.view.AbstractView;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import eu.scy.core.UserService;
+import eu.scy.core.model.ImageRef;
+import eu.scy.core.model.User;
+import eu.scy.core.model.impl.SCYStudentUserDetails;
+import eu.scy.core.model.impl.SCYTeacherUserDetails;
 
 /**
  * Created by IntelliJ IDEA.
@@ -114,7 +112,8 @@ public class FileStreamerView extends AbstractView {
                 logger.info("LOADING BUDDY ICON");
                 InputStream is = null;
                 if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
-                else is = this.getClass().getResourceAsStream("buddyicon_online.png");
+                else
+                    is = this.getClass().getResourceAsStream("buddy.png");
 
 
                 byte[] bytes = new byte[is.available()];
