@@ -115,12 +115,7 @@
                             document.getElementById(returnid).innerHTML = data;
                         } else {
                             console.log("Return id does not exist!!" + returnid);
-                           /* var returnDiv = document.createElement("div");
-                            returnDiv.id = returnid;
-
-                            var attachmentDomNode = customAttachDomId;
-                            attachmentDomNode.appendChild(returnDiv);
-                            returnDiv.innerHTML = data;*/
+                           
                             
 
                         }
