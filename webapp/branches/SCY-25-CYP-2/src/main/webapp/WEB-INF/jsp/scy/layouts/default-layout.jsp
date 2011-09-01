@@ -95,11 +95,11 @@
 
         }
 
-        function postFeedback(form, returnContainer){
-                postForm(form, returnContainer);
+        function postFeedback(form, returnContainer, append){
+                postForm(form, returnContainer, append);
             }
 
-        function postForm(form, retId, customAttachDomId){
+        function postForm(form, retId, append){
             var returnid = null;
             if(retId != null) returnid = retId.id;
             var xhrArgs = {
@@ -112,7 +112,11 @@
                     load: function(data) {
                         //dojo.byId(returnid).innerHTML = data;
                         if(returnid != null && document.getElementById(returnid)){
-                            document.getElementById(returnid).innerHTML = data;
+                            if(append){
+                                document.getElementById(returnid).innerHTML = data + document.getElementById(returnid).innerHTML;
+                            } else {
+                                document.getElementById(returnid).innerHTML = data;
+                            }
                         } else {
                             console.log("Return id does not exist!!" + returnid);
                            
