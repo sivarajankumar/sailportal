@@ -205,7 +205,7 @@
                     //alert("found widget!");
                     dijit.byId(id).attr('href', url);
                 } else {
-                    alert("Loading through xhr");
+//                     alert("Loading through xhr");
                     dojo.xhrGet({
                         url:url,
                         handleAs:"text",
@@ -230,7 +230,7 @@
         }
 
         function evaluateJavascriptsInresponseAndLoadContentsInId(response) {
-            alert("EVALUATING: " + response);
+//             alert("EVALUATING: " + response);
             eval(response);
         }
 
