@@ -95,11 +95,11 @@
 
         }
 
-        function postFeedback(form, returnContainer){
-                postForm(form, returnContainer);
+        function postFeedback(form, returnContainer, customAttachDomId){
+                postForm(form, returnContainer, customAttachDomId);
             }
 
-        function postForm(form, retId){
+        function postForm(form, retId, customAttachDomId){
             var returnid = null;
             if(retId != null) returnid = retId.id;
             var xhrArgs = {
@@ -118,9 +118,9 @@
                             var returnDiv = document.createElement("div");
                             returnDiv.id = returnid;
 
-                            var attachmentDomNode = form.parentNode;
+                            var attachmentDomNode = customAttachDomId;
                             attachmentDomNode.appendChild(returnDiv);
-                            returnDiv.innerHTML = "tete" + data;
+                            returnDiv.innerHTML = data;
                             
 
                         }
