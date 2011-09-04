@@ -13,9 +13,9 @@
 	<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css"/>
 
 	<link rel="shortcut icon" href="/webapp/themes/tels/default/images/favicon_panda.ico" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dijit/themes/soria/soria.css" />
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dijit/themes/soria/layout/Dialog.css" />
-    <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.4.0/dojox/form/resources/FileUploader.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dijit/themes/soria/soria.css" />
+    <!--link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dijit/themes/soria/layout/Dialog.css" /-->
+    <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/form/resources/FileUploader.css" rel="stylesheet" />
 
     <script type="text/javascript" src="/webapp/themes/scy/eportfolio/swfobject.js"></script>
     <script type="text/javascript" src="http://www.intermedia.uio.no/www-data-public/app-scy/eportfolio/history/history.js"></script>
@@ -97,11 +97,11 @@
 
         }
 
-        function postFeedback(form, returnContainer, append){
+        function postFeedback(form, returnContainer, append, position){
                 postForm(form, returnContainer, append);
             }
 
-        function postForm(form, retId, append){
+        function postForm(form, retId, append, position){
             var returnid = null;
             if(retId != null) returnid = retId.id;
             var xhrArgs = {
@@ -115,7 +115,13 @@
                         //dojo.byId(returnid).innerHTML = data;
                         if(returnid != null && document.getElementById(returnid)){
                             if(append){
-                                document.getElementById(returnid).innerHTML = data + document.getElementById(returnid).innerHTML;
+                                if(position == 'before'){
+                                    document.getElementById(returnid).innerHTML = data + document.getElementById(returnid).innerHTML;
+
+                                } else {
+
+                                    document.getElementById(returnid).innerHTML += data;
+                                }
                             } else {
                                 document.getElementById(returnid).innerHTML = data;
                             }
@@ -271,7 +277,7 @@
             uploaderPath: '../themes/scy/default/images/uploader.swf'
 
 		};
-		google.load("dojo", "1.4.0");
+		google.load("dojo", "1.6.0");
         google.setOnLoadCallback(startDojo);
         function startDojo(){
 
