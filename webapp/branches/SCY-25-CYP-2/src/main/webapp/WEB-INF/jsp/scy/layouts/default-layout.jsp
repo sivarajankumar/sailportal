@@ -78,8 +78,10 @@
                  var assessmentTabContainer = new dijit.layout.TabContainer({nested:true, id:"assessmentTabContainer", title:"<spring:message code="ASSESSMENT"/>"});
                  teacherTabs.addChild(assessmentTabContainer);
 
-                var assessmentTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_ASSESSMENT"/>", executeScripts: true,  href:"/webapp/app/assessment/assessmentindex.html?eloURI=${missionSpecificationTransporter.uri}" });
-                assessmentTabContainer.addChild(assessmentTab);
+                var newAssessmentTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_ASSESSMENT"/>", executeScripts: true,  href:"/webapp/app/assessment/webAssessmentIndex.html?eloURI=${missionSpecificationTransporter.uri}"});
+                assessmentTabContainer.addChild(newAssessmentTab);
+                //var assessmentTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_ASSESSMENT"/>", executeScripts: true,  href:"/webapp/app/assessment/assessmentindex.html?eloURI=${missionSpecificationTransporter.uri}" });
+                //assessmentTabContainer.addChild(assessmentTab);
         }
 
 
