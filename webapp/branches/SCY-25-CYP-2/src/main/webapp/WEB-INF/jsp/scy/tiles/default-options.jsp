@@ -1,7 +1,7 @@
 <%@ include file="../common-taglibs.jsp"%>
 <sec:authorize ifAllGranted="ROLE_USER">
 	<sec:authorize ifAllGranted="ROLE_STUDENT">
-		<a href="student/index.html"><spring:message code="header.student" />
+		<a href="/webapp/app/AppIndex.html"><spring:message code="header.student" />
 		</a>
 	</sec:authorize>
 	<sec:authorize ifAllGranted="ROLE_ADMINISTRATOR">
