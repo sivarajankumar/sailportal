@@ -20,6 +20,13 @@
     <script type="text/javascript" src="/webapp/themes/scy/eportfolio/swfobject.js"></script>
     <script type="text/javascript" src="http://www.intermedia.uio.no/www-data-public/app-scy/eportfolio/history/history.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <style type="text/css">
+        .dijitEditorIconHelp{
+            background-image:url(/webapp/themes/scy/default/images/help.png) !important;
+            background-repeat:no-repeat;
+        }
+    </style>
+
     <script type="text/javascript">
 
 
@@ -158,6 +165,7 @@
                 dialogHeight = height;
             }
 
+           
             var theDialog =  new dijit.Dialog({
                 title: title,
                 style: "width:" + dialogWidth + "px;height:" + dialogHeight + "px;",
