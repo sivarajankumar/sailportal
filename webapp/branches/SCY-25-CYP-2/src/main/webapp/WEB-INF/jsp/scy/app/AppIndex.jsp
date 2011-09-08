@@ -26,26 +26,14 @@
                 <table id="pedagogicalPlansTable" width="100%">
                     <tr >
                         <th>
-                            Select which mission to work with
+                            <spring:message code="SELECT_WHICH_MISSION_TO_WORK_WITH"/>
                         </th>
-                        <!--th>
-                            Number of portfolios to assess
-                        </th>
-                        <th>
-                            Number of active students
-                        </th-->
                     </tr>
                     <c:forEach var="missionTransporter" items="${missionTransporters}">
                         <tr class="${oddEven.oddEven}">
                             <td>
                                 <a href="/webapp/app/scyauthor/viewPedagogicalPlan.html?eloURI=${missionTransporter.uri}">${missionTransporter.elo.title}</a>
                             </td>
-                            <!--td>
-                                3
-                            </td>
-                            <td>
-                                ${missionTransporter.numberOfActiveStudents}
-                            </td--->
                         </tr>
                     </c:forEach>
                 </table>
