@@ -89,6 +89,7 @@
                 /**/index.html=indexController
                 /**/login.html=indexController
                 /**/signup.html=signupController
+                /**/portfolioShowcase.html=portfolioShowcaseController
                 /student/registerstudent.html=registerstudentController
                 /app/AppIndex.html=appIndexController
                 /app/useradmin/UserAdminIndex.html=userAdminIndexController
@@ -121,6 +122,8 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /login.jsp=ROLE_ANONYMOUS,ROLE_USER
+                /portfolioshowcase.jsp=ROLE_ANONYMOUS,ROLE_USER
+                /portfolioshowcase.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
                 /usercredentials.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
@@ -144,6 +147,10 @@
         <!--property name="userService" ref="userService"/-->
     </bean>
 
+
+    <bean id="portfolioShowcaseController" class="eu.scy.controllers.PortfolioShowcaseController">
+        <property name="missionELOService" ref="missionELOService"/>
+    </bean>
 
     
 

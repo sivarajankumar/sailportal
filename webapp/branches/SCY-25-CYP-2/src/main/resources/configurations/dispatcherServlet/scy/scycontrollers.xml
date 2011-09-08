@@ -38,6 +38,8 @@
 		<!--property name="formView" value="signup" /-->
 		<!--property name="successView" value="signup.html" /-->
 	</bean>
+
+    
     
     <bean id="registerstudentController" class="eu.scy.controllers.RegisterStudentForSCYController">
     	<property name="userService" ref="userService" />
