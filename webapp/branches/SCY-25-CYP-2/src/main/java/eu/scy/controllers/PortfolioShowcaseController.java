@@ -28,7 +28,14 @@ public class PortfolioShowcaseController extends BaseController {
             MissionRuntimeElo missionRuntimeElo = MissionRuntimeElo.loadLastVersionElo(missionRuntimeURI, getMissionELOService());
             Portfolio portfolio = getMissionELOService().getPortfolio(missionRuntimeElo, null);
 
+            String serverPort = "";
+            if(request.getServerPort() != 80) {
+                serverPort = ":" + request.getServerPort();
+            }
+            String serverPath = "http://" +  request.getServerName() + serverPort + "/webapp/portfolioShowcase.html?missionRuntimeURI=" + getEncodedUri(missionRuntimeURI.toString());
+
             modelAndView.addObject("portfolio", portfolio);
+            modelAndView.addObject("serverPath", serverPath);
         } else {
             logger.warn("MISSION RUNTIME URI: " + request.getParameter("missionRuntimeURI"));
         }

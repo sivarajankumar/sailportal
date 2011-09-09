@@ -42,11 +42,8 @@
                 var pedagogicalPlan = new dijit.layout.ContentPane({ title:"<spring:message code="PEDAGOGICAL_PLAN"/>", href:"missionPlanner.html?eloURI=${missionSpecificationTransporter.uri}&action=initializeMissionPlanning" });
                 fineTuneTabContainer.addChild(pedagogicalPlan);
 
-                var pane1 = new dijit.layout.ContentPane({ id:"learningGoalsConfiguration", title:"<spring:message code="LEARNING_GOALS"/>", href:"/webapp/app/scyauthor/LearningGoals.html?eloURI=${missionSpecificationTransporter.uri}" });
-                fineTuneTabContainer.addChild(pane1);
-
-                var portfolioTab = new dijit.layout.ContentPane({ id:"portfolioConfiguration", title:"<spring:message code="PORTFOLIO_CONFIGURATION"/>", href:"/webapp/app/scyauthor/ConfigureAssessment.html?eloURI=${missionSpecificationTransporter.uri}" });
-                fineTuneTabContainer.addChild(portfolioTab);
+                //var portfolioTab = new dijit.layout.ContentPane({ id:"portfolioConfiguration", title:"<spring:message code="PORTFOLIO_CONFIGURATION"/>", href:"/webapp/app/scyauthor/ConfigureAssessment.html?eloURI=${missionSpecificationTransporter.uri}" });
+                //fineTuneTabContainer.addChild(portfolioTab);
 
                 var scaffoldingLevelTab = new dijit.layout.ContentPane({ id:"scaffoldingLevelConfiguration", title:"<spring:message code="SCAFFOLDING_LEVEL"/>", href:"/webapp/app/scyauthor/ScaffoldingLevel.html?eloURI=${missionSpecificationTransporter.uri}" });
                 fineTuneTabContainer.addChild(scaffoldingLevelTab);
@@ -54,8 +51,24 @@
                 var pane2 = new dijit.layout.ContentPane({ id:"viewStudents", title:"<spring:message code="STUDENTS"/>", href:"viewStudentsForPedagogicalPlan.html?eloURI=${missionSpecificationTransporter.uri}" });
                 fineTuneTabContainer.addChild(pane2);
 
-                //var paneAnchorElos = new dijit.layout.ContentPane({ title:"<spring:message code="ANCHOR_ELOS"/>", href:"MissionHighLevelOverview.html?eloURI=${missionSpecificationTransporter.uri}" });
-                //fineTuneTabContainer.addChild(paneAnchorElos);
+                 var eportfolioTabContainer = new dijit.layout.TabContainer({nested:true, id:"eportfolioTabContainer", title:"<spring:message code="EPORTFOLIO"/>"});
+                 teacherTabs.addChild(eportfolioTabContainer);
+
+                var pane1 = new dijit.layout.ContentPane({ id:"learningGoalsConfiguration", title:"<spring:message code="LEARNING_GOALS"/>", href:"/webapp/app/scyauthor/LearningGoals.html?eloURI=${missionSpecificationTransporter.uri}" });
+                eportfolioTabContainer.addChild(pane1);
+
+                var eportfolioStudentElo = new dijit.layout.ContentPane({ id:"eportfolioStudentElo", title:"<spring:message code="ELO-STUDENT"/>", href:"/webapp/app/scyauthor/eportfolioStudentElo.html?eloURI=${missionSpecificationTransporter.uri}" });
+                eportfolioTabContainer.addChild(eportfolioStudentElo);
+
+                var eportfolioStudentMission = new dijit.layout.ContentPane({ id:"eportfolioStudentMission", title:"<spring:message code="MISSION-STUDENT"/>", href:"/webapp/app/scyauthor/eportfolioStudentMission.html?eloURI=${missionSpecificationTransporter.uri}" });
+                eportfolioTabContainer.addChild(eportfolioStudentMission);
+
+                var eportfolioTeacherElo = new dijit.layout.ContentPane({ id:"eportfolioTeacherElo", title:"<spring:message code="ELO-TEACHER"/>", href:"/webapp/app/scyauthor/eportfolioTeacherElo.html?eloURI=${missionSpecificationTransporter.uri}" });
+                eportfolioTabContainer.addChild(eportfolioTeacherElo);
+
+                var eportfolioTeacherMission = new dijit.layout.ContentPane({ id:"eportfolioTeacherMission", title:"<spring:message code="MISSION-TEACHER"/>", href:"/webapp/app/scyauthor/eportfolioTeacherMission.html?eloURI=${missionSpecificationTransporter.uri}" });
+                eportfolioTabContainer.addChild(eportfolioTeacherMission);
+
 
                  var runTimeTabContainer = new dijit.layout.TabContainer({nested:true, id:"runTimeTabContainer", title:"<spring:message code="RUNTIME"/>"});
                  teacherTabs.addChild(runTimeTabContainer);

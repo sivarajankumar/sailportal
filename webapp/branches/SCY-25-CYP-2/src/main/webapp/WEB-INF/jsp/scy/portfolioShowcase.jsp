@@ -9,6 +9,8 @@
             ${portfolio.missionName}
             ${portfolio.owner}
 
+            <a href="${serverPath}">${serverPath}</a>
+
         </div>
     </tiles:putAttribute>
 </tiles:insertDefinition>   
