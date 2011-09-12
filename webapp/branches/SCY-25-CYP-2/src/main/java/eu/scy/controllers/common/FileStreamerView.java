@@ -94,7 +94,8 @@ public class FileStreamerView extends AbstractView {
                 } else {
                     logger.debug("LOADING BUDDY ICON");
                     InputStream is = null;
-                    if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
+                    if (showIcon)
+                        is = this.getClass().getResourceAsStream("buddy.png");
                     else
                         is = this.getClass().getResourceAsStream("buddy.png");
 
@@ -113,7 +114,8 @@ public class FileStreamerView extends AbstractView {
             } else {
                 logger.info("LOADING BUDDY ICON");
                 InputStream is = null;
-                if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
+                if (showIcon)
+                    is = this.getClass().getResourceAsStream("buddy.png");
                 else is = this.getClass().getResourceAsStream("buddy.png");
 
 
