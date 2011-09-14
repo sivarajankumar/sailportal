@@ -80,8 +80,10 @@ public class FileStreamerView extends AbstractView {
                     } else {
                         logger.debug("No image available - loading buddy icon");
                         InputStream is = null;
-                        if (showIcon) is = this.getClass().getResourceAsStream("buddyicon_icon.png");
-                        else is = this.getClass().getResourceAsStream("buddyicon_online.png");
+                        if (showIcon)
+                            is = this.getClass().getResourceAsStream("buddy_icon.png");
+                        else
+                            is = this.getClass().getResourceAsStream("buddy.png");
 
                         bytes = new byte[is.available()];
                         is.read(bytes);
@@ -95,7 +97,7 @@ public class FileStreamerView extends AbstractView {
                     logger.debug("LOADING BUDDY ICON");
                     InputStream is = null;
                     if (showIcon)
-                        is = this.getClass().getResourceAsStream("buddy.png");
+                        is = this.getClass().getResourceAsStream("buddy_icon.png");
                     else
                         is = this.getClass().getResourceAsStream("buddy.png");
 
