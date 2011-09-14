@@ -30,26 +30,25 @@
     <script type="text/javascript">
 
 
-        function initTeacherTabs() {
+        function initTeacherTabs(tabid) {
+            //alert("tabid" + tabid);
             var teacherTabs = dijit.byId("teacherTabContainer");
                 var fineTuneTabContainer = new dijit.layout.TabContainer({nested:true, id:"fineTuneTabContainer", title:"<spring:message code="FINETUNE_PEDAGOGICAL_PLAN"/>"});
                  teacherTabs.addChild(fineTuneTabContainer);
                 var missionDesc = new dijit.layout.ContentPane({ title:"<spring:message code="MISSION_DESCRIPTION"/>", href:"/webapp/app/scyauthor/tabs/MissionDescription.html?eloURI=${missionSpecificationTransporter.uri}" });
 
                 fineTuneTabContainer.addChild(missionDesc);
-                fineTuneTabContainer.selectChild(missionDesc);
+                if(!tabid) fineTuneTabContainer.selectChild(missionDesc);
 
                 var pedagogicalPlan = new dijit.layout.ContentPane({ title:"<spring:message code="PEDAGOGICAL_PLAN"/>", href:"missionPlanner.html?eloURI=${missionSpecificationTransporter.uri}&action=initializeMissionPlanning" });
                 fineTuneTabContainer.addChild(pedagogicalPlan);
-
-                //var portfolioTab = new dijit.layout.ContentPane({ id:"portfolioConfiguration", title:"<spring:message code="PORTFOLIO_CONFIGURATION"/>", href:"/webapp/app/scyauthor/ConfigureAssessment.html?eloURI=${missionSpecificationTransporter.uri}" });
-                //fineTuneTabContainer.addChild(portfolioTab);
 
                 var scaffoldingLevelTab = new dijit.layout.ContentPane({ id:"scaffoldingLevelConfiguration", title:"<spring:message code="SCAFFOLDING_LEVEL"/>", href:"/webapp/app/scyauthor/ScaffoldingLevel.html?eloURI=${missionSpecificationTransporter.uri}" });
                 fineTuneTabContainer.addChild(scaffoldingLevelTab);
 
                 var pane2 = new dijit.layout.ContentPane({ id:"viewStudents", title:"<spring:message code="STUDENTS"/>", href:"viewStudentsForPedagogicalPlan.html?eloURI=${missionSpecificationTransporter.uri}" });
                 fineTuneTabContainer.addChild(pane2);
+                if(tabid == 'studentTab') fineTuneTabContainer.selectChild(pane2);
 
                  var eportfolioTabContainer = new dijit.layout.TabContainer({nested:true, id:"eportfolioTabContainer", title:"<spring:message code="EPORTFOLIO"/>"});
                  teacherTabs.addChild(eportfolioTabContainer);
