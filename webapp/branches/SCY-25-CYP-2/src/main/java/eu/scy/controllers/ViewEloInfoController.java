@@ -3,6 +3,8 @@ package eu.scy.controllers;
 import eu.scy.common.mission.MissionRuntimeElo;
 import eu.scy.common.scyelo.ScyElo;
 import eu.scy.core.XMLTransferObjectService;
+import eu.scy.core.model.StudentUserDetails;
+import eu.scy.core.model.User;
 import eu.scy.core.model.transfer.*;
 import eu.scy.core.roolo.MissionELOService;
 import eu.scy.core.roolo.PedagogicalPlanELOService;
@@ -37,6 +39,9 @@ public class ViewEloInfoController extends BaseController {
         ScyElo elo = ScyElo.loadLastVersionElo(eloURI, getMissionELOService());
         TransferElo transferElo = new TransferElo(elo);
         String userName = transferElo.getCreatedBy();
+        User user = getUserService().getUser(userName);
+        StudentUserDetails studentUserDetails = (StudentUserDetails) user.getUserDetails();
+
 
         URI missionRuntimeURI = getURI(request.getParameter("missionRuntimeURI"));
         MissionRuntimeElo missionRuntimeElo = null;
@@ -121,6 +126,7 @@ public class ViewEloInfoController extends BaseController {
 
 
             String encodedURL = getEncodedUri(request.getParameter(ELO_URI));
+            modelAndView.addObject("studentUserDetails", studentUserDetails);
 
 
             String snippetURL = "/webapp/scy-lab.jnlp?singleEloUri=" + encodedURL;

@@ -48,6 +48,7 @@
         <property name="commandClass" value="eu.scy.core.model.impl.SCYStudentUserDetails"/>
     	<property name="formView" value="student/registerstudent" />
     	<property name="successView" value="student/registerSCYStudentConfirm" />
+        <property name="missionELOService" ref="missionELOService"/>
     </bean>
 
     <bean id="addNewStudentController" class="eu.scy.controllers.teacher.AddNewStudentController">
