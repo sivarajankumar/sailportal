@@ -90,6 +90,7 @@
                 /**/login.html=indexController
                 /**/signup.html=signupController
                 /**/portfolioShowcase.html=portfolioShowcaseController
+                /**/viewEloInfo.html=viewEloInfoController
                 /student/registerstudent.html=registerstudentController
                 /app/AppIndex.html=appIndexController
                 /app/useradmin/UserAdminIndex.html=userAdminIndexController
@@ -124,6 +125,9 @@
                 /login.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /portfolioshowcase.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /portfolioshowcase.html=ROLE_ANONYMOUS,ROLE_USER
+                /portfolioshowcase.html=ROLE_ANONYMOUS,ROLE_USER
+                /vieweloinfo.html=ROLE_ANONYMOUS,ROLE_USER
+                /**/resourceservice.html=ROLE_ANONYMOUS, ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
                 /usercredentials.html=ROLE_ANONYMOUS,ROLE_USER
                 /student/registerstudent.html=ROLE_ANONYMOUS,ROLE_USER
@@ -150,9 +154,18 @@
 
     <bean id="portfolioShowcaseController" class="eu.scy.controllers.PortfolioShowcaseController">
         <property name="missionELOService" ref="missionELOService"/>
+        <property name="pedagogicalPlanELOService" ref="pedagogicalPlanELOService"/>
     </bean>
 
-    
+    <bean id="viewEloInfoController" class="eu.scy.controllers.ViewEloInfoController">
+        <property name="urlInspector" ref="urlInspector"/>
+        <property name="missionELOService" ref="missionELOService"/>
+        <property name="xmlTransferObjectService" ref="xmlTransferObjectService"/>
+        <property name="pedagogicalPlanELOService" ref="pedagogicalPlanELOService"/>
+        <property name="runtimeELOService" ref="runtimeELOService"/>
+    </bean>
+
+
 
     <!-- Localizable messages -->
     <bean id="messageSource"

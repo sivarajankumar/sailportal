@@ -55,7 +55,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2">
+                            <td>
+                                <input type="submit"> 
+                            </td>
+                            <!--td colspan="2">
                                 <div id="regButtons">
                                     <input type="image" id="save" src="../themes/tels/default/images/CreateAccount.png"
                                            onmouseover="swapImage('save','../themes/tels/default/images/CreateAccountRoll.png')"
@@ -66,7 +69,7 @@
                                                                    onmouseover="swapImage('cancel','../<spring:theme code="register_cancel_roll" />')"
                                                                    onmouseout="swapImage('cancel','../<spring:theme code="register_cancel" />')"
                                             /> </a></div>
-                            </td>
+                            </td-->
                         </tr>
                     </table>
 
