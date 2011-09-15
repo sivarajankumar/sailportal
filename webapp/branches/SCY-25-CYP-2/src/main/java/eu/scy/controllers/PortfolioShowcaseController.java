@@ -2,6 +2,8 @@ package eu.scy.controllers;
 
 import eu.scy.common.mission.MissionRuntimeElo;
 import eu.scy.common.mission.MissionSpecificationElo;
+import eu.scy.core.model.StudentUserDetails;
+import eu.scy.core.model.User;
 import eu.scy.core.model.transfer.PedagogicalPlanTransfer;
 import eu.scy.core.model.transfer.Portfolio;
 import eu.scy.core.model.transfer.TransferElo;
@@ -42,6 +44,8 @@ public class PortfolioShowcaseController extends BaseController {
         MissionSpecificationElo missionSpecificationElo = getMissionELOService().getMissionSpecificationELOForRuntume(missionRuntimeElo);
         PedagogicalPlanTransfer pedagogicalPlanTransfer = getPedagogicalPlanELOService().getPedagogicalPlanForMission(missionSpecificationElo);
         Portfolio portfolio = getMissionELOService().getPortfolio(missionRuntimeElo, null);
+        User user = getUserService().getUser(portfolio.getOwner());
+        StudentUserDetails studentUserDetails = (StudentUserDetails) user.getUserDetails();
 
         List obligatoryAnchorElos = getObligatoryAnchorElos(missionSpecificationElo, pedagogicalPlanTransfer);
 
@@ -73,6 +77,7 @@ public class PortfolioShowcaseController extends BaseController {
         modelAndView.addObject("missionRuntimeURI", getEncodedUri(missionURI.toString()));
         modelAndView.addObject("anchorElosWithStatuses", anchoELOWithStatuses);
         modelAndView.addObject("missionReflectionQuestionAnswers", portfolio.getMissionReflectionQuestionAnswers());
+        modelAndView.addObject("studentUserDetails", studentUserDetails);
 
     }
 

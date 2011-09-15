@@ -155,6 +155,8 @@
     <bean id="portfolioShowcaseController" class="eu.scy.controllers.PortfolioShowcaseController">
         <property name="missionELOService" ref="missionELOService"/>
         <property name="pedagogicalPlanELOService" ref="pedagogicalPlanELOService"/>
+        <property name="userService" ref="userService"/>
+        <property name="urlInspector" ref="urlInspector"/>
     </bean>
 
     <bean id="viewEloInfoController" class="eu.scy.controllers.ViewEloInfoController">
@@ -163,6 +165,7 @@
         <property name="xmlTransferObjectService" ref="xmlTransferObjectService"/>
         <property name="pedagogicalPlanELOService" ref="pedagogicalPlanELOService"/>
         <property name="runtimeELOService" ref="runtimeELOService"/>
+        <property name="userService" ref="userService"/>
     </bean>
 
 

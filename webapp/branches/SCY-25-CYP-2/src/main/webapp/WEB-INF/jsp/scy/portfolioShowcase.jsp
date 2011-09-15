@@ -196,11 +196,15 @@ function renderHtmlLabel(item){
         </style>
 
         <div style="border:4px solid #cc6600;width:786px;height:95%;padding:4px;" class="greenBorders">
-            <!--img src="/webapp/themes/scy/default/images/feedback_header.png" alt="" class="greenBackgrounds" /-->
-            <div class="feedbackHeader">
-                <spring:message code="WELCOME_TO_MY_PORTFOLIO"/>    
-            </div>
+            <h2>${studentUserDetails.firstName} ${studentUserDetails.lastName}</h2>
+            <strong><spring:message code="SHOWCASE_PORTFOLIO"/> </strong>
+
         <div dojoType="dojox.layout.ContentPane" style="width:100%;height:90%;" id="eportfolioPane" parseOnLoad="true" executeScripts="true">
+
+            <center>
+                <h2><spring:message code="FEATURED_LEARNING_PRODUCTS"/></h2>
+                <spring:message code="CLICK_ON_THE_PICTURE_FOR_MORE_INFO"/>
+            </center>
 
 
             <div dojoType="dojox.widget.FisheyeList"
@@ -241,75 +245,19 @@ function renderHtmlLabel(item){
             </p>
             
             <br/><br/>
-            <div>
-                <c:if test="${fn:contains(portfolio.portfolioStatus, 'PORTFOLIO_STATUS_NOT_SUBMITTED')}">
-                    <spring:message code="PORTFOLIO_NOT_SUBMITTED"/>,  <a href="reflectionOnMission.html?missionRuntimeURI=${missionRuntimeURI}"><spring:message code="FINISH_MISSION_PORTFOLIO"></spring:message></a>
-                </c:if>
-                <c:if test="${fn:contains(portfolio.portfolioStatus, 'PORTFOLIO_STATUS_SUBMITTED_WAITING_FOR_ASSESSMENT')}">
-                    <strong><spring:message code="PORTFOLIO_SUBMITTED"/> </strong>
-                </c:if>
-            </div>
-            <div>
-                <c:if test="${fn:contains(portfolio.portfolioStatus, 'PORTFOLIO_ASSESSED')}">
-
-                        <c:choose>
-                            <c:when test="${fn:length(missionReflectionQuestionAnswers) > 0}">
-                                <table>
-                                    <tr>
-                                        <th colspan="2"><spring:message code="YOUR_REFLECTIONS_ON_THE_PORTFOLIO"/></th>
-                                    </tr>
-                                    <c:forEach var="missionReflectionQuestionAnswer" items="${missionReflectionQuestionAnswers}">
-                                        <tr  class="${oddEven.oddEven}">
-                                            <td>
-                                                ${missionReflectionQuestionAnswer.tab.question}
-                                            </td>
-                                            <td>
-                                                ${missionReflectionQuestionAnswer.answer}
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </table>
-                            </c:when>
-                        </c:choose>
-                    <br/>
-
-                    <!--table>
-                        <tr>
-                            <th colspan="2">
-                                <spring:message code="TEACHERS_COMMENTS"/>
-                            </th>
-                        </tr>
-                        <tr  class="${oddEven.oddEven}">
-                            <td><spring:message code="TEACHERS_COMMENT_TO_PORTFOLIO"/> </td>
-                            <td>
-                                ${portfolio.assessmentPortfolioComment}
-                            </td>
-                        </tr>
-                        <tr  class="${oddEven.oddEven}">
-                            <td>
-                                <spring:message code="TEACHERS_RATING_OF_PORTFOLIO"/>
-                            </td>
-                            <td>
-                                ${portfolio.assessmentPortfolioRating}
-                            </td>
-                        </tr>
-                    </table-->
-                </c:if>
-               
-            </div>
 
             <p>
                 <center>
-                    <spring:message code="INTSTRUCTIONS_TO_TRY_SCY_LAB"/>
+                   <h2><spring:message code="INTSTRUCTIONS_TO_TRY_SCY_LAB"/></h2>
                 </center>
-            <br/>
-            <br/>
                 <center>
                     <a href="/webapp/student/registerstudent.html"><spring:message code="TRY_SCY_LAB"></spring:message></a>
                 </center>
             </p>
+            </div>
 
-        </div>
+
+
         </div>
     </tiles:putAttribute>
 </tiles:insertDefinition>
