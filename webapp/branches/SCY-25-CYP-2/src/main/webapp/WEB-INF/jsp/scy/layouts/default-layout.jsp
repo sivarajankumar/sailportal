@@ -33,8 +33,12 @@
         function initTeacherTabs(tabid) {
             //alert("tabid" + tabid);
             var teacherTabs = dijit.byId("teacherTabContainer");
+                if(dijit.byId('fineTuneTabContainer')){
+                    dijit.byId('fineTuneTabContainer').destroy();
+                }
                 var fineTuneTabContainer = new dijit.layout.TabContainer({nested:true, id:"fineTuneTabContainer", title:"<spring:message code="FINETUNE_PEDAGOGICAL_PLAN"/>"});
                  teacherTabs.addChild(fineTuneTabContainer);
+
                 var missionDesc = new dijit.layout.ContentPane({ title:"<spring:message code="MISSION_DESCRIPTION"/>", href:"/webapp/app/scyauthor/tabs/MissionDescription.html?eloURI=${missionSpecificationTransporter.uri}" });
 
                 fineTuneTabContainer.addChild(missionDesc);
@@ -43,6 +47,9 @@
                 var pedagogicalPlan = new dijit.layout.ContentPane({ title:"<spring:message code="PEDAGOGICAL_PLAN"/>", href:"missionPlanner.html?eloURI=${missionSpecificationTransporter.uri}&action=initializeMissionPlanning" });
                 fineTuneTabContainer.addChild(pedagogicalPlan);
 
+                if(dijit.byId('scaffoldingLevelConfiguration')){
+                    dijit.byId('scaffoldingLevelConfiguration').destroy();
+                }
                 var scaffoldingLevelTab = new dijit.layout.ContentPane({ id:"scaffoldingLevelConfiguration", title:"<spring:message code="SCAFFOLDING_LEVEL"/>", href:"/webapp/app/scyauthor/ScaffoldingLevel.html?eloURI=${missionSpecificationTransporter.uri}" });
                 fineTuneTabContainer.addChild(scaffoldingLevelTab);
 
@@ -50,28 +57,51 @@
                 fineTuneTabContainer.addChild(pane2);
                 if(tabid == 'studentTab') fineTuneTabContainer.selectChild(pane2);
 
-                 var eportfolioTabContainer = new dijit.layout.TabContainer({nested:true, id:"eportfolioTabContainer", title:"<spring:message code="EPORTFOLIO"/>"});
+                if(dijit.byId('eportfolioTabContainer')){
+                    dijit.byId('eportfolioTabContainer').destroy();
+                }
+                var eportfolioTabContainer = new dijit.layout.TabContainer({nested:true, id:"eportfolioTabContainer", title:"<spring:message code="EPORTFOLIO"/>"});
                  teacherTabs.addChild(eportfolioTabContainer);
 
+                if(dijit.byId('learningGoalsConfiguration')){
+                    dijit.byId('learningGoalsConfiguration').destroy();
+                }
                 var pane1 = new dijit.layout.ContentPane({ id:"learningGoalsConfiguration", title:"<spring:message code="LEARNING_GOALS"/>", href:"/webapp/app/scyauthor/LearningGoals.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(pane1);
 
+                if(dijit.byId('eportfolioStudentElo')){
+                    dijit.byId('eportfolioStudentElo').destroy();
+                }
                 var eportfolioStudentElo = new dijit.layout.ContentPane({ id:"eportfolioStudentElo", title:"<spring:message code="ELO-STUDENT"/>", href:"/webapp/app/scyauthor/eportfolioStudentElo.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(eportfolioStudentElo);
 
+                if(dijit.byId('eportfolioStudentMission')){
+                    dijit.byId('eportfolioStudentMission').destroy();
+                }
                 var eportfolioStudentMission = new dijit.layout.ContentPane({ id:"eportfolioStudentMission", title:"<spring:message code="MISSION-STUDENT"/>", href:"/webapp/app/scyauthor/eportfolioStudentMission.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(eportfolioStudentMission);
 
+                if(dijit.byId('eportfolioTeacherElo')){
+                    dijit.byId('eportfolioTeacherElo').destroy();
+                }
                 var eportfolioTeacherElo = new dijit.layout.ContentPane({ id:"eportfolioTeacherElo", title:"<spring:message code="ELO-TEACHER"/>", href:"/webapp/app/scyauthor/eportfolioTeacherElo.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(eportfolioTeacherElo);
 
+                if(dijit.byId('eportfolioTeacherMission')){
+                    dijit.byId('eportfolioTeacherMission').destroy();
+                }
                 var eportfolioTeacherMission = new dijit.layout.ContentPane({ id:"eportfolioTeacherMission", title:"<spring:message code="MISSION-TEACHER"/>", href:"/webapp/app/scyauthor/eportfolioTeacherMission.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(eportfolioTeacherMission);
 
-
+                 if(dijit.byId('runTimeTabContainer')){
+                    dijit.byId('runTimeTabContainer').destroy();
+                }
                  var runTimeTabContainer = new dijit.layout.TabContainer({nested:true, id:"runTimeTabContainer", title:"<spring:message code="RUNTIME"/>"});
                  teacherTabs.addChild(runTimeTabContainer);
 
+                if(dijit.byId('currentActivityTab')){
+                    dijit.byId('currentActivityTab').destroy();
+                }
                 var refreshActive = false;
                 var currentActivity = new dojox.layout.ContentPane({ title:"<spring:message code="STUDENT"/>", executeScripts: true,  id:"currentActivityTab", href:"/webapp/app/scyauthorruntime/currentActivityView.html?eloURI=${missionSpecificationTransporter.uri}" });
                 currentActivity.refreshOnShow = true;
@@ -83,6 +113,9 @@
                     }
                 }
 
+                if(dijit.byId('usersInLasTab')){
+                    dijit.byId('usersInLasTab').destroy();
+                }
                 var usersInLasRefreshActive = false;
                 var usersInLasActivity = new dojox.layout.ContentPane({title: "<spring:message code="LAS"/>", executeScripts: true, id: "usersInLasTab", href:"/webapp/app/scyauthorruntime/viewUsersInLas.html?eloURI=${missionSpecificationTransporter.uri}"});
                 usersInLasActivity.refreshOnShow = true;
@@ -94,7 +127,10 @@
                     }
                 }
 
-                 var assessmentTabContainer = new dijit.layout.TabContainer({nested:true, id:"assessmentTabContainer", title:"<spring:message code="ASSESSMENT"/>"});
+                if(dijit.byId('assessmentTabContainer')){
+                    dijit.byId('assessmentTabContainer').destroy();
+                }
+                var assessmentTabContainer = new dijit.layout.TabContainer({nested:true, id:"assessmentTabContainer", title:"<spring:message code="ASSESSMENT"/>"});
                  teacherTabs.addChild(assessmentTabContainer);
 
                 var newAssessmentTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_ASSESSMENT"/>", executeScripts: true,  href:"/webapp/app/assessment/webAssessmentPortfolioOverview.html?eloURI=${missionSpecificationTransporter.uri}"});
