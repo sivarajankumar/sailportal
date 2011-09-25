@@ -113,7 +113,7 @@
                 runTimeTabContainer.addChild(currentActivity);
                 if(dijit.byId("currentActivityTab")){
                     if(!refreshActive) {
-                        setInterval('dijit.byId("currentActivityTab").refresh()', 120000);
+                        setInterval('dijit.byId("currentActivityTab").refresh()', 30000);
                         refreshActive = true;
                     }
                 }
@@ -127,7 +127,7 @@
                 runTimeTabContainer.addChild(usersInLasActivity);
                 if(dijit.byId("usersInLasTab")) {
                     if(!usersInLasRefreshActive) {
-                        setInterval('dijit.byId("usersInLasTab").refresh()', 120000);
+                        setInterval('dijit.byId("usersInLasTab").refresh()', 30000);
                         usersInLasRefreshActive = true;
                     }
                 }
