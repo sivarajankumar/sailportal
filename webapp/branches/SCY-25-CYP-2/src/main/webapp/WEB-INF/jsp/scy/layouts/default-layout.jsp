@@ -643,6 +643,26 @@
              });
     }
 
+    
+        function renderHtmlLabel(item){
+    var item = item.id;
+	var labelString = document.getElementById(item).getElementsByTagName("div")[0].innerHTML;
+
+	var regex1 = /&lt;/g;
+
+	labelString = labelString.replace(regex1, "<");
+
+	var regex2 = /&gt;/g;
+
+	labelString = labelString.replace(regex2, ">");
+
+	document.getElementById(item).getElementsByTagName("div")[0].innerHTML = labelString;
+
+	//alert(labelString);
+
+}
+
+
 	</script>
 	<title><tiles:insertAttribute name="title" defaultValue=""/></title>
 	<tiles:insertAttribute name="extrahead" defaultValue=""/>
