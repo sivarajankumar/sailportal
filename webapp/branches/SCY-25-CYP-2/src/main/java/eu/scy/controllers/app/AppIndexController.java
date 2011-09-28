@@ -38,6 +38,9 @@ public class AppIndexController extends BaseController {
 
     @Override
     protected void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse response, ModelAndView modelAndView) {
+
+        httpServletRequest.getSession().setAttribute(OBLIGATORY_ANCHOR_ELOS_SESSION_PARAMETER, null);
+
         User user = getUserService().getUser(getCurrentUserName(httpServletRequest));
         modelAndView.addObject("currentUser", user);
         if (user.getUserDetails().getUsername().contains("armin") || user.getUserDetails().getUsername().contains("Armin")) {
