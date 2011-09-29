@@ -357,6 +357,7 @@
             dojo.require("dojox.gfx");
             dojo.require("dijit.form.Button");
             dojo.require("dijit.Dialog");
+            dojo.require("dijit.ProgressBar");
             dojo.require("dijit.layout.TabContainer");
             dojo.require("dijit.layout.ContentPane");
             dojo.require("dojox.layout.ContentPane");
