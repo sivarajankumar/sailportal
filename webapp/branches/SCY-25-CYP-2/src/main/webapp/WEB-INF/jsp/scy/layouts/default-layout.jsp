@@ -12,7 +12,7 @@
 
 	<link href="<spring:theme code="stylesheet"/>" media="screen" rel="stylesheet" type="text/css"/>
 
-	<link rel="shortcut icon" href="/webapp/themes/tels/default/images/favicon_panda.ico" />
+	<link rel="shortcut icon" href="/webapp/themes/tels/default/images/scy.ico" />
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dijit/themes/soria/soria.css" />
     <!--link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dijit/themes/soria/layout/Dialog.css" /-->
     <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/form/resources/FileUploader.css" rel="stylesheet" />

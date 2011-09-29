@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 
-<link rel="shortcut icon" href="../themes/tels/default/images/favicon_panda.ico">
+<link rel="shortcut icon" href="../themes/tels/default/images/scy.ico">
 
 
 <!--
