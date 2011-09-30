@@ -77,7 +77,7 @@
                 if(dijit.byId('eportfolioStudentElo')){
                     dijit.byId('eportfolioStudentElo').destroy();
                 }
-                var eportfolioStudentElo = new dojox.layout.ContentPane({ id:"eportfolioStudentElo", executeScripts: true, parseOnLoad:true,  title:"<spring:message code="ELO-REFLECTION"/>", href:"/webapp/app/scyauthor/eportfolioStudentElo.html?eloURI=${missionSpecificationTransporter.uri}" });
+                var eportfolioStudentElo = new dojox.layout.ContentPane({ id:"eportfolioStudentElo", executeScripts: true, parseOnLoad:true, refreshOnShow:true,  title:"<spring:message code="ELO-REFLECTION"/>", href:"/webapp/app/scyauthor/eportfolioStudentElo.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(eportfolioStudentElo);
 
                 if(dijit.byId('eportfolioStudentMission')){
@@ -89,7 +89,7 @@
                 if(dijit.byId('eportfolioTeacherElo')){
                     dijit.byId('eportfolioTeacherElo').destroy();
                 }
-                var eportfolioTeacherElo = new dojox.layout.ContentPane({ id:"eportfolioTeacherElo", executeScripts: true, parseOnLoad:true,  title:"<spring:message code="ELO-ASSESSMENT"/>", href:"/webapp/app/scyauthor/eportfolioTeacherElo.html?eloURI=${missionSpecificationTransporter.uri}" });
+                var eportfolioTeacherElo = new dojox.layout.ContentPane({ id:"eportfolioTeacherElo", executeScripts: true, refreshOnShow: true, parseOnLoad:true,  title:"<spring:message code="ELO-ASSESSMENT"/>", href:"/webapp/app/scyauthor/eportfolioTeacherElo.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(eportfolioTeacherElo);
 
                 if(dijit.byId('eportfolioTeacherMission')){
