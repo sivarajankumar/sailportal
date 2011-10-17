@@ -98,6 +98,12 @@
                 var eportfolioTeacherMission = new dojox.layout.ContentPane({ id:"eportfolioTeacherMission", executeScripts: true, parseOnLoad:true,  title:"<spring:message code="MISSION-ASSSESSMENT"/>", href:"/webapp/app/scyauthor/eportfolioTeacherMission.html?eloURI=${missionSpecificationTransporter.uri}" });
                 eportfolioTabContainer.addChild(eportfolioTeacherMission);
 
+                if(dijit.byId('showcaseMissionDescription')){
+                    dijit.byId('showcaseMissionDescription').destroy();
+                }
+                var showcaseMissionDescription = new dojox.layout.ContentPane({ id:"showcaseMissionDescription", executeScripts: true, parseOnLoad:true,  title:"<spring:message code="SHOWCASE_MISSION_DESCRIPTION"/>", href:"/webapp/app/scyauthor/showcaseMissionDescription.html?eloURI=${missionSpecificationTransporter.uri}" });
+                eportfolioTabContainer.addChild(showcaseMissionDescription);
+
                  if(dijit.byId('runTimeTabContainer')){
                     dijit.byId('runTimeTabContainer').destroy();
                 }
