@@ -16,13 +16,22 @@
             }
         </style>
 
-        <center><h2><spring:message code="SHOWCASE_PORTFOLIO"/> - ${studentUserDetails.firstName} ${studentUserDetails.lastName}</h2></center>
+        <center><h2>${studentUserDetails.firstName} ${studentUserDetails.lastName}</h2></center>
+        <center><h2><spring:message code="SHOWCASE_PORTFOLIO"/> </h2></center>
+        <br/>
+        <br>
 
         <center><h2>${elo.myname}</h2>
             <a href="${snippetURL}">
                 <img src="${elo.thumbnail}"/>
             </a>
         </center>
+        <br/>
+        <br/>
+        <center>
+            ${elo.portfolioText}
+        </center>
+        <br/>
 
 
         <a href="portfolioShowcase.html?missionRuntimeURI=${missionRuntimeURI}"><spring:message

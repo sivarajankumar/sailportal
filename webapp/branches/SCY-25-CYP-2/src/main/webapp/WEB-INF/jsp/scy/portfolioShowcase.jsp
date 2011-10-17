@@ -196,8 +196,14 @@ function renderHtmlLabel(item){
         </style>
 
         <div style="border:4px solid #cc6600;width:786px;height:95%;padding:4px;" class="greenBorders">
-            <center><h2><spring:message code="SHOWCASE_PORTFOLIO"/> - ${studentUserDetails.firstName} ${studentUserDetails.lastName}</h2></center>
-            
+            <center><h2>${studentUserDetails.firstName} ${studentUserDetails.lastName}</h2></center>
+            <center><h2><spring:message code="SHOWCASE_PORTFOLIO"/> </h2></center>
+            <br/>
+            <br>
+            <center>
+                ${pedagogicalPlanTransfer.missionShowcaseDescription}
+            </center>
+            <br/>
         <div dojoType="dojox.layout.ContentPane" style="width:100%;height:90%;" id="eportfolioPane" parseOnLoad="true" executeScripts="true">
 
             <center>

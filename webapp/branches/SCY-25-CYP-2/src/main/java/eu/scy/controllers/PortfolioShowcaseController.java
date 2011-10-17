@@ -59,7 +59,10 @@ public class PortfolioShowcaseController extends BaseController {
                 anchoELOWithStatus.setAddedElo(portfolio.getEloForAnchroElo(anchorElo));
                 if(portfolio.getHasEloBeenAddedForAnchorElo(anchorElo)) anchoELOWithStatus.setEloHasBeenAdded(true);
             }
-            anchoELOWithStatuses.add(anchoELOWithStatus);
+            if(anchoELOWithStatus.getAddedElo().getIncludeInShowcasePortfolio()) {
+                anchoELOWithStatuses.add(anchoELOWithStatus);    
+            }
+
         }
 
         String serverPort = "";
@@ -71,7 +74,7 @@ public class PortfolioShowcaseController extends BaseController {
         modelAndView.addObject("serverPath", serverPath);
 
 
-
+        modelAndView.addObject("pedagogicalPlanTransfer", pedagogicalPlanTransfer);
         modelAndView.addObject("obligatoryAnchorElos", obligatoryAnchorElos);
         modelAndView.addObject("portfolio", portfolio);
         modelAndView.addObject("missionRuntimeURI", getEncodedUri(missionURI.toString()));
