@@ -253,7 +253,7 @@ function renderHtmlLabel(item){
 
             <p>
                 <center>
-                   <h2><spring:message code="INTSTRUCTIONS_TO_TRY_SCY_LAB"/></h2>
+                   <h2><a href="http://scycom.collide.info"><spring:message code="INTSTRUCTIONS_TO_TRY_SCY_LAB"/></a></h2>
                 </center>
                 <center>
                     <a href="/webapp/student/registerstudent.html"><spring:message code="TRY_SCY_LAB"></spring:message></a>
