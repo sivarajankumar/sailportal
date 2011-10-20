@@ -147,7 +147,7 @@
                 var newAssessmentTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_ASSESSMENT"/>", executeScripts: true, parseOnLoad:true,  executeScripts: true,  href:"/webapp/app/assessment/webAssessmentPortfolioOverview.html?eloURI=${missionSpecificationTransporter.uri}"});
                 assessmentTabContainer.addChild(newAssessmentTab);
 
-                var feedbackForTeacherTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_ASSESSMENT"/>", executeScripts: true, parseOnLoad:true,  executeScripts: true,  href:"/webapp/app/scyauthor/startFeedbackToolForTeacher.html?eloURI=${missionSpecificationTransporter.uri}"});
+                var feedbackForTeacherTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_FEEDBACK"/>", executeScripts: true, parseOnLoad:true,  executeScripts: true,  href:"/webapp/app/scyauthor/startFeedbackToolForTeacher.html?eloURI=${missionSpecificationTransporter.uri}"});
                 assessmentTabContainer.addChild(feedbackForTeacherTab);
                 //var assessmentTab = new dojox.layout.ContentPane({ title:"<spring:message code="SCY_ASSESSMENT"/>", executeScripts: true,  href:"/webapp/app/assessment/assessmentindex.html?eloURI=${missionSpecificationTransporter.uri}" });
                 //assessmentTabContainer.addChild(assessmentTab);
