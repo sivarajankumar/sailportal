@@ -58,6 +58,9 @@
                 var scaffoldingLevelTab = new dojox.layout.ContentPane({ id:"scaffoldingLevelConfiguration", executeScripts: true, parseOnLoad:true,  title:"<spring:message code="SCAFFOLD_LEVEL"/>", href:"/webapp/app/scyauthor/ScaffoldingLevel.html?eloURI=${missionSpecificationTransporter.uri}" });
                 fineTuneTabContainer.addChild(scaffoldingLevelTab);
 
+                var groupingTab = new dojox.layout.ContentPane({ id:"groupingTab", executeScripts: true, parseOnLoad:true,  title:"<spring:message code="GROUPING"/>", href:"/webapp/app/scyauthor/editGroupingAgent.html?eloURI=${missionSpecificationTransporter.uri}" });
+                fineTuneTabContainer.addChild(groupingTab);
+
                 var pane2 = new dojox.layout.ContentPane({ id:"viewStudents", title:"<spring:message code="STUDENT_ADMINISTRATION"/>", executeScripts: true, parseOnLoad:true,  href:"viewStudentsForPedagogicalPlan.html?eloURI=${missionSpecificationTransporter.uri}" });
                 fineTuneTabContainer.addChild(pane2);
                 if(tabid == 'studentTab') fineTuneTabContainer.selectChild(pane2);
