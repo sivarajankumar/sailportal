@@ -59,7 +59,7 @@ public class PortfolioShowcaseController extends BaseController {
                 anchoELOWithStatus.setAddedElo(portfolio.getEloForAnchroElo(anchorElo));
                 if(portfolio.getHasEloBeenAddedForAnchorElo(anchorElo)) anchoELOWithStatus.setEloHasBeenAdded(true);
             }
-            if(anchoELOWithStatus.getAddedElo().getIncludeInShowcasePortfolio()) {
+            if(anchoELOWithStatus != null && anchoELOWithStatus.getAddedElo() != null && anchoELOWithStatus.getAddedElo().getIncludeInShowcasePortfolio()) {
                 anchoELOWithStatuses.add(anchoELOWithStatus);    
             }
 
