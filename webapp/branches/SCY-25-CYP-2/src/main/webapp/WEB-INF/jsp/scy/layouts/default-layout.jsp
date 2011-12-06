@@ -383,7 +383,11 @@
             dojo.require("dojo.io.script");
             dojo.require("dojox.widget.FisheyeList");
 
-
+            dojo.addOnLoad(function() {
+            	if (typeof onLoadFinished == 'function') {
+                	onLoadFinished();
+            	}
+            });
         }
 
         
