@@ -16,15 +16,22 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.telscenter.sail.webapp.domain.authentication.impl.StudentUserDetails;
 import roolo.elo.api.metadata.CoreRooloMetadataKeyIds;
 import roolo.search.*;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -72,9 +79,9 @@ public class RegisterStudentForSCYController extends SimpleFormController {
             IQuery query = new Query(andQuery);
             List<ISearchResult> searchResults = getMissionELOService().getRepository().search(query);
 
-            if(searchResults.size() > 0) {
+            if (searchResults.size() > 0) {
                 ISearchResult searchResult = searchResults.get(0);
-                if(searchResult != null) {
+                if (searchResult != null) {
                     URI uri = searchResult.getUri();
                     MissionSpecificationElo missionSpecificationElo = MissionSpecificationElo.loadLastVersionElo(uri, getMissionELOService());
                     missionSpecificationElo.getMissionManagement().createMissionRuntimeModelElos(userDetails.getUsername());
@@ -85,6 +92,9 @@ public class RegisterStudentForSCYController extends SimpleFormController {
             e.printStackTrace();
             return showForm(request, response, errors);
         }
+
+        sendMail(studentUserDetails);
+
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
         modelAndView.addObject("username", studentUserDetails.getUsername());
@@ -93,6 +103,66 @@ public class RegisterStudentForSCYController extends SimpleFormController {
         modelAndView.addObject("lastname", studentUserDetails.getLastName());
 
         return modelAndView;
+
+    }
+
+    private static void sendMail(SCYStudentUserDetails studentUserDetails) {
+
+        Session mailSession = null;
+
+        try {
+            mailSession = (Session) new InitialContext().lookup("java:comp/env/mail/Session");
+
+
+            InternetAddress[] tos = new InternetAddress[1];
+            InternetAddress hill = new InternetAddress("henrik@enovate.no");
+            tos[0] = hill;
+
+            Message message = new MimeMessage(connectToGMail(mailSession));
+            message.setRecipients(Message.RecipientType.TO, tos);
+            message.setFrom(hill);
+            message.setSubject("SCY makes your day, honestly dude!");
+            String text = "YA STUPID FUKA!";
+            if(studentUserDetails != null) {
+                text+=" " + studentUserDetails.getFirstName() + " " + studentUserDetails.getLastName();
+            }
+            message.setText("YA STUPID FUKA!");
+
+            Transport transport = mailSession.getTransport();
+            transport.send(message);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    private static Session connectToGMail(Session mailSession) {
+        Properties props = new Properties();
+        props.setProperty("mail.transport.protocol", "smtp");
+        props.setProperty("mail.host.auth", "true");
+        props.setProperty("mail.host.user", "true");
+        props.setProperty("mail.host.password", "true");
+        props.setProperty("mail.smtp.auth", "true");
+
+
+        final String mailUserName = "adaptitbase";
+        final String mailPassword = "901base901";
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+        props.setProperty("mail.transport.protocol", "smtp");
+        props.setProperty("mail.smtp.auth", "true");
+        props.setProperty("mail.debug", "true");
+        props.setProperty("mail.smtp.port", "465");
+        props.setProperty("mail.smtp.socketFactory.port", "465");
+        props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        mailSession = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(mailUserName, mailPassword);
+            }
+        });
+
+        return mailSession;
 
     }
 
