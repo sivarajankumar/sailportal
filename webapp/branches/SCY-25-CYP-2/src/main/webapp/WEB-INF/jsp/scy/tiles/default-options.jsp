@@ -11,8 +11,7 @@
 	<span class="loginstatus"> <sec:authorize
 			ifAllGranted="ROLE_TEACHER">
 			<a href="/webapp/app/AppIndex.html">Home</a>
-		</sec:authorize> signed in in as <strong><sec:authentication
-				property="principal.username" />
+		</sec:authorize> signed in as <strong><sec:authentication property="principal.username" />
 	</strong> </span>
 	<a class="logout" href="<c:url value="/j_spring_security_logout"/>"><spring:message
 			code="log.out" />
