@@ -90,6 +90,7 @@
                 /**/login.html=indexController
                 /**/signup.html=signupController
                 /**/portfolioShowcase.html=portfolioShowcaseController
+                /emailRegistrationForm.html=emailregistrationformController
                 /**/viewEloInfo.html=viewEloInfoController
                 /student/registerstudent.html=registerstudentController
                 /app/AppIndex.html=appIndexController
@@ -126,6 +127,8 @@
                 /portfolioshowcase.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /portfolioshowcase.html=ROLE_ANONYMOUS,ROLE_USER
                 /portfolioshowcase.html=ROLE_ANONYMOUS,ROLE_USER
+                /emailregistrationform.html=ROLE_ANONYMOUS,ROLE_USER
+                /emailregistrationform.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /vieweloinfo.html=ROLE_ANONYMOUS,ROLE_USER
                 /**/resourceservice.html=ROLE_ANONYMOUS, ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
@@ -157,6 +160,12 @@
         <property name="pedagogicalPlanELOService" ref="pedagogicalPlanELOService"/>
         <property name="userService" ref="userService"/>
         <property name="urlInspector" ref="urlInspector"/>
+    </bean>
+
+    <bean id="emailregistrationformController" class="eu.scy.controllers.EmailRegistrationFormController">
+        <property name="commandClass" value="eu.scy.core.model.impl.SCYStudentUserDetails"/>
+        <property name="missionELOService" ref="missionELOService"/>
+        <property name="userService" ref="userService"/>
     </bean>
 
     <bean id="viewEloInfoController" class="eu.scy.controllers.ViewEloInfoController">

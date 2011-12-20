@@ -37,7 +37,8 @@
                 /index.jsp=ROLE_ANONYMOUS,ROLE_USER
                 /login.html=ROLE_ANONYMOUS,ROLE_USER
                 /signup.html=ROLE_ANONYMOUS,ROLE_USER
-                /UserCredentials.html=ROLE_ANONYMOUS,ROLE_USER
+                /emailregistrationform.html=ROLE_ANONYMOUS,ROLE_USER
+                /usercredentials.html=ROLE_ANONYMOUS,ROLE_USER
                 /adminoffering.html=ROLE_ADMINISTRATOR
                 /j_acegi_switch_user*=ROLE_ADMINISTRATOR
                 /*.html=ROLE_USER

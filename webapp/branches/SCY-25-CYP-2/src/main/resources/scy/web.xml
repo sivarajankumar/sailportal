@@ -56,21 +56,21 @@
         <param-value>
             classpath:configurations/applicationContexts/scy/acegiSecurity.xml,
             classpath:configurations/applicationContexts/pas/security.xml,
-            classpath:configurations/applicationContexts/pas/spring.xml
+            classpath:configurations/applicationContexts/pas/spring.xml,
             classpath:configurations/applicationContexts/pas/annotation.xml,
 
             classpath:eu/scy/core/applicationContext-service.xml,
             classpath:eu/scy/core/persistence/hibernate/applicationContext-dao.xml,
             classpath:configurations/applicationContexts/scy/hibernate.xml,
 
-            classpath:configurations/applicationContexts/scy/remoteRooloConfig.xml
+            classpath:configurations/applicationContexts/scy/remoteRooloConfig.xml,
 
             classpath:configurations/dispatcherServlet/scy/scycontrollers.xml,
             classpath:configurations/dispatcherServlet/scy/config.xml,
             classpath:component-controllers.xml,
             classpath:scyAuthorControllers.xml,
             classpath:scyFeedbackControllers.xml,
-            classpath:scyEportfolioControllers.xml
+            classpath:scyEportfolioControllers.xml,
             classpath:scyServerExternalResourcesControllers.xml
         </param-value>
     </context-param>
@@ -136,7 +136,6 @@
         <url-pattern>*.jnlp</url-pattern>
     </filter-mapping>
 
-    
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
