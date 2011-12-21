@@ -1,34 +1,29 @@
 package eu.scy.controllers;
 
-import java.net.URI;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
+
+
 import java.util.Random;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.validation.BindException;
-
-import roolo.elo.api.metadata.CoreRooloMetadataKeyIds;
-import roolo.search.IQuery;
-import roolo.search.IQueryComponent;
-import roolo.search.ISearchResult;
-import roolo.search.MetadataQueryComponent;
-import roolo.search.Query;
 import eu.scy.common.mission.MissionSpecificationElo;
 import eu.scy.core.UserService;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
 import eu.scy.core.roolo.MissionELOService;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import roolo.elo.api.metadata.CoreRooloMetadataKeyIds;
+import roolo.search.*;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by IntelliJ IDEA.
