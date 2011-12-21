@@ -124,17 +124,22 @@ public class EmailRegistrationFormController extends SimpleFormController {
 
             Session mailSession = Session.getInstance(props);//(Session) new InitialContext().lookup("java:comp/env/mail/Session");
 
-            InternetAddress[] tos = new InternetAddress[2];
+            // the newly created user
             InternetAddress to = new InternetAddress(email);
             to.setPersonal("SCY-User");
-            tos[0] = to;
 
+            // the sender
             InternetAddress from = new InternetAddress("henrik@enovate.no");
             from.setPersonal("no-scy-reply");
 
+            // notification to scycom
+            InternetAddress bcc = new InternetAddress("scycom@collide.info");
+            bcc.setPersonal("SCYCom Team");
+
             Message message = new MimeMessage(connectToGMail(mailSession, props));
-            message.setRecipients(Message.RecipientType.TO, tos);
             message.setFrom(from);
+            message.setRecipient(Message.RecipientType.TO, to);
+            message.setRecipient(Message.RecipientType.BCC, bcc);
             message.setSubject("Welcome to SCY!");
             String messageText = "Welcome to SCY. \n\nYour generated user has the following credentials: \n\n";
             messageText += "Username:  " + studentUserDetails.getUsername() + " \nPassword: " + studentUserDetails.getPassword() + "\n\n";
