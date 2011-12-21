@@ -1,25 +1,34 @@
 package eu.scy.controllers;
 
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.validation.BindException;
+
+import roolo.elo.api.metadata.CoreRooloMetadataKeyIds;
+import roolo.search.IQuery;
+import roolo.search.IQueryComponent;
+import roolo.search.ISearchResult;
+import roolo.search.MetadataQueryComponent;
+import roolo.search.Query;
 import eu.scy.common.mission.MissionSpecificationElo;
 import eu.scy.core.UserService;
 import eu.scy.core.model.User;
 import eu.scy.core.model.impl.SCYStudentUserDetails;
 import eu.scy.core.roolo.MissionELOService;
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import roolo.elo.api.metadata.CoreRooloMetadataKeyIds;
-import roolo.search.*;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,22 +48,19 @@ public class EmailRegistrationFormController extends SimpleFormController {
 
         SCYStudentUserDetails userDetails = (SCYStudentUserDetails) command;
         User user = null;
-        final SCYStudentUserDetails [] studentUserDetailsList = new SCYStudentUserDetails[1];
         SCYStudentUserDetails studentUserDetails = null;
         List <String> missionNames = new LinkedList<String>();
         try {
-            String userNameCandidaet = email;
-            if(userNameCandidaet.indexOf("@") > 0) {
-                userNameCandidaet = userNameCandidaet.substring(0, userNameCandidaet.indexOf("@"));
+            String userNameCandidate = email;
+            if (userNameCandidate.indexOf("@") > 0) {
+                userNameCandidate = userNameCandidate.substring(0, userNameCandidate.indexOf("@"));
             } else {
-                userNameCandidaet = userNameCandidaet.replaceAll("@", "-");
+                userNameCandidate = userNameCandidate.replaceAll("@", "-");
                 //silly - will not happen dude!
             }
 
-            user = userService.createUser(userNameCandidaet, "scy1234", "ROLE_STUDENT");
-
-            //email = user.getUserDetails().getUsername();
-
+            String password = getRandomPassword();
+            user = userService.createUser(userNameCandidate, password, "ROLE_STUDENT");
 
             studentUserDetails = (SCYStudentUserDetails) user.getUserDetails();
             studentUserDetails.setFirstName("SCY");
@@ -79,17 +85,11 @@ public class EmailRegistrationFormController extends SimpleFormController {
                 }
             }
 
+            sendMail(studentUserDetails, email, request, missionNames);
         } catch (Exception e) {
             e.printStackTrace();
             return showForm(request, response, errors);
         }
-
-        studentUserDetailsList[0] = studentUserDetails;
-
-        
-
-        sendMail(studentUserDetailsList[0], email, request, missionNames);
-
 
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
 
@@ -129,29 +129,27 @@ public class EmailRegistrationFormController extends SimpleFormController {
 
             Session mailSession = Session.getInstance(props);//(Session) new InitialContext().lookup("java:comp/env/mail/Session");
 
+            InternetAddress[] tos = new InternetAddress[2];
             InternetAddress to = new InternetAddress(email);
             to.setPersonal("SCY-User");
-
-
-
-            InternetAddress[] tos = new InternetAddress[1];
-            InternetAddress hill = new InternetAddress("henrik@enovate.no");
-            hill.setPersonal("no-scy-reply (which rhymes)");
             tos[0] = to;
+
+            InternetAddress from = new InternetAddress("henrik@enovate.no");
+            from.setPersonal("no-scy-reply");
 
             Message message = new MimeMessage(connectToGMail(mailSession, props));
             message.setRecipients(Message.RecipientType.TO, tos);
-            message.setFrom(hill);
+            message.setFrom(from);
             message.setSubject("Welcome to SCY!");
             String messageText = "Welcome to SCY. \n\nYour generated user has the following credentials: \n\n";
-            messageText += "Username:  " + studentUserDetails.getUsername() + " \nPassword: scy1234\n\n\n";
+            messageText += "Username:  " + studentUserDetails.getUsername() + " \nPassword: " + studentUserDetails.getPassword() + "\n\n";
 
             /*messageText +="You have been assigned to the following missions: \n\n";
             for (int i = 0; i < missionNames.size(); i++) {
                 String name = missionNames.get(i);
                 messageText +="- " + name + "\n";
             } */
-
+            messageText += "You can now try out SCY-Lab following this web address:";
             messageText += "\n\nhttp://scy-review.collide.info/webapp/index.html";
             /*messageText +=request.getServerName();
 
@@ -162,8 +160,8 @@ public class EmailRegistrationFormController extends SimpleFormController {
 
             messageText += request.getContextPath();
             */
+            messageText += "\n\nIf you have any further questions or encounter any problems,\ndon't hesitate to contact the SCY team via\n\nhttp://scy-net.eu";
             message.setText(messageText);
-
 
             Transport transport = mailSession.getTransport();
             transport.send(message);
@@ -227,4 +225,23 @@ public class EmailRegistrationFormController extends SimpleFormController {
     public void setMissionELOService(MissionELOService missionELOService) {
         this.missionELOService = missionELOService;
     }
+    
+    
+    // password generation stuff
+
+    /*
+     * Set of characters that is valid. Must be printable, memorable, and "won't break HTML" (i.e., not ' <', '>', '&', '=', ...). or break shell commands (i.e., not ' <', '>', '$', '!', ...). I, L and O are good to leave out, as are numeric zero and one.
+     */
+    protected static char[] goodChar = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9', };
+
+    /* Generate a Password object with a random password. */
+    public String getRandomPassword() {
+        StringBuffer sb = new StringBuffer();
+        Random r = new Random();
+        for (int i = 0; i < 6; i++) {
+            sb.append(goodChar[r.nextInt(goodChar.length)]);
+        }
+        return sb.toString();
+    }
+
 }
