@@ -145,23 +145,22 @@ public class EmailRegistrationFormController extends SimpleFormController {
             message.setFrom(from);
             message.setRecipient(Message.RecipientType.TO, to);
             message.setRecipient(Message.RecipientType.BCC, bcc);
+            message.setSubject("Your SCY-Lab account information!");
 
             StringBuilder messageText = new StringBuilder();
-            messageText.append("Welcome to SCY");
+            messageText.append("Welcome to SCY.\n");
             messageText.append("\n");
-            messageText.append("\n");
-            messageText.append("Your SCY-Lab credentials are:");
+            messageText.append("Your SCY-Lab credentials are:\n");
             messageText.append("\n");
             messageText.append("Username: ").append(studentUserDetails.getUsername()).append("\n");
-            messageText.append("Password: ").append(studentUserDetails.getPassword());
+            messageText.append("Password: ").append(studentUserDetails.getPassword()).append("\n");
             messageText.append("\n");
-            messageText.append("You can now try out SCY-Lab following this web address:");
+            messageText.append("You can now try out SCY-Lab following this web address:\n");
             messageText.append("\n");
-            messageText.append("http://scy-review.collide.info/webapp/index.html");
-            messageText.append("\n");
+            messageText.append("http://scy-review.collide.info/webapp/index.html\n");
             messageText.append("\n");
             messageText.append("If you have any further questions or encounter any problems,\n");
-            messageText.append("don't hesitate to contact the SCY team via");
+            messageText.append("don't hesitate to contact the SCY team via\n");
             messageText.append("\n");
             messageText.append("http://scy-net.eu");
 
