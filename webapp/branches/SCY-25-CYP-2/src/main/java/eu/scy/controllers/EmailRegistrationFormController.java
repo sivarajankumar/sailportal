@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -40,75 +41,77 @@ public class EmailRegistrationFormController extends SimpleFormController {
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
         String email = request.getParameter("email");
         logger.info("EMAIL: " + email);
-
-        SCYStudentUserDetails userDetails = (SCYStudentUserDetails) command;
-        User user = null;
-        SCYStudentUserDetails studentUserDetails = null;
-        List <String> missionNames = new LinkedList<String>();
-        try {
-            String userNameCandidate = email;
-            if (userNameCandidate.indexOf("@") > 0) {
-                userNameCandidate = userNameCandidate.substring(0, userNameCandidate.indexOf("@"));
-            } else {
-                userNameCandidate = userNameCandidate.replaceAll("@", "-");
-                //silly - will not happen dude!
-            }
-
-            String password = getRandomPassword();
-            user = userService.createUser(userNameCandidate, password, "ROLE_STUDENT");
-
-            studentUserDetails = (SCYStudentUserDetails) user.getUserDetails();
-            studentUserDetails.setFirstName("SCY");
-            studentUserDetails.setLastName("User");
-            userService.save(user);
-
-            String missionId = "mini1";
-            IQueryComponent typeQC = new MetadataQueryComponent(CoreRooloMetadataKeyIds.TECHNICAL_FORMAT.getId(), "scy/missionspecification");
-            //IQueryComponent missionIdQC = new MetadataQueryComponent(CoreRooloMetadataKeyIds.MISSION_ID.getId(), missionId);
-            //IQueryComponent andQuery = new AndQuery(typeQC, missionIdQC);
-            IQuery query = new Query(typeQC);
-            List<ISearchResult> searchResults = getMissionELOService().getRepository().search(query);
-
-
-            if (searchResults.size() > 0) {
-                for (int i = 0; i < searchResults.size(); i++) {
-                    ISearchResult searchResult = searchResults.get(i);
-                    URI uri = searchResult.getUri();
-                    MissionSpecificationElo missionSpecificationElo = MissionSpecificationElo.loadLastVersionElo(uri, getMissionELOService());
-                    missionSpecificationElo.getMissionManagement().createMissionRuntimeModelElos(studentUserDetails.getUsername());
-                    missionNames.add(missionSpecificationElo.getTitle());
+        if (email != null) {
+            SCYStudentUserDetails userDetails = (SCYStudentUserDetails) command;
+            User user = null;
+            SCYStudentUserDetails studentUserDetails = null;
+            List<String> missionNames = new LinkedList<String>();
+            try {
+                String userNameCandidate = email;
+                if (userNameCandidate.indexOf("@") > 0) {
+                    userNameCandidate = userNameCandidate.substring(0, userNameCandidate.indexOf("@"));
+                } else {
+                    userNameCandidate = userNameCandidate.replaceAll("@", "-");
+                    // silly - will not happen dude!
                 }
-            }
 
-            sendMail(studentUserDetails, email, request, missionNames);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return showForm(request, response, errors);
+                String password = getRandomPassword();
+                user = userService.createUser(userNameCandidate, password, "ROLE_STUDENT");
+
+                studentUserDetails = (SCYStudentUserDetails) user.getUserDetails();
+                studentUserDetails.setFirstName("SCY");
+                studentUserDetails.setLastName("User");
+                userService.save(user);
+
+                String missionId = "mini1";
+                IQueryComponent typeQC = new MetadataQueryComponent(CoreRooloMetadataKeyIds.TECHNICAL_FORMAT.getId(), "scy/missionspecification");
+                IQuery query = new Query(typeQC);
+                List<ISearchResult> searchResults = getMissionELOService().getRepository().search(query);
+
+                if (searchResults.size() > 0) {
+                    for (int i = 0; i < searchResults.size(); i++) {
+                        ISearchResult searchResult = searchResults.get(i);
+                        String title = searchResult.getTitle(Locale.ENGLISH);
+                        if (title != null) {
+                            URI uri = searchResult.getUri();
+                            MissionSpecificationElo missionSpecificationElo = MissionSpecificationElo.loadLastVersionElo(uri, getMissionELOService());
+                            missionSpecificationElo.getMissionManagement().createMissionRuntimeModelElos(studentUserDetails.getUsername());
+                            missionNames.add(missionSpecificationElo.getTitle());
+                        }
+                    }
+                }
+
+                sendMail(studentUserDetails, email, request, missionNames);
+                ModelAndView modelAndView = new ModelAndView(getSuccessView());
+
+                modelAndView.addObject("username", studentUserDetails.getUsername());
+                modelAndView.addObject("password", studentUserDetails.getPassword());
+                modelAndView.addObject("firstname", studentUserDetails.getFirstName());
+                modelAndView.addObject("lastname", studentUserDetails.getLastName());
+
+                return modelAndView;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return showForm(request, response, errors);
+            }
         }
 
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
-
-        modelAndView.addObject("username", studentUserDetails.getUsername());
-        modelAndView.addObject("password", studentUserDetails.getPassword());
-        modelAndView.addObject("firstname", studentUserDetails.getFirstName());
-        modelAndView.addObject("lastname", studentUserDetails.getLastName());
-
         return modelAndView;
     }
 
-    private static void sendMail(SCYStudentUserDetails studentUserDetails, final String email, HttpServletRequest request, List<String> missionNames) {
 
-        //Session mailSession = null;
+    private static void sendMail(SCYStudentUserDetails studentUserDetails, final String email, HttpServletRequest request, List<String> missionNames) {
+        Session mailSession = null;
 
         try {
-
             Properties props = new Properties();
             props.setProperty("mail.transport.protocol", "smtp");
             props.setProperty("mail.host.auth", "true");
             props.setProperty("mail.host.user", "true");
             props.setProperty("mail.host.password", "true");
             props.setProperty("mail.smtp.auth", "true");
-
 
             final String mailUserName = "adaptitbase";
             final String mailPassword = "901base901";
@@ -121,8 +124,11 @@ public class EmailRegistrationFormController extends SimpleFormController {
             props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
             props.setProperty("mail.smtp.socketFactory.fallback", "false");
 
-
-            Session mailSession = Session.getInstance(props);//(Session) new InitialContext().lookup("java:comp/env/mail/Session");
+            mailSession = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(mailUserName, mailPassword);
+                }
+            });
 
             // the newly created user
             InternetAddress to = new InternetAddress(email);
@@ -136,72 +142,37 @@ public class EmailRegistrationFormController extends SimpleFormController {
             InternetAddress bcc = new InternetAddress("scycom@collide.info");
             bcc.setPersonal("SCYCom Team");
 
-            Message message = new MimeMessage(connectToGMail(mailSession, props));
+            Message message = new MimeMessage(mailSession);
             message.setFrom(from);
             message.setRecipient(Message.RecipientType.TO, to);
             message.setRecipient(Message.RecipientType.BCC, bcc);
-            message.setSubject("Welcome to SCY!");
-            String messageText = "Welcome to SCY. \n\nYour generated user has the following credentials: \n\n";
-            messageText += "Username:  " + studentUserDetails.getUsername() + " \nPassword: " + studentUserDetails.getPassword() + "\n\n";
 
-            /*messageText +="You have been assigned to the following missions: \n\n";
-            for (int i = 0; i < missionNames.size(); i++) {
-                String name = missionNames.get(i);
-                messageText +="- " + name + "\n";
-            } */
-            messageText += "You can now try out SCY-Lab following this web address:";
-            messageText += "\n\nhttp://scy-review.collide.info/webapp/index.html";
-            /*messageText +=request.getServerName();
+            StringBuilder messageText = new StringBuilder();
+            messageText.append("Welcome to SCY");
+            messageText.append("\n");
+            messageText.append("\n");
+            messageText.append("Your generated user has the following credentials:");
+            messageText.append("\n");
+            messageText.append("Username:  ").append(studentUserDetails.getUsername()).append("\n");
+            messageText.append("Password: ").append(studentUserDetails.getPassword());
+            messageText.append("\n");
+            messageText.append("You can now try out SCY-Lab following this web address:");
+            messageText.append("\n");
+            messageText.append("http://scy-review.collide.info/webapp/index.html");
+            messageText.append("\n");
+            messageText.append("\n");
+            messageText.append("If you have any further questions or encounter any problems,\n");
+            messageText.append("don't hesitate to contact the SCY team via");
+            messageText.append("\n");
+            messageText.append("http://scy-net.eu");
 
-            if(request.getServerPort() != 80) {
-                String port = String.valueOf(request.getServerPort());
-                messageText +=":" + port;
-            }
+            message.setText(messageText.toString());
 
-            messageText += request.getContextPath();
-            */
-            messageText += "\n\nIf you have any further questions or encounter any problems,\ndon't hesitate to contact the SCY team via\n\nhttp://scy-net.eu";
-            message.setText(messageText);
-
-            Transport transport = mailSession.getTransport();
-            transport.send(message);
-
+            Transport.send(message);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
-
-    private static Session connectToGMail(Session mailSession, Properties props) {
-        /*Properties props = new Properties();
-        props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.host.auth", "true");
-        props.setProperty("mail.host.user", "true");
-        props.setProperty("mail.host.password", "true");
-        props.setProperty("mail.smtp.auth", "true");
-
-
-        props.setProperty("mail.smtp.host", "smtp.gmail.com");
-        props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.smtp.auth", "true");
-        props.setProperty("mail.debug", "true");
-        props.setProperty("mail.smtp.port", "465");
-        props.setProperty("mail.smtp.socketFactory.port", "465");
-        props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.setProperty("mail.smtp.socketFactory.fallback", "false"); */
-        final String mailUserName = "adaptitbase";
-        final String mailPassword = "901base901";
-
-        mailSession = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mailUserName, mailPassword);
-            }
-        });
-
-        return mailSession;
-
-    }
-
 
     @Override
     protected void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) {
