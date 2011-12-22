@@ -117,7 +117,7 @@ public class EmailRegistrationFormController extends SimpleFormController {
             props.setProperty("mail.smtp.host", "smtp.gmail.com");
             props.setProperty("mail.transport.protocol", "smtp");
             props.setProperty("mail.smtp.auth", "true");
-            props.setProperty("mail.debug", "true");
+            props.setProperty("mail.debug", "false");
             props.setProperty("mail.smtp.port", "465");
             props.setProperty("mail.smtp.socketFactory.port", "465");
             props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
