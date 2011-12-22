@@ -63,7 +63,6 @@ public class EmailRegistrationFormController extends SimpleFormController {
                 studentUserDetails.setLastName("User");
                 userService.save(user);
 
-                String missionId = "mini1";
                 IQueryComponent typeQC = new MetadataQueryComponent(CoreRooloMetadataKeyIds.TECHNICAL_FORMAT.getId(), "scy/missionspecification");
                 IQuery query = new Query(typeQC);
                 List<ISearchResult> searchResults = getMissionELOService().getRepository().search(query);
@@ -151,9 +150,9 @@ public class EmailRegistrationFormController extends SimpleFormController {
             messageText.append("Welcome to SCY");
             messageText.append("\n");
             messageText.append("\n");
-            messageText.append("Your generated user has the following credentials:");
+            messageText.append("Your SCY-Lab credentials are:");
             messageText.append("\n");
-            messageText.append("Username:  ").append(studentUserDetails.getUsername()).append("\n");
+            messageText.append("Username: ").append(studentUserDetails.getUsername()).append("\n");
             messageText.append("Password: ").append(studentUserDetails.getPassword());
             messageText.append("\n");
             messageText.append("You can now try out SCY-Lab following this web address:");
